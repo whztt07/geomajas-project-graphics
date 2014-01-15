@@ -10,30 +10,6 @@
  */
 package org.geomajas.project.graphics.example.client;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.controller.CreateTextController;
-import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.GCircle;
-import org.geomajas.graphics.client.object.GEllipse;
-import org.geomajas.graphics.client.object.GIcon;
-import org.geomajas.graphics.client.object.GImage;
-import org.geomajas.graphics.client.object.GPath;
-import org.geomajas.graphics.client.object.GRectangle;
-import org.geomajas.graphics.client.object.GText;
-import org.geomajas.graphics.client.object.ResizableBorderer;
-import org.geomajas.graphics.client.object.anchor.Anchored;
-import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
-import org.geomajas.graphics.client.service.AbstractGraphicsObjectContainer;
-import org.geomajas.graphics.client.shape.MarkerShape;
-import org.geomajas.graphics.client.util.BboxPosition;
-import org.vaadin.gwtgraphics.client.DrawingArea;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.user.client.DOM;
@@ -45,6 +21,26 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.object.GCircle;
+import org.geomajas.graphics.client.object.GEllipse;
+import org.geomajas.graphics.client.object.GIcon;
+import org.geomajas.graphics.client.object.GImage;
+import org.geomajas.graphics.client.object.GPath;
+import org.geomajas.graphics.client.object.GRectangle;
+import org.geomajas.graphics.client.object.GText;
+import org.geomajas.graphics.client.object.anchor.Anchored;
+import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
+import org.geomajas.graphics.client.service.AbstractGraphicsObjectContainer;
+import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.util.BboxPosition;
+import org.vaadin.gwtgraphics.client.DrawingArea;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Sample extension of {@link AbstractGraphicsObjectContainer}.
