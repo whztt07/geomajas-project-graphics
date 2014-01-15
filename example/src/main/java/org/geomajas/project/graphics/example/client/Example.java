@@ -152,18 +152,19 @@ public class Example implements EntryPoint, Handler {
 		addCheckbox(checkExternalLabel);
 		
 		CreateMetaController createMetaController = new CreateMetaController(service);
-		createMetaController.add(new CreateTextController(service), "Text");
-		createMetaController.add(new CreateAnchoredTextController(service), "Text+Anchor");
-		createMetaController.add(new CreateTextAreaHtmlController(service), "textarea");
-		createMetaController.add(new CreateRectangleController(service), "Rectangle");
-		createMetaController.add(new CreateEllipseController(service), "Ellipse");
-		createMetaController.add(new CreateImageController(service, 200, 235,
+		createMetaController.addControllerAndCreateButton(new CreateTextController(service), "Text");
+		createMetaController.addControllerAndCreateButton(new CreateAnchoredTextController(service), "Text+Anchor");
+		createMetaController.addControllerAndCreateButton(new CreateTextAreaHtmlController(service), "textarea");
+		createMetaController.addControllerAndCreateButton(new CreateRectangleController(service), "Rectangle");
+		createMetaController.addControllerAndCreateButton(new CreateEllipseController(service), "Ellipse");
+		createMetaController.addControllerAndCreateButton(new CreateImageController(service, 200, 235,
 				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "image");
-		createMetaController.add(new CreatePathController(service, false), "line");
-		createMetaController.add(new CreatePathController(service, true), "polygon");
-		createMetaController.add(new CreateLineWithTemplateLabeledController(service), "Line With Templ Labeled");
-		createMetaController.add(createIconController, "icon");
-		createMetaController.add(createAnchoredIconController, "anchored icon");
+		createMetaController.addControllerAndCreateButton(new CreatePathController(service, false), "line");
+		createMetaController.addControllerAndCreateButton(new CreatePathController(service, true), "polygon");
+		createMetaController.addControllerAndCreateButton(new CreateLineWithTemplateLabeledController(service),
+				"Line With Templ Labeled");
+		createMetaController.addControllerAndCreateButton(createIconController, "icon");
+		createMetaController.addControllerAndCreateButton(createAnchoredIconController, "anchored icon");
 		buttonPanel.add(createMetaController.getToolbar());
 		buttonPanel.add(iconChoicePanel);
 	}

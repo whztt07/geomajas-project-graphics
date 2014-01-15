@@ -41,7 +41,7 @@ public class CreateMetaController extends AbstractGraphicsController implements 
 		buttonToolbar = new CreateButtonToolbar(this);
 	}
 	
-	public void add(CreateController<?> createController, String buttonlabel) {
+	public void addControllerAndCreateButton(CreateController<?> createController, String buttonlabel) {
 		createControllerList.add(createController);
 		buttonToolbar.addCreateController(createController, buttonlabel);
 	}

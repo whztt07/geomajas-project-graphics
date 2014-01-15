@@ -47,6 +47,8 @@
 
 	<dependencyManagement>
 		<dependencies>
+
+			<!--geomajas projects-->
 			<dependency>
 				<groupId>org.geomajas.project</groupId>
 				<artifactId>geomajas-project-geometry-all</artifactId>
@@ -56,17 +58,17 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.vaadin.addons</groupId>
-				<artifactId>gwt-graphics</artifactId>
-				<version>${graphics-gwt-graphics-version}</version>
-			</dependency>
-			
-			<dependency>
 				<groupId>org.geomajas.project</groupId>
 				<artifactId>geomajas-project-api-annotation</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.vaadin.addons</groupId>
+				<artifactId>gwt-graphics</artifactId>
+				<version>${graphics-gwt-graphics-version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>net.sourceforge.findbugs</groupId>
 				<artifactId>annotations</artifactId>
@@ -97,6 +99,7 @@
 				<version>1.7</version>
 			</dependency>
 
+			<!-- Google dependencies -->
 			<dependency>
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt-user</artifactId>
@@ -109,19 +112,7 @@
 				<version>${graphics-gwt-version}</version>
 			</dependency>
 
-			<dependency>
-				<groupId>org.geomajas.project</groupId>
-				<artifactId>geomajas-project-graphics</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>org.geomajas.project</groupId>
-				<artifactId>geomajas-project-graphics</artifactId>
-				<version>${project.version}</version>
-				<classifier>sources</classifier>
-			</dependency>
-
+			<!-- other dependencies -->
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
@@ -133,7 +124,21 @@
 			  <artifactId>simplecolorpicker</artifactId>
 			  <version>1.0.1</version>
 			</dependency>
-			
+
+			<!-- dependencies to subprojects -->
+			<dependency>
+				<groupId>org.geomajas.project</groupId>
+				<artifactId>geomajas-project-graphics</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.geomajas.project</groupId>
+				<artifactId>geomajas-project-graphics</artifactId>
+				<version>${project.version}</version>
+				<classifier>sources</classifier>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

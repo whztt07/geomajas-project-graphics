@@ -17,6 +17,8 @@ import java.util.List;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.controller.CreateTextController;
+import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.GCircle;
 import org.geomajas.graphics.client.object.GEllipse;
 import org.geomajas.graphics.client.object.GIcon;
@@ -75,9 +77,6 @@ public class TestContainer extends AbstractGraphicsObjectContainer implements Is
 				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png", "Image");
 		GPath path = new GPath(new Coordinate[] { new Coordinate(300, 300), new Coordinate(500, 400) }, false, "Path");
 		GText text = new GText(50, 50, "test");
-		ResizableBorderer borderer = new ResizableBorderer();
-		borderer.setFixedSize(true);
-		text.addRole(borderer);
 		text.addRole(new ResizableAnchorer());
 		text.getRole(Anchored.TYPE).setAnchorPosition(new Coordinate(50, 90));
 		text.setFontColor("blue");

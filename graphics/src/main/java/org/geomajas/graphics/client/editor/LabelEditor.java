@@ -99,7 +99,7 @@ public class LabelEditor implements Editor {
 		this.object = object;
 		Textable textable = getTextable();
 		if (textable != null) {
-			labelBox.setVisibleLines(Math.min(30, textable.getLabel().length() / 50));
+			labelBox.setVisibleLines(Math.min(30, Math.max(textable.getLabel().length() / 50, 1)));
 			labelBox.setText(textable.getLabel());
 			fillColorValidator.setLabel(textable.getFontColor());
 			fontSize.setText(textable.getFontSize() + "");
@@ -146,7 +146,7 @@ public class LabelEditor implements Editor {
 		// TODO make more generic
 		if (object instanceof GText && !(object instanceof ExternalLabel)) {
 
-			if (!((GText) object).getRole(Textable.TYPE).getLabel().isEmpty()) {
+			if (((GText) object).getRole(Textable.TYPE).getLabel().isEmpty()) {
 				valid = false;
 			}
 		}
