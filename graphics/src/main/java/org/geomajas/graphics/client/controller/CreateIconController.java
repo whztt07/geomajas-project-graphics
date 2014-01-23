@@ -140,10 +140,4 @@ public class CreateIconController extends CreateController<GIcon> implements Mou
 		return clickPosition;
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		// do nothing
-		
-	}
-	
 }

@@ -24,6 +24,7 @@ import org.geomajas.graphics.client.object.Resizable;
 import org.geomajas.graphics.client.service.AbstractGraphicsController;
 import org.geomajas.graphics.client.service.GraphicsObjectContainer.Space;
 import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.VisibleOnActiveGraphicsController;
 import org.geomajas.graphics.client.shape.AnchoredImage;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.GraphicsUtil;
@@ -42,7 +43,7 @@ import com.google.gwt.event.dom.client.MouseDownHandler;
  * 
  */
 public class PopupMenuController extends AbstractGraphicsController implements GraphicsObjectContainerEvent.Handler,
-	GraphicsOperationEvent.Handler {
+	GraphicsOperationEvent.Handler, VisibleOnActiveGraphicsController {
 
 	public static final int IMG_DIST = 10;
 
@@ -219,7 +220,7 @@ public class PopupMenuController extends AbstractGraphicsController implements G
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		if (handler == null) {
 			// create and (implicitly) activate the handler group
 			init();

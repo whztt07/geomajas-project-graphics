@@ -192,11 +192,4 @@ public class CreateTextController extends CreateController<GText> implements Mou
 
 
 	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

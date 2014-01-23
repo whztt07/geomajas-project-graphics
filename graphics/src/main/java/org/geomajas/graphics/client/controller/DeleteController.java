@@ -66,9 +66,4 @@ public class DeleteController extends AbstractGraphicsController implements Nati
 	public void destroy() {
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		// Do nothing
-	}
-
 }

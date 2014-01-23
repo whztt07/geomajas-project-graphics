@@ -139,10 +139,4 @@ public abstract class CreateResizableController<T extends GraphicsObject>
 						- end.getX()), Math.abs(begin.getY() - end.getY())));
 		setAnchor(dragResizable);
 	}
-	
-	@Override
-	public void setVisible(boolean visible) {
-		// TODO do nothing, this is ceate controller
-		
-	}
 }

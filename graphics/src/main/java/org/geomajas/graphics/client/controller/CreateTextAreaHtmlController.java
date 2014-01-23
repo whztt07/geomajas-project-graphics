@@ -70,10 +70,5 @@ public class CreateTextAreaHtmlController extends CreateController<GTextAreaHtml
 		addObject(textAreaHtml);
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

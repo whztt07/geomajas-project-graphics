@@ -80,11 +80,6 @@ public class ExternalizableLabeledController extends AbstractGraphicsController
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void onOperation(GraphicsOperationEvent event) {
 		if (event.getOperation().getObject() == getObject()) {
 			if (event.getOperation() instanceof ToggleExternalizableLabelOperation) {

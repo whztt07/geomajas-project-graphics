@@ -437,7 +437,7 @@ public class ResizeController extends UpdateHandlerGraphicsController implements
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		for (ResizeHandler handler : handlers) {
 			handler.setVisible(!dragHandler.isDragging());
 		}

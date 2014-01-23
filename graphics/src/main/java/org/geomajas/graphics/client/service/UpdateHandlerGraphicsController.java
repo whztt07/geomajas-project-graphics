@@ -23,7 +23,7 @@ import org.vaadin.gwtgraphics.client.VectorObjectContainer;
  * 
  */
 public abstract class UpdateHandlerGraphicsController extends AbstractGraphicsController
-		implements GraphicsObjectContainerEvent.Handler {
+		implements GraphicsObjectContainerEvent.Handler, VisibleOnActiveGraphicsController {
 	
 	/**
 	 * Group with all handler objects.
@@ -116,7 +116,7 @@ public abstract class UpdateHandlerGraphicsController extends AbstractGraphicsCo
 	protected abstract void init();
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		handlerGroup.setVisible(visible);
 	}
 	

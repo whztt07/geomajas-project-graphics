@@ -23,7 +23,7 @@ import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 
 /**
- * {@link AbstractGraphicsController} that handles resizing (through anchor points) and dragging.
+ * {@link UpdateHandlerGraphicsController} that handles resizing (through anchor points) and dragging.
  * 
  * @author Jan De Moerloose
  * 
@@ -91,11 +91,5 @@ public class DragController extends UpdateHandlerGraphicsController implements
 		if (dragHandler != null) {
 			dragHandler.update();
 		}
-	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		// do nothing
-		
 	}
 }

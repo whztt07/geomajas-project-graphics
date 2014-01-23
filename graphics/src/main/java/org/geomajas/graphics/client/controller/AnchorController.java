@@ -70,7 +70,7 @@ public class AnchorController extends UpdateHandlerGraphicsController {
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		getObject().getRole(Anchored.TYPE).asObject().setVisible(visible);
 	}
 

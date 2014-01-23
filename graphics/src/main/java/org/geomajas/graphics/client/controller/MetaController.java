@@ -28,6 +28,7 @@ import org.geomajas.graphics.client.service.AbstractGraphicsController;
 import org.geomajas.graphics.client.service.GraphicsController;
 import org.geomajas.graphics.client.service.GraphicsControllerFactory;
 import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.VisibleOnActiveGraphicsController;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 import com.google.gwt.event.dom.client.DoubleClickEvent;
@@ -288,16 +289,11 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 	public void setControllersOfObjectVisible(GraphicsObject object, boolean visible) {
 		if (controllers.containsKey(object)) {
 			for (GraphicsController controller : controllers.get(object)) {
-				if (controller.isActive()) {
-					controller.setVisible(visible);
+				if (controller.isActive() && controller instanceof VisibleOnActiveGraphicsController) {
+					((VisibleOnActiveGraphicsController) controller).setControllerElementsVisible(visible);
 				}
 			}
 		}
-	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		// do nothing
 	}
 
 }

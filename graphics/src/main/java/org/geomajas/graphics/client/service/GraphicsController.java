@@ -25,6 +25,4 @@ public interface GraphicsController {
 	boolean isActive();
 
 	void destroy();
-	
-	void setVisible(boolean visible);
 }
