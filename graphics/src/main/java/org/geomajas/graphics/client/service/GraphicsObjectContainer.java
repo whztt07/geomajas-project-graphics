@@ -60,6 +60,13 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 	void removeContainer(VectorObjectContainer container);
 
 	/**
+	 * Add this container from the root container.
+	 *
+	 * @param container
+	 */
+	void bringContainerToFront(VectorObjectContainer container);
+
+	/**
 	 * Get all the objects of this container.
 	 * 
 	 * @return the list of objects (in creation order)

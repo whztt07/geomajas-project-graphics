@@ -87,6 +87,7 @@ public abstract class UpdateHandlerGraphicsController extends AbstractGraphicsCo
 					updateHandlers();
 					getContainer().add(getHandlerGroup());
 				}
+				bringContainerToFront(getContainer());
 			} else {
 				// just remove the handler group
 				if (getHandlerGroup() != null) {
@@ -113,5 +114,10 @@ public abstract class UpdateHandlerGraphicsController extends AbstractGraphicsCo
 	}
 	
 	protected abstract void init();
+
+	@Override
+	public void setVisible(boolean visible) {
+		handlerGroup.setVisible(visible);
+	}
 	
 }

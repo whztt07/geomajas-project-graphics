@@ -159,6 +159,10 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 		return objectContainer.createContainer();
 	}
 
+	protected void bringContainerToFront(VectorObjectContainer container) {
+		objectContainer.bringContainerToFront(container);
+	}
+
 	protected void removeContainer(VectorObjectContainer container) {
 		objectContainer.removeContainer(container);
 	}

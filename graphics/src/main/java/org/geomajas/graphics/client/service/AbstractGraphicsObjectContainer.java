@@ -24,6 +24,7 @@ import org.geomajas.graphics.client.object.anchor.AnchoredTo;
 import org.geomajas.graphics.client.object.role.HtmlRenderable;
 import org.geomajas.graphics.client.shape.CoordinatePath;
 import org.vaadin.gwtgraphics.client.Group;
+import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -209,6 +210,13 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 	@Override
 	public void removeContainer(VectorObjectContainer container) {
 		objectGroup.remove((Group) container);
+	}
+
+	@Override
+	public void bringContainerToFront(VectorObjectContainer container) {
+		if (container instanceof VectorObject) {
+			objectGroup.bringToFront((VectorObject) container);
+		}
 	}
 
 	@Override

@@ -66,6 +66,10 @@ public abstract class AbstractGraphicsController implements GraphicsController, 
 		return graphicsService.getObjectContainer();
 	}
 
+	protected void bringContainerToFront(VectorObjectContainer container) {
+		graphicsService.bringContainerToFront(container);
+	}
+
 	protected Coordinate getScreenCoordinate(MouseEvent<?> event) {
 		return graphicsService.getObjectContainer().getScreenCoordinate(event);
 	}
