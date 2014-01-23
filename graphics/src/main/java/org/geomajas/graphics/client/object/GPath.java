@@ -19,13 +19,15 @@ import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.shape.CoordinatePath;
 import org.geomajas.graphics.client.util.FlipState;
+import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
  * Graphics path.
  * 
  * @author Jan De Moerloose
- * 
+ * @author Jan Venstermans
+ *
  */
 
 public class GPath extends ResizableGraphicsObject implements Fillable, Strokable, CoordinateBased, Anchorable {
@@ -39,7 +41,8 @@ public class GPath extends ResizableGraphicsObject implements Fillable, Strokabl
 	}
 
 	public GPath(Coordinate[] coordinates, boolean closed, String text) {
-		this(new ResizablePath(coordinates, closed), text);
+		this(closed ? new ResizablePath(coordinates, closed) :
+				new ResizablePathLine(coordinates), text);
 	}
 
 	public GPath(ResizablePath path) {
@@ -140,7 +143,7 @@ public class GPath extends ResizableGraphicsObject implements Fillable, Strokabl
 	 */
 	static class ResizablePath implements Resizable, Fillable, Strokable, CoordinateBased {
 
-		private CoordinatePath path;
+		protected CoordinatePath path;
 
 		ResizablePath(Coordinate[] coordinates, boolean closed) {
 			path = new CoordinatePath(coordinates, closed);
@@ -287,6 +290,79 @@ public class GPath extends ResizableGraphicsObject implements Fillable, Strokabl
 			path.setStrokeOpacity(strokeOpacity);
 		}
 
+	}
+
+	/**
+	 * Extention of {@link ResizablePath} for an unclosed path SVG object (a line), with a pointer event area
+	 * with a (stroke)width  value of at least
+	 * {@link org.geomajas.graphics.client.object.GPath.ResizablePathLine#getPointerEventAreaminimumWidth()} ()}.
+	 * This value can be customized.
+	 * Implementation details: a second transparant line object of the minimum width is combined with the
+	 * visible line object as a vector group.
+	 * {@link org.geomajas.graphics.client.object.GPath.ResizablePathLine#asObject()} returns this vecor group.
+	 *
+	 * @author Jan Venstermans
+	 */
+	static class ResizablePathLine extends ResizablePath {
+
+		/**
+		 * Transparant helper line object, still generating pointer events .
+		 */
+		private CoordinatePath clickArea;
+
+		private Group group;
+
+		/**
+		 * minimum mouse event buffer.
+		 */
+		private static int pointerEventAreaminimumWidth = 10;
+
+		ResizablePathLine(Coordinate[] coordinates) {
+			super(coordinates, false);
+			group = new Group();
+			group.add(path);
+			clickArea = new CoordinatePath(coordinates, false);
+			clickArea.setStrokeWidth(pointerEventAreaminimumWidth);
+			clickArea.setStrokeOpacity(0);  // makes it invisble, but mouse events will still be registered
+			group.add(clickArea);
+		}
+
+		@Override
+		public VectorObject asObject() {
+			return group;
+		}
+
+		@Override
+		public void setCoordinates(Coordinate[] coordinates) {
+			super.setCoordinates(coordinates);
+			clickArea.setCoordinates(coordinates);
+		}
+
+		@Override
+		public void addCoordinate(Coordinate coordinate) {
+			super.addCoordinate(coordinate);
+			clickArea.addCoordinate(coordinate);
+		}
+
+		@Override
+		public void moveCoordinate(Coordinate coordinate, int index) {
+			super.moveCoordinate(coordinate, index);
+			clickArea.moveCoordinate(coordinate, index);
+		}
+
+		@Override
+		public void setPosition(Coordinate position) {
+			super.setPosition(position);
+			clickArea.setUserPosition(position);
+		}
+
+		public static int getPointerEventAreaminimumWidth() {
+			return pointerEventAreaminimumWidth;
+		}
+
+		public static void setPointerEventAreaminimumWidth(int pointerEventAreaminimumWidth) {
+			ResizablePathLine.pointerEventAreaminimumWidth = pointerEventAreaminimumWidth;
+		}
 	}
 
 	@Override

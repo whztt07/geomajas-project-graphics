@@ -198,8 +198,10 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 
 	protected GPath createPath(String text) {
 		GPath path = new GPath(new Coordinate(0, 0), isClosedPath(), text);
-		path.setFillColor(fillColor);
-		path.setFillOpacity(fillOpacity);
+		if (closedPath) { // only for polygons
+			path.setFillColor(fillColor);
+			path.setFillOpacity(fillOpacity);
+		}
 		return path;
 	}
 

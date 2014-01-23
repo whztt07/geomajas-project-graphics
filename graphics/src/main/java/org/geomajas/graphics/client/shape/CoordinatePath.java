@@ -48,7 +48,8 @@ public class CoordinatePath extends Shape {
 	public CoordinatePath(Coordinate[] coordinates, boolean closed) {
 		this.closed = closed;
 		if (!closed) {
-			setFillOpacity(0);
+			// for lines: clicking the fill area (or bounding box) does not trigger pointer events
+			setFillColor("none");
 		}
 		setCoordinates(coordinates);
 	}
