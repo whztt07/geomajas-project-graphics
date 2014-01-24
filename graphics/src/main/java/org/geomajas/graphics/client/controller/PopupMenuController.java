@@ -113,6 +113,7 @@ public class PopupMenuController extends AbstractGraphicsController implements G
 						menu.addAction(action.getLabel(), action);
 					}
 				}
+				bringContainerToFront(container);
 			} else {
 				// just remove the handler
 				if (handler != null) {
