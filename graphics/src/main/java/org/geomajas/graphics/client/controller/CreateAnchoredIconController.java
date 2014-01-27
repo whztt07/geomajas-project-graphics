@@ -10,10 +10,6 @@
  */
 package org.geomajas.graphics.client.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.GIcon;
@@ -23,6 +19,8 @@ import org.geomajas.graphics.client.service.GraphicsObjectContainer.Space;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.shape.MarkerShape;
 
+import java.util.List;
+
 /**
  * Controller that creates an anchored {@link GIcon}.
  * 
@@ -30,10 +28,6 @@ import org.geomajas.graphics.client.shape.MarkerShape;
  * 
  */
 public class CreateAnchoredIconController extends CreateIconController {
-
-	public CreateAnchoredIconController(GraphicsService graphicsService, int width, int height, String href) {
-		this(graphicsService, width, height, new ArrayList<String>(Arrays.asList(href)));
-	}
 	
 	public CreateAnchoredIconController(GraphicsService graphicsService, int width, int height, List<String> hrefs) {
 		super(graphicsService, width, height, hrefs);

@@ -61,6 +61,7 @@ public class GIcon extends ResizableGraphicsObject {
 
 		public DraggableImage(AnchoredImage anchoredImage) {
 			this.anchoredImage = anchoredImage;
+			anchoredImage.setPreserveAspectRatio(true);
 		}
 
 		@Override

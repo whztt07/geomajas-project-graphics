@@ -143,7 +143,7 @@ public class Example implements EntryPoint, Handler {
 		createCheckExternalLabel();
 		CreateIconController createIconController = new CreateIconController(service, 16, 16, url);
 		CreateAnchoredIconController createAnchoredIconController 
-			= new CreateAnchoredIconController(service, 16,	16, url);
+			= new CreateAnchoredIconController(service, 16,	16, null);
 		createIconChoicePanel(createIconController, createAnchoredIconController);
 		
 		//buttons for creation of objects

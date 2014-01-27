@@ -10,8 +10,6 @@
  */
 package org.geomajas.graphics.client.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.geomajas.geometry.Coordinate;
@@ -24,6 +22,7 @@ import org.geomajas.graphics.client.shape.MarkerShape;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import org.geomajas.graphics.client.widget.CreateIconChoicePopup;
 
 /**
  * Controller that creates a {@link GIcon}.
@@ -46,17 +45,12 @@ public class CreateIconController extends CreateController<GIcon> implements Mou
 	private Coordinate clickPosition;
 	
 	protected CreateIconChoicePopup popup = new CreateIconChoicePopup(this, null);
-
-	public CreateIconController(GraphicsService graphicsService, int width, int height, String href) {
-		this(graphicsService, width, height, new ArrayList<String>(Arrays.asList(href)));
-		//TODO: there should be no choice here, no intermediate step with popup choice
-	}
 	
 	public CreateIconController(GraphicsService graphicsService, int width, int height, List<String> hrefs) {
 		super(graphicsService);
-		setHrefs(hrefs);
 		setHeight(height);
 		setWidth(width);
+		setHrefs(hrefs);
 		popup.setMarkerSectionVisible(false);
 	}
 
@@ -75,6 +69,7 @@ public class CreateIconController extends CreateController<GIcon> implements Mou
 
 	public void setWidth(int width) {
 		this.width = width;
+		popup.setPreviewImageWidth(width);
 	}
 
 	public int getHeight() {
@@ -83,6 +78,7 @@ public class CreateIconController extends CreateController<GIcon> implements Mou
 
 	public void setHeight(int height) {
 		this.height = height;
+		popup.setPreviewImageHeight(height);
 	}
 
 	@Override

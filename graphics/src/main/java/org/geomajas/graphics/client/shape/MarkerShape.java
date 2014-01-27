@@ -43,7 +43,7 @@ public enum MarkerShape {
 	/**
 	 * Constructor.
 	 * 
-	 * @param code code to apply
+	 * @param title
 	 */
 	private MarkerShape(String title) {
 		this.title = title;
@@ -60,7 +60,7 @@ public enum MarkerShape {
 		}
 		return null;
 	}
-	
+
 	public Shape getMarkerShape() {
 		switch(this) {
 			case SQUARE:
@@ -70,6 +70,27 @@ public enum MarkerShape {
 				return new AnchoredCircle(0, 0, 4, 0, 0);
 			case CROSS:
 				return new AnchoredCross(6, 6, 8);
+		}
+		return null;
+	}
+
+	/**
+	 * Create a marker shape that is centered around a given coordinate posX, posY
+	 * and whose shape is is a box with given size.
+	 * @param posX
+	 * @param posY
+	 * @param size
+	 * @return
+	 */
+	public Shape getMarkerShape(double posX, double posY, double size) {
+		switch(this) {
+			case SQUARE:
+				return new AnchoredRectangle(posX, posX,
+						size, size, (int) size / 2, (int) size / 2);
+			case CIRCLE:
+				return new AnchoredCircle(posX, posY, size / 2, 0, 0);
+			case CROSS:
+				return new AnchoredCross(posX, posY, (int) size);
 		}
 		return null;
 	}

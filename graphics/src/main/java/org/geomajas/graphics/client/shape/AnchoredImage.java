@@ -116,4 +116,8 @@ public class AnchoredImage extends Image {
 		}
 	}
 
+	public void setPreserveAspectRatio(boolean preserve) {
+		getElement().setAttribute("preserveAspectRatio", preserve ? "true" : "none");
+	}
+
 }

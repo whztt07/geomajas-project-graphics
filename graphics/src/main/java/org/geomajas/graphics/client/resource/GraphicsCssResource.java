@@ -24,5 +24,9 @@ public interface GraphicsCssResource extends CssResource {
 
 	String iconsPanel();
 
-	String iconsPanelSelectImage();
+	String iconsPanelImage();
+
+	String iconsPanelImageSelected();
+
+	String iconsPanelSeparatorLine();
 }

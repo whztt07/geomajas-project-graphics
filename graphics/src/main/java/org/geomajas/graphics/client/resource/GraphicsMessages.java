@@ -30,6 +30,8 @@ public interface GraphicsMessages extends Messages {
 
 	String createIconChoicePopupChooseMarker();
 
+	String createIconChoicePopupPreview();
+
 	String createIconChoicePopupOkButton();
 
 }
