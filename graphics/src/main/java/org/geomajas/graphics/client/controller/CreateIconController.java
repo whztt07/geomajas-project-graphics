@@ -44,7 +44,7 @@ public class CreateIconController extends CreateController<GIcon> implements Mou
 	
 	private Coordinate clickPosition;
 	
-	protected CreateIconChoicePopup popup = new CreateIconChoicePopup(this, null);
+	protected CreateIconChoicePopup popup = new CreateIconChoicePopup(this, null, null);
 	
 	public CreateIconController(GraphicsService graphicsService, int width, int height, List<String> hrefs) {
 		super(graphicsService);
@@ -60,7 +60,7 @@ public class CreateIconController extends CreateController<GIcon> implements Mou
 
 	public void setHrefs(List<String> hrefs) {
 		this.hrefs = hrefs;
-		popup.setIconsToChooseFrom(hrefs);
+		popup.setIconChoiceList(hrefs);
 	}
 
 	public int getWidth() {
@@ -134,6 +134,14 @@ public class CreateIconController extends CreateController<GIcon> implements Mou
 	
 	protected Coordinate getClickPosition() {
 		return clickPosition;
+	}
+
+	/**
+	 * Set size of the icons and markers in the choice list. Must be at least 12.
+	 * @param pixelSize
+	 */
+	public void setChoiceListImageSize(int pixelSize) {
+		popup.setChoiceListImageSize(pixelSize);
 	}
 
 }

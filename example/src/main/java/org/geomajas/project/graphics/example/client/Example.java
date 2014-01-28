@@ -144,6 +144,7 @@ public class Example implements EntryPoint, Handler {
 		CreateIconController createIconController = new CreateIconController(service, 16, 16, url);
 		CreateAnchoredIconController createAnchoredIconController 
 			= new CreateAnchoredIconController(service, 16,	16, null);
+		createAnchoredIconController.setChoiceListImageSize(32);
 		createIconChoicePanel(createIconController, createAnchoredIconController);
 		
 		//buttons for creation of objects

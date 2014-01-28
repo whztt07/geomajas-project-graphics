@@ -15,8 +15,6 @@ import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -47,6 +45,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.shape.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -97,35 +96,49 @@ public class CreateIconChoicePopup {
 	@UiField
 	protected CaptionPanel previewCaptionPanel;
 
+	private GIcon previewIcon;
+
+	private DrawingArea previewArea;
+
+	/* constructor elements */
 	private final CreateIconController controller;
 
-	private int imagePerRow = 5;
+	private List<String> hrefsChoiceList;
+
+	private List<MarkerShape> markerShapesChoiceList;
+
+	/* selected elements */
+	private String selectedIconUrl;
+
+	private MarkerShape selectedMarkerShape;
+
+	/* default value, used in case of clean slate */
+	private MarkerShape defaultMarkerShape;
+
+	private String defaultIconUrl;
+
+	//TODO: put these values in a util class or default data provider
+	private final List<String> defaultIconurls = new ArrayList<String>(Arrays.asList(
+			GWT.getModuleBaseURL() + "image/sun.jpg", GWT.getModuleBaseURL() + "image/cloud.png"));
+
+	//TODO: put these values in a util class or default data provider
+	private final List<MarkerShape> defaultMarkershapes = new ArrayList<MarkerShape>(
+			Arrays.asList(MarkerShape.values()));
+
+	/* configuration popup layout */
 
 	/**
 	 * Size of icons to choose from. In pixels.
 	 */
-	private int imageChoiceIconSize = 20;
+	private int choiceListImageSize = 20;
+
+	private int imagePerRow = 5;
 
 	private int previewImageWidth;
 
 	private int previewImageHeight;
 
-	private int amountOfMarkers = -1;
-
-	// default value, used in case of clean slate
-	private MarkerShape defaultMarkerShape = MarkerShape.SQUARE;
-
-	private String defaultIconUrl = GWT.getModuleBaseURL() + "image/sun.jpg";
-
-	/**
-	 * selected icon
-	 */
-	private String iconUrl;
-
-	/**
-	 * selected marker
-	 */
-	private MarkerShape markerShape;
+	/* show selection with border */
 
 	/**
 	 * keep the click icons for selection
@@ -134,31 +147,28 @@ public class CreateIconChoicePopup {
 
 	private Map<MarkerShape, ClickableMarkerShape> markers = new HashMap<MarkerShape, ClickableMarkerShape>();
 
-	private GIcon previewIcon;
-
-	private DrawingArea previewArea;
-
 	private String noMarkerStyle = "noMarker";
 
-	protected void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
-		updatePreviewAndSelection();
-	}
-
-	protected void setMarkerShape(MarkerShape markerShape) {
-		this.markerShape = markerShape;
-		updatePreviewAndSelection();
-	}
-
-	public CreateIconChoicePopup(CreateIconController controllerInput, List<String> hrefs) {
+	/**
+	 * Popup for choosing icons and markers from a given list.
+	 *
+	 * @param controllerInput
+	 * @param hrefs list of url String values for icons to choose from. The first one will be default value.
+	 *                 In case of null, a default list will be used.
+	 * @param markerShapes list of marker Shapes to choose from. The first one will be default value. In case of null,
+	 *                     a default list will be used.
+	 */
+	public CreateIconChoicePopup(CreateIconController controllerInput, List<String> hrefs,
+								 List<MarkerShape> markerShapes) {
 		this.controller = controllerInput;
 		UIBINDER.createAndBindUi(this);
 		iconChoiceTablePanel.setStyleName("iconCreationChoiceTable");
+
 		okButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				controller.createIconInContainer(iconUrl, markerShape);
+				controller.createIconInContainer(selectedIconUrl, selectedMarkerShape);
 				hide();
 			}
 
@@ -169,58 +179,17 @@ public class CreateIconChoicePopup {
 		previewPanel.setWidget(previewArea);
 
 		// set icons choice
-		setIconsToChooseFrom(hrefs);
+		setIconChoiceList(hrefs);
 
-		// markers choice
-		DrawingArea drawingArea = new DrawingArea((imageChoiceIconSize + 5 ) * imagePerRow, imageChoiceIconSize + 5);
-		ClickableMarkerShape marker1 = new ClickableMarkerShape(MarkerShape.SQUARE);
-		drawingArea.add(translateMarker(marker1.asVectorObject()));
-		ClickableMarkerShape marker2 = new ClickableMarkerShape(MarkerShape.CIRCLE);
-		drawingArea.add(translateMarker(marker2.asVectorObject()));
-		ClickableMarkerShape marker3 = new ClickableMarkerShape(MarkerShape.CROSS);
-		drawingArea.add(translateMarker(marker3.asVectorObject()));
-		markers.put(MarkerShape.SQUARE, marker1);
-		markers.put(MarkerShape.CIRCLE, marker2);
-		markers.put(MarkerShape.CROSS, marker3);
-
-		markersPanel.setWidget(drawingArea);
-		drawingArea.getElement().getStyle().setMargin(5, Unit.PX);
+		// set markers choice
+		setMarkerChoiceList(markerShapes);
 	}
 
-	protected void updatePreviewAndSelection() {
-		previewArea.clear();
-		if (iconUrl != null) {
-			selectIcon(iconUrl);
-			previewIcon = new GIcon(new AnchoredImage(0, 0, previewImageWidth,
-					previewImageHeight, iconUrl, 0.5, 0.5));
-			Coordinate iconPosition = new Coordinate(previewArea.getWidth() / 2, 20);
-			previewIcon.setPosition(iconPosition);
-			if (markerShape != null) {
-				selectMarker(markerShape);
-				previewIcon.addRole(new ResizableAnchorer(new Coordinate(0, 0), markerShape));
-				Coordinate markerPosition  = new Coordinate(iconPosition);
-				markerPosition.setY(markerPosition.getY() + 40);
-				previewIcon.getRole(Anchored.TYPE).setAnchorPosition(markerPosition);
-			}
-			previewArea.add(previewIcon.asObject());
-		}
-	}
-
-	private void selectIcon(String iconUrl) {
-		 for (Map.Entry<String, ClickableIconImage> entry : icons.entrySet()) {
-			entry.getValue().setSelected(entry.getKey().equals(iconUrl));
-		 }
-	}
-
-	private void selectMarker(MarkerShape shape) {
-		for (Map.Entry<MarkerShape, ClickableMarkerShape> entry : markers.entrySet()) {
-			entry.getValue().setSelected(entry.getKey().equals(shape));
-		}
-	}
+	/* popup display*/
 
 	public void show(int clientX, int clientY) {
 		if (onlyOneChoice()) {
-			controller.createIconInContainer(iconUrl, markerShape);
+			controller.createIconInContainer(selectedIconUrl, selectedMarkerShape);
 		} else {
 			dialog.setPopupPosition(clientX, clientY);
 			dialog.show();
@@ -231,65 +200,15 @@ public class CreateIconChoicePopup {
 		dialog.hide();
 	}
 
-	private boolean onlyOneChoice() {
-	  return (icons.size() == 1 && (!previewCaptionPanel.isVisible() || markers.size() == 1));
-	}
-
 	public void clear() {
-		iconUrl = defaultIconUrl;
-		markerShape = defaultMarkerShape;
+		setSelectedIconUrl(null);
+		setSelectedMarkerShape(null);
 		if (previewArea != null) {
 			previewArea.clear();
 		}
 	}
 
-	// translate so it will be
-	private VectorObject translateMarker(VectorObject shape) {
-		if (amountOfMarkers % imagePerRow != 0) {
-			int size = imageChoiceIconSize + 6;
-			shape.setTranslation(size * (amountOfMarkers % imagePerRow), size * (amountOfMarkers / imagePerRow));
-		}
-		return shape;
-	}
-
-	protected void raiseMarkerCount() {
-		amountOfMarkers++;
-	}
-
-	public void setMarkerSectionVisible(boolean visible) {
-		previewCaptionPanel.setVisible(visible);
-		if (visible) {
-			iconChoiceTablePanel.removeStyleDependentName(noMarkerStyle);
-		} else {
-			iconChoiceTablePanel.addStyleDependentName(noMarkerStyle);
-		}
-
-	}
-
-	public void setIconsToChooseFrom(List<String> urls) {
-		clear();
-		iconsPanel.clear();
-		icons.clear();
-		// if urls is empty, fill with some default values
-		if (urls == null || urls.size() == 0) {
-			urls = new ArrayList<String>();
-			urls.add(GWT.getModuleBaseURL() + "image/cloud.png");
-			urls.add(GWT.getModuleBaseURL() + "image/sun.jpg");
-		}
-		Set<String> urlSet = new LinkedHashSet<String>();
-		if (urls != null) {
-			urlSet.addAll(urls);
-		}
-		for (String url : urlSet) {
-			ClickableIconImage clickImage = new ClickableIconImage(url);
-			icons.put(url, clickImage);
-			iconsPanel.add(clickImage);
-		}
-		// use first url value as default
-		if (urls != null) {
-			setDefaultIconUrl(urls.get(0));
-		}
-	}
+	/* setters */
 
 	public void setPreviewImageWidth(int previewImageWidth) {
 		this.previewImageWidth = previewImageWidth;
@@ -300,8 +219,143 @@ public class CreateIconChoicePopup {
 	}
 
 	public void setDefaultIconUrl(String defaultIconUrl) {
-	   	iconUrl = defaultIconUrl;
-		updatePreviewAndSelection();
+		selectedIconUrl = defaultIconUrl;
+		updatePreview();
+	}
+
+	/**
+	 * Set size of the icons and markers in the choice list. Must be at least 12.
+	 * @param choiceListImageSize
+	 */
+	public void setChoiceListImageSize(int choiceListImageSize) {
+		this.choiceListImageSize = Math.max(choiceListImageSize, 12);
+		updateIconChoice();
+		updateMarkerChoice();
+	}
+
+	public void setMarkerSectionVisible(boolean visible) {
+		previewCaptionPanel.setVisible(visible);
+		if (visible) {
+			iconChoiceTablePanel.removeStyleDependentName(noMarkerStyle);
+		} else {
+			iconChoiceTablePanel.addStyleDependentName(noMarkerStyle);
+		}
+	}
+
+	public void setIconChoiceList(List<String> urls) {
+		if (urls != null && urls.size() > 0) {
+			hrefsChoiceList = urls;
+		} else {
+			hrefsChoiceList = defaultIconurls;
+		}
+		defaultIconUrl = hrefsChoiceList.get(0);
+		updateIconChoice();
+	}
+
+	public void setMarkerChoiceList(List<MarkerShape> markerShapes) {
+		if (markerShapes != null && markerShapes.size() > 0) {
+			markerShapesChoiceList = markerShapes;
+		} else {
+			markerShapesChoiceList = defaultMarkershapes;
+		}
+		defaultMarkerShape = markerShapesChoiceList.get(0);
+		updateMarkerChoice();
+	}
+
+	/* selection and emphasis */
+
+	protected void setSelectedIconUrl(String iconUrl) {
+		this.selectedIconUrl = iconUrl != null ? iconUrl : defaultIconUrl;
+		emphasizeSelectedIconInChoiceList(selectedIconUrl);
+		updatePreview();
+	}
+
+	protected void setSelectedMarkerShape(MarkerShape markerShape) {
+		this.selectedMarkerShape = markerShape != null ? markerShape : defaultMarkerShape;
+		emphasizeSelectedMarkerInChoiceList(selectedMarkerShape);
+		updatePreview();
+	}
+
+	private void emphasizeSelectedIconInChoiceList(String iconUrl) {
+		for (Map.Entry<String, ClickableIconImage> entry : icons.entrySet()) {
+			entry.getValue().setSelected(entry.getKey().equals(iconUrl));
+		}
+	}
+
+	private void emphasizeSelectedMarkerInChoiceList(MarkerShape shape) {
+		for (Map.Entry<MarkerShape, ClickableMarkerShape> entry : markers.entrySet()) {
+			entry.getValue().setSelected(entry.getKey().equals(shape));
+		}
+	}
+
+	/* update elements */
+
+	public void updateIconChoice() {
+		iconsPanel.clear();
+		icons.clear();
+		Set<String> urlSet = new LinkedHashSet<String>(hrefsChoiceList);
+		for (String url : urlSet) {
+			ClickableIconImage clickImage = new ClickableIconImage(url);
+			icons.put(url, clickImage);
+			iconsPanel.add(clickImage);
+		}
+		setSelectedIconUrl(defaultIconUrl);
+	}
+
+
+	public void updateMarkerChoice() {
+		markersPanel.clear();
+		markers.clear();
+
+		DrawingArea drawingArea = new DrawingArea((choiceListImageSize + 5 ) * imagePerRow, choiceListImageSize + 5);
+		drawingArea.getElement().getStyle().setMargin(5, Unit.PX);
+		int amountOfMarkers = 0;
+		Set<MarkerShape> markerSet = new LinkedHashSet<MarkerShape>(markerShapesChoiceList);
+		for (MarkerShape markerShape : markerSet) {
+			ClickableMarkerShape marker = new ClickableMarkerShape(markerShape);
+			drawingArea.add(translateMarker(marker.asVectorObject(), amountOfMarkers++));
+			markers.put(markerShape, marker);
+		}
+		markersPanel.setWidget(drawingArea);
+		setSelectedMarkerShape(defaultMarkerShape);
+	}
+
+	protected void updatePreview() {
+		previewArea.clear();
+
+		// icon
+		previewIcon = new GIcon(new AnchoredImage(0, 0, previewImageWidth,
+				previewImageHeight, selectedIconUrl, 0.5, 0.5));
+		Coordinate iconPosition = new Coordinate(previewArea.getWidth() / 2, 20);
+		previewIcon.setPosition(iconPosition);
+
+		// maker
+		previewIcon.addRole(new ResizableAnchorer(new Coordinate(0, 0), selectedMarkerShape));
+		Coordinate markerPosition  = new Coordinate(iconPosition);
+		markerPosition.setY(markerPosition.getY() + 40);
+		previewIcon.getRole(Anchored.TYPE).setAnchorPosition(markerPosition);
+
+		previewArea.add(previewIcon.asObject());
+	}
+
+	/* private methods */
+
+	private boolean onlyOneChoice() {
+		return (icons.size() == 1 && (!previewCaptionPanel.isVisible() || markers.size() == 1));
+	}
+
+	/**
+	 * used for displaying marker SVG elements in a drawing area.
+	 * @param shape
+	 * @param amountOfMarkers
+	 * @return
+	 */
+	private VectorObject translateMarker(VectorObject shape, int amountOfMarkers) {
+		if (amountOfMarkers % imagePerRow != 0) {
+			int size = choiceListImageSize + 6;
+			shape.setTranslation(size * (amountOfMarkers % imagePerRow), size * (amountOfMarkers / imagePerRow));
+		}
+		return shape;
 	}
 
 	/**
@@ -316,13 +370,13 @@ public class CreateIconChoicePopup {
 
 		public ClickableIconImage(String iconUrl) {
 			iconImage = new Image(iconUrl);
-			iconImage.setHeight(imageChoiceIconSize + "px");
+			iconImage.setHeight(choiceListImageSize + "px");
 			iconImage.addStyleName(GraphicsResource.INSTANCE.css().iconsPanelImage());
 			iconImage.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					setIconUrl(iconImage.getUrl());
+					setSelectedIconUrl(iconImage.getUrl());
 				}
 
 			});
@@ -352,7 +406,7 @@ public class CreateIconChoicePopup {
 	 * @author Jan Venstermans
 	 * 
 	 */
-	private class ClickableMarkerShape implements MouseOverHandler, MouseOutHandler, MouseDownHandler {
+	private class ClickableMarkerShape implements MouseOverHandler, MouseOutHandler {
 
 		/**
 		 * enum value refering to the shape of the marker.
@@ -375,14 +429,14 @@ public class CreateIconChoicePopup {
 
 		public ClickableMarkerShape(MarkerShape markerEnum) {
 			shape = markerEnum;
-			simpleShape = shape.getMarkerShape(imageChoiceIconSize / 2, imageChoiceIconSize / 2,
-					imageChoiceIconSize - 8);
+			simpleShape = shape.getMarkerShape(choiceListImageSize / 2, choiceListImageSize / 2,
+					choiceListImageSize - 8);
 			simpleShape.setFixedSize(true);
 			simpleShape.setFillColor("#FF6600");
 			simpleShape.setStrokeColor("#FF6600");
 			simpleShape.setFillOpacity(0.7);
 			
-			rectangle = new Rectangle(0, 0, imageChoiceIconSize, imageChoiceIconSize);
+			rectangle = new Rectangle(0, 0, choiceListImageSize, choiceListImageSize);
 			rectangle.setStrokeOpacity(0);
 			rectangle.setStrokeWidth(1);
 			rectangle.setStrokeColor("black");
@@ -391,10 +445,7 @@ public class CreateIconChoicePopup {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					// Bbox bounds = getBoxOfSimpleShape();
-					// Coordinate coord = new Coordinate(event.getClientX(),event.getClientY());
-					// System.out.println(bounds.toString() + " " +coord.toString());
-					setMarkerShape(shape);
+					setSelectedMarkerShape(shape);
 				}
 
 			});
@@ -405,7 +456,6 @@ public class CreateIconChoicePopup {
 			group = new Group();
 			group.add(simpleShape);
 			group.add(rectangle);
-			raiseMarkerCount();
 		}
 
 		@Override
@@ -424,11 +474,6 @@ public class CreateIconChoicePopup {
 
 		public VectorObject asVectorObject() {
 			return group;
-		}
-
-		@Override
-		public void onMouseDown(MouseDownEvent event) {
-			setMarkerShape(markerShape);
 		}
 
 		public void setSelected(boolean selected) {
