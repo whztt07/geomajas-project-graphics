@@ -35,7 +35,11 @@ public class ResizableAnchorer implements Anchored, ResizableAwareRole<Anchored>
 
 	private CoordinatePath anchorPath;
 
+	private Group anchorSection;
+
 	private Shape anchor;
+
+	private Shape background;
 	
 	private MarkerShape markerShape = MarkerShape.SQUARE;
 
@@ -51,10 +55,20 @@ public class ResizableAnchorer implements Anchored, ResizableAwareRole<Anchored>
 		this.anchorPosition = (anchorPosition != null) ? anchorPosition : new Coordinate();
 		this.markerShape = (markerShape != null) ? markerShape : MarkerShape.SQUARE;
 		anchor = createAnchor(this.markerShape.getMarkerShape());
+		anchorSection = new Group();
+		anchorSection.add(anchor);
+		// add a transparant but clickable background object in case of Cross Markershape
+		// The cross itzelf is not clickable/draggable enough
+		if (this.markerShape.equals(MarkerShape.CROSS)) {
+			background = MarkerShape.SQUARE.getMarkerShape();
+			background.setFillOpacity(0);
+			background.setStrokeOpacity(0);
+			anchorSection.add(background);
+		}
 		anchorPath = new CoordinatePath(false);
 		anchorGroup = new Group();
 		anchorGroup.add(anchorPath);
-		anchorGroup.add(anchor);
+		anchorGroup.add(anchorSection);
 	}
 	
 	public CoordinatePath getAnchorPath() {
@@ -134,6 +148,10 @@ public class ResizableAnchorer implements Anchored, ResizableAwareRole<Anchored>
 	private void updateAnchor() {
 		anchor.setUserX(anchorPosition.getX());
 		anchor.setUserY(anchorPosition.getY());
+		if (background != null) {
+			background.setUserX(anchorPosition.getX());
+			background.setUserY(anchorPosition.getY());
+		}
 		Coordinate anchorEnd = BboxService.getCenterPoint(resizable.getUserBounds());
 		anchorPath.setCoordinates(new Coordinate[] { anchorPosition, anchorEnd });
 	}
@@ -200,15 +218,15 @@ public class ResizableAnchorer implements Anchored, ResizableAwareRole<Anchored>
 
 	@Override
 	public Shape getAnchorPointShape() {
-		return anchor;
+		return background != null ? background : anchor;
 	}
 
 	@Override
 	public void setAnchorPointShape(Shape shape) {
 		if (shape != null) {
-			anchorGroup.remove(anchor);
+			anchorSection.remove(anchor);
 			createAnchor(shape);
-			anchorGroup.add(anchor);
+			anchorSection.add(anchor);
 		}
 	}
 
