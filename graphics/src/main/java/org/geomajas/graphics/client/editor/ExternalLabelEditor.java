@@ -20,7 +20,7 @@ import org.geomajas.graphics.client.object.role.Labeled;
  * @author Jan De Moerloose
  * 
  */
-public class ExternalLabelEditor extends LabelEditor {
+public class ExternalLabelEditor extends LabelEditorOld {
 
 	@Override
 	public boolean supports(GraphicsObject object) {

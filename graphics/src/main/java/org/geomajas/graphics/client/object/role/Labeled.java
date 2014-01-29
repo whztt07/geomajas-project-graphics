@@ -19,7 +19,7 @@ import org.geomajas.graphics.client.object.labeler.ResizableTextable;
  * @author Jan De Moerloose
  * 
  */
-public interface Labeled extends RoleInterface {
+public interface Labeled extends RenderPlane {
 	
 	RoleType<Labeled> TYPE = new RoleType<Labeled>("Labeled");
 

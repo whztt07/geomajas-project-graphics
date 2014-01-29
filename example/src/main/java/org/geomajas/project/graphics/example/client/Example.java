@@ -39,7 +39,6 @@ import org.geomajas.graphics.client.controller.PopupMenuFactory;
 import org.geomajas.graphics.client.controller.ResizeControllerFactory;
 import org.geomajas.graphics.client.editor.AnchorStyleEditor;
 import org.geomajas.graphics.client.editor.LabelEditor;
-import org.geomajas.graphics.client.editor.LabelEditor2;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
 import org.geomajas.graphics.client.editor.TextableEditor;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
@@ -129,8 +128,7 @@ public class Example implements EntryPoint, Handler {
 	private void registerPopupFactoryActionsAndEditiors() {
 		popupFactory.registerAction(new DeleteAction());
 		popupFactory.registerEditor(new TextableEditor());
-		popupFactory.registerEditor(new LabelEditor2());
-//		popupFactory.registerEditor(new LabelEditor());
+		popupFactory.registerEditor(new LabelEditor());
 //		popupFactory.registerEditor(new ExternalLabelEditor());
 		popupFactory.registerEditor(new StrokeFillEditor());
 		popupFactory.registerAction(new DuplicateAction());

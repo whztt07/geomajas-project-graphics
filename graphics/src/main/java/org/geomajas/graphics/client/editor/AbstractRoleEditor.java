@@ -18,6 +18,9 @@ import org.geomajas.graphics.client.service.GraphicsService;
 /**
  * Abstract implementation of {@link org.geomajas.graphics.client.editor.Editor} interface.
  *
+ * @param <T> interface, if a {@link org.geomajas.graphics.client.object.GraphicsObject}
+ *           has a role of this interface, this editor will be
+ *           supported for the object.
  * @author Jan Venstermans
  *
  */

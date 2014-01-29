@@ -10,6 +10,15 @@
  */
 package org.geomajas.graphics.client.editor;
 
+import org.geomajas.graphics.client.object.ExternalLabel;
+import org.geomajas.graphics.client.object.GText;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.Labeled;
+import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.operation.LabelOperation;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.util.textbox.ColorTextBoxValidator;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -22,37 +31,28 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.mogaleaf.client.common.widgets.ColorHandler;
 import com.mogaleaf.client.common.widgets.SimpleColorPicker;
-import org.geomajas.graphics.client.object.ExternalLabel;
-import org.geomajas.graphics.client.object.GText;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.RoleType;
-import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.operation.LabelOperation;
-import org.geomajas.graphics.client.resource.GraphicsResource;
-import org.geomajas.graphics.client.util.textbox.ColorTextBoxValidator;
 
 /**
- * {@link org.geomajas.graphics.client.editor.Editor} for the
- * {@link org.geomajas.graphics.client.object.role.Labeled} role.
- *
+ * {@link Editor} for the {@link Labeled} role.
+ * 
  * @author Jan De Moerloose
- * @author Jan Venstermans
- *
+ * 
  */
-public class TextableEditor extends AbstractRoleEditor<Textable> {
+public class LabelEditorOld implements Editor {
 
 	private static final Binder UIBINDER = GWT.create(Binder.class);
 
 	/**
 	 * UI binder.
-	 *
+	 * 
 	 */
-	interface Binder extends UiBinder<HTMLPanel, TextableEditor> {
+	interface Binder extends UiBinder<HTMLPanel, LabelEditorOld> {
 
 	}
 
-	@UiField
-	protected HTMLPanel totalPanel;
+	protected GraphicsService service;
+
+	private HTMLPanel widget;
 
 	@UiField
 	protected TextArea labelBox;
@@ -69,37 +69,35 @@ public class TextableEditor extends AbstractRoleEditor<Textable> {
 	@UiField
 	protected TextBox fontFamily;
 
+	protected GraphicsObject object;
+
+	private String iconUrl;
+
 	private SimpleColorPicker colorPicker;
 
-	public TextableEditor() {
-		UIBINDER.createAndBindUi(this);
-		totalPanel.setStyleName("popupWindow", true);
+	public LabelEditorOld() {
+		widget = UIBINDER.createAndBindUi(this);
+		widget.setStyleName("popupWindow", true);
 	}
 
-	@Override
-	protected RoleType<Textable> getType() {
-		return Textable.TYPE;
+	public void setService(GraphicsService service) {
+		this.service = service;
 	}
 
 	@Override
 	public Widget asWidget() {
-		return totalPanel;
+		return widget;
+	}
+
+	@Override
+	public boolean supports(GraphicsObject object) {
+		return object.hasRole(Labeled.TYPE) || object.hasRole(Textable.TYPE);
 	}
 
 	@Override
 	public void setObject(GraphicsObject object) {
-		super.setObject(object);
-		setRoleObjectValuesToWidget();
-	}
-
-	@Override
-	protected void setRoleObject(Textable roleObject) {
-		super.setRoleObject(roleObject);
-		setRoleObjectValuesToWidget();
-	}
-
-	protected void setRoleObjectValuesToWidget() {
-		Textable textable = getRoleObject();
+		this.object = object;
+		Textable textable = getTextable();
 		if (textable != null) {
 			labelBox.setVisibleLines(Math.min(30, Math.max(textable.getLabel().length() / 50, 1)));
 			labelBox.setText(textable.getLabel());
@@ -110,22 +108,31 @@ public class TextableEditor extends AbstractRoleEditor<Textable> {
 	}
 
 	public void onOk() {
-		Textable textable = getRoleObject();
+		Textable textable = getTextable();
 		if (textable != null) {
 			String beforeLabel = textable.getLabel();
 			String beforeColor = textable.getFontColor();
 			int beforeSize = textable.getFontSize();
 			String beforeFont = textable.getFontFamily();
-			getService().execute(new LabelOperation(getObject(), null, beforeLabel, beforeColor, beforeSize,
-					beforeFont, labelBox
+			service.execute(new LabelOperation(object, null, beforeLabel, beforeColor, beforeSize, beforeFont, labelBox
 					.getText(), fillColorValidator.getLabel(), Integer.parseInt(fontSize.getText()), fontFamily
 					.getText()));
 		}
 	}
 
+	private Textable getTextable() {
+		Textable textable = null;
+		if (object.hasRole(Labeled.TYPE)) {
+			textable = object.getRole(Labeled.TYPE).getTextable();
+		} else if (object.hasRole(Textable.TYPE)) {
+			textable = object.getRole(Textable.TYPE);
+		}
+		return textable;
+	}
+
 	@Override
 	public String getLabel() {
-		return GraphicsResource.MESSAGES.editorLabelTextable();
+		return "Edit text";
 	}
 
 	@Override
@@ -137,13 +144,28 @@ public class TextableEditor extends AbstractRoleEditor<Textable> {
 		// only if renderable is labeled, there should always be text
 		// This is the case for GText
 		// TODO make more generic
-		if (getObject() instanceof GText && !(getObject() instanceof ExternalLabel)) {
+		if (object instanceof GText && !(object instanceof ExternalLabel)) {
 
-			if (((GText) getObject()).getRole(Textable.TYPE).getLabel().isEmpty()) {
+			if (((GText) object).getRole(Textable.TYPE).getLabel().isEmpty()) {
 				valid = false;
 			}
 		}
 		return valid;
+	}
+
+	@Override
+	public void undo() {
+		service.undo();
+	}
+
+	@Override
+	public void setIconUrl(String url) {
+		this.iconUrl = url;
+	}
+
+	@Override
+	public String getIconUrl() {
+		return iconUrl;
 	}
 
 	@UiHandler("fillColorButton")
@@ -156,29 +178,10 @@ public class TextableEditor extends AbstractRoleEditor<Textable> {
 				fillColorValidator.setLabel(color);
 			}
 		});
-		int left = totalPanel.getAbsoluteLeft() + totalPanel.getOffsetWidth() + 10;
-		int top = totalPanel.getAbsoluteTop() + totalPanel.getOffsetHeight() / 2;
+		int left = widget.getAbsoluteLeft() + widget.getOffsetWidth() + 10;
+		int top = widget.getAbsoluteTop() + widget.getOffsetHeight() / 2;
 		colorPicker.setPopupPosition(left, top);
 		colorPicker.show();
 	}
 
-	public TextArea getLabelBox() {
-		return labelBox;
-	}
-
-	public Button getFillColorButton() {
-		return fillColorButton;
-	}
-
-	public ColorTextBoxValidator getFillColorValidator() {
-		return fillColorValidator;
-	}
-
-	public TextBox getFontSize() {
-		return fontSize;
-	}
-
-	public TextBox getFontFamily() {
-		return fontFamily;
-	}
 }

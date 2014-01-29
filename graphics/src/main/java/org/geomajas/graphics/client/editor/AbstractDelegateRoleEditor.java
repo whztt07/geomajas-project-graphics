@@ -12,34 +12,43 @@ package org.geomajas.graphics.client.editor;
 
 import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.Labeled;
+import org.geomajas.graphics.client.object.role.RenderPlane;
 import org.geomajas.graphics.client.object.role.RoleInterface;
 import org.geomajas.graphics.client.object.role.RoleType;
 import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * {@link Editor} for the {@link org.geomajas.graphics.client.object.role.Labeled} role.
+ * Abstract implementation for an {@link AbstractRoleEditor} that will pass information and requests
+ * to a delegate editor. This reflects some of the role structure.
+ * E.g. the {@link org.geomajas.graphics.client.object.role.Labeled} role
+ * contains a {@link org.geomajas.graphics.client.object.role.Textable} role object.
+ * In this case, the
  *
+ * @param <T> the {@link org.geomajas.graphics.client.object.role.RoleInterface} that will contain reference
+ *           to a delegate role.
+ * @param <D> the delegate {@link org.geomajas.graphics.client.editor.AbstractRoleEditor}
  * @author Jan Venstermans
- *
  */
-public abstract class DelegateEditor<T extends RoleInterface, D extends AbstractRoleEditor> extends AbstractRoleEditor {
+public abstract class AbstractDelegateRoleEditor<T extends RenderPlane, D extends AbstractRoleEditor>
+		extends AbstractRoleEditor<T> {
 
 	private D delegateEditor;
 
-	public DelegateEditor() {
+	public AbstractDelegateRoleEditor() {
 		delegateEditor = createNewDelegate();
 	}
 
-	abstract public D createNewDelegate();
+	public abstract D createNewDelegate();
+
+	public abstract RoleInterface getRoleObjectForDelegate();
 
 	@Override
 	public Widget asWidget() {
 		return delegateEditor.asWidget();
 	}
 
-	abstract protected RoleType<Labeled> getType();
+	protected abstract RoleType<T> getType();
 
 	@Override
 	public boolean supports(GraphicsObject object) {
@@ -49,12 +58,12 @@ public abstract class DelegateEditor<T extends RoleInterface, D extends Abstract
 	@Override
 	public void setObject(GraphicsObject object) {
 		super.setObject(object);
-		textableEditor.setObject(getObject());
-		textableEditor.setRoleObject(getRoleObject().getTextable());
+		delegateEditor.setObject(getObject());
+		delegateEditor.setRoleObject(getRoleObjectForDelegate());
 	}
 
 	public void onOk() {
-		textableEditor.onOk();
+		delegateEditor.onOk();
 	}
 
 	@Override
@@ -64,28 +73,17 @@ public abstract class DelegateEditor<T extends RoleInterface, D extends Abstract
 
 	@Override
 	public boolean validate() {
-		return textableEditor.validate();
-	}
-
-	@Override
-	public void undo() {
-
-	}
-
-	@Override
-	public void setIconUrl(String url) {
-
-	}
-
-	@Override
-	public String getIconUrl() {
-		return null;
+		return delegateEditor.validate();
 	}
 
 	@Override
 	public void setService(GraphicsService service) {
 		super.setService(service);
-		textableEditor.setService(service);
+		delegateEditor.setService(service);
+	}
+
+	public D getDelegateEditor() {
+		return delegateEditor;
 	}
 
 }
