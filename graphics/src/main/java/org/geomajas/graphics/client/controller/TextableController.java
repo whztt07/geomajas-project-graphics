@@ -32,7 +32,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import org.geomajas.graphics.client.service.VisibleOnActiveGraphicsController;
 
 /**
  * Controller to change object label.

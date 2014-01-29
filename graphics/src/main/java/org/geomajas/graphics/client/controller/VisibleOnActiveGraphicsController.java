@@ -8,12 +8,13 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.service;
+package org.geomajas.graphics.client.controller;
 
 
+import org.geomajas.graphics.client.service.GraphicsController;
 
 /**
- * Extension of {@link GraphicsController} with
+ * Extension of {@link org.geomajas.graphics.client.service.GraphicsController} with
  * {@link VisibleOnActiveGraphicsController#setControllerElementsVisible(boolean)} method.
  *
  * @author Jan Venstermans
