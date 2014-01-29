@@ -12,6 +12,7 @@ package org.geomajas.graphics.client.resource;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
+import org.geomajas.graphics.client.resource.i18n.GraphicsMessages;
 
 /**
  * Client resource bundle interface for UI resources.

@@ -80,13 +80,13 @@ public class TestContainer extends AbstractGraphicsObjectContainer implements Is
 		Coordinate anchoredIconMarkerCoordinate = new Coordinate(anchoredIcon.getPosition());
 		anchoredIconMarkerCoordinate.setY(anchoredIconMarkerCoordinate.getY() + 40);
 		anchoredIcon.addRole(new ResizableAnchorer(anchoredIconMarkerCoordinate, MarkerShape.CIRCLE));
-		add(text);
-		add(rect);
-		add(circle);
-		add(ellipse);
-		add(image);
-		add(path);
-		add(anchoredIcon);
+//		add(text);
+//		add(rect);
+//		add(circle);
+//		add(ellipse);
+//		add(image);
+//		add(path);
+//		add(anchoredIcon);
 	}
 	
 	public TransformingGroup getRootContainer() {

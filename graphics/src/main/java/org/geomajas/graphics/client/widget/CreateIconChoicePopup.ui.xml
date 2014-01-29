@@ -3,7 +3,7 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
 	<ui:with field='msg'
-		type='org.geomajas.graphics.client.resource.GraphicsMessages' />
+		type='org.geomajas.graphics.client.resource.i18n.GraphicsMessages' />
 		
 	<ui:with field='res'
 		type='org.geomajas.graphics.client.resource.GraphicsResource' />
