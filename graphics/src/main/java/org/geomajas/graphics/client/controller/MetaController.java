@@ -28,7 +28,6 @@ import org.geomajas.graphics.client.service.AbstractGraphicsController;
 import org.geomajas.graphics.client.service.GraphicsController;
 import org.geomajas.graphics.client.service.GraphicsControllerFactory;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.service.VisibleOnActiveGraphicsController;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 import com.google.gwt.event.dom.client.DoubleClickEvent;

@@ -190,7 +190,7 @@ public class Example implements EntryPoint, Handler {
 			}
 			
 		});
-		checkShowDrag.setText("duplicate on drag");
+		checkShowDrag.setText("show original on drag");
 	}
 	
 	//checkbox for showing original object when dragging

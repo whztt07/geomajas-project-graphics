@@ -16,7 +16,6 @@ import org.geomajas.graphics.client.object.anchor.Anchored;
 import org.geomajas.graphics.client.operation.AnchorOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.service.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.Shape;
@@ -30,7 +29,7 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
  * @author Jan De Moerloose
  * 
  */
-public class AnchorController extends UpdateHandlerGraphicsController {
+public class AnchorController extends UpdateHandlerVisibleOnActiveGraphicsController {
 
 	/**
 	 * Object under control.
