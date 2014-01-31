@@ -19,7 +19,7 @@ package org.geomajas.graphics.client.object.role;
  * @author Jan Venstermans
  * 
  */
-public interface Textable {
+public interface Textable extends RoleInterface {
 	
 	RoleType<Textable> TYPE = new RoleType<Textable>("Textable");
 

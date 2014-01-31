@@ -68,10 +68,6 @@ public class CreateMetaController extends AbstractGraphicsController implements 
 	public void destroy() {
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-	}
-	
 	public void onCreate(CreateController<?> createController, boolean create) {
 		if (create && !active) {
 			setActive(true);

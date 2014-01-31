@@ -42,7 +42,7 @@ import com.google.gwt.event.dom.client.MouseDownHandler;
  * 
  */
 public class PopupMenuController extends AbstractGraphicsController implements GraphicsObjectContainerEvent.Handler,
-	GraphicsOperationEvent.Handler {
+	GraphicsOperationEvent.Handler, VisibleOnActiveGraphicsController {
 
 	public static final int IMG_DIST = 10;
 
@@ -112,6 +112,7 @@ public class PopupMenuController extends AbstractGraphicsController implements G
 						menu.addAction(action.getLabel(), action);
 					}
 				}
+				bringContainerToFront(container);
 			} else {
 				// just remove the handler
 				if (handler != null) {
@@ -219,7 +220,7 @@ public class PopupMenuController extends AbstractGraphicsController implements G
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		if (handler == null) {
 			// create and (implicitly) activate the handler group
 			init();

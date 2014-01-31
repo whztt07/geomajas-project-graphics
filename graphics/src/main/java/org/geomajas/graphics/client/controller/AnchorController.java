@@ -16,7 +16,6 @@ import org.geomajas.graphics.client.object.anchor.Anchored;
 import org.geomajas.graphics.client.operation.AnchorOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.service.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.Shape;
@@ -30,7 +29,7 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
  * @author Jan De Moerloose
  * 
  */
-public class AnchorController extends UpdateHandlerGraphicsController {
+public class AnchorController extends UpdateHandlerVisibleOnActiveGraphicsController {
 
 	/**
 	 * Object under control.
@@ -70,7 +69,7 @@ public class AnchorController extends UpdateHandlerGraphicsController {
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		getObject().getRole(Anchored.TYPE).asObject().setVisible(visible);
 	}
 
@@ -83,7 +82,7 @@ public class AnchorController extends UpdateHandlerGraphicsController {
 	 */
 	class AnchorDragHandler extends AbstractDragHandler {
 		
-		private Shape anchor;
+		private Shape invisibleSquareAnchor;
 
 		public AnchorDragHandler(GraphicsObject object,
 				GraphicsService service,
@@ -93,30 +92,21 @@ public class AnchorController extends UpdateHandlerGraphicsController {
 
 		@Override
 		public void update() {
-			anchor.setUserX(anchorPointObject.getAnchorPosition().getX());
-			anchor.setUserY(anchorPointObject.getAnchorPosition().getY());
+			invisibleSquareAnchor.setUserX(anchorPointObject.getAnchorPosition().getX());
+			invisibleSquareAnchor.setUserY(anchorPointObject.getAnchorPosition().getY());
 		}
 
 		public void addToGroup(Group group) {			
-			group.add(anchor);
+			group.add(invisibleSquareAnchor);
 		}
 		
 		@Override
 		protected VectorObject createInvisibleMask() {
-			anchor = createAnchor();
-			anchor.setFillOpacity(0);
-			anchor.setStrokeOpacity(0);
-			return anchor;
-		}
-		
-		public Shape createAnchor() {
-			if (anchorPointObject.getAnchorPointShape() != null) {
-				return anchorPointObject.getMarkerShape().getMarkerShape();
-			} else {
-				Shape square = MarkerShape.SQUARE.getMarkerShape();
-				square.setFixedSize(true);
-				return square;			
-			}
+			invisibleSquareAnchor = MarkerShape.SQUARE.getMarkerShape();
+			invisibleSquareAnchor.setFixedSize(true);
+			invisibleSquareAnchor.setFillOpacity(0);
+			invisibleSquareAnchor.setStrokeOpacity(0);
+			return invisibleSquareAnchor;
 		}
 
 		@Override

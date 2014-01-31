@@ -225,10 +225,4 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 		return fillOpacity;
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

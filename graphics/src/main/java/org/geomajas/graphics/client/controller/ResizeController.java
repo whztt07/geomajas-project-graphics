@@ -27,7 +27,6 @@ import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.operation.ResizeOperation;
 import org.geomajas.graphics.client.service.GraphicsObjectContainer.Space;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.service.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.shape.AnchoredRectangle;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.FlipState;
@@ -52,12 +51,13 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
- * {@link AbstractGraphicsController} that handles resizing (through anchor points) and dragging.
+ * {@link UpdateHandlerVisibleOnActiveGraphicsController} that handles resizing (through anchor points) and dragging.
  * 
  * @author Jan De Moerloose
  * 
  */
-public class ResizeController extends UpdateHandlerGraphicsController implements GraphicsObjectContainerEvent.Handler,
+public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsController
+		implements GraphicsObjectContainerEvent.Handler,
 		MouseDownHandler, GraphicsOperationEvent.Handler {
 
 	private static final int HANDLER_SIZE = 8;
@@ -437,7 +437,7 @@ public class ResizeController extends UpdateHandlerGraphicsController implements
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		for (ResizeHandler handler : handlers) {
 			handler.setVisible(!dragHandler.isDragging());
 		}

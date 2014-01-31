@@ -20,7 +20,6 @@ import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.operation.DragOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.service.UpdateHandlerGraphicsController;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 import com.google.gwt.event.dom.client.MouseMoveEvent;

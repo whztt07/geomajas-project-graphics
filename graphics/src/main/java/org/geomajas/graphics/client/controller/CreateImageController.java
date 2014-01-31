@@ -101,9 +101,4 @@ public class CreateImageController extends CreateController<GImage> implements M
 		execute(new AddOperation(result));
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		// TODO Auto-generated method stub
-		
-	}
 }

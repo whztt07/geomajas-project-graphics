@@ -39,7 +39,8 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
  * @author Jan De Moerloose
  * 
  */
-public class LabelController extends AbstractGraphicsController implements DoubleClickHandler {
+public class LabelController extends AbstractGraphicsController implements DoubleClickHandler,
+		VisibleOnActiveGraphicsController {
 
 	private boolean active;
 
@@ -163,7 +164,7 @@ public class LabelController extends AbstractGraphicsController implements Doubl
 	}
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setControllerElementsVisible(boolean visible) {
 		getObject().asObject().setVisible(visible);
 	}
 

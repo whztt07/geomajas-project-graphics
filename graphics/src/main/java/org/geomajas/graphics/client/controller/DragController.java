@@ -16,14 +16,13 @@ import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.anchor.AnchoredTo;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.service.UpdateHandlerGraphicsController;
 import org.vaadin.gwtgraphics.client.Group;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 
 /**
- * {@link AbstractGraphicsController} that handles resizing (through anchor points) and dragging.
+ * {@link UpdateHandlerGraphicsController} that handles resizing (through anchor points) and dragging.
  * 
  * @author Jan De Moerloose
  * 
@@ -91,11 +90,5 @@ public class DragController extends UpdateHandlerGraphicsController implements
 		if (dragHandler != null) {
 			dragHandler.update();
 		}
-	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		// do nothing
-		
 	}
 }

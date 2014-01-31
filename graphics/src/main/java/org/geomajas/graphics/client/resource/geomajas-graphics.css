@@ -40,8 +40,10 @@
 	padding-top:5px;
 }
 
-@external .popupWindow .lineCell;
-.popupWindow .lineCell{
+@external .lineCell;
+.lineCell{
+    margin-left: 10px;
+    margin-right: 10px;
 	border-bottom:1px solid grey;
 }
 
@@ -203,12 +205,27 @@
 .iconsPanel {
 }
 
+@external .iconsPanel img;
 .iconsPanel img {
-	margin: 5px;
+    margin: 2px;
 	cursor: pointer;
 }
 
-.iconsPanelSelectImage {
-	margin : 4px;
-	border: 1px solid #021a40;
+.iconsPanelImage {
+    padding: 3px;
+}
+
+.iconsPanelImageSelected  {
+    padding: 2px;
+    border: 1px solid #021a40;
+}
+
+@external .iconsPanelImage:hover;
+.iconsPanelImage:hover  {
+    padding: 2px;
+    border: 1px solid #043179;
+}
+
+.iconsPanelSeparatorLine {
+    border-bottom: 1px grey;
 }

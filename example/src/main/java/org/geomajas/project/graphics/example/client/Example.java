@@ -40,6 +40,7 @@ import org.geomajas.graphics.client.controller.ResizeControllerFactory;
 import org.geomajas.graphics.client.editor.AnchorStyleEditor;
 import org.geomajas.graphics.client.editor.LabelEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
+import org.geomajas.graphics.client.editor.TextableEditor;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
@@ -126,6 +127,7 @@ public class Example implements EntryPoint, Handler {
 	
 	private void registerPopupFactoryActionsAndEditiors() {
 		popupFactory.registerAction(new DeleteAction());
+		popupFactory.registerEditor(new TextableEditor());
 		popupFactory.registerEditor(new LabelEditor());
 //		popupFactory.registerEditor(new ExternalLabelEditor());
 		popupFactory.registerEditor(new StrokeFillEditor());
@@ -143,7 +145,8 @@ public class Example implements EntryPoint, Handler {
 		createCheckExternalLabel();
 		CreateIconController createIconController = new CreateIconController(service, 16, 16, url);
 		CreateAnchoredIconController createAnchoredIconController 
-			= new CreateAnchoredIconController(service, 16,	16, url);
+			= new CreateAnchoredIconController(service, 16,	16, null);
+		createAnchoredIconController.setChoiceListImageSize(32);
 		createIconChoicePanel(createIconController, createAnchoredIconController);
 		
 		//buttons for creation of objects
@@ -189,7 +192,7 @@ public class Example implements EntryPoint, Handler {
 			}
 			
 		});
-		checkShowDrag.setText("duplicate on drag");
+		checkShowDrag.setText("show original on drag");
 	}
 	
 	//checkbox for showing original object when dragging

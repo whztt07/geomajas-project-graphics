@@ -24,7 +24,7 @@ import org.geomajas.graphics.client.operation.LabelOperation;
  * @author Jan De Moerloose
  * 
  */
-public class TemplateLabelEditor extends LabelEditor {
+public class TemplateLabelEditor extends LabelEditorOld {
 	
 	@Override
 	public boolean supports(GraphicsObject object) {
