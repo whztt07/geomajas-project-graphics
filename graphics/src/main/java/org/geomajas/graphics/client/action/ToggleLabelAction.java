@@ -14,54 +14,35 @@ import org.geomajas.graphics.client.object.ExternalLabel;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
 import org.geomajas.graphics.client.operation.ToggleExternalizableLabelOperation;
-import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 
 /**
  * Action to delete a {@link GraphicsObject}.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
-public class ToggleLabelAction implements Action {
+public class ToggleLabelAction extends AbstractAction {
 
-	private GraphicsService service;
-	
-	private String iconUrl;
-	
-	private String label = "toggle label";
+	@Override
+	protected String getDefaultLabel() {
+		return GraphicsResource.MESSAGES.actionLabelToggleLabel();
+	}
 
+	@Override
 	public boolean supports(GraphicsObject object) {
 		return (object.hasRole(ExternalizableLabeled.TYPE) 
 				&& object.getRole(ExternalizableLabeled.TYPE) instanceof ExternalizableLabeled) ||
 				object instanceof ExternalLabel;
 	}
 
+	@Override
 	public void execute(GraphicsObject object) {
 		if (object instanceof ExternalLabel) {
 			ExternalLabel exLabel = (ExternalLabel) object;
 			object = (GraphicsObject) exLabel.getExternalizableLabeled().getMasterObject();
 		}
-		service.execute(new ToggleExternalizableLabelOperation(object));
+		getService().execute(new ToggleExternalizableLabelOperation(object));
 	}
-
-	@Override
-	public void setService(GraphicsService service) {
-		this.service = service;
-	}
-
-	@Override
-	public String getLabel() {
-		return label;
-	}
-	
-	@Override
-	public void setIconUrl(String url) {
-		this.iconUrl = url;
-	}
-
-	@Override
-	public String getIconUrl() {
-		return iconUrl;
-	}
-
 }

@@ -20,11 +20,28 @@ import com.google.gwt.i18n.client.Messages;
  */
 public interface GraphicsMessages extends Messages {
 
-	String bringToFrontActionLabel();
+	/* Action labels */
 
-	String deleteActionLabel();
+	String actionLabelBringToFront();
 
-	String duplicateActionLabel();
+	String actionLabelDelete();
+
+	String actionLabelDuplicate();
+
+	String actionLabelToggleLabel();
+
+	String actionLabelAddTextAnchor();
+
+	/* Editor labels */
+
+	String editorLabelTextable();
+
+	String editorLabelLabeled();
+
+	/* dfault labels on creation */ //TODO delete this functionality
+	String defaultLabelRectangle
+
+	/* create icon labels */
 
 	String createIconChoicePopupChooseIcon();
 
@@ -34,10 +51,6 @@ public interface GraphicsMessages extends Messages {
 
 	String createIconChoicePopupOkButton();
 
-	/* Editor labels */
 
-	String editorLabelTextable();
-
-	String editorLabelLabeled();
 
 }

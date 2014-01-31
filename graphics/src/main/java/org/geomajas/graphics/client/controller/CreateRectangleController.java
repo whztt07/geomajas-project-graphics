@@ -23,6 +23,8 @@ import org.geomajas.graphics.client.service.GraphicsService;
 
 public class CreateRectangleController extends CreateResizableController<GRectangle> {
 
+	public String label =
+
 	public CreateRectangleController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}

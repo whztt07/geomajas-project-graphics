@@ -16,6 +16,7 @@ import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.Resizable;
 import org.geomajas.graphics.client.object.anchor.Anchorable;
 import org.geomajas.graphics.client.object.anchor.AnchoredToResizable;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -24,54 +25,30 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan Venstermans
  * 
  */
-public class AddTextAsAnchorAction implements Action {
+public class AddTextAsAnchorAction extends AbstractAction {
 
-	private GraphicsService service;
-	
-	private GraphicsObject object;
-	
-	private String iconUrl;
+	@Override
+	protected String getDefaultLabel() {
+		return GraphicsResource.MESSAGES.actionLabelAddTextAnchor();
+	}
 
+	@Override
 	public boolean supports(GraphicsObject object) {
 		return object.hasRole(Anchorable.TYPE) && object instanceof Resizable;
 	}
 
+	@Override
 	public void execute(GraphicsObject object) {
-		this.object = object;
 		//deactivate all controllers
-		service.getMetaController().setActive(false);
+		getService().getMetaController().setActive(false);
 		
 		//create and activate a custom textcretor controller
-		CreateAnchoredOnTextController textCreator = new CreateAnchoredOnTextController(service);
+		CreateAnchoredOnTextController textCreator = new CreateAnchoredOnTextController(getService(), object);
 		textCreator.setActive(true);
-	}
-
-	@Override
-	public void setService(GraphicsService service) {
-		this.service = service;
-	}
-
-	@Override
-	public String getLabel() {
-		return "anchor text";
-	}
-	
-	@Override
-	public void setIconUrl(String url) {
-		this.iconUrl = url;
-	}
-
-	@Override
-	public String getIconUrl() {
-		return iconUrl;
-	}
-	
-	protected void anchorTextOnObject(GText result){
-		
 	}
 	
 	/**
-	 * This inner class creates a {@link GText} object, with role {@link AnchoredTo} the master
+	 * This inner class creates a {@link GText} object, with role {@link Anchorable} the master
 	 * {@link GraphicsObject}.
 	 * 
 	 * @author Jan Venstermans
@@ -79,8 +56,11 @@ public class AddTextAsAnchorAction implements Action {
 	 */
 	public class CreateAnchoredOnTextController extends CreateTextController {
 
-		public CreateAnchoredOnTextController(GraphicsService graphicsService) {
+		private GraphicsObject object;
+
+		public CreateAnchoredOnTextController(GraphicsService graphicsService, GraphicsObject object) {
 			super(graphicsService);
+			this.object = object;
 		}
 		
 		@Override

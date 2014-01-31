@@ -55,7 +55,9 @@ public interface Action {
 	 * @return the url
 	 */
 	String getIconUrl();
-	
+
+	void setLabel(String label);
+
 	/**
 	 * Set the url of the icon that represents this action.
 	 * 

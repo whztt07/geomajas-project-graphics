@@ -17,20 +17,22 @@ import org.geomajas.graphics.client.object.ResizableGraphicsObject;
 import org.geomajas.graphics.client.object.anchor.AnchoredTo;
 import org.geomajas.graphics.client.object.anchor.ExternalLabelOfResizable;
 import org.geomajas.graphics.client.resource.GraphicsResource;
-import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
  * Action to duplicate a {@link GraphicsObject}.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
-public class DuplicateAction implements Action {
+public class DuplicateAction extends AbstractAction {
 
-	private GraphicsService service;
-	
-	private String iconUrl;
+	@Override
+	protected String getDefaultLabel() {
+		return GraphicsResource.MESSAGES.actionLabelDuplicate();
+	}
 
+	@Override
 	public boolean supports(GraphicsObject object) {
 		if (object.hasRole(AnchoredTo.TYPE) && object.getRole(AnchoredTo.TYPE) instanceof ExternalLabelOfResizable) {
 			return false;
@@ -38,6 +40,7 @@ public class DuplicateAction implements Action {
 		return true;
 	}
 
+	@Override
 	public void execute(GraphicsObject object) {
 		GraphicsObject object2 = (GraphicsObject) object.cloneObject();
 		if (object2 instanceof ResizableGraphicsObject) {
@@ -49,27 +52,6 @@ public class DuplicateAction implements Action {
 		} else {
 			object2.asObject().setTranslation(10.0, 10.0);
 		}
-		service.getObjectContainer().add(object2);
+		getService().getObjectContainer().add(object2);
 	}
-
-	@Override
-	public void setService(GraphicsService service) {
-		this.service = service;
-	}
-
-	@Override
-	public String getLabel() {
-		return GraphicsResource.MESSAGES.duplicateActionLabel();
-	}
-	
-	@Override
-	public void setIconUrl(String url) {
-		this.iconUrl = url;
-	}
-
-	@Override
-	public String getIconUrl() {
-		return iconUrl;
-	}
-
 }

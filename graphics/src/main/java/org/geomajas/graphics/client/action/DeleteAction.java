@@ -15,20 +15,22 @@ import org.geomajas.graphics.client.object.anchor.AnchoredTo;
 import org.geomajas.graphics.client.object.anchor.ExternalLabelOfResizable;
 import org.geomajas.graphics.client.operation.RemoveOperation;
 import org.geomajas.graphics.client.resource.GraphicsResource;
-import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
  * Action to delete a {@link GraphicsObject}.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
-public class DeleteAction implements Action {
+public class DeleteAction extends AbstractAction {
 
-	private GraphicsService service;
-	
-	private String iconUrl;
+	@Override
+	protected String getDefaultLabel() {
+		return GraphicsResource.MESSAGES.actionLabelDelete();
+	}
 
+	@Override
 	public boolean supports(GraphicsObject object) {
 		if (object.hasRole(AnchoredTo.TYPE) && object.getRole(AnchoredTo.TYPE) instanceof ExternalLabelOfResizable) {
 			return false;
@@ -36,28 +38,8 @@ public class DeleteAction implements Action {
 		return true;
 	}
 
+	@Override
 	public void execute(GraphicsObject object) {
-		service.execute(new RemoveOperation(object));
+		getService().execute(new RemoveOperation(object));
 	}
-
-	@Override
-	public void setService(GraphicsService service) {
-		this.service = service;
-	}
-
-	@Override
-	public String getLabel() {
-		return GraphicsResource.MESSAGES.deleteActionLabel();
-	}
-	
-	@Override
-	public void setIconUrl(String url) {
-		this.iconUrl = url;
-	}
-
-	@Override
-	public String getIconUrl() {
-		return iconUrl;
-	}
-
 }

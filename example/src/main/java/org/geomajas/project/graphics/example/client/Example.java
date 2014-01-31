@@ -116,12 +116,12 @@ public class Example implements EntryPoint, Handler {
 	}
 	
 	private void registerControllerFactories() {
-		service.registerControllerFactory(new ResizeControllerFactory());
+//		service.registerControllerFactory(new ResizeControllerFactory());
 		service.registerControllerFactory(new DragControllerFactory());
-		service.registerControllerFactory(new DeleteControllerFactory());
-		service.registerControllerFactory(new LabelControllerFactory());
-		service.registerControllerFactory(new ExternalizableLabeledControllerFactory());
-		service.registerControllerFactory(new AnchorControllerFactory());
+//		service.registerControllerFactory(new DeleteControllerFactory());
+//		service.registerControllerFactory(new LabelControllerFactory());
+//		service.registerControllerFactory(new ExternalizableLabeledControllerFactory());
+//		service.registerControllerFactory(new AnchorControllerFactory());
 		service.registerControllerFactory(popupFactory);
 	}
 	
@@ -135,7 +135,7 @@ public class Example implements EntryPoint, Handler {
 		popupFactory.registerAction(new BringToFrontAction());
 		popupFactory.registerEditor(new AnchorStyleEditor());
 //		popupFactory.registerAction(new AddTextAsAnchorAction());
-		popupFactory.registerAction(new ToggleLabelAction());
+//		popupFactory.registerAction(new ToggleLabelAction());
 //		popupFactory.registerEditor(new TemplateLabelEditor());
 	}
 	
