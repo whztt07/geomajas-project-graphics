@@ -32,8 +32,7 @@ public class AnchoredCircle extends Circle implements Cloneable {
 	 * 
 	 * @param userX x-location in world coordinates
 	 * @param userY y-location in world coordinates
-	 * @param width width in pixels
-	 * @param height height in pixels
+	 * @param userRadius width in pixels
 	 * @param anchorX x-location of the anchor point (rectangle-relative)
 	 * @param anchorY y-location of the anchor point (rectangle-relative)
 	 */

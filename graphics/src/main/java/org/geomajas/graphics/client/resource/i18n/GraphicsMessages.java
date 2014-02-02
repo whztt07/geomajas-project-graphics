@@ -38,8 +38,24 @@ public interface GraphicsMessages extends Messages {
 
 	String editorLabelLabeled();
 
+	String editorLabelResizableAnchorStyle();
+
+	String editorLabelStrokeFillStyle();
+
+	String editorLabelTemplateLabeled();
+
 	/* dfault labels on creation */ //TODO delete this functionality
-	String defaultLabelRectangle
+	String defaultLabelRectangle();
+
+	String defaultLabelPathPolygon();
+
+	String defaultLabelPathLine();
+
+	String defaultLabelEllipse();
+
+	String defaultLabelImage();
+
+	String loremIpsum();
 
 	/* create icon labels */
 
@@ -52,5 +68,49 @@ public interface GraphicsMessages extends Messages {
 	String createIconChoicePopupOkButton();
 
 
+	String popupMenuEditorDialogButtonOk();
+	String popupMenuEditorDialogButtonApply();
+	String popupMenuEditorDialogButtonUndo();
+	String popupMenuEditorDialogButtonCancel();
 
+	String editorStrokableLabelWidth();
+	String editorStrokableLabelColor();
+	String editorStrokableLabelOpacity();
+
+	String editorFillableLabelColor();
+	String editorFillableLabelOpacity();
+
+	String editorTextableLabelText();
+	String editorTextableLabelColor();
+	String editorTextableLabelSize();
+	String editorTextableLabelFontFamily();
+
+	String editorAnchoredLabelLineWidth();
+	String editorAnchoredLabelLineColor();
+	String editorAnchoredLabelLineOpacity();
+
+	String editorAnchoredLabelPointPosition();
+	String editorAnchoredLabelPointPositionX();
+	String editorAnchoredLabelPointPositionY();
+	String editorAnchoredLabelPointColor();
+	String editorAnchoredLabelPointOpacity();
+
+	String editorButtonColorPicker();
+
+	/* Exceptions */
+
+	String exceptionStrokeWidthIllegalArgument();
+
+	String exceptionValidationColorTextBox();
+
+	String exceptionValidationDoubleIllegalArgument();
+
+	String exceptionValidationIntegerIllegalArgument();
+
+	/* eventualy remove this? */
+	String editorLabelAnchorStrokeDefault();
+
+	String editorLabelAnchorPointDefault();
+
+	String templateLabeledDefaultPrefixText();
 }

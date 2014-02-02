@@ -31,8 +31,7 @@ public class AnchoredText extends Text {
 	 * 
 	 * @param userX x-location in world coordinates
 	 * @param userY y-location in world coordinates
-	 * @param width width in pixels
-	 * @param height height in pixels
+	 * @param text width in pixels
 	 * @param anchorX x-location of the anchor point (text-relative)
 	 * @param anchorY y-location of the anchor point (text-relative)
 	 */

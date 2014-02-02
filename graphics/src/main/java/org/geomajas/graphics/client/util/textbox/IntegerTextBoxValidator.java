@@ -11,6 +11,8 @@
 
 package org.geomajas.graphics.client.util.textbox;
 
+import org.geomajas.graphics.client.resource.GraphicsResource;
+
 /**
  * Extention of the {@link StringTextBoxValidator} for textBoxes where the String content must be an integer.
  * 
@@ -21,7 +23,7 @@ public class IntegerTextBoxValidator extends StringTextBoxValidator {
 	@Override
 	public boolean isValid() {
 		validate();
-		evaluateErrorMessage("Value must be an integer.");
+		evaluateErrorMessage(GraphicsResource.MESSAGES.exceptionValidationIntegerIllegalArgument());
 		return super.isValid();
 	}
 	

@@ -3,41 +3,43 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:w="urn:import:org.geomajas.graphics.client.util.textbox">
 
+	<ui:with field='msg' type='org.geomajas.graphics.client.resource.i18n.GraphicsMessages'/>
+
 	<g:HTMLPanel ui:field="totalPanel">
 		<table>
 			<tr>
 				<td>
-					<g:Label>Text:</g:Label>
+					<g:Label text="{msg.editorTextableLabelText}"/>
 				</td>
 				<td>
-					<g:TextArea ui:field="labelBox"></g:TextArea>
+					<g:TextArea ui:field="labelBox"/>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<g:Label>Color:</g:Label>
+					<g:Label text="{msg.editorTextableLabelColor}"/>
 				</td>
 				<td class="textBoxCell">
 					<w:ColorTextBoxValidator ui:field="fillColorValidator"/>
 				</td>
 				<td>
-					<g:Button ui:field="fillColorButton">...</g:Button>
+					<g:Button ui:field="fillColorButton" text="{msg.editorButtonColorPicker}"/>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<g:Label>Size:</g:Label>
+					<g:Label text="{msg.editorTextableLabelSize}"/>
 				</td>
 				<td colspan="2">
-					<g:TextBox ui:field="fontSize"></g:TextBox>
+					<g:TextBox ui:field="fontSize"/>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<g:Label>Font Family:</g:Label>
+					<g:Label text="{msg.editorTextableLabelFontFamily}"/>
 				</td>
 				<td colspan="2">
-					<g:TextBox ui:field="fontFamily"></g:TextBox>
+					<g:TextBox ui:field="fontFamily"/>
 				</td>
 			</tr>
 		</table>

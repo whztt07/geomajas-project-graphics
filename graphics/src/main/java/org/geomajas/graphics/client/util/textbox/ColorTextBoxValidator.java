@@ -11,12 +11,14 @@
 
 package org.geomajas.graphics.client.util.textbox;
 
+import org.geomajas.graphics.client.resource.GraphicsResource;
+
 import java.util.Arrays;
 
 
 
 /**
- * Extention of the {@link TextBoxEditorDecorator<T>} for textboxes displaying a string.
+ * Extention of the {@link StringTextBoxValidator} for css strings.
  * 
  * @author Jan Venstermans
  */
@@ -27,7 +29,7 @@ public class ColorTextBoxValidator extends StringTextBoxValidator {
 	@Override
 	public boolean isValid() {
 		validate();
-		evaluateErrorMessage("Color must have form #xxxxxx or be a standard value (e.g. red).");
+		evaluateErrorMessage(GraphicsResource.MESSAGES.exceptionValidationColorTextBox());
 		return super.isValid();
 	}
 	

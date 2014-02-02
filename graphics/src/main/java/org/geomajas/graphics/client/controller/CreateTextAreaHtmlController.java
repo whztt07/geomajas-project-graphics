@@ -12,6 +12,7 @@ package org.geomajas.graphics.client.controller;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.GTextAreaHtml;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -60,15 +61,7 @@ public class CreateTextAreaHtmlController extends CreateController<GTextAreaHtml
 	public void onMouseUp(MouseUpEvent event) {
 		Coordinate position = getUserCoordinate(event);
 		GTextAreaHtml textAreaHtml = new GTextAreaHtml(position.getX(), position.getY(), 100, 100,
-				"Lorem ipsum dolor sit amet, consectetur adipisicing elit, "
-						+ "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-						+ " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-						+ " nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor"
-						+ " in reprehenderit in voluptate velit esse cillum dolore eu "
-						+ "fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, "
-						+ "sunt in culpa qui officia deserunt mollit anim id est laborum");
+				GraphicsResource.MESSAGES.loremIpsum());
 		addObject(textAreaHtml);
 	}
-
-
 }

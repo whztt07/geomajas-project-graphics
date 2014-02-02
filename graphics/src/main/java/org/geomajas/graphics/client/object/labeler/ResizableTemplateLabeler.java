@@ -15,6 +15,7 @@ import org.geomajas.graphics.client.object.ResizableAwareRole;
 import org.geomajas.graphics.client.object.role.RoleType;
 import org.geomajas.graphics.client.object.role.TemplateLabeled;
 import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -89,7 +90,7 @@ public class ResizableTemplateLabeler extends ResizableTextable implements Templ
 	// this makes the rendered text from the template text
 	public void renderTemplateText() {
 		// stub
-		setLabelRenderedText("template: " + templateText);
+		setLabelRenderedText(GraphicsResource.MESSAGES.templateLabeledDefaultPrefixText() + templateText);
 	}
 
 	@Override

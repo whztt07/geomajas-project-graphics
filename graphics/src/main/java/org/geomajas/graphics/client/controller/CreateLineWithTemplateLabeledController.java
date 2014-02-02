@@ -17,10 +17,11 @@ import org.geomajas.graphics.client.object.labeler.ResizableTextable;
 import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
 import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.operation.AddOperation;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Controller that creates a line with {@link TemplateLabeled} role.
+ * Controller that creates a line with {@link org.geomajas.graphics.client.object.role.TemplateLabeled} role.
  * 
  * @author Jan Venstermans
  * 
@@ -36,7 +37,7 @@ public class CreateLineWithTemplateLabeledController extends CreatePathControlle
 				getService().isExternalizableLabeledOriginallyExternal()));
 		ResizableTextable restTextable = (ResizableTextable) path.getRole(Labeled.TYPE).getTextable();
 		ResizableTemplateLabeler tempLabeled = new ResizableTemplateLabeler(restTextable);
-		tempLabeled.setLabelTemplateText("Line");
+		tempLabeled.setLabelTemplateText(GraphicsResource.MESSAGES.defaultLabelPathLine());
 		path.getRole(Labeled.TYPE).setTextable(tempLabeled);
 		execute(new AddOperation(path));
 	}

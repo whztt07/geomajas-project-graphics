@@ -42,9 +42,6 @@ public class AnchoredCross extends Path implements Cloneable {
 	 * @param userX x-location in world coordinates of the cross intersection point
 	 * @param userY y-location in world coordinates of the cross intersection point
 	 * @param crossHeightPixels height of the  in pixels
-	 * @param anchorX x-location of the anchor point (cross-relative)
-	 * @param anchorY
-	 *            y-location of the anchor point (cross-relative)
 	 */
 	public AnchoredCross(double userX, double userY, int crossHeightPixels) {
 		super(userX, userY);

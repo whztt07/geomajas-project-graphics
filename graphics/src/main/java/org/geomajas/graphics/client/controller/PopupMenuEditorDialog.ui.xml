@@ -2,15 +2,17 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
+	<ui:with field='msg' type='org.geomajas.graphics.client.resource.i18n.GraphicsMessages'/>
+
 	<g:DialogBox>
 		<g:caption></g:caption>
 		<g:VerticalPanel>
 			<g:SimplePanel ui:field="editorPanel" height="100%"/>
 			<g:HorizontalPanel styleName="popup-buttons">
-				<g:Button ui:field="okButton">Ok</g:Button>
-				<g:Button ui:field="applyButton" >Apply</g:Button>
-				<g:Button ui:field="undoButton" >Undo</g:Button>
-				<g:Button ui:field="cancelButton" >Cancel</g:Button>
+				<g:Button ui:field="okButton" text="{msg.popupMenuEditorDialogButtonOk}"/>
+				<g:Button ui:field="applyButton" text="{msg.popupMenuEditorDialogButtonApply}"/>
+				<g:Button ui:field="undoButton" text="{msg.popupMenuEditorDialogButtonUndo}"/>
+				<g:Button ui:field="cancelButton" text="{msg.popupMenuEditorDialogButtonCancel}"/>
 			</g:HorizontalPanel>
 		</g:VerticalPanel>
 	</g:DialogBox>

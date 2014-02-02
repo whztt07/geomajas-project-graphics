@@ -16,6 +16,7 @@ import org.geomajas.graphics.client.object.anchor.Anchored;
 import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
 import org.geomajas.graphics.client.operation.AnchorOperation;
 import org.geomajas.graphics.client.operation.AnchorStyleOperation;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.util.textbox.ColorTextBoxValidator;
 import org.geomajas.graphics.client.util.textbox.DoubleTextBoxValidator;
@@ -159,13 +160,13 @@ public class AnchorStyleEditor implements Editor {
 		strokeColorBox.setLabel(object.getRole(ResizableAnchorer.TYPE).getAnchorLineColor());
 		strokeOpacitySlider.setCurrentValue(
 				1 - object.getRole(ResizableAnchorer.TYPE).getAnchorLineOpacity());
-		strokeLabel.setText("Anchor Line Parameters");
+		strokeLabel.setText(GraphicsResource.MESSAGES.editorLabelAnchorStrokeDefault());
 
 		//point style
 		pointColorBox.setLabel(object.getRole(ResizableAnchorer.TYPE).getAnchorPointColor());
 		pointOpacitySlider.setCurrentValue(
 				1 - object.getRole(ResizableAnchorer.TYPE).getAnchorPointOpacity());
-		pointLabel.setText("Anchor Point Parameters");
+		pointLabel.setText(GraphicsResource.MESSAGES.editorLabelAnchorPointDefault());
 	
 		//point coordinates
 		pointPositionX.setLabel(object.getRole(Anchored.TYPE).getAnchorPosition().getX() + "");
@@ -196,7 +197,7 @@ public class AnchorStyleEditor implements Editor {
 
 	@Override
 	public String getLabel() {
-		return "Edit Anchor Style";
+		return GraphicsResource.MESSAGES.editorLabelResizableAnchorStyle();
 	}
 
 	@Override

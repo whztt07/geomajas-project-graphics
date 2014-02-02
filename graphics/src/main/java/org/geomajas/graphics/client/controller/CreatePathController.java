@@ -19,6 +19,7 @@ import org.geomajas.graphics.client.object.labeler.ResizableExternalizableLabele
 import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.operation.AddOperation;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
@@ -73,7 +74,8 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 		this.closedPath = closedPath;
 		fillOpacity = closedPath ? 1 : 0;
 		showPreview = closedPath;
-		text = closedPath ? "Polygon" : "Line";
+		text = closedPath ? GraphicsResource.MESSAGES.defaultLabelPathPolygon()
+				: GraphicsResource.MESSAGES.defaultLabelPathLine();
 		container = createContainer();
 	}
 

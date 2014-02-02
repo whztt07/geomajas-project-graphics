@@ -4,6 +4,8 @@
 	xmlns:w="urn:import:org.geomajas.graphics.client.util.textbox"
 	xmlns:i="urn:import:org.geomajas.graphics.client.widget">
 
+	<ui:with field='msg' type='org.geomajas.graphics.client.resource.i18n.GraphicsMessages'/>
+
 	<g:HTMLPanel>
 		<table>
 			<tr class="strokeRow">
@@ -13,7 +15,7 @@
 			</tr>
 			<tr class="strokeRow">
 				<td>
-					<g:Label>Width:</g:Label>
+					<g:Label text="{msg.editorStrokableLabelWidth}"/>
 				</td>
 				<td>
 					<w:TextBoxEditorDecorator ui:field="strokeWidthBoxDecorator">
@@ -27,21 +29,21 @@
 			</tr>
 			<tr class="strokeRow">
 				<td>
-					<g:Label>Color:</g:Label>
+					<g:Label text="{msg.editorStrokableLabelColor}"/>
 				</td>
 				<td class="textBoxCell">
-					<g:TextBox ui:field="strokeColorBox"></g:TextBox>
+					<g:TextBox ui:field="strokeColorBox"/>
 				</td>
 				<td>
-					<g:Button ui:field="strokeColorButton">...</g:Button>
+					<g:Button ui:field="strokeColorButton" text="{msg.editorButtonColorPicker}"/>
 				</td>
 			</tr>
 			<tr class="opacityRow strokeRow">
 				<td>
-					<g:Label>Transparency:</g:Label>
+					<g:Label text="{msg.editorStrokableLabelOpacity}"/>
 				</td>
 				<td colspan="2" class="transparencySliderCell"> 
-					<i:TransparencySliderBar ui:field="strokeOpacitySlider"></i:TransparencySliderBar>
+					<i:TransparencySliderBar ui:field="strokeOpacitySlider"/>
 				</td>
 			</tr>
 			<tr class="fillRow strokeRow">
@@ -55,21 +57,21 @@
 			</tr>
 			<tr class="fillRow">
 				<td>
-					<g:Label>Color:</g:Label>
+					<g:Label text="{msg.editorFillableLabelColor}"/>
 				</td>
 				<td class="textBoxCell">
-					<g:TextBox ui:field="fillColorBox"></g:TextBox>
+					<g:TextBox ui:field="fillColorBox"/>
 				</td>
 				<td>
-					<g:Button ui:field="fillColorButton">...</g:Button>
+					<g:Button ui:field="fillColorButton" text="{msg.editorButtonColorPicker}"/>
 				</td>
 			</tr>
 			<tr class="opacityRow fillRow">
 				<td>
-					<g:Label>Transparency:</g:Label>
+					<g:Label text="{msg.editorFillableLabelOpacity}"/>
 				</td>
 				<td colspan="2" class="transparencySliderCell">
-					<i:TransparencySliderBar ui:field="fillOpacitySlider"></i:TransparencySliderBar>
+					<i:TransparencySliderBar ui:field="fillOpacitySlider"/>
 				</td>
 			</tr>
 		</table>

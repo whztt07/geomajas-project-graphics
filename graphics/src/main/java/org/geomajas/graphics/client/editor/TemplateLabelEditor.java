@@ -15,6 +15,7 @@ import org.geomajas.graphics.client.object.ExternalLabel;
 import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.object.role.TemplateLabeled;
 import org.geomajas.graphics.client.operation.LabelOperation;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 
 /**
  * {@link Editor} for the {@link TemplateLabeled} role.
@@ -58,7 +59,7 @@ public class TemplateLabelEditor extends LabelEditorOld {
 	
 	@Override
 	public String getLabel() {
-		return "Edit template text";
+		return GraphicsResource.MESSAGES.editorLabelTemplateLabeled();
 	}
 	
 	private TemplateLabeled getTemplateLabeled() {

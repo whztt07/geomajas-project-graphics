@@ -16,6 +16,7 @@ import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.operation.FillOperation;
 import org.geomajas.graphics.client.operation.StrokeOperation;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.util.Interruptible;
 import org.geomajas.graphics.client.util.textbox.TextBoxEditorDecorator;
@@ -200,7 +201,7 @@ public class StrokeFillEditor implements Editor, Interruptible {
 
 	@Override
 	public String getLabel() {
-		return "Edit style";
+		return GraphicsResource.MESSAGES.editorLabelStrokeFillStyle();
 	}
 
 	@Override
@@ -209,7 +210,7 @@ public class StrokeFillEditor implements Editor, Interruptible {
 			Integer.parseInt(strokeWidthBox.getText());
 			return true;
 		} catch (Exception e) {
-			strokeWidthBoxDecorator.showError("Stroke width must be an integer.");
+			strokeWidthBoxDecorator.showError(GraphicsResource.MESSAGES.exceptionStrokeWidthIllegalArgument());
 			return false;
 		}
 	}

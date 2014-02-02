@@ -16,6 +16,7 @@ import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.object.role.Textable;
 import org.geomajas.graphics.client.operation.LabelOperation;
+import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.util.textbox.ColorTextBoxValidator;
 
@@ -132,7 +133,7 @@ public class LabelEditorOld implements Editor {
 
 	@Override
 	public String getLabel() {
-		return "Edit text";
+		return GraphicsResource.MESSAGES.editorLabelLabeled();
 	}
 
 	@Override

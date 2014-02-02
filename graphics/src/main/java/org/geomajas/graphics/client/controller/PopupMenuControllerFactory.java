@@ -88,7 +88,7 @@ public class PopupMenuControllerFactory implements GraphicsControllerFactory {
 	 * Register an editor with the popup menu. Actions/editors appear top-to-bottom in the order in which they have been
 	 * registered.
 	 * 
-	 * @param action
+	 * @param editor
 	 */
 
 	public void registerEditor(Editor editor) {
@@ -199,6 +199,11 @@ public class PopupMenuControllerFactory implements GraphicsControllerFactory {
 		@Override
 		public String getIconUrl() {
 			return iconUrl;
+		}
+
+		@Override
+		public void setLabel(String label) {
+			// don't do anything
 		}
 
 		@Override

@@ -32,8 +32,8 @@ public class AnchoredRectangle extends Rectangle implements Cloneable {
 	 * 
 	 * @param userX x-location in world coordinates
 	 * @param userY y-location in world coordinates
-	 * @param width width in pixels
-	 * @param height height in pixels
+	 * @param userWidth width in pixels
+	 * @param userHeight height in pixels
 	 * @param anchorX x-location of the anchor point (rectangle-relative)
 	 * @param anchorY y-location of the anchor point (rectangle-relative)
 	 */
