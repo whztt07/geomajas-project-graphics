@@ -202,11 +202,6 @@ public class PopupMenuControllerFactory implements GraphicsControllerFactory {
 		}
 
 		@Override
-		public void setLabel(String label) {
-			// don't do anything
-		}
-
-		@Override
 		public void cancel() {
 			box.hide();
 			if (editor instanceof Interruptible) {

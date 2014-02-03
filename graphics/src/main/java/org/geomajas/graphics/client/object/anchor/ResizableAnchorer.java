@@ -56,7 +56,6 @@ public class ResizableAnchorer implements Anchored, ResizableAwareRole<Anchored>
 		this.markerShape = (markerShape != null) ? markerShape : MarkerShape.SQUARE;
 		anchor = createAnchor(this.markerShape.getMarkerShape());
 		anchorSection = new Group();
-		anchorSection.add(anchor);
 		// add a transparant but clickable background object in case of Cross Markershape
 		// The cross itzelf is not clickable/draggable enough
 		if (this.markerShape.equals(MarkerShape.CROSS)) {
@@ -65,6 +64,7 @@ public class ResizableAnchorer implements Anchored, ResizableAwareRole<Anchored>
 			background.setStrokeOpacity(0);
 			anchorSection.add(background);
 		}
+		anchorSection.add(anchor);
 		anchorPath = new CoordinatePath(false);
 		anchorGroup = new Group();
 		anchorGroup.add(anchorPath);

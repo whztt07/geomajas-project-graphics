@@ -50,7 +50,6 @@ public abstract class AbstractAction implements Action {
 		return label;
 	}
 
-	@Override
 	public void setLabel(String label) {
 		this.label = label;
 	}
