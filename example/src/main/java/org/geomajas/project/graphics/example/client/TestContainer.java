@@ -36,6 +36,7 @@ import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
 import org.geomajas.graphics.client.service.AbstractGraphicsObjectContainer;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.geomajas.graphics.client.util.BboxPosition;
+import org.geomajas.graphics.client.util.GraphicsUtil;
 import org.vaadin.gwtgraphics.client.DrawingArea;
 
 import java.util.ArrayList;
@@ -66,12 +67,18 @@ public class TestContainer extends AbstractGraphicsObjectContainer implements Is
 		setWidgetContainer(rootPanel);
 		rootPanel.add(canvas);
 		Event.addNativePreviewHandler(this);
-		GRectangle rect = new GRectangle(100, 100, 100, 100, "Rectangle label");
-		GCircle circle = new GCircle(300, 100, 50, "Circle");
-		GEllipse ellipse = new GEllipse(100, 300, 50, 80, "Ellipse");
+		GRectangle rect = new GRectangle(100, 100, 100, 100);
+		GraphicsUtil.addLabeledRole(rect, "Rectangle label");
+		GCircle circle = new GCircle(300, 100, 50);
+		GraphicsUtil.addLabeledRole(circle, "Circle");
+		GEllipse ellipse = new GEllipse(100, 300, 50, 80);
+		GraphicsUtil.addLabeledRole(ellipse, "Ellipse");
 		GImage image = new GImage(200, 200, 200, 235,
-				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png", "Image");
-		GPath path = new GPath(new Coordinate[] { new Coordinate(300, 300), new Coordinate(500, 400) }, false, "Path");
+				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png");
+		GraphicsUtil.addLabeledRole(image, "Image");
+		GPath path = new GPath(new Coordinate[] { new Coordinate(300, 300), new Coordinate(500, 400) },
+				false);
+		GraphicsUtil.addLabeledRole(path, "Path");
 		GText text = new GText(50, 50, "test");
 		text.addRole(new ResizableAnchorer());
 		text.getRole(Anchored.TYPE).setAnchorPosition(new Coordinate(50, 90));

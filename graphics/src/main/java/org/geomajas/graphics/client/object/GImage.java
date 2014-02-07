@@ -24,20 +24,16 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class GImage extends ResizableGraphicsObject {
 
-	public GImage(int x, int y, int width, int height, String href, String text) {
-		this(new Image(x, y, width, height, href), text);
+	public GImage(int x, int y, int width, int height, String href) {
+		this(new Image(x, y, width, height, href));
 	}
 
-	public GImage(Image image, String text) {
-		this(new ResizableImage(image), text);
+	public GImage(Image image) {
+		this(new ResizableImage(image));
 	}
 
 	public GImage(ResizableImage image) {
 		super(image);
-	}
-
-	public GImage(ResizableImage image, String text) {
-		super(image, text);
 	}
 
 	@Override

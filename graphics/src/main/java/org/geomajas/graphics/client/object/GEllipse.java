@@ -25,20 +25,16 @@ import org.vaadin.gwtgraphics.client.shape.Ellipse;
  */
 public class GEllipse extends ResizableGraphicsObject {
 
-	public GEllipse(double userX, double userY, double userRadiusX, double userRadiusY, String text) {
-		this(new Ellipse(userX, userY, userRadiusX, userRadiusY), text);
+	public GEllipse(double userX, double userY, double userRadiusX, double userRadiusY) {
+		this(new Ellipse(userX, userY, userRadiusX, userRadiusY));
 	}
 
-	public GEllipse(Ellipse ellipse, String text) {
-		this(new ResizableEllipse(ellipse), text);
+	public GEllipse(Ellipse ellipse) {
+		this(new ResizableEllipse(ellipse));
 	}
 	
 	public GEllipse(ResizableEllipse ellipse) {
 		super(ellipse);
-	}
-
-	public GEllipse(ResizableEllipse ellipse, String text) {
-		super(ellipse, text);
 	}
 
 	@Override

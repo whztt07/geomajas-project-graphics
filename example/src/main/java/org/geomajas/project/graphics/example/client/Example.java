@@ -28,9 +28,12 @@ import org.geomajas.graphics.client.controller.CreatePathController;
 import org.geomajas.graphics.client.controller.CreateRectangleController;
 import org.geomajas.graphics.client.controller.CreateTextAreaHtmlController;
 import org.geomajas.graphics.client.controller.CreateTextController;
+import org.geomajas.graphics.client.controller.DeleteControllerFactory;
 import org.geomajas.graphics.client.controller.DragControllerFactory;
+import org.geomajas.graphics.client.controller.LabelControllerFactory;
 import org.geomajas.graphics.client.controller.PopupMenuControllerFactory;
 import org.geomajas.graphics.client.controller.PopupMenuFactory;
+import org.geomajas.graphics.client.controller.ResizeControllerFactory;
 import org.geomajas.graphics.client.editor.AnchorStyleEditor;
 import org.geomajas.graphics.client.editor.LabelEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
@@ -110,10 +113,10 @@ public class Example implements EntryPoint, Handler {
 	}
 	
 	private void registerControllerFactories() {
-//		service.registerControllerFactory(new ResizeControllerFactory());
+		service.registerControllerFactory(new ResizeControllerFactory());
 		service.registerControllerFactory(new DragControllerFactory());
-//		service.registerControllerFactory(new DeleteControllerFactory());
-//		service.registerControllerFactory(new LabelControllerFactory());
+		service.registerControllerFactory(new DeleteControllerFactory());
+		service.registerControllerFactory(new LabelControllerFactory());
 //		service.registerControllerFactory(new ExternalizableLabeledControllerFactory());
 //		service.registerControllerFactory(new AnchorControllerFactory());
 		service.registerControllerFactory(popupFactory);

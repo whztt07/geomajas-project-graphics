@@ -12,6 +12,7 @@ package org.geomajas.graphics.client.object;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.object.labeler.ResizableLabeler;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.util.FlipState;
@@ -26,22 +27,19 @@ import org.vaadin.gwtgraphics.client.shape.Rectangle;
  */
 public class GRectangle extends ResizableGraphicsObject implements Fillable, Strokable {
 
-	public GRectangle(double userX, double userY, double width, double height, String text) {
-		this(new Rectangle(userX, userY, width, height), text);
+	public GRectangle(double userX, double userY, double width, double height) {
+		this(new Rectangle(userX, userY, width, height));
 	}
 
-	public GRectangle(Rectangle rectangle, String text) {
-		this(new ResizableRectangle(rectangle), text);
+	public GRectangle(Rectangle rectangle) {
+		this(new ResizableRectangle(rectangle));
 	}
 
 	public GRectangle(ResizableRectangle rectangle) {
-		this(rectangle, null);
-	}
-
-	public GRectangle(ResizableRectangle rectangle, String text) {
-		super(rectangle, text);
+		super(rectangle);
 		addRole(Fillable.TYPE, this);
 		addRole(Strokable.TYPE, this);
+
 	}
 
 	@Override

@@ -32,25 +32,21 @@ import org.vaadin.gwtgraphics.client.VectorObject;
 
 public class GPath extends ResizableGraphicsObject implements Fillable, Strokable, CoordinateBased, Anchorable {
 
-	public GPath(double x, double y, boolean closed, String text) {
-		this(new Coordinate[] { new Coordinate(x, y) }, closed, text);
+	public GPath(double x, double y, boolean closed) {
+		this(new Coordinate[] { new Coordinate(x, y) }, closed);
 	}
 
-	public GPath(Coordinate coordinate, boolean closed, String text) {
-		this(new Coordinate[] { coordinate }, closed, text);
+	public GPath(Coordinate coordinate, boolean closed) {
+		this(new Coordinate[] { coordinate }, closed);
 	}
 
-	public GPath(Coordinate[] coordinates, boolean closed, String text) {
+	public GPath(Coordinate[] coordinates, boolean closed) {
 		this(closed ? new ResizablePath(coordinates, closed) :
-				new ResizablePathLine(coordinates), text);
+				new ResizablePathLine(coordinates));
 	}
 
 	public GPath(ResizablePath path) {
-		this(path, null);
-	}
-
-	public GPath(ResizablePath path, String text) {
-		super(path, text);
+		super(path);
 		addRole(CoordinateBased.TYPE, this);
 		addRole(Strokable.TYPE, this);
 		addRole(Anchorable.TYPE, this);

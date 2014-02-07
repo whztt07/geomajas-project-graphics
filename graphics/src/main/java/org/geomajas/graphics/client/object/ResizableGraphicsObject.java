@@ -48,17 +48,9 @@ public abstract class ResizableGraphicsObject extends BaseGraphicsObject impleme
 			Labeled.TYPE };
 
 	protected ResizableGraphicsObject(Resizable r) {
-		this(r, null);
-	}
-
-	protected ResizableGraphicsObject(Resizable r, String text) {
 		resizable = r;
 		rootGroup = new SortedGroup();
 		addRole(new ResizableRenderer());
-		if (text != null) {
-			addRole(new ResizableLabeler());
-			getRole(Labeled.TYPE).getTextable().setLabel(text);
-		}
 		addRole(Draggable.TYPE, this);
 		addRole(Resizable.TYPE, this);
 	}

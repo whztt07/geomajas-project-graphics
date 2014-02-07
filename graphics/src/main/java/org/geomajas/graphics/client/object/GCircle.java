@@ -13,6 +13,8 @@ package org.geomajas.graphics.client.object;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.object.labeler.ResizableLabeler;
+import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.shape.Circle;
@@ -25,20 +27,16 @@ import org.vaadin.gwtgraphics.client.shape.Circle;
  */
 public class GCircle extends ResizableGraphicsObject {
 
-	public GCircle(double x, double y, double radius, String text) {
-		this(new Circle(x, y, radius), text);
+	public GCircle(double x, double y, double radius) {
+		this(new Circle(x, y, radius));
 	}
 
-	public GCircle(Circle circle, String text) {
-		this(new ResizableCircle(circle), text);
+	public GCircle(Circle circle) {
+		this(new ResizableCircle(circle));
 	}
 
 	public GCircle(ResizableCircle circle) {
-		this(circle, null);
-	}
-	
-	public GCircle(ResizableCircle circle, String text) {
-		super(circle, text);
+		super(circle);
 	}
 
 	@Override
