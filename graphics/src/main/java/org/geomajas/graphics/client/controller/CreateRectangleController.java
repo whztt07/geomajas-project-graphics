@@ -12,7 +12,6 @@ package org.geomajas.graphics.client.controller;
 
 import org.geomajas.graphics.client.object.GRectangle;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -30,6 +29,6 @@ public class CreateRectangleController extends CreateResizableController<GRectan
 
 	@Override
 	protected GraphicsObject createObject() {
-		return new GRectangle(0, 0, 0, 0, GraphicsResource.MESSAGES.defaultLabelRectangle());
+		return new GRectangle(0, 0, 0, 0);
 	}
 }

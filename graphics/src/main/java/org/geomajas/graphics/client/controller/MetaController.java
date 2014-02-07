@@ -236,7 +236,7 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 			// start a drag selection !
 			begin = getUserCoordinate(event);
 			if (dragRectangle == null) {
-				dragRectangle = new GRectangle(0, 0, 0, 0, "");
+				dragRectangle = new GRectangle(0, 0, 0, 0);
 				dragRectangle.setStrokeColor("#696969");
 				dragRectangle.setFillOpacity(0);
 				dragRectangle.setUserBounds(new Bbox(begin.getX(), begin.getY(), 0, 0));

@@ -13,8 +13,6 @@ package org.geomajas.graphics.client.object;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.object.labeler.ResizableLabeler;
-import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.shape.Circle;

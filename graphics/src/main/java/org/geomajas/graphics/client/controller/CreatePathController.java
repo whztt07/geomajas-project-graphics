@@ -10,19 +10,6 @@
  */
 package org.geomajas.graphics.client.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.GPath;
-import org.geomajas.graphics.client.object.labeler.ResizableExternalizableLabeler;
-import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
-import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.operation.AddOperation;
-import org.geomajas.graphics.client.resource.GraphicsResource;
-import org.geomajas.graphics.client.service.GraphicsService;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
-
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
@@ -35,6 +22,17 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.object.GPath;
+import org.geomajas.graphics.client.object.labeler.ResizableExternalizableLabeler;
+import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
+import org.geomajas.graphics.client.object.role.Fillable;
+import org.geomajas.graphics.client.operation.AddOperation;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller that creates a {@link GPath}.
@@ -65,8 +63,6 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 
 	private double fillOpacity;
 
-	private String text;
-
 	private String captureCursor;
 
 	public CreatePathController(GraphicsService graphicsService, boolean closedPath) {
@@ -74,8 +70,6 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 		this.closedPath = closedPath;
 		fillOpacity = closedPath ? 1 : 0;
 		showPreview = closedPath;
-		text = closedPath ? GraphicsResource.MESSAGES.defaultLabelPathPolygon()
-				: GraphicsResource.MESSAGES.defaultLabelPathLine();
 		container = createContainer();
 	}
 
@@ -159,11 +153,11 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 	public void onMouseDown(MouseDownEvent event) {
 		if (isSingleClick(event.getNativeEvent())) {
 			if (path == null) {
-				path = createPath(text);
+				path = createPath();
 				path.setCoordinates(new Coordinate[] { getUserCoordinate(event) });
 				// we can show a preview of the filled path if necessary
 				if (showPreview) {
-					previewPath = createPath("");
+					previewPath = createPath();
 					previewPath.setCoordinates(new Coordinate[] { getUserCoordinate(event) });
 					// add the preview extra point !
 					previewPath.addCoordinate(new Coordinate(getUserCoordinate(event)));
@@ -174,7 +168,7 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 				container.add(path.asObject());
 				// start the drag line, captures all events from now !
 				if (dragLine == null) {
-					dragLine = createPath("");
+					dragLine = createPath();
 					dragLine.setStrokeOpacity(1);
 					container.add(dragLine.asObject());
 				}
@@ -198,8 +192,8 @@ public class CreatePathController extends CreateController<GPath> implements Mou
 															return !event.detail || event.detail==1;
 															}-*/;
 
-	protected GPath createPath(String text) {
-		GPath path = new GPath(new Coordinate(0, 0), isClosedPath(), text);
+	protected GPath createPath() {
+		GPath path = new GPath(new Coordinate(0, 0), isClosedPath());
 		if (closedPath) { // only for polygons
 			path.setFillColor(fillColor);
 			path.setFillOpacity(fillOpacity);

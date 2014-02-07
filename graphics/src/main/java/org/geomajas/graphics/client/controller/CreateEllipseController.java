@@ -12,7 +12,6 @@ package org.geomajas.graphics.client.controller;
 
 import org.geomajas.graphics.client.object.GEllipse;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -29,7 +28,7 @@ public class CreateEllipseController extends CreateResizableController<GEllipse>
 
 	@Override
 	protected GraphicsObject createObject() {
-		GEllipse ellipse = new GEllipse(0, 0, 0, 0, GraphicsResource.MESSAGES.defaultLabelEllipse());
+		GEllipse ellipse = new GEllipse(0, 0, 0, 0);
 		return ellipse;
 	}
 }

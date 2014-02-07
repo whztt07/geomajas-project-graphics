@@ -13,7 +13,6 @@ package org.geomajas.graphics.client.controller;
 import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.GImage;
 import org.geomajas.graphics.client.operation.AddOperation;
-import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -97,7 +96,7 @@ public class CreateImageController extends CreateController<GImage> implements M
 
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		GImage result = new GImage(0, 0, width, height, href, GraphicsResource.MESSAGES.defaultLabelImage());
+		GImage result = new GImage(0, 0, width, height, href);
 		result.getRole(Draggable.TYPE).setPosition(getUserCoordinate(event));
 		execute(new AddOperation(result));
 	}

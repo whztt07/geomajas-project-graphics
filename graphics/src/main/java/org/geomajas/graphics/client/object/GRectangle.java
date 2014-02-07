@@ -12,7 +12,6 @@ package org.geomajas.graphics.client.object;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.labeler.ResizableLabeler;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.util.FlipState;
