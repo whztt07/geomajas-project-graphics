@@ -96,7 +96,7 @@ public class GRectangle extends ResizableGraphicsObject implements Fillable, Str
 	/**
 	 * Resizable implementation for rectangle.
 	 */
-	static class ResizableRectangle implements Resizable, Fillable, Strokable {
+	static class ResizableRectangle implements Resizable, Draggable, Fillable, Strokable {
 
 		private Rectangle rectangle;
 

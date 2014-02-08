@@ -96,20 +96,4 @@ public class ResizeControllerTest {
 			service.undo();
 		}
 	}
-
-	@Test
-	public void testDrag() {
-		MockResizable m = new MockResizable(new Coordinate(5, 6), new Bbox(0, 0, 50, 50));
-		SimpleEventBus eventBus = new SimpleEventBus();
-		GraphicsService service = new GraphicsServiceImpl(eventBus, false);
-		service.setObjectContainer(objectContainer);
-		ResizeController r = new ResizeController(m, service, true);
-		GraphicsObjectDragHandler h = new GraphicsObjectDragHandler(m, service, r);
-		h.onDragStart(100, 100);
-		h.onDragStop(105, 110);
-		Assert.assertTrue(m.getPosition().equalsDelta(new Coordinate(10, 16), 0.0001));
-		service.undo();
-		Assert.assertTrue(m.getPosition().equalsDelta(new Coordinate(5, 6), 0.0001));
-	}
-
 }

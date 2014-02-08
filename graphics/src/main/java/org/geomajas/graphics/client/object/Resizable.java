@@ -11,6 +11,8 @@
 package org.geomajas.graphics.client.object;
 
 import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.object.role.Renderable;
 import org.geomajas.graphics.client.object.role.RoleType;
 import org.geomajas.graphics.client.util.FlipState;
 
@@ -20,7 +22,7 @@ import org.geomajas.graphics.client.util.FlipState;
  * @author Jan De Moerloose
  * 
  */
-public interface Resizable extends Draggable {
+public interface Resizable extends Renderable {
 
 	RoleType<Resizable> TYPE = new RoleType<Resizable>("Resizable");
 
@@ -65,5 +67,9 @@ public interface Resizable extends Draggable {
 	 * @return true if height is automatic.
 	 */
 	boolean isAutoHeight();
+
+	Coordinate getPosition();
+
+	void setPosition(Coordinate position);
 
 }

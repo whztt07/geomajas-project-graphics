@@ -51,7 +51,7 @@ public class GImage extends ResizableGraphicsObject {
 	/**
 	 * Resizable implementation for image.
 	 */
-	static class ResizableImage implements Resizable {
+	static class ResizableImage implements Resizable, Draggable {
 
 		private Image image;
 

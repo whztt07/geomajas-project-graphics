@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Jan De Moerloose
  * 
  */
-public abstract class ResizableGraphicsObject extends BaseGraphicsObject implements Resizable {
+public abstract class ResizableGraphicsObject extends BaseGraphicsObject implements Resizable, Draggable {
 
 	private SortedGroup rootGroup;
 

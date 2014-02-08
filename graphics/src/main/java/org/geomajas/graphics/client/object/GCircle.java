@@ -52,7 +52,7 @@ public class GCircle extends ResizableGraphicsObject {
 	/**
 	 * Resizable implementation for circle.
 	 */
-	static class ResizableCircle implements Resizable {
+	static class ResizableCircle implements Resizable, Draggable {
 
 		private Circle circle;
 

@@ -32,7 +32,6 @@ public class MockResizable extends BaseGraphicsObject implements Resizable {
 		setPosition(position);
 		setUserBounds(bounds);
 		addRole(Resizable.TYPE, this);
-		addRole(Draggable.TYPE, this);
 	}
 
 	@Override

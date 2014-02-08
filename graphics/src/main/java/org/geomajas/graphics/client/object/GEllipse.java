@@ -52,7 +52,7 @@ public class GEllipse extends ResizableGraphicsObject {
 	/**
 	 * Resizable implementation for ellipse.
 	 */
-	static class ResizableEllipse implements Resizable {
+	static class ResizableEllipse implements Resizable, Draggable {
 
 		private Ellipse ellipse;
 
