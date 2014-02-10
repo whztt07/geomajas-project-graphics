@@ -17,6 +17,7 @@ import java.util.List;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
 import org.geomajas.graphics.client.action.DuplicateAction;
+import org.geomajas.graphics.client.controller.AnchorControllerFactory;
 import org.geomajas.graphics.client.controller.CreateAnchoredIconController;
 import org.geomajas.graphics.client.controller.CreateAnchoredTextController;
 import org.geomajas.graphics.client.controller.CreateEllipseController;
@@ -118,7 +119,7 @@ public class Example implements EntryPoint, Handler {
 		service.registerControllerFactory(new DeleteControllerFactory());
 		service.registerControllerFactory(new LabelControllerFactory());
 //		service.registerControllerFactory(new ExternalizableLabeledControllerFactory());
-//		service.registerControllerFactory(new AnchorControllerFactory());
+		service.registerControllerFactory(new AnchorControllerFactory());
 		service.registerControllerFactory(popupFactory);
 	}
 	
