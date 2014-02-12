@@ -295,13 +295,16 @@ public class CreateIconChoicePopup {
 		icons.clear();
 		Set<String> urlSet = new LinkedHashSet<String>(hrefsChoiceList);
 		for (String url : urlSet) {
-			ClickableIconImage clickImage = new ClickableIconImage(url);
+			ClickableIconImage clickImage = getClickableIconImage(url);
 			icons.put(url, clickImage);
 			iconsPanel.add(clickImage);
 		}
 		setSelectedIconUrl(defaultIconUrl);
 	}
 
+	protected ClickableIconImage getClickableIconImage(String url) {
+		return new ClickableIconImage(url);
+	}
 
 	public void updateMarkerChoice() {
 		markersPanel.clear();
@@ -312,12 +315,16 @@ public class CreateIconChoicePopup {
 		int amountOfMarkers = 0;
 		Set<MarkerShape> markerSet = new LinkedHashSet<MarkerShape>(markerShapesChoiceList);
 		for (MarkerShape markerShape : markerSet) {
-			ClickableMarkerShape marker = new ClickableMarkerShape(markerShape);
+			ClickableMarkerShape marker = getClickableMarkerShape(markerShape);
 			drawingArea.add(translateMarker(marker.asVectorObject(), amountOfMarkers++));
 			markers.put(markerShape, marker);
 		}
 		markersPanel.setWidget(drawingArea);
 		setSelectedMarkerShape(defaultMarkerShape);
+	}
+
+	protected ClickableMarkerShape getClickableMarkerShape(MarkerShape markerShape) {
+		return new ClickableMarkerShape(markerShape);
 	}
 
 	protected void updatePreview() {
@@ -364,7 +371,7 @@ public class CreateIconChoicePopup {
 	 * @author Jan Venstermans
 	 * 
 	 */
-	private class ClickableIconImage implements IsWidget {
+	protected class ClickableIconImage implements IsWidget {
 
 		private Image iconImage;
 
@@ -406,7 +413,7 @@ public class CreateIconChoicePopup {
 	 * @author Jan Venstermans
 	 * 
 	 */
-	private class ClickableMarkerShape implements MouseOverHandler, MouseOutHandler {
+	protected class ClickableMarkerShape implements MouseOverHandler, MouseOutHandler {
 
 		/**
 		 * enum value refering to the shape of the marker.
