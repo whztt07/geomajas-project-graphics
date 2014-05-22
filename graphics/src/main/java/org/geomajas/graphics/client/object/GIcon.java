@@ -27,7 +27,7 @@ public class GIcon extends ResizableGraphicsObject {
 	private DraggableImage dragImage;
 	
 	public GIcon(double userX, double userY, int width, int height, String href) {
-		this(new AnchoredImage(userX, userY, width, height, href, 0.5, 0.5));
+		this(createAnchoredImageWithPreserveRatio(userX, userY, width, height, href));
 	}
 
 	public GIcon(AnchoredImage anchoredImage) {
@@ -52,6 +52,13 @@ public class GIcon extends ResizableGraphicsObject {
 		dragImage.setOpacity(opacity);
 	}
 
+	private static AnchoredImage createAnchoredImageWithPreserveRatio(double userX, double userY,
+																	  int width, int height, String href) {
+		AnchoredImage anchoredImage = new AnchoredImage(userX, userY, width, height, href, 0.5, 0.5);
+		anchoredImage.setPreserveAspectRatio(true);
+		return anchoredImage;
+	}
+
 	/**
 	 *
 	 */
@@ -61,7 +68,6 @@ public class GIcon extends ResizableGraphicsObject {
 
 		public DraggableImage(AnchoredImage anchoredImage) {
 			this.anchoredImage = anchoredImage;
-			anchoredImage.setPreserveAspectRatio(true);
 		}
 
 		@Override
@@ -117,7 +123,7 @@ public class GIcon extends ResizableGraphicsObject {
 
 		@Override
 		public boolean isPreserveRatio() {
-			return true;
+			return anchoredImage.getPreserveAspectRatio();
 		}
 
 		@Override
