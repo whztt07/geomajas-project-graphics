@@ -120,4 +120,8 @@ public class AnchoredImage extends Image {
 		getElement().setAttribute("preserveAspectRatio", preserve ? "true" : "none");
 	}
 
+	public boolean getPreserveAspectRatio() {
+		return Boolean.parseBoolean(getElement().getAttribute("preserveAspectRatio"));
+	}
+
 }
