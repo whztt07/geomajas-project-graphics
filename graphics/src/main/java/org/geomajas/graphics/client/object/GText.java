@@ -109,7 +109,8 @@ public class GText extends ResizableGraphicsObject implements Textable, Fillable
 	
 	@Override
 	public void setFontSize(int size) {
-		getText().setFontSize(size);		
+		getText().setFontSize(size);
+		update();
 	}
 
 	@Override
@@ -120,6 +121,7 @@ public class GText extends ResizableGraphicsObject implements Textable, Fillable
 	@Override
 	public void setFontFamily(String font) {
 		getText().setFontFamily(font);
+		update();
 	}
 
 	@Override
@@ -154,7 +156,6 @@ public class GText extends ResizableGraphicsObject implements Textable, Fillable
 
 		public DraggableText(AnchoredText text) {
 			this(text, true);
-			
 		}
 		
 		public DraggableText(AnchoredText text, boolean setDefaultFontStyle) {
@@ -306,6 +307,7 @@ public class GText extends ResizableGraphicsObject implements Textable, Fillable
 		@Override
 		public void setFontSize(int size) {
 			text.setFontSize(size);
+			text.update();
 		}
 
 		@Override
@@ -316,6 +318,7 @@ public class GText extends ResizableGraphicsObject implements Textable, Fillable
 		@Override
 		public void setFontFamily(String font) {
 			text.setFontFamily(font);
+			text.update();
 		}
 
 		@Override
