@@ -81,4 +81,8 @@ public class AnchoredText extends Text {
 		getImpl().setY(getElement(),
 				(int) Math.round(getUserY() * getScaleY() + getDeltaY() + anchorY * getTextHeight()), isAttached());
 	}
+
+	public void update() {
+		drawTransformed();
+	}
 }
