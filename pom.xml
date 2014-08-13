@@ -43,6 +43,7 @@
 		<module>graphics</module>
 		<module>example</module>
 		<module>documentation</module>
+		<module>javadoc</module>
 	</modules>
 
 	<dependencyManagement>
@@ -68,25 +69,25 @@
 				<artifactId>gwt-graphics</artifactId>
 				<version>${graphics-gwt-graphics-version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>net.sourceforge.findbugs</groupId>
 				<artifactId>annotations</artifactId>
 				<version>1.0.0</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
 				<version>4.2.2</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
 				<version>4.2.2</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
@@ -143,23 +144,6 @@
 	</dependencyManagement>
 
 	<profiles>
-		<profile>
-			<id>documentation</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>documentation</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>
