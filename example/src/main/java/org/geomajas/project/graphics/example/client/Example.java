@@ -182,7 +182,7 @@ public class Example implements EntryPoint, Handler {
 			public void onClick(ClickEvent event) {
 				service.setShowOriginalObjectWhileDragging(checkShowDrag.getValue());
 			}
-			
+
 		});
 		checkShowDrag.setText("show original on drag");
 	}
@@ -322,15 +322,10 @@ public class Example implements EntryPoint, Handler {
 
 	@Override
 	public void onAction(GraphicsObjectContainerEvent event) {
+		// TODO: move this into the impl code, not the example?
 		if (event.getActionType() != ActionType.UPDATE) {
-			for (int i = 0; i < buttonPanel.getWidgetCount(); i++) {
-				if (buttonPanel.getWidget(i) instanceof ControllerButton) {
-					((ControllerButton) buttonPanel.getWidget(i)).setControllerActive(false);
-					service.getMetaController().setActive(true);
-				}
-			}
+			service.getMetaController().setActive(true);
 		}
-
 	}
 
 	/**
