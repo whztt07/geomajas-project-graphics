@@ -43,7 +43,6 @@ import org.geomajas.graphics.client.controller.CreateImageController;
 import org.geomajas.graphics.client.controller.CreateMetaController;
 import org.geomajas.graphics.client.controller.CreatePathController;
 import org.geomajas.graphics.client.controller.CreateRectangleController;
-import org.geomajas.graphics.client.controller.CreateTextAreaHtmlController;
 import org.geomajas.graphics.client.controller.CreateTextController;
 import org.geomajas.graphics.client.controller.DeleteControllerFactory;
 import org.geomajas.graphics.client.controller.DragControllerFactory;
@@ -246,7 +245,7 @@ public class Example implements EntryPoint, Handler {
 		CreateMetaController createMetaController = new CreateMetaController(service);
 		createMetaController.addControllerAndCreateButton(new CreateTextController(service), "Text");
 		createMetaController.addControllerAndCreateButton(new CreateAnchoredTextController(service), "Text+Anchor");
-		createMetaController.addControllerAndCreateButton(new CreateTextAreaHtmlController(service), "Textarea");
+//		createMetaController.addControllerAndCreateButton(new CreateTextAreaHtmlController(service), "Textarea");
 		createMetaController.addControllerAndCreateButton(new CreateRectangleController(service), "Rectangle");
 		createMetaController.addControllerAndCreateButton(new CreateEllipseController(service), "Ellipse");
 		createMetaController.addControllerAndCreateButton(new CreateImageController(service, 200, 235,
