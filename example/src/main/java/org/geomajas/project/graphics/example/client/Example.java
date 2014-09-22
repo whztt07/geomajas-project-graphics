@@ -40,7 +40,6 @@ import org.geomajas.graphics.client.controller.CreateAnchoredTextController;
 import org.geomajas.graphics.client.controller.CreateEllipseController;
 import org.geomajas.graphics.client.controller.CreateIconController;
 import org.geomajas.graphics.client.controller.CreateImageController;
-import org.geomajas.graphics.client.controller.CreateLineWithTemplateLabeledController;
 import org.geomajas.graphics.client.controller.CreateMetaController;
 import org.geomajas.graphics.client.controller.CreatePathController;
 import org.geomajas.graphics.client.controller.CreateRectangleController;

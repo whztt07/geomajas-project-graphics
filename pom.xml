@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.geomajas</groupId>
 		<artifactId>geomajas-al-parent</artifactId>
-		<version>2.2.0</version>
+		<version>2.3.2</version>
 	</parent>
 
 	<groupId>org.geomajas.project</groupId>
@@ -48,26 +48,73 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- Artifacts within this project (exclude documentation) -->
+			<dependency>
+				<groupId>org.geomajas.project</groupId>
+				<artifactId>geomajas-project-graphics</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.geomajas.project</groupId>
+				<artifactId>geomajas-project-graphics</artifactId>
+				<version>${project.version}</version>
+				<classifier>sources</classifier>
+			</dependency>
+			<dependency>
+				<groupId>org.geomajas.project</groupId>
+				<artifactId>geomajas-project-graphics-example</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.geomajas.project</groupId>
+				<artifactId>geomajas-project-graphics-javadoc</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
-			<!--geomajas projects-->
+
+			<!-- Other Geomajas artifacts -->
 			<dependency>
 				<groupId>org.geomajas.project</groupId>
 				<artifactId>geomajas-project-geometry-all</artifactId>
-				<version>${graphics-geomajas-geometry-version}</version>
+				<version>${graphics-version-geomajas-geometry}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.geomajas.project</groupId>
 				<artifactId>geomajas-project-api-annotation</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
+
+			<!-- Other Artifacts -->
+			<!-- GWT -->
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-user</artifactId>
+				<version>${graphics-version-gwt}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-user</artifactId>
+				<version>${graphics-version-gwt}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-servlet</artifactId>
+				<version>${graphics-version-gwt}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-dev</artifactId>
+				<version>${graphics-version-gwt}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.vaadin.addons</groupId>
 				<artifactId>gwt-graphics</artifactId>
-				<version>${graphics-gwt-graphics-version}</version>
+				<version>${graphics-version-vaadin-gwt-graphics}</version>
 			</dependency>
 
 			<dependency>
@@ -75,71 +122,39 @@
 				<artifactId>annotations</artifactId>
 				<version>1.0.0</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
 				<version>4.2.2</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
 				<version>4.2.2</version>
 			</dependency>
-
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>2.4</version>
 			</dependency>
-
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>1.7</version>
 			</dependency>
-
-			<!-- Google dependencies -->
 			<dependency>
-				<groupId>com.google.gwt</groupId>
-				<artifactId>gwt-user</artifactId>
-				<version>${graphics-gwt-version}</version>
+				<groupId>com.mogaleaf</groupId>
+				<artifactId>simplecolorpicker</artifactId>
+				<version>1.0.1</version>
 			</dependency>
 
-			<dependency>
-				<groupId>com.google.gwt</groupId>
-				<artifactId>gwt-dev</artifactId>
-				<version>${graphics-gwt-version}</version>
-			</dependency>
-
-			<!-- other dependencies -->
+			<!-- test dependencies -->
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
 				<version>1.9.0</version>
+				<scope>test</scope>
 			</dependency>
-
-			<dependency>
-			  <groupId>com.mogaleaf</groupId>
-			  <artifactId>simplecolorpicker</artifactId>
-			  <version>1.0.1</version>
-			</dependency>
-
-			<!-- dependencies to subprojects -->
-			<dependency>
-				<groupId>org.geomajas.project</groupId>
-				<artifactId>geomajas-project-graphics</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.project</groupId>
-				<artifactId>geomajas-project-graphics</artifactId>
-				<version>${project.version}</version>
-				<classifier>sources</classifier>
-			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 
@@ -155,10 +170,10 @@
 	</profiles>
 
 	<properties>
-		<graphics-geomajas-geometry-version>1.1.0</graphics-geomajas-geometry-version>
-		<graphics-gwt-graphics-version>1.0.0.TX12</graphics-gwt-graphics-version>
-		<graphics-gwt-version>2.5.0</graphics-gwt-version>
-		<graphics-geomajas-build-tools-version>2.0.0</graphics-geomajas-build-tools-version>
+		<graphics-version-geomajas-geometry>1.1.0</graphics-version-geomajas-geometry>
+		<graphics-version-vaadin-gwt-graphics>1.0.0.TX12</graphics-version-vaadin-gwt-graphics>
+		<graphics-version-gwt>2.5.1</graphics-version-gwt>
+		<graphics-version-geomajas-build-tools>2.4.0</graphics-version-geomajas-build-tools>
 	</properties>
 
 </project>

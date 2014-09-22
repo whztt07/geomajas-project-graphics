@@ -28,13 +28,11 @@
 		<dependency>
 			<groupId>org.geomajas.project</groupId>
 			<artifactId>geomajas-project-graphics</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.geomajas.project</groupId>
 			<artifactId>geomajas-project-graphics</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
 			<classifier>sources</classifier>
 		</dependency>
 		
@@ -42,13 +40,11 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${graphics-gwt-version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>${graphics-gwt-version}</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -98,17 +94,17 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${graphics-gwt-version}</version>
+				<version>${graphics-version-gwt}</version>
 				<dependencies>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
 						<artifactId>gwt-user</artifactId>
-						<version>${graphics-gwt-version}</version>
+						<version>${graphics-version-gwt}</version>
 					</dependency>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
 						<artifactId>gwt-dev</artifactId>
-						<version>${graphics-gwt-version}</version>
+						<version>${graphics-version-gwt}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -234,18 +230,18 @@
 				<dependency>
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
-					<version>${graphics-geomajas-build-tools-version}</version>
+					<version>${graphics-version-geomajas-build-tools}</version>
 				</dependency>
 				<dependency>
 					<groupId>com.google.gwt</groupId>
 					<artifactId>gwt-dev</artifactId>
-					<version>${graphics-gwt-version}</version>
+					<version>${graphics-version-gwt}</version>
 					<scope>provided</scope>
 				</dependency>
 			</dependencies>
 			<properties>
 				<gwt.compiler.skip>true</gwt.compiler.skip>
-				<gwt-version>${graphics-gwt-version}</gwt-version>
+				<gwt-version>${graphics-version-gwt}</gwt-version>
 			</properties>
 		</profile>
 
