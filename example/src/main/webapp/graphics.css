@@ -86,3 +86,32 @@
 	font-size: 10px;
 	color: #FFFFFF;
 }
+
+/*------------- LEFT PANEL -------------*/
+
+.graphicsExample-leftPanel-total {
+	cellpadding: 5px;
+    text-align: center;
+    align: center;
+}
+
+.graphicsExample-leftPanel-cogPosition-textBox {
+    width: 40px;
+}
+
+.graphicsExample-leftPanel-createButtonsPanel {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.graphicsExample-leftPanel-createButtonsPanel .gwt-ToggleButton {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.graphicsExample-leftPanel-generalPanel-navigationButton {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
