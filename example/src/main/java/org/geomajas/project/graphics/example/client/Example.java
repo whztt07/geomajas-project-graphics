@@ -244,7 +244,7 @@ public class Example implements EntryPoint, Handler {
 											CreateAnchoredIconController createAnchoredIconController) {
 		CreateMetaController createMetaController = new CreateMetaController(service);
 		createMetaController.addControllerAndCreateButton(new CreateTextController(service), "Text");
-		createMetaController.addControllerAndCreateButton(new CreateAnchoredTextController(service), "Text+Anchor");
+		createMetaController.addControllerAndCreateButton(new CreateAnchoredTextController(service), "Anchored Text");
 //		createMetaController.addControllerAndCreateButton(new CreateTextAreaHtmlController(service), "Textarea");
 		createMetaController.addControllerAndCreateButton(new CreateRectangleController(service), "Rectangle");
 		createMetaController.addControllerAndCreateButton(new CreateEllipseController(service), "Ellipse");
