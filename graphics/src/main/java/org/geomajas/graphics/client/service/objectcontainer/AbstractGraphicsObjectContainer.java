@@ -283,16 +283,6 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 		return eventBus.addHandler(GraphicsOperationEvent.getType(), handler);
 	}
 
-	/**
-	 * The {@link Group} that contains all {@link GraphicsObject}s of this container.
-	 *
-	 * @author Jan De Moerloose
-	 *
-	 */
-	class ObjectGroup extends Group implements HasAllMouseAndClickHandlers {
-
-	}
-
 	@Override
 	public com.google.web.bindery.event.shared.HandlerRegistration addAddAnchoredLinesHandler(
 			org.geomajas.graphics.client.event.AddAnchoredLinesEvent.Handler handler) {
@@ -310,4 +300,13 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 		eventBus.fireEvent(new AddAnchoredLinesEvent(object, coordinatePaths));
 	}
 
+	/**
+	 * The {@link Group} that contains all {@link GraphicsObject}s of this container.
+	 *
+	 * @author Jan De Moerloose
+	 *
+	 */
+	class ObjectGroup extends Group implements HasAllMouseAndClickHandlers {
+
+	}
 }

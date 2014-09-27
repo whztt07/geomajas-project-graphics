@@ -12,6 +12,7 @@ package org.geomajas.graphics.client;
 
 import org.geomajas.graphics.client.controller.popupmenu.PopupMenuController;
 import org.geomajas.graphics.client.editor.Editor;
+import org.geomajas.graphics.client.widget.createcontrollergroup.CreateControllerGroupPresenter;
 
 /**
  * Interface for specific view elements.
@@ -24,4 +25,6 @@ public interface GraphicsViewManager {
 	PopupMenuController.View createPopupMenuView();
 
 	PopupMenuController.EditorView createPopupMenuEditorView(Editor object);
+
+	CreateControllerGroupPresenter.View createCreateControllerGroupView();
 }

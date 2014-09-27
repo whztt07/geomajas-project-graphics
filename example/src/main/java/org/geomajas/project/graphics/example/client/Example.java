@@ -12,43 +12,42 @@ package org.geomajas.project.graphics.example.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
 import org.geomajas.graphics.client.action.DuplicateAction;
-import org.geomajas.graphics.client.controller.role.AnchorControllerFactory;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredIconController;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredTextController;
+import org.geomajas.graphics.client.widget.createcontrollergroup.CreateButtonGroupWidget;
 import org.geomajas.graphics.client.controller.create.CreateEllipseController;
 import org.geomajas.graphics.client.controller.create.CreateIconController;
 import org.geomajas.graphics.client.controller.create.CreateImageController;
-import org.geomajas.graphics.client.controller.create.CreateMetaController;
 import org.geomajas.graphics.client.controller.create.CreatePathController;
 import org.geomajas.graphics.client.controller.create.CreateRectangleController;
 import org.geomajas.graphics.client.controller.create.CreateTextController;
 import org.geomajas.graphics.client.controller.delete.DeleteControllerFactory;
 import org.geomajas.graphics.client.controller.drag.DragControllerFactory;
-import org.geomajas.graphics.client.controller.role.LabelControllerFactory;
 import org.geomajas.graphics.client.controller.popupmenu.PopupMenuControllerFactory;
 import org.geomajas.graphics.client.controller.resize.ResizeControllerFactory;
+import org.geomajas.graphics.client.controller.role.AnchorControllerFactory;
+import org.geomajas.graphics.client.controller.role.LabelControllerFactory;
 import org.geomajas.graphics.client.editor.AnchorStyleEditor;
 import org.geomajas.graphics.client.editor.LabelEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
@@ -56,10 +55,8 @@ import org.geomajas.graphics.client.editor.TextableEditor;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
-import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.GraphicsServiceImpl;
-import org.geomajas.graphics.client.widget.CreateButtonToolbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,14 +70,57 @@ import java.util.List;
  */
 public class Example implements EntryPoint, Handler {
 
-	private FlowPanel buttonPanel;
+	private static final Binder UIBINDER = GWT.create(Binder.class);
+
+	/**
+	 * UI binder.
+	 *
+	 */
+	interface Binder extends UiBinder<DockLayoutPanel, Example> {
+
+	}
+
+	@UiField
+	protected DockLayoutPanel dockLayoutPanel;
+
+	@UiField
+	protected FlowPanel westFlowPanel;
+
+	@UiField
+	protected CaptionPanel captionPanelCreateButtons;
+
+	@UiField
+	protected CaptionPanel captionPanelCogPosition;
+
+	@UiField
+	protected CaptionPanel captionPanelGeneralOptions;
+
+	@UiField
+	protected TextBox textBoxCogXOffset;
+
+	@UiField
+	protected TextBox textBoxCogYOffset;
+
+	@UiField
+	protected CheckBox checkShowDrag;
+
+	@UiField
+	protected ToggleButton navigationControllerToggleButton;
+
+	private CreateButtonGroupWidget createButtonGroupWidget;
+
+	/* some controllers that have extra functions */
+
+	private CreateIconController createIconController;
+
+	private CreateAnchoredIconController createAnchoredIconController;
+
+	private NavigationController navigationController;
 	
-	private GraphicsService service;
+	private GraphicsService graphicsService;
 	
 	private VerticalPanel iconChoicePanel;
-	
-	private CheckBox checkShowDrag;
-	
+
 	private CheckBox checkExternalLabel;
 	
 	private List<String> urls = new ArrayList<String>(Arrays.asList(GWT.getModuleBaseURL() + "image/slider.gif",
@@ -91,117 +131,157 @@ public class Example implements EntryPoint, Handler {
 	
 	private PopupMenuControllerFactory popupFactory;
 
-	private TextBox textBoxCogXOffset;
-	private TextBox textBoxCogYOffset;
-
-	private TestContainer rc;
+	private ExampleGraphicsObjectContainer graphicsObjectContainer;
 
 	@Override
 	public void onModuleLoad() {
-		SimpleEventBus bus = new SimpleEventBus();
-		rc = new TestContainer(bus);
-		service = new GraphicsServiceImpl(bus, true, true);
-		service.setObjectContainer(rc);
-		service.getObjectContainer().addGraphicsObjectContainerHandler(this);
+		SimpleEventBus eventBus = new SimpleEventBus();
+		graphicsObjectContainer = new ExampleGraphicsObjectContainer(eventBus);
+		graphicsService = new GraphicsServiceImpl(eventBus, true);
+		graphicsService.setShowOriginalObjectWhileDragging(true);
+		graphicsService.setObjectContainer(graphicsObjectContainer);
+		graphicsService.getObjectContainer().addGraphicsObjectContainerHandler(this);
 		
 		//functionalities
 		popupFactory = new PopupMenuControllerFactory();
 		registerControllerFactories();
-		registerPopupFactoryActionsAndEditiors();		
-		
+		registerPopupFactoryActionsAndEditiors();
+
+		//create widget and fill
+		createButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
+		registerCreateControllersToWidget(createButtonGroupWidget);
+		navigationController = new NavigationController(graphicsService, graphicsObjectContainer.getRootContainer());
+
 		//layout
-		DockLayoutPanel dock = new DockLayoutPanel(Unit.PX);
-		buttonPanel = new FlowPanel();
-		buttonPanel.addStyleName("graphicsExample-leftPanel-total");
-		createButtonPanel();
-		buttonPanel.getElement().getStyle().setBackgroundColor("grey");
-		dock.addWest(buttonPanel, 150);
-		dock.add(rc);
-		RootLayoutPanel.get().add(dock);
-		
-		service.start();
+		UIBINDER.createAndBindUi(this);
+		fillWestFlowPanel();
+		dockLayoutPanel.add(graphicsObjectContainer);
+		RootLayoutPanel.get().add(dockLayoutPanel);
+
+		graphicsService.start();
 	}
-	
+
+	@Override
+	public void onAction(GraphicsObjectContainerEvent event) {
+		// TODO: move this into the impl code, not the example?
+		if (event.getActionType() != ActionType.UPDATE) {
+			graphicsService.getMetaController().setActive(true);
+		}
+	}
+
+	@UiHandler("navigationControllerToggleButton")
+	public void onNavigationButtonClicked(ClickEvent e) {
+		navigationController.setActive(!navigationController.isActive());
+	}
+
+	//-----------------------------------------------------------------------------
+	// FUNCTIONALITY
+	//-----------------------------------------------------------------------------
+
 	private void registerControllerFactories() {
-		service.registerControllerFactory(new ResizeControllerFactory());
-		service.registerControllerFactory(new DragControllerFactory());
-		service.registerControllerFactory(new DeleteControllerFactory());
-		service.registerControllerFactory(new LabelControllerFactory());
-//		service.registerControllerFactory(new ExternalizableLabeledControllerFactory());
-		service.registerControllerFactory(new AnchorControllerFactory());
-		service.registerControllerFactory(popupFactory);
+		graphicsService.registerControllerFactory(new ResizeControllerFactory());
+		graphicsService.registerControllerFactory(new DragControllerFactory());
+		graphicsService.registerControllerFactory(new DeleteControllerFactory());
+		graphicsService.registerControllerFactory(new LabelControllerFactory());
+		graphicsService.registerControllerFactory(new AnchorControllerFactory());
+		graphicsService.registerControllerFactory(popupFactory);
+
+		// TODO: re-asses unsupported controller
+//		graphicsService.registerControllerFactory(new ExternalizableLabeledControllerFactory());
 	}
 	
 	private void registerPopupFactoryActionsAndEditiors() {
 		popupFactory.registerAction(new DeleteAction());
 		popupFactory.registerEditor(new TextableEditor());
 		popupFactory.registerEditor(new LabelEditor());
-//		popupFactory.registerEditor(new ExternalLabelEditor());
 		popupFactory.registerEditor(new StrokeFillEditor());
 		popupFactory.registerAction(new DuplicateAction());
 		popupFactory.registerAction(new BringToFrontAction());
 		popupFactory.registerEditor(new AnchorStyleEditor());
+
+		// TODO: re-asses unsupported editors/action
+//		popupFactory.registerEditor(new ExternalLabelEditor());
 //		popupFactory.registerAction(new AddTextAsAnchorAction());
 //		popupFactory.registerAction(new ToggleLabelAction());
 //		popupFactory.registerEditor(new TemplateLabelEditor());
 	}
-	
-	private void createButtonPanel() {
-		// create extra elements
-		createCheckShowDrag();
-		createCheckExternalLabel();
-		CreateIconController createIconController = new CreateIconController(service, 16, 16, url);
-		CreateAnchoredIconController createAnchoredIconController 
-			= new CreateAnchoredIconController(service, 16,	16, null);
+
+	private void registerCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
+		createButtonGroupWidget.addCreateController(new CreateTextController(graphicsService), "Text");
+		createButtonGroupWidget.addCreateController(new CreateAnchoredTextController(graphicsService), "Anchored Text");
+		createButtonGroupWidget.addCreateController(new CreateRectangleController(graphicsService), "Rectangle");
+		createButtonGroupWidget.addCreateController(new CreateEllipseController(graphicsService), "Ellipse");
+		createButtonGroupWidget.addCreateController(new CreateImageController(graphicsService, 200, 235,
+				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Image");
+		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, false), "Line");
+		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, true), "Polygon");
+
+		createIconController = new CreateIconController(graphicsService, 16, 16, url);
+		createButtonGroupWidget.addCreateController(createIconController, "Icon");
+
+		createAnchoredIconController
+				= new CreateAnchoredIconController(graphicsService, 16,	16, null);
 		createAnchoredIconController.setChoiceListImageSize(32);
-		createIconChoicePanel(createIconController, createAnchoredIconController);
+		createButtonGroupWidget.addCreateController(createAnchoredIconController, "Anchored Icon");
 
-		addCaptionPanelToButtonPanel(createCreateButtonsPanel(createIconController, createAnchoredIconController),
-				"Create objects");
-		addCaptionPanelToButtonPanel(createCogPositionPanel(), "Cog position offset");
-		addCaptionPanelToButtonPanel(createGeneralOptionsPanel(), "General Options");
-
-		buttonPanel.add(iconChoicePanel);
+		//TODO: re-asses create controllers
+		/*createButtonGroupWidget.addCreateController(new CreateTextAreaHtmlController(graphicsService), "Textarea");
+		createButtonGroupWidget.addCreateController(new CreateLineWithTemplateLabeledController(graphicsService),
+				"Line With Templ Labeled"); */
 	}
 
-	private void addCaptionPanelToButtonPanel(Widget content, String captionText) {
-		CaptionPanel captionPanel = new CaptionPanel();
-		captionPanel.setCaptionText(captionText);
-		captionPanel.setContentWidget(content);
-		buttonPanel.add(captionPanel);
-	}
+	//-----------------------------------------------------------------------------
+	// LAYOUT
+	//-----------------------------------------------------------------------------
 
-	//checkbox for showing original object when dragging
-	private void createCheckShowDrag() {
-		checkShowDrag = new CheckBox();
-		checkShowDrag.setValue(service.isShowOriginalObjectWhileDragging());
+	private void fillWestFlowPanel() {
+		String tooltipText = "x and y offset from left top position. 0-0 position inside object. " +
+				"Positive offset values means: more outside the object. Offset step is size of the cog.";
+		textBoxCogXOffset.setText(popupFactory.getOffsetX() + "");
+		textBoxCogXOffset.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				try {
+					popupFactory.setOffsetX(Double.parseDouble(textBoxCogXOffset.getText()));
+				} catch (Exception ex) {
+					//don't do anything
+				}
+			}
+		});
+		textBoxCogXOffset.setTitle(tooltipText);
+		textBoxCogYOffset.setText(popupFactory.getOffsetY() + "");
+		textBoxCogYOffset.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				try {
+					popupFactory.setOffsetY(Double.parseDouble(textBoxCogYOffset.getText()));
+				} catch (Exception ex) {
+					//don't do anything
+				}
+			}
+		});
+		textBoxCogYOffset.setTitle(tooltipText);
+
+		checkShowDrag.setValue(graphicsService.isShowOriginalObjectWhileDragging());
+		checkShowDrag.setValue(graphicsService.isShowOriginalObjectWhileDragging());
 		checkShowDrag.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				service.setShowOriginalObjectWhileDragging(checkShowDrag.getValue());
+				graphicsService.setShowOriginalObjectWhileDragging(checkShowDrag.getValue());
 			}
 
 		});
-		checkShowDrag.setText("show original on drag");
-	}
-	
-	//checkbox for showing original object when dragging
-	private void createCheckExternalLabel() {
-		checkExternalLabel = new CheckBox();
-		checkExternalLabel.setValue(service.isExternalizableLabeledOriginallyExternal());
-		checkExternalLabel.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				service.setExternalizableLabeledOriginallyExternal(checkExternalLabel.getValue());
-			}
-			
-		});
-		checkExternalLabel.setText("label external on creation");
+		captionPanelCreateButtons.setContentWidget(createButtonGroupWidget.asWidget());
+		createButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
+
+		// TODO: review icon panel
+		//createIconChoicePanel(createIconController, createAnchoredIconController);
+		//westFlowPanel.add(iconChoicePanel);
 	}
-	
-	private void createIconChoicePanel(final CreateIconController createIconController, 
+
+	private void createIconChoicePanel(final CreateIconController createIconController,
 			final CreateAnchoredIconController createAnchoredIconController) {
 		iconChoicePanel = new VerticalPanel();
 		RadioButton rb0 = new RadioButton("myRadioGroup", "No icon: sets default");
@@ -237,126 +317,5 @@ public class Example implements EntryPoint, Handler {
 		iconChoicePanel.add(rb2);
 		iconChoicePanel.setVisible(false);
 		rb1.setValue(true);
-	}
-
-	private Widget createCreateButtonsPanel(CreateIconController createIconController,
-											CreateAnchoredIconController createAnchoredIconController) {
-		CreateMetaController createMetaController = new CreateMetaController(service);
-		createMetaController.addControllerAndCreateButton(new CreateTextController(service), "Text");
-		createMetaController.addControllerAndCreateButton(new CreateAnchoredTextController(service), "Anchored Text");
-//		createMetaController.addControllerAndCreateButton(new CreateTextAreaHtmlController(service), "Textarea");
-		createMetaController.addControllerAndCreateButton(new CreateRectangleController(service), "Rectangle");
-		createMetaController.addControllerAndCreateButton(new CreateEllipseController(service), "Ellipse");
-		createMetaController.addControllerAndCreateButton(new CreateImageController(service, 200, 235,
-				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Image");
-		createMetaController.addControllerAndCreateButton(new CreatePathController(service, false), "Line");
-		createMetaController.addControllerAndCreateButton(new CreatePathController(service, true), "Polygon");
-		/*createMetaController.addControllerAndCreateButton(new CreateLineWithTemplateLabeledController(service),
-				"Line With Templ Labeled"); */
-		createMetaController.addControllerAndCreateButton(createIconController, "Icon");
-		createMetaController.addControllerAndCreateButton(createAnchoredIconController, "Anchored Icon");
-		CreateButtonToolbar createButtonToolbar = createMetaController.getToolbar();
-		createButtonToolbar.setStyleName("graphicsExample-leftPanel-createButtonsPanel");
-		return createButtonToolbar;
-	}
-
-	private Widget createCogPositionPanel() {
-		String tooltipText = "x and y offset from left top position. 0-0 position inside object. " +
-				"Positive offset values means: more outside the object. Offset step is size of the cog.";
-
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setTitle(tooltipText);
-		HorizontalPanel xPanel = new HorizontalPanel();
-		xPanel.add(new Label("x:"));
-		textBoxCogXOffset = new TextBox();
-		textBoxCogXOffset.setStyleName("graphicsExample-leftPanel-cogPosition-textBox");
-		textBoxCogXOffset.setText(popupFactory.getOffsetX() + "");
-		textBoxCogXOffset.addValueChangeHandler(new ValueChangeHandler<String>() {
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				try {
-					popupFactory.setOffsetX(Double.parseDouble(textBoxCogXOffset.getText()));
-				} catch (Exception ex) {
-					//don't do anything
-				}
-			}
-		});
-		textBoxCogXOffset.setTitle(tooltipText);
-		xPanel.add(textBoxCogXOffset);
-		verticalPanel.add(xPanel);
-
-		HorizontalPanel yPanel = new HorizontalPanel();
-		yPanel.add(new Label("y:"));
-		textBoxCogYOffset = new TextBox();
-		textBoxCogYOffset.setStyleName("graphicsExample-leftPanel-cogPosition-textBox");
-		textBoxCogYOffset.setText(popupFactory.getOffsetY() + "");
-		textBoxCogYOffset.addValueChangeHandler(new ValueChangeHandler<String>() {
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				try {
-					popupFactory.setOffsetY(Double.parseDouble(textBoxCogYOffset.getText()));
-				} catch (Exception ex) {
-					//don't do anything
-				}
-			}
-		});
-		textBoxCogYOffset.setTitle(tooltipText);
-		yPanel.add(textBoxCogYOffset);
-		verticalPanel.add(yPanel);
-
-		return verticalPanel;
-	}
-
-	private Widget createGeneralOptionsPanel() {
-		VerticalPanel verticalPanel = new VerticalPanel();
-		ControllerButton controllerButton = new
-				ControllerButton(new NavigationController(service, rc.getRootContainer()), "Navigation");
-		controllerButton.addStyleName("graphicsExample-leftPanel-generalPanel-navigationButton");
-		verticalPanel.add(controllerButton);
-		//buttons for creation of objects
-		verticalPanel.add(new SimplePanel(checkShowDrag));
-		//verticalPanel.add(new SimplePanel(checkExternalLabel));
-		return verticalPanel;
-	}
-
-	@Override
-	public void onAction(GraphicsObjectContainerEvent event) {
-		// TODO: move this into the impl code, not the example?
-		if (event.getActionType() != ActionType.UPDATE) {
-			service.getMetaController().setActive(true);
-		}
-	}
-
-	/**
-	 * 
-	 */
-	public class ControllerButton extends ToggleButton {
-
-		private GraphicsController controller;
-
-		public ControllerButton(final GraphicsController controller, String upText) {
-			super(upText);
-			this.controller = controller;
-			addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					iconChoicePanel.setVisible(false);
-					setControllerActive(!controller.isActive());
-				}
-			});
-		}
-
-		public void setControllerActive(boolean active) {
-			setDown(active);
-			controller.setActive(active);
-			if (active) {
-				service.getMetaController().setActive(false);
-				if (controller instanceof CreateAnchoredIconController || controller instanceof CreateIconController) {
-					iconChoicePanel.setVisible(true);
-				}
-			}
-		}
-
 	}
 }

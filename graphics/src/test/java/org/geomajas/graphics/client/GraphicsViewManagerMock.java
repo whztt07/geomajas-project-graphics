@@ -12,10 +12,12 @@ package org.geomajas.graphics.client;
 
 import org.geomajas.graphics.client.controller.popupmenu.PopupMenuController;
 import org.geomajas.graphics.client.editor.Editor;
-import org.geomajas.graphics.client.widget.createcontrollergroup.CreateControllerGroupPresenter;
 import org.geomajas.graphics.client.view.popupmenu.PopupMenu;
 import org.geomajas.graphics.client.view.popupmenu.PopupMenuEditorDialog;
+import org.geomajas.graphics.client.widget.createcontrollergroup.CreateControllerGroupPresenter;
 import org.geomajas.graphics.client.widget.createcontrollergroup.CreateControllerGroupView;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Starting class for the Graphics Project.
@@ -23,20 +25,33 @@ import org.geomajas.graphics.client.widget.createcontrollergroup.CreateControlle
  * @author Jan Venstermans
  *
  */
-public class GraphicsViewManagerImpl implements GraphicsViewManager {
+public class GraphicsViewManagerMock implements GraphicsViewManager {
+
+	@Mock
+	public PopupMenuController.View popupMenuView;
+
+	@Mock
+	public PopupMenuController.EditorView popupMenuEditorView;
+
+	@Mock
+	public CreateControllerGroupPresenter.View createControllerGroupView;
+
+	public GraphicsViewManagerMock() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Override
 	public PopupMenuController.View createPopupMenuView() {
-		return new PopupMenu();
+		return popupMenuView;
 	}
 
 	@Override
 	public PopupMenuController.EditorView createPopupMenuEditorView(Editor object) {
-		return new PopupMenuEditorDialog(object);
+		return popupMenuEditorView;
 	}
 
 	@Override
 	public CreateControllerGroupPresenter.View createCreateControllerGroupView() {
-		return new CreateControllerGroupView();
+		return createControllerGroupView;
 	}
 }

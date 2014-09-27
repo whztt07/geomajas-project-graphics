@@ -65,12 +65,7 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 	private boolean externalizableLabeledOriginallyExternal;
 
 	public GraphicsServiceImpl(final EventBus eventBus, boolean undoKeys) {
-		this(eventBus, undoKeys, true);
-	}
-	
-	public GraphicsServiceImpl(final EventBus eventBus, boolean undoKeys, boolean showOriginalObjectWhileDragging) {
 		this.eventBus = eventBus;
-		this.showOriginalObjectWhileDragging = showOriginalObjectWhileDragging;
 		standardGraphicsOperationEventRegistration = eventBus.addHandler(GraphicsOperationEvent.getType(), this);
 		if (undoKeys) {
 			Event.addNativePreviewHandler(new NativePreviewHandler() {

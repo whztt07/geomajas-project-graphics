@@ -263,7 +263,8 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 
 		public void update() {
 			Bbox userBounds = object.getUserBounds();
-			Bbox screenBounds = transform(userBounds, Space.USER, Space.SCREEN);
+			Bbox screenBounds = transform(userBounds,
+					Space.USER, Space.SCREEN);
 			Coordinate screenCenter = BboxService.getCenterPoint(screenBounds);
 			// minimal screen width/height + increase with half handler size so handlers don't overlap
 			double minSize = 3 * HANDLER_SIZE;
