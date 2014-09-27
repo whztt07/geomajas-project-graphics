@@ -10,6 +10,8 @@
  */
 package org.geomajas.graphics.client.service;
 
+import org.geomajas.graphics.client.controller.GraphicsController;
+
 /**
  * Factory for the meta-controller. This is a singleton controller that handles activation/deactivation of individual
  * controllers. 

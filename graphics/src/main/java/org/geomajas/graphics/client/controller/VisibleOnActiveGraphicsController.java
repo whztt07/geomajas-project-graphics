@@ -11,10 +11,8 @@
 package org.geomajas.graphics.client.controller;
 
 
-import org.geomajas.graphics.client.service.GraphicsController;
-
 /**
- * Extension of {@link org.geomajas.graphics.client.service.GraphicsController} with
+ * Extension of {@link GraphicsController} with
  * {@link VisibleOnActiveGraphicsController#setControllerElementsVisible(boolean)} method.
  *
  * @author Jan Venstermans

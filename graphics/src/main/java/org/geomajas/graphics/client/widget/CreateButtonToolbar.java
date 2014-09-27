@@ -13,8 +13,8 @@ package org.geomajas.graphics.client.widget;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.geomajas.graphics.client.controller.CreateController;
-import org.geomajas.graphics.client.controller.CreateMetaController;
+import org.geomajas.graphics.client.controller.create.CreateController;
+import org.geomajas.graphics.client.controller.create.CreateMetaController;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

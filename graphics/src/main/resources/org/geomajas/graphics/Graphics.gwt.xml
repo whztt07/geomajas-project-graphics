@@ -3,6 +3,6 @@
 	<inherits name='org.geomajas.Geometry'/>
 	<inherits name="com.mogaleaf.SimpleColorPicker"/>
 
-	<entry-point class="org.geomajas.graphics.client.Graphics" />
+	<entry-point class="org.geomajas.graphics.client.GraphicsEntryPoint" />
 </module>
 	

@@ -14,7 +14,7 @@ import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Useful base class for {@link org.geomajas.graphics.client.service.GraphicsController}.
+ * Useful base class for {@link GraphicsController}.
  *
  * @author Jan De Moerloose
  *

@@ -33,7 +33,7 @@ import org.geomajas.graphics.client.object.GRectangle;
 import org.geomajas.graphics.client.object.GText;
 import org.geomajas.graphics.client.object.anchor.Anchored;
 import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
-import org.geomajas.graphics.client.service.AbstractGraphicsObjectContainer;
+import org.geomajas.graphics.client.service.objectcontainer.AbstractGraphicsObjectContainer;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.GraphicsUtil;

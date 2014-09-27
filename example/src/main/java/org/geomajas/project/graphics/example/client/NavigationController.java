@@ -10,7 +10,7 @@
  */
 package org.geomajas.project.graphics.example.client;
 
-import org.geomajas.graphics.client.service.GraphicsController;
+import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.Group;
 

@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import org.geomajas.graphics.client.controller.GraphicsController;
+import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
 import org.geomajas.graphics.client.controller.MetaController;
 import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
+import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 import com.google.gwt.dom.client.NativeEvent;
@@ -155,15 +158,15 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 		this.objectContainer = objectContainer;
 	}
 
-	protected VectorObjectContainer createContainer() {
+	public VectorObjectContainer createContainer() {
 		return objectContainer.createContainer();
 	}
 
-	protected void bringContainerToFront(VectorObjectContainer container) {
+	public void bringContainerToFront(VectorObjectContainer container) {
 		objectContainer.bringContainerToFront(container);
 	}
 
-	protected void removeContainer(VectorObjectContainer container) {
+	public void removeContainer(VectorObjectContainer container) {
 		objectContainer.removeContainer(container);
 	}
 

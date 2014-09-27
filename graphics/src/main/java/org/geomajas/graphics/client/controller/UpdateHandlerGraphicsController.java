@@ -13,13 +13,12 @@ package org.geomajas.graphics.client.controller;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.service.AbstractGraphicsController;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 /**
- * Useful base class for {@link org.geomajas.graphics.client.service.GraphicsController}.
+ * Useful base class for {@link GraphicsController}.
  * 
  * @author Jan De Moerloose
  * 

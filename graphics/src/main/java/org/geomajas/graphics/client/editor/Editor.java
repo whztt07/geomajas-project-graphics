@@ -16,10 +16,10 @@ import org.geomajas.graphics.client.service.GraphicsService;
 import com.google.gwt.user.client.ui.IsWidget;
 
 /**
- * Editor widget for editing object roles in a custom manner.
- * 
+ * Wraps editor invocation in an {@link org.geomajas.graphics.client.action.Action}.
+ *
  * @author Jan De Moerloose
- * 
+ *
  */
 public interface Editor extends IsWidget {
 

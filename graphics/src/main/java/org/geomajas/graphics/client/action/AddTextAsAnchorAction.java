@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.action;
 
-import org.geomajas.graphics.client.controller.CreateTextController;
+import org.geomajas.graphics.client.controller.create.CreateTextController;
 import org.geomajas.graphics.client.object.GText;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.Resizable;

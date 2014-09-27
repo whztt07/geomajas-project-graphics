@@ -24,9 +24,6 @@ import org.geomajas.graphics.client.object.GRectangle;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.Resizable;
 import org.geomajas.graphics.client.object.role.HtmlRenderable;
-import org.geomajas.graphics.client.service.AbstractGraphicsController;
-import org.geomajas.graphics.client.service.GraphicsController;
-import org.geomajas.graphics.client.service.GraphicsControllerFactory;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 

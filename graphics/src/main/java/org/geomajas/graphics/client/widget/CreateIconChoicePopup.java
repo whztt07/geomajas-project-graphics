@@ -31,7 +31,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.controller.CreateIconController;
+import org.geomajas.graphics.client.controller.create.CreateIconController;
 import org.geomajas.graphics.client.object.GIcon;
 import org.geomajas.graphics.client.object.anchor.Anchored;
 import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
@@ -54,8 +54,8 @@ import java.util.Set;
 
 /**
  * Popup window with icon and marker choice, used by
- * {@link org.geomajas.graphics.client.controller.CreateIconController} and
- * {@link org.geomajas.graphics.client.controller.CreateAnchoredIconController}.
+ * {@link org.geomajas.graphics.client.controller.create.CreateIconController} and
+ * {@link org.geomajas.graphics.client.controller.create.CreateAnchoredIconController}.
  * 
  * @author Jan Venstermans
  * 

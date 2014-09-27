@@ -10,21 +10,27 @@
  */
 package org.geomajas.graphics.client;
 
-import org.geomajas.graphics.client.resource.GraphicsResource;
-
-import com.google.gwt.core.client.EntryPoint;
-
 /**
- * {@link EntryPoint} for the Graphics project.
- * 
- * @author Jan De Moerloose
- * 
+ * Starting class for the Graphics Project.
+ *
+ * @author Jan Venstermans
+ *
  */
-public class Graphics implements EntryPoint {
+public final class Graphics {
 
-	@Override
-	public void onModuleLoad() {
-		GraphicsResource.INSTANCE.css().ensureInjected();
+	private static GraphicsViewManager viewManager;
+
+	private Graphics() {
 	}
 
+	public static GraphicsViewManager getViewManager() {
+		if (viewManager == null) {
+			viewManager = new GraphicsViewManagerImpl();
+		}
+		return viewManager;
+	}
+
+	public static void setViewManager(GraphicsViewManager viewManager) {
+		Graphics.viewManager = viewManager;
+	}
 }
