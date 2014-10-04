@@ -116,3 +116,8 @@
     margin-bottom: 5px;
 }
 
+.graphics-testContainer-rootPanel {
+    border-style: solid;
+    border-width: 1px;
+}
+

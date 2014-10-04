@@ -54,21 +54,24 @@ public class ExampleGraphicsObjectContainer extends AbstractGraphicsObjectContai
 
 	private AbsolutePanel rootPanel;
 	
-	private DrawingArea canvas = new DrawingArea(1000, 1000);
+	private DrawingArea canvas = new DrawingArea(1400, 700);
 
 	private TransformingGroup rootContainer = new TransformingGroup();
 
 	public ExampleGraphicsObjectContainer(EventBus eventBus) {
 		super(eventBus);
 		rootPanel = new AbsolutePanel();
-		rootPanel.setPixelSize(1000, 1000);
+		rootPanel.setPixelSize(canvas.getWidth(), canvas.getHeight());
 		canvas.getElement().setId("TestContainer");
 		canvas.add(rootContainer);
 		setRootContainer(rootContainer);
 		setBackGround(rootPanel);
 		setWidgetContainer(rootPanel);
 		rootPanel.add(canvas);
+		rootPanel.setStyleName("graphics-testContainer-rootPanel");
 		Event.addNativePreviewHandler(this);
+
+		// graphics objects
 		GRectangle rect = new GRectangle(100, 100, 100, 100);
 		GraphicsUtil.addLabeledRole(rect, "Rectangle label");
 		GCircle circle = new GCircle(300, 100, 50);
