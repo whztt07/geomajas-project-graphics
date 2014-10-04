@@ -50,9 +50,6 @@ import org.geomajas.graphics.client.editor.AnchorStyleEditor;
 import org.geomajas.graphics.client.editor.LabelEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
 import org.geomajas.graphics.client.editor.TextableEditor;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.GraphicsServiceImpl;
 import org.geomajas.graphics.client.widget.createcontrollergroup.CreateButtonGroupWidget;
@@ -67,7 +64,7 @@ import java.util.List;
  * @author Jan De Moerloose
  * 
  */
-public class Example implements EntryPoint, Handler {
+public class Example implements EntryPoint {
 
 	private static final Binder UIBINDER = GWT.create(Binder.class);
 
@@ -139,7 +136,6 @@ public class Example implements EntryPoint, Handler {
 		graphicsService = new GraphicsServiceImpl(eventBus, true);
 		graphicsService.setShowOriginalObjectWhileDragging(true);
 		graphicsService.setObjectContainer(graphicsObjectContainer);
-		graphicsService.getObjectContainer().addGraphicsObjectContainerHandler(this);
 		
 		//functionalities
 		popupFactory = new PopupMenuControllerFactory();
@@ -158,14 +154,6 @@ public class Example implements EntryPoint, Handler {
 		RootLayoutPanel.get().add(dockLayoutPanel);
 
 		graphicsService.start();
-	}
-
-	@Override
-	public void onAction(GraphicsObjectContainerEvent event) {
-		// TODO: move this into the impl code, not the example?
-		if (event.getActionType() != ActionType.UPDATE) {
-			graphicsService.getMetaController().setActive(true);
-		}
 	}
 
 	@UiHandler("navigationControllerToggleButton")

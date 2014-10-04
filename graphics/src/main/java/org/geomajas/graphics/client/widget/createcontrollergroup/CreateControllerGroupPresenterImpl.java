@@ -13,7 +13,6 @@ package org.geomajas.graphics.client.widget.createcontrollergroup;
 import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.graphics.client.controller.create.CreateController;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 import java.util.ArrayList;
@@ -72,9 +71,13 @@ public class CreateControllerGroupPresenterImpl implements CreateControllerGroup
 
 	@Override
 	public void onAction(GraphicsObjectContainerEvent event) {
-		if (active && event.getActionType().equals(ActionType.ADD)) {
-			// object created due to one of registered CreateControllers.
-			setActive(false);
+		if (active) {
+			switch(event.getActionType()) {
+				case ADD:
+					// object created due to one of registered CreateControllers.
+					setActive(false);
+					break;
+			}
 		}
 	}
 

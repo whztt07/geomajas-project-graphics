@@ -10,9 +10,12 @@
  */
 package org.geomajas.graphics.client.controller.create;
 
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.graphics.client.controller.AbstractGraphicsController;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.AddOperation;
+import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -26,7 +29,9 @@ import org.geomajas.graphics.client.service.GraphicsService;
 public abstract class CreateController<T extends GraphicsObject> extends AbstractGraphicsController {
 
 	private boolean active;
-	
+
+	private HandlerRegistration registration;
+
 	public CreateController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}
@@ -45,7 +50,30 @@ public abstract class CreateController<T extends GraphicsObject> extends Abstrac
 	public void destroy() {
 	}
 
-	protected void addObject(T result) {
+	protected void addObject(final T result) {
 		execute(new AddOperation(result));
+	}
+
+	@Override
+	protected void execute(GraphicsOperation operation) {
+		// if object is added to the object container, deactivate the controller and activate metacontroller
+		if (operation instanceof AddOperation) {
+			final AddOperation addOperation = (AddOperation) operation;
+			registration = getService().getObjectContainer()
+					.addGraphicsObjectContainerHandler(new GraphicsObjectContainerEvent.Handler() {
+						@Override
+						public void onAction(GraphicsObjectContainerEvent event) {
+							if (event.getActionType().equals(GraphicsObjectContainerEvent.ActionType.ADD)
+									&& event.getObject().equals(addOperation.getObject())) {
+								setActive(false);
+								getService().getMetaController().setActive(true);
+								if (registration != null) {
+									registration.removeHandler();
+								}
+							}
+						}
+					});
+		}
+		super.execute(operation);
 	}
 }
