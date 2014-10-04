@@ -46,7 +46,7 @@ public class NavigationController implements GraphicsController, MouseWheelHandl
 		if (active != isActive()) {
 			this.active = active;
 			if (isActive()) {
-				registration = rootContainer.addMouseWheelHandler(this);
+				registration = service.getObjectContainer().addMouseWheelHandler(this);
 			} else {
 				registration.removeHandler();
 				service.getMetaController().setActive(true);

@@ -32,10 +32,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
-import org.geomajas.graphics.client.action.DuplicateAction;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredIconController;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredTextController;
-import org.geomajas.graphics.client.widget.createcontrollergroup.CreateButtonGroupWidget;
 import org.geomajas.graphics.client.controller.create.CreateEllipseController;
 import org.geomajas.graphics.client.controller.create.CreateIconController;
 import org.geomajas.graphics.client.controller.create.CreateImageController;
@@ -57,6 +55,7 @@ import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionTyp
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.GraphicsServiceImpl;
+import org.geomajas.graphics.client.widget.createcontrollergroup.CreateButtonGroupWidget;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -195,11 +194,11 @@ public class Example implements EntryPoint, Handler {
 		popupFactory.registerEditor(new TextableEditor());
 		popupFactory.registerEditor(new LabelEditor());
 		popupFactory.registerEditor(new StrokeFillEditor());
-		popupFactory.registerAction(new DuplicateAction());
 		popupFactory.registerAction(new BringToFrontAction());
 		popupFactory.registerEditor(new AnchorStyleEditor());
 
 		// TODO: re-asses unsupported editors/action
+//		popupFactory.registerAction(new DuplicateAction());
 //		popupFactory.registerEditor(new ExternalLabelEditor());
 //		popupFactory.registerAction(new AddTextAsAnchorAction());
 //		popupFactory.registerAction(new ToggleLabelAction());
