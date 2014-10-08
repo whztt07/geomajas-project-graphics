@@ -32,10 +32,18 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
-import org.geomajas.graphics.client.controller.create.CreateAnchoredIconController;
+import org.geomajas.graphics.client.controller.create.CreateAnchoredIconControllerImpl;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredTextController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseEllipseController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseIconController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseImageController;
+import org.geomajas.graphics.client.controller.create.base.CreateBasePathController;
+import org.geomajas.graphics.client.controller.create.base.CreateBasePathLineController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseRectangleController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseTextController;
 import org.geomajas.graphics.client.controller.create.CreateEllipseController;
-import org.geomajas.graphics.client.controller.create.CreateIconController;
+import org.geomajas.graphics.client.controller.create.CreateIconControllerImpl;
 import org.geomajas.graphics.client.controller.create.CreateImageController;
 import org.geomajas.graphics.client.controller.create.CreatePathController;
 import org.geomajas.graphics.client.controller.create.CreateRectangleController;
@@ -83,6 +91,9 @@ public class Example implements EntryPoint {
 	protected FlowPanel westFlowPanel;
 
 	@UiField
+	protected CaptionPanel captionPanelBaseCreateButtons;
+
+	@UiField
 	protected CaptionPanel captionPanelCreateButtons;
 
 	@UiField
@@ -104,12 +115,13 @@ public class Example implements EntryPoint {
 	protected ToggleButton navigationControllerToggleButton;
 
 	private CreateButtonGroupWidget createButtonGroupWidget;
+	private CreateButtonGroupWidget createBaseButtonGroupWidget;
 
 	/* some controllers that have extra functions */
 
-	private CreateIconController createIconController;
+	private CreateIconControllerImpl createIconController;
 
-	private CreateAnchoredIconController createAnchoredIconController;
+	private CreateAnchoredIconControllerImpl createAnchoredIconController;
 
 	private NavigationController navigationController;
 	
@@ -145,6 +157,8 @@ public class Example implements EntryPoint {
 		//create widget and fill
 		createButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
 		registerCreateControllersToWidget(createButtonGroupWidget);
+		createBaseButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
+		registerBaseCreateControllersToWidget(createBaseButtonGroupWidget);
 		navigationController = new NavigationController(graphicsService, graphicsObjectContainer.getRootContainer());
 
 		//layout
@@ -193,6 +207,20 @@ public class Example implements EntryPoint {
 //		popupFactory.registerEditor(new TemplateLabelEditor());
 	}
 
+	private void registerBaseCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
+		createButtonGroupWidget.addCreateController(new CreateBaseTextController(graphicsService), "Base Text");
+		createButtonGroupWidget.addCreateController(
+				new CreateBaseRectangleController(graphicsService), "Base Rectangle");
+		createButtonGroupWidget.addCreateController(new CreateBaseCircleController(graphicsService), "Base Circle");
+		createButtonGroupWidget.addCreateController(new CreateBaseEllipseController(graphicsService), "Base Ellipse");
+		createButtonGroupWidget.addCreateController(
+				new CreateBaseIconController(graphicsService, 16, 16, url), "Base Icon");
+		createButtonGroupWidget.addCreateController(new CreateBaseImageController(graphicsService), "Base Image");
+		createButtonGroupWidget.addCreateController(
+				new CreateBasePathController(graphicsService, true), "Base Polygon");
+		createButtonGroupWidget.addCreateController(new CreateBasePathLineController(graphicsService), "Base Line");
+	}
+
 	private void registerCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
 		createButtonGroupWidget.addCreateController(new CreateTextController(graphicsService), "Text");
 		createButtonGroupWidget.addCreateController(new CreateAnchoredTextController(graphicsService), "Anchored Text");
@@ -203,11 +231,11 @@ public class Example implements EntryPoint {
 		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, false), "Line");
 		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, true), "Polygon");
 
-		createIconController = new CreateIconController(graphicsService, 16, 16, url);
+		createIconController = new CreateIconControllerImpl(graphicsService, 16, 16, url);
 		createButtonGroupWidget.addCreateController(createIconController, "Icon");
 
 		createAnchoredIconController
-				= new CreateAnchoredIconController(graphicsService, 16,	16, null);
+				= new CreateAnchoredIconControllerImpl(graphicsService, 16,	16, null);
 		createAnchoredIconController.setChoiceListImageSize(32);
 		createButtonGroupWidget.addCreateController(createAnchoredIconController, "Anchored Icon");
 
@@ -260,6 +288,9 @@ public class Example implements EntryPoint {
 
 		});
 
+		captionPanelBaseCreateButtons.setContentWidget(createBaseButtonGroupWidget.asWidget());
+		createBaseButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
+
 		captionPanelCreateButtons.setContentWidget(createButtonGroupWidget.asWidget());
 		createButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
 
@@ -268,8 +299,8 @@ public class Example implements EntryPoint {
 		//westFlowPanel.add(iconChoicePanel);
 	}
 
-	private void createIconChoicePanel(final CreateIconController createIconController,
-			final CreateAnchoredIconController createAnchoredIconController) {
+	private void createIconChoicePanel(final CreateIconControllerImpl createIconController,
+			final CreateAnchoredIconControllerImpl createAnchoredIconController) {
 		iconChoicePanel = new VerticalPanel();
 		RadioButton rb0 = new RadioButton("myRadioGroup", "No icon: sets default");
 		rb0.addClickHandler(new ClickHandler() {

@@ -6,6 +6,7 @@
 	<g:DockLayoutPanel ui:field="dockLayoutPanel">
 		<g:west size="150">
 			<g:FlowPanel ui:field="westFlowPanel" styleName="graphicsExample-leftPanel-total">
+				<g:CaptionPanel captionText="Create Base Objects" ui:field="captionPanelBaseCreateButtons"/>
 				<g:CaptionPanel captionText="Create objects" ui:field="captionPanelCreateButtons"/>
 				<g:CaptionPanel captionText="Cog position offset" ui:field="captionPanelCogPosition">
 					<g:HTMLPanel>
