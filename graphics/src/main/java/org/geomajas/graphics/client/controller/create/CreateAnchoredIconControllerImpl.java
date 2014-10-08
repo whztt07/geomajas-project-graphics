@@ -27,9 +27,10 @@ import java.util.List;
  * @author Jan De Moerloose
  * 
  */
-public class CreateAnchoredIconController extends CreateIconController {
+public class CreateAnchoredIconControllerImpl extends CreateIconControllerImpl {
 	
-	public CreateAnchoredIconController(GraphicsService graphicsService, int width, int height, List<String> hrefs) {
+	public CreateAnchoredIconControllerImpl(GraphicsService graphicsService,
+											int width, int height, List<String> hrefs) {
 		super(graphicsService, width, height, hrefs);
 		popup.setMarkerSectionVisible(true);
 	}

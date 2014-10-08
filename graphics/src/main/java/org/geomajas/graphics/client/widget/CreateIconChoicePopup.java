@@ -54,8 +54,8 @@ import java.util.Set;
 
 /**
  * Popup window with icon and marker choice, used by
- * {@link org.geomajas.graphics.client.controller.create.CreateIconController} and
- * {@link org.geomajas.graphics.client.controller.create.CreateAnchoredIconController}.
+ * {@link org.geomajas.graphics.client.controller.create.CreateIconControllerImpl} and
+ * {@link org.geomajas.graphics.client.controller.create.CreateAnchoredIconControllerImpl}.
  * 
  * @author Jan Venstermans
  * 
