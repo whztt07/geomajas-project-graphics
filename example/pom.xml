@@ -189,18 +189,18 @@
 							<cargo.remote.uri>${dev.deploy.uri}</cargo.remote.uri>
 						</properties>
 					</configuration>
-					<deployer>
-						<deployables>
-							<deployable>
-								<groupId>org.geomajas.project</groupId>
-								<artifactId>geomajas-project-graphics-example</artifactId>
-								<type>war</type>
-								<properties>
-									<context>graphics</context>
-								</properties>
-							</deployable>
-						</deployables>
-					</deployer>
+					<!--<deployer>-->
+						<!--<deployables>-->
+							<!--<deployable>-->
+								<!--<groupId>org.geomajas.project</groupId>-->
+								<!--<artifactId>geomajas-project-graphics-example</artifactId>-->
+								<!--<type>war</type>-->
+								<!--<properties>-->
+									<!--<context>graphics</context>-->
+								<!--</properties>-->
+							<!--</deployable>-->
+						<!--</deployables>-->
+					<!--</deployer>-->
 
 				</configuration>
 			</plugin>
