@@ -64,7 +64,7 @@ public enum MarkerShape {
 	public Shape getMarkerShape() {
 		switch(this) {
 			case SQUARE:
-				return new AnchoredRectangle(0, 0,
+				return new AnchoredRectangleImpl(0, 0,
 						8, 8, 4, 4);
 			case CIRCLE:
 				return new AnchoredCircle(0, 0, 4, 0, 0);
@@ -85,7 +85,7 @@ public enum MarkerShape {
 	public Shape getMarkerShape(double posX, double posY, double size) {
 		switch(this) {
 			case SQUARE:
-				return new AnchoredRectangle(posX, posX,
+				return new AnchoredRectangleImpl(posX, posX,
 						size, size, (int) size / 2, (int) size / 2);
 			case CIRCLE:
 				return new AnchoredCircle(posX, posY, size / 2, 0, 0);

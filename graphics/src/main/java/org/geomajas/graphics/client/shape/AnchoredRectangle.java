@@ -10,7 +10,6 @@
  */
 package org.geomajas.graphics.client.shape;
 
-import org.vaadin.gwtgraphics.client.shape.Rectangle;
 import org.geomajas.graphics.client.object.Cloneable;
 
 /**
@@ -18,51 +17,52 @@ import org.geomajas.graphics.client.object.Cloneable;
  * for location markers).
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
-public class AnchoredRectangle extends Rectangle implements Cloneable {
+public interface AnchoredRectangle extends Cloneable {
 
-	private int anchorX;
+	void setUserX(double userX);
 
-	private int anchorY;
+	void setUserY(double userY);
 
-	/**
-	 * Creates an rectangle at the specified world location with a specified size and anchor point. E.g., if
-	 * (anchorX,anchorY)=(width/2, height/2), the center of the rectangle will be positioned at the world location.
-	 * 
-	 * @param userX x-location in world coordinates
-	 * @param userY y-location in world coordinates
-	 * @param userWidth width in pixels
-	 * @param userHeight height in pixels
-	 * @param anchorX x-location of the anchor point (rectangle-relative)
-	 * @param anchorY y-location of the anchor point (rectangle-relative)
-	 */
-	public AnchoredRectangle(double userX, double userY, double userWidth, double userHeight, 
-			int anchorX, int anchorY) {
-		super(userX, userY, userWidth, userHeight);
-		this.anchorX = anchorX;
-		this.anchorY = anchorY;
-	}
+	double getUserX();
 
-	@Override
-	protected void drawTransformed() {
-		getImpl().setX(getElement(), (int) Math.round(getUserX() * getScaleX() + getDeltaX()) - anchorX, isAttached());
-		getImpl().setY(getElement(), (int) Math.round(getUserY() * getScaleY() + getDeltaY()) - anchorY, isAttached());
-		// don't scale, but have to set width/height here !
-		setWidth((int) getUserWidth());
-		setHeight((int) getUserHeight());
-	}
+	double getUserY();
 
-	@Override
-	public Object cloneObject() {
-		return new AnchoredRectangle(getUserX(), getUserY(), getUserWidth(), getUserHeight(), anchorX, anchorY);
-	}
-	
-	public int getAnchorX() {
-		return anchorX;
-	}
+	double getUserWidth();
 
-	public int getAnchorY() {
-		return anchorX;
-	}
+	double getUserHeight();
+
+	void setUserWidth(double width);
+
+	void setUserHeight(double height);
+
+	int getX();
+
+	int getY();
+
+	int getWidth();
+
+	int getHeight();
+
+	String getFillColor();
+
+	void setFillColor(String color);
+
+	double getFillOpacity();
+
+	void setFillOpacity(double opacity);
+
+	String getStrokeColor();
+
+	void setStrokeColor(String color);
+
+	int getStrokeWidth();
+
+	void setStrokeWidth(int width);
+
+	double getStrokeOpacity();
+
+	void setStrokeOpacity(double opacity);
 }

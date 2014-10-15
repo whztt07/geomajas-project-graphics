@@ -15,7 +15,7 @@ import org.geomajas.graphics.client.object.ResizableAwareRole;
 import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.object.role.RoleType;
 import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.shape.AnchoredText;
+import org.geomajas.graphics.client.shape.AnchoredTextImpl;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -45,7 +45,7 @@ public class ResizableLabeler implements Labeled, ResizableAwareRole<Labeled> {
 		return resTextable.asObject();
 	}
 	
-	public AnchoredText getInternalLabel() {
+	public AnchoredTextImpl getInternalLabel() {
 		return resTextable.getInternalLabel();
 	}
 

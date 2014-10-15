@@ -15,7 +15,7 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.shape.AnchoredText;
+import org.geomajas.graphics.client.shape.AnchoredTextImpl;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -28,10 +28,10 @@ import org.vaadin.gwtgraphics.client.VectorObject;
 public class GText extends ResizableGraphicsObject implements Textable, Fillable, Strokable {
 
 	public GText(double userX, double userY, String text) {
-		this(new AnchoredText(userX, userY, text, 0.5, 0.5));
+		this(new AnchoredTextImpl(userX, userY, text, 0.5, 0.5));
 	}
 
-	public GText(AnchoredText anchoredText) {
+	public GText(AnchoredTextImpl anchoredText) {
 		this(new DraggableText(anchoredText));
 	}
 
@@ -145,20 +145,20 @@ public class GText extends ResizableGraphicsObject implements Textable, Fillable
 	static class DraggableText implements Draggable, Strokable, Fillable, Textable, Resizable {
 
 		// centered around userX, userY
-		private AnchoredText text;
+		private AnchoredTextImpl text;
 		
 		// a rectangle arround the text.
 		private ResizableBorderer borderer ;
 		
-		public AnchoredText getAnchor() {
+		public AnchoredTextImpl getAnchor() {
 			return text;
 		}
 
-		public DraggableText(AnchoredText text) {
+		public DraggableText(AnchoredTextImpl text) {
 			this(text, true);
 		}
 		
-		public DraggableText(AnchoredText text, boolean setDefaultFontStyle) {
+		public DraggableText(AnchoredTextImpl text, boolean setDefaultFontStyle) {
 			this.text = text;
 			borderer = new ResizableBorderer();
 			borderer.setFixedSize(true);
@@ -230,8 +230,8 @@ public class GText extends ResizableGraphicsObject implements Textable, Fillable
 		}
 
 		public Object cloneObject() {
-			AnchoredText clone = new AnchoredText(text.getUserX(), text.getUserY(), text.getText(), text.getAnchorX(),
-					text.getAnchorY());
+			AnchoredTextImpl clone = new AnchoredTextImpl(text.getUserX(),
+					text.getUserY(), text.getText(), text.getAnchorX(), text.getAnchorY());
 			clone.setStrokeWidth(text.getStrokeWidth());
 			clone.setFillColor(text.getFillColor()); // this is font color
 			clone.setFontFamily(text.getFontFamily());

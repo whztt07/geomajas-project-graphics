@@ -12,14 +12,15 @@ package org.geomajas.graphics.client.object.base;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
+import org.geomajas.graphics.client.shape.AnchoredRectangle;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
-import org.vaadin.gwtgraphics.client.shape.Rectangle;
 
 /**
  * Extension of {@link BaseGraphicsObject} for a rectangle.
@@ -29,13 +30,13 @@ import org.vaadin.gwtgraphics.client.shape.Rectangle;
  */
 public class BaseRectangle extends BaseGraphicsObject implements Resizable, Draggable, Fillable, Strokable {
 
-	private Rectangle rectangle;
+	private AnchoredRectangle rectangle;
 
 	public BaseRectangle(double userX, double userY, double width, double height) {
-		this(new Rectangle(userX, userY, width, height));
+		this(Graphics.getShapeCreationManager().createAnchoredRectangle(userX, userY, width, height));
 	}
 
-	public BaseRectangle(Rectangle rectangle) {
+	public BaseRectangle(AnchoredRectangle rectangle) {
 		this.rectangle = rectangle;
 		addRole(Strokable.TYPE, this);
 		addRole(Fillable.TYPE, this);
@@ -56,8 +57,8 @@ public class BaseRectangle extends BaseGraphicsObject implements Resizable, Drag
 
 	@Override
 	public Object cloneObject() {
-		Rectangle mask = new Rectangle(rectangle.getUserX(), rectangle.getUserY(), rectangle.getUserWidth(),
-				rectangle.getUserHeight());
+		AnchoredRectangle mask = Graphics.getShapeCreationManager().createAnchoredRectangle(
+				rectangle.getUserX(), rectangle.getUserY(), rectangle.getUserWidth(), rectangle.getUserHeight());
 		return new BaseRectangle(mask);
 	}
 
@@ -97,7 +98,10 @@ public class BaseRectangle extends BaseGraphicsObject implements Resizable, Drag
 
 	@Override
 	public VectorObject asObject() {
-		return rectangle;
+		if (rectangle instanceof VectorObject) {
+			return (VectorObject) rectangle;
+		}
+		return null;
 	}
 
 	@Override
