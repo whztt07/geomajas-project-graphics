@@ -105,6 +105,7 @@ public class PopupMenuControllerImpl extends AbstractGraphicsController
 				}
 				if (menu == null) {
 					menu = Graphics.getViewManager().createPopupMenuView();
+					menu.addHandler(this);
 					for (Action action : actions) {
 						menu.addAction(action.getLabel(), action);
 					}

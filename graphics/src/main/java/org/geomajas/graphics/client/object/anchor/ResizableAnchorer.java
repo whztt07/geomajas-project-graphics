@@ -16,7 +16,7 @@ import org.geomajas.graphics.client.object.Cloneable;
 import org.geomajas.graphics.client.object.Resizable;
 import org.geomajas.graphics.client.object.ResizableAwareRole;
 import org.geomajas.graphics.client.object.role.RoleType;
-import org.geomajas.graphics.client.shape.AnchoredRectangle;
+import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
 import org.geomajas.graphics.client.shape.CoordinatePath;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
@@ -84,7 +84,7 @@ public class ResizableAnchorer implements Anchored, ResizableAwareRole<Anchored>
 			anchor = (Shape) ((Cloneable) shape).cloneObject();
 		} else {
 			// standard marker shape: rectangle
-			anchor = new AnchoredRectangle(0, 0, 8, 8, 4, 4);
+			anchor = new AnchoredRectangleImpl(0, 0, 8, 8, 4, 4);
 		}
 		anchor.setFixedSize(true);
 		anchor.setFillColor("#FF6600");

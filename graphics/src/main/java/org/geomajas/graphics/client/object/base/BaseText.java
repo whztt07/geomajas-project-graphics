@@ -12,6 +12,7 @@ package org.geomajas.graphics.client.object.base;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.Resizable;
@@ -41,7 +42,7 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 	}
 
 	public BaseText(double userX, double userY, String text) {
-		this(new AnchoredText(userX, userY, text, 0.5, 0.5));
+		this(Graphics.getShapeCreationManager().createAnchoredText(userX, userY, text, 0.5, 0.5));
 	}
 
 	public BaseText(AnchoredText text) {
@@ -63,7 +64,10 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 
 	@Override
 	public VectorObject asObject() {
-		return text;
+		if (text instanceof VectorObject) {
+			return (VectorObject) text;
+		}
+		return null;
 	}
 
 	@Override
@@ -81,8 +85,8 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 
 	@Override
 	public Object cloneObject() {
-		AnchoredText clone = new AnchoredText(text.getUserX(), text.getUserY(), text.getText(), text.getAnchorX(),
-				text.getAnchorY());
+		AnchoredText clone = Graphics.getShapeCreationManager().createAnchoredText(
+				text.getUserX(), text.getUserY(), text.getText(), text.getAnchorX(), text.getAnchorY());
 		clone.setStrokeWidth(text.getStrokeWidth());
 		clone.setFillColor(text.getFillColor()); // this is font color
 		clone.setFontFamily(text.getFontFamily());

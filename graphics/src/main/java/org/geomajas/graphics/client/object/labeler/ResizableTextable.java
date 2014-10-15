@@ -16,7 +16,7 @@ import org.geomajas.graphics.client.object.Resizable;
 import org.geomajas.graphics.client.object.ResizableAwareRole;
 import org.geomajas.graphics.client.object.role.RoleType;
 import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.shape.AnchoredText;
+import org.geomajas.graphics.client.shape.AnchoredTextImpl;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -29,7 +29,7 @@ public class ResizableTextable implements Textable, ResizableAwareRole<Textable>
 
 	private Resizable resizable;
 
-	private AnchoredText text;
+	private AnchoredTextImpl text;
 
 	public ResizableTextable() {
 		this(null);
@@ -37,7 +37,7 @@ public class ResizableTextable implements Textable, ResizableAwareRole<Textable>
 
 	public ResizableTextable(String label) {
 		String labelText = label != null ? label : "";
-		text = new AnchoredText(0, 0, labelText, 0.5, 0.5);
+		text = new AnchoredTextImpl(0, 0, labelText, 0.5, 0.5);
 		text.setFillColor("#000000");
 		text.setStrokeWidth(0);
 	}
@@ -47,7 +47,7 @@ public class ResizableTextable implements Textable, ResizableAwareRole<Textable>
 		return text;
 	}
 	
-	public AnchoredText getInternalLabel() {
+	public AnchoredTextImpl getInternalLabel() {
 		return text;
 	}
 

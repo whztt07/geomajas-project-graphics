@@ -30,7 +30,7 @@ import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.operation.ResizeOperation;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.shape.AnchoredRectangle;
+import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.FlipState;
 import org.geomajas.graphics.client.util.GraphicsUtil;
@@ -164,7 +164,7 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 
 	protected Shape createHandlerArea(BboxPosition type) {
 		Coordinate anchor = getAnchorPointCoordinate(type, HANDLER_SIZE);
-		AnchoredRectangle handler = new AnchoredRectangle(0, 0, HANDLER_SIZE, HANDLER_SIZE, (int) anchor.getX(),
+		AnchoredRectangleImpl handler = new AnchoredRectangleImpl(0, 0, HANDLER_SIZE, HANDLER_SIZE, (int) anchor.getX(),
 				(int) anchor.getY());
 		handler.setFillColor("#99FFFF");
 		handler.setStrokeColor("#000000");
@@ -174,7 +174,7 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 
 	protected Shape createClickableArea(BboxPosition type) {
 		Coordinate anchor = getAnchorPointCoordinate(type, HANDLER_SIZE);
-		AnchoredRectangle clickableArea = new AnchoredRectangle(0, 0, 2 * HANDLER_SIZE, 2 * HANDLER_SIZE,
+		AnchoredRectangleImpl clickableArea = new AnchoredRectangleImpl(0, 0, 2 * HANDLER_SIZE, 2 * HANDLER_SIZE,
 				(int) anchor.getX(), (int) anchor.getY());
 		clickableArea.setFillColor("#000000");
 		clickableArea.setStrokeColor("#000000");
