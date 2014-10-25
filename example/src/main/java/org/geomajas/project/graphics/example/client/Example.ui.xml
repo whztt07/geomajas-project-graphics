@@ -4,35 +4,38 @@
 	xmlns:ccg="urn:import:org.geomajas.graphics.client.widget.createcontrollergroup">
 
 	<g:DockLayoutPanel ui:field="dockLayoutPanel">
-		<g:west size="150">
-			<g:FlowPanel ui:field="westFlowPanel" styleName="graphicsExample-leftPanel-total">
-				<g:CaptionPanel captionText="Create Base Objects" ui:field="captionPanelBaseCreateButtons"/>
-				<g:CaptionPanel captionText="Create objects" ui:field="captionPanelCreateButtons"/>
-				<g:CaptionPanel captionText="Cog position offset" ui:field="captionPanelCogPosition">
-					<g:HTMLPanel>
-						<table>
-							<tr>
-								<td><g:Label>x:</g:Label></td>
-								<td><g:TextBox styleName="graphicsExample-leftPanel-cogPosition-textBox"
-											   ui:field="textBoxCogXOffset"/></td>
-							</tr>
-							<tr>
-								<td><g:Label>y:</g:Label></td>
-								<td><g:TextBox styleName="graphicsExample-leftPanel-cogPosition-textBox"
-											   ui:field="textBoxCogYOffset"/></td>
-							</tr>
-						</table>
-					</g:HTMLPanel>
-				</g:CaptionPanel>
-				<g:CaptionPanel captionText="General Options" ui:field="captionPanelGeneralOptions">
-					<g:VerticalPanel>
-						<g:ToggleButton ui:field="navigationControllerToggleButton" text="Navigation"
-										addStyleNames="graphicsExample-leftPanel-generalPanel-navigationButton" />
-						<g:CheckBox ui:field="checkShowDrag" text="show original on drag"/>
-					</g:VerticalPanel>
-				</g:CaptionPanel>
+		<g:west size="200">
+			<g:ScrollPanel ui:field="westScrollPanel" styleName="graphicsExample-leftPanel-total">
+				<g:FlowPanel ui:field="westFlowPanel">
+					<g:CaptionPanel captionText="Create Base Objects" ui:field="captionPanelBaseCreateButtons"/>
+					<g:CaptionPanel captionText="Create Combined Objects" ui:field="captionPanelCombinedCreateButtons"/>
+					<g:CaptionPanel captionText="Create objects" ui:field="captionPanelCreateButtons"/>
+					<g:CaptionPanel captionText="Cog position offset" ui:field="captionPanelCogPosition">
+						<g:HTMLPanel>
+							<table>
+								<tr>
+									<td><g:Label>x:</g:Label></td>
+									<td><g:TextBox styleName="graphicsExample-leftPanel-cogPosition-textBox"
+												   ui:field="textBoxCogXOffset"/></td>
+								</tr>
+								<tr>
+									<td><g:Label>y:</g:Label></td>
+									<td><g:TextBox styleName="graphicsExample-leftPanel-cogPosition-textBox"
+												   ui:field="textBoxCogYOffset"/></td>
+								</tr>
+							</table>
+						</g:HTMLPanel>
+					</g:CaptionPanel>
+					<g:CaptionPanel captionText="General Options" ui:field="captionPanelGeneralOptions">
+						<g:VerticalPanel>
+							<g:ToggleButton ui:field="navigationControllerToggleButton" text="Navigation"
+											addStyleNames="graphicsExample-leftPanel-generalPanel-navigationButton" />
+							<g:CheckBox ui:field="checkShowDrag" text="show original on drag"/>
+						</g:VerticalPanel>
+					</g:CaptionPanel>
 
-			</g:FlowPanel>
+				</g:FlowPanel>
+			</g:ScrollPanel>
 		</g:west>
 	</g:DockLayoutPanel>
 

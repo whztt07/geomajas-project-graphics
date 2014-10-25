@@ -10,25 +10,26 @@
  */
 package org.geomajas.graphics.client.controller.create.updateable;
 
+import org.geomajas.geometry.Bbox;
 import org.geomajas.graphics.client.controller.create.CreateBoundedObjectController;
-import org.geomajas.graphics.client.object.updateable.LabeledRectangle;
+import org.geomajas.graphics.client.object.updateable.LabeledEllipse;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Controller that creates a {@link org.geomajas.graphics.client.object.GRectangle}.
+ * Controller that creates a {@link org.geomajas.graphics.client.object.GEllipse}.
  *
  * @author Jan Venstermans
  *
  */
+public class CreateLabeledEllipseController extends CreateBoundedObjectController<LabeledEllipse> {
 
-public class CreateLabeledRectangleController extends CreateBoundedObjectController<LabeledRectangle> {
-
-	public CreateLabeledRectangleController(GraphicsService graphicsService) {
+	public CreateLabeledEllipseController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}
 
 	@Override
-	protected LabeledRectangle createObjectWithoutBounds() {
-		return new LabeledRectangle(0, 0, 0, 0, "Rectangle");
+	protected LabeledEllipse createObjectWithoutBounds() {
+		LabeledEllipse labeledEllipse = new LabeledEllipse(new Bbox(), "Ellipse");
+		return labeledEllipse;
 	}
 }

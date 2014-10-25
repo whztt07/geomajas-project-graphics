@@ -10,8 +10,7 @@
  */
 package org.geomajas.graphics.client.controller.create.base;
 
-import org.geomajas.graphics.client.controller.create.CreateResizableController;
-import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.controller.create.CreateBoundedObjectController;
 import org.geomajas.graphics.client.object.base.BaseCircle;
 import org.geomajas.graphics.client.service.GraphicsService;
 
@@ -21,14 +20,14 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan Venstermans
  *
  */
-public class CreateBaseCircleController extends CreateResizableController<BaseCircle> {
+public class CreateBaseCircleController extends CreateBoundedObjectController<BaseCircle> {
 
 	public CreateBaseCircleController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}
 
 	@Override
-	protected GraphicsObject createObject() {
+	protected BaseCircle createObjectWithoutBounds() {
 		BaseCircle ellipse = new BaseCircle(0, 0, 0);
 		return ellipse;
 	}

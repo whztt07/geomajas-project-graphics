@@ -10,8 +10,10 @@
  */
 package org.geomajas.graphics.client.controller.create.updateable;
 
-import org.geomajas.graphics.client.controller.create.CreateBoundedObjectController;
-import org.geomajas.graphics.client.object.updateable.LabeledRectangle;
+import org.geomajas.graphics.client.controller.create.base.CreateBasePathLineController;
+import org.geomajas.graphics.client.object.base.BasePathLine;
+import org.geomajas.graphics.client.object.updateable.LabeledPath;
+import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -21,14 +23,15 @@ import org.geomajas.graphics.client.service.GraphicsService;
  *
  */
 
-public class CreateLabeledRectangleController extends CreateBoundedObjectController<LabeledRectangle> {
+public class CreateLabeledPathLineController extends CreateBasePathLineController {
 
-	public CreateLabeledRectangleController(GraphicsService graphicsService) {
+	public CreateLabeledPathLineController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}
 
 	@Override
-	protected LabeledRectangle createObjectWithoutBounds() {
-		return new LabeledRectangle(0, 0, 0, 0, "Rectangle");
+	protected void addObject(BasePathLine path) {
+		LabeledPath labeledPath = new LabeledPath(path.getCoordinates(), false, "Line");
+		execute(new AddOperation(labeledPath));
 	}
 }

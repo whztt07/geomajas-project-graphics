@@ -31,8 +31,16 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 
 	private Ellipse ellipse;
 
-	public BaseEllipse(double userX, double userY, double userRadiusX, double userRadiusY) {
-		this(new Ellipse(userX, userY, userRadiusX, userRadiusY));
+	public BaseEllipse(Bbox boundingBox) {
+		this(BboxService.getCenterPoint(boundingBox), boundingBox.getWidth() / 2, boundingBox.getHeight() / 2);
+	}
+
+	public BaseEllipse(Coordinate ellipseCenter, double userRadiusX, double userRadiusY) {
+		this(ellipseCenter.getX(), ellipseCenter.getY(), userRadiusX, userRadiusY);
+	}
+
+	public BaseEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY) {
+		this(new Ellipse(ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY));
 	}
 
 	public BaseEllipse(Ellipse ellipse) {
@@ -65,9 +73,7 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 
 	@Override
 	public void setUserBounds(Bbox bounds) {
-		Coordinate center = BboxService.getCenterPoint(bounds);
-		ellipse.setUserX(center.getX());
-		ellipse.setUserY(center.getY());
+		setPosition(BboxService.getCenterPoint(bounds));
 		ellipse.setUserRadiusX(bounds.getWidth() / 2);
 		ellipse.setUserRadiusY(bounds.getHeight() / 2);
 	}
@@ -105,4 +111,5 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 		ellipse.setFillOpacity(opacity);
 		ellipse.setStrokeOpacity(opacity);
 	}
+
 }

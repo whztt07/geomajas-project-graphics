@@ -99,4 +99,8 @@ public class BaseImage extends BaseGraphicsObject implements Resizable, Draggabl
 	public void setOpacity(double opacity) {
 		// can't do it
 	}
+
+	public String getHref() {
+		return image.getHref();
+	}
 }

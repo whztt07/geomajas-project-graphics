@@ -8,24 +8,25 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.controller.create.base;
+package org.geomajas.graphics.client.controller.create.updateable;
 
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.graphics.client.controller.create.CreateController;
 import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.base.BaseImage;
+import org.geomajas.graphics.client.object.updateable.LabeledImage;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Controller that creates a {@link BaseImage}.
+ * Controller that creates a {@link org.geomajas.graphics.client.object.GImage}.
  *
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  *
  */
-public class CreateBaseImageController extends CreateController<BaseImage> implements MouseUpHandler {
+public class CreateLabeledImageController extends CreateController<LabeledImage> implements MouseUpHandler {
 
 	private boolean active;
 
@@ -37,7 +38,7 @@ public class CreateBaseImageController extends CreateController<BaseImage> imple
 
 	private int height;
 
-	public CreateBaseImageController(GraphicsService graphicsService, int width, int height, String href) {
+	public CreateLabeledImageController(GraphicsService graphicsService, int width, int height, String href) {
 		super(graphicsService);
 		setHref(href);
 		setHeight(height);
@@ -92,7 +93,7 @@ public class CreateBaseImageController extends CreateController<BaseImage> imple
 
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		BaseImage result = new BaseImage(0, 0, width, height, href);
+		LabeledImage result = new LabeledImage(0, 0, width, height, href, "Image");
 		result.getRole(Draggable.TYPE).setPosition(getUserCoordinate(event));
 		execute(new AddOperation(result));
 	}

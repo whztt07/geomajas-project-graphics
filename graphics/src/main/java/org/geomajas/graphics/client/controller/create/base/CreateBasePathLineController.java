@@ -24,12 +24,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.create.CreateController;
-import org.geomajas.graphics.client.object.GPath;
 import org.geomajas.graphics.client.object.base.BasePathLine;
-import org.geomajas.graphics.client.object.labeler.ResizableExternalizableLabeler;
-import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
 import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
@@ -121,12 +117,6 @@ public class CreateBasePathLineController extends CreateController<BasePathLine>
 		previewPath = null;
 		path = null;
 		event.stopPropagation();
-	}
-
-	protected void addObject(GPath path) {
-		path.addRole(ExternalizableLabeled.TYPE, new ResizableExternalizableLabeler(path, 
-				getService().isExternalizableLabeledOriginallyExternal()));
-		execute(new AddOperation(path));
 	}
 
 	public boolean isClosedPath() {

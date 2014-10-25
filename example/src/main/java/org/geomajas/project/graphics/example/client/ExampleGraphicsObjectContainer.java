@@ -24,19 +24,18 @@ import com.google.web.bindery.event.shared.EventBus;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.object.GCircle;
-import org.geomajas.graphics.client.object.GEllipse;
 import org.geomajas.graphics.client.object.GIcon;
-import org.geomajas.graphics.client.object.GImage;
-import org.geomajas.graphics.client.object.GPath;
-import org.geomajas.graphics.client.object.GRectangle;
 import org.geomajas.graphics.client.object.GText;
 import org.geomajas.graphics.client.object.anchor.Anchored;
 import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
+import org.geomajas.graphics.client.object.base.BaseCircle;
+import org.geomajas.graphics.client.object.updateable.LabeledEllipse;
+import org.geomajas.graphics.client.object.updateable.LabeledImage;
+import org.geomajas.graphics.client.object.updateable.LabeledPath;
+import org.geomajas.graphics.client.object.updateable.LabeledRectangle;
 import org.geomajas.graphics.client.service.objectcontainer.AbstractGraphicsObjectContainer;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.geomajas.graphics.client.util.BboxPosition;
-import org.geomajas.graphics.client.util.GraphicsUtil;
 import org.vaadin.gwtgraphics.client.DrawingArea;
 
 import java.util.ArrayList;
@@ -72,18 +71,13 @@ public class ExampleGraphicsObjectContainer extends AbstractGraphicsObjectContai
 		Event.addNativePreviewHandler(this);
 
 		// graphics objects
-		GRectangle rect = new GRectangle(100, 100, 100, 100);
-		GraphicsUtil.addLabeledRole(rect, "Rectangle label");
-		GCircle circle = new GCircle(300, 100, 50);
-		GraphicsUtil.addLabeledRole(circle, "Circle");
-		GEllipse ellipse = new GEllipse(100, 300, 50, 80);
-		GraphicsUtil.addLabeledRole(ellipse, "Ellipse");
-		GImage image = new GImage(200, 200, 200, 235,
-				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png");
-		GraphicsUtil.addLabeledRole(image, "Image");
-		GPath path = new GPath(new Coordinate[] { new Coordinate(300, 300), new Coordinate(500, 400) },
-				false);
-		GraphicsUtil.addLabeledRole(path, "Path");
+		LabeledRectangle rect = new LabeledRectangle(100, 100, 100, 100, "Rectangle label");
+		BaseCircle circle = new BaseCircle(300, 100, 50);
+		LabeledEllipse ellipse = new LabeledEllipse(100, 300, 50, 80, "Ellipse");
+		LabeledImage image = new LabeledImage(200, 200, 200, 235,
+				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png", "Image");
+		LabeledPath path = new LabeledPath(new Coordinate[] { new Coordinate(300, 300), new Coordinate(500, 400) },
+				false, "Path");
 		GText text = new GText(50, 50, "test");
 		text.addRole(new ResizableAnchorer());
 		text.getRole(Anchored.TYPE).setAnchorPosition(new Coordinate(50, 90));
