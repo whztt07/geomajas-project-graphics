@@ -39,7 +39,6 @@ import org.geomajas.graphics.client.action.DeleteAction;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredIconControllerImpl;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredTextController;
 import org.geomajas.graphics.client.controller.create.CreateIconControllerImpl;
-import org.geomajas.graphics.client.controller.create.CreateTextController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseEllipseController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseIconController;
@@ -48,6 +47,7 @@ import org.geomajas.graphics.client.controller.create.base.CreateBasePathControl
 import org.geomajas.graphics.client.controller.create.base.CreateBasePathLineController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseRectangleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseTextController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateBorderedTextController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledEllipseController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledImageController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledPathController;
@@ -250,10 +250,12 @@ public class Example implements EntryPoint {
 				"Labeled Polygon");
 		createButtonGroupWidget.addCreateController(new CreateLabeledPathLineController(graphicsService),
 				"Labeled Line");
+		createButtonGroupWidget.addCreateController(new CreateBorderedTextController(graphicsService),
+				"Bordered Text");
 	}
 
 	private void registerCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
-		createButtonGroupWidget.addCreateController(new CreateTextController(graphicsService), "Text");
+//		createButtonGroupWidget.addCreateController(new CreateTextController(graphicsService), "Text");
 		createButtonGroupWidget.addCreateController(new CreateAnchoredTextController(graphicsService), "Anchored Text");
 //		createButtonGroupWidget.addCreateController(new CreateRectangleController(graphicsService), "Rectangle");
 //		createButtonGroupWidget.addCreateController(new CreateEllipseController(graphicsService), "Ellipse");

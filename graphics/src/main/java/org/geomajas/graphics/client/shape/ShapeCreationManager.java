@@ -21,4 +21,6 @@ public interface ShapeCreationManager {
 	AnchoredText createAnchoredText(double userX, double userY, String text, double anchorX, double anchorY);
 
 	AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight);
+
+	AnchoredRectangle createMarinAnchoredRectangle(double userX, double userY, double width, double height, int margin);
 }

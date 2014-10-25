@@ -10,6 +10,8 @@
  */
 package org.geomajas.graphics.client.shape;
 
+import org.geomajas.graphics.client.object.updateable.bordered.MarginAnchoredRectangleImpl;
+
 /**
  * Default implementation of {@link ShapeCreationManager}.
  *
@@ -26,5 +28,11 @@ public class ShapeCreationManagerImpl implements ShapeCreationManager {
 	@Override
 	public AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight) {
 		return new AnchoredRectangleImpl(userX, userY, userWidth, userHeight, 0, 0);
+	}
+
+	@Override
+	public AnchoredRectangle createMarinAnchoredRectangle(double userX, double userY,
+														  double width, double height, int margin) {
+		return new MarginAnchoredRectangleImpl(userX, userY, width, height, 0, 0, margin);
 	}
 }
