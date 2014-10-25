@@ -30,5 +30,13 @@ public interface Draggable extends Renderable {
 	Coordinate getPosition();
 	
 	Bbox getUserBounds();
-	
+
+	/**
+	 * Get the bounds in screen space.
+	 *
+	 * @return the bounds in screen space
+	 */
+	Bbox getBounds();
+
+	void setUserBounds(Bbox bbox);
 }

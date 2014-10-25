@@ -63,4 +63,9 @@ public class MockDraggable extends BaseGraphicsObject implements Draggable {
 	public Bbox getUserBounds() {
 		return GraphicsUtil.clone(bounds);
 	}
+
+	@Override
+	public Bbox getBounds() {
+		return null;
+	}
 }

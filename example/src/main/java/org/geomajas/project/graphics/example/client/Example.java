@@ -48,6 +48,7 @@ import org.geomajas.graphics.client.controller.create.CreateImageController;
 import org.geomajas.graphics.client.controller.create.CreatePathController;
 import org.geomajas.graphics.client.controller.create.CreateRectangleController;
 import org.geomajas.graphics.client.controller.create.CreateTextController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledRectangleController;
 import org.geomajas.graphics.client.controller.delete.DeleteControllerFactory;
 import org.geomajas.graphics.client.controller.drag.DragControllerFactory;
 import org.geomajas.graphics.client.controller.popupmenu.PopupMenuControllerFactory;
@@ -56,6 +57,7 @@ import org.geomajas.graphics.client.controller.role.AnchorControllerFactory;
 import org.geomajas.graphics.client.controller.role.LabelControllerFactory;
 import org.geomajas.graphics.client.editor.AnchorStyleEditor;
 import org.geomajas.graphics.client.editor.LabelEditor;
+import org.geomajas.graphics.client.editor.LabeledUpdateableEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
 import org.geomajas.graphics.client.editor.TextableEditor;
 import org.geomajas.graphics.client.service.GraphicsService;
@@ -114,8 +116,9 @@ public class Example implements EntryPoint {
 	@UiField
 	protected ToggleButton navigationControllerToggleButton;
 
-	private CreateButtonGroupWidget createButtonGroupWidget;
 	private CreateButtonGroupWidget createBaseButtonGroupWidget;
+	private CreateButtonGroupWidget createUpdateableGroupButtonGroupWidget;
+	//private CreateButtonGroupWidget createButtonGroupWidget;
 
 	/* some controllers that have extra functions */
 
@@ -155,10 +158,12 @@ public class Example implements EntryPoint {
 		registerPopupFactoryActionsAndEditiors();
 
 		//create widget and fill
-		createButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
-		registerCreateControllersToWidget(createButtonGroupWidget);
+		//createButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
+		//registerCreateControllersToWidget(createButtonGroupWidget);
 		createBaseButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
 		registerBaseCreateControllersToWidget(createBaseButtonGroupWidget);
+		createUpdateableGroupButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
+		registerUpdateableGroupCreateControllersToWidget(createUpdateableGroupButtonGroupWidget);
 		navigationController = new NavigationController(graphicsService, graphicsObjectContainer.getRootContainer());
 
 		//layout
@@ -195,6 +200,7 @@ public class Example implements EntryPoint {
 		popupFactory.registerAction(new DeleteAction());
 		popupFactory.registerEditor(new TextableEditor());
 		popupFactory.registerEditor(new LabelEditor());
+		popupFactory.registerEditor(new LabeledUpdateableEditor());
 		popupFactory.registerEditor(new StrokeFillEditor());
 		popupFactory.registerAction(new BringToFrontAction());
 		popupFactory.registerEditor(new AnchorStyleEditor());
@@ -221,10 +227,17 @@ public class Example implements EntryPoint {
 		createButtonGroupWidget.addCreateController(new CreateBasePathLineController(graphicsService), "Base Line");
 	}
 
+	private void registerUpdateableGroupCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
+		createButtonGroupWidget.addCreateController(new CreateLabeledRectangleController(graphicsService),
+				"Labeled Rectangle");
+	}
+
 	private void registerCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
 		createButtonGroupWidget.addCreateController(new CreateTextController(graphicsService), "Text");
 		createButtonGroupWidget.addCreateController(new CreateAnchoredTextController(graphicsService), "Anchored Text");
 		createButtonGroupWidget.addCreateController(new CreateRectangleController(graphicsService), "Rectangle");
+		createButtonGroupWidget.addCreateController(new CreateLabeledRectangleController(graphicsService),
+				"Labeled Rectangle");
 		createButtonGroupWidget.addCreateController(new CreateEllipseController(graphicsService), "Ellipse");
 		createButtonGroupWidget.addCreateController(new CreateImageController(graphicsService, 200, 235,
 				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Image");
@@ -291,8 +304,11 @@ public class Example implements EntryPoint {
 		captionPanelBaseCreateButtons.setContentWidget(createBaseButtonGroupWidget.asWidget());
 		createBaseButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
 
-		captionPanelCreateButtons.setContentWidget(createButtonGroupWidget.asWidget());
-		createButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
+		captionPanelBaseCreateButtons.setContentWidget(createUpdateableGroupButtonGroupWidget.asWidget());
+		createUpdateableGroupButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
+
+//		captionPanelCreateButtons.setContentWidget(createButtonGroupWidget.asWidget());
+//		createButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
 
 		// TODO: review icon panel
 		//createIconChoicePanel(createIconController, createAnchoredIconController);
