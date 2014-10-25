@@ -34,6 +34,9 @@ public class ShapeCreationManagerMock implements ShapeCreationManager {
 	@Mock
 	public AnchoredRectangle anchoredRectangleMock;
 
+	@Mock
+	public AnchoredRectangle marginAnchoredRectangleMock;
+
 	public ShapeCreationManagerMock() {
 		MockitoAnnotations.initMocks(this);
 	}
@@ -46,5 +49,10 @@ public class ShapeCreationManagerMock implements ShapeCreationManager {
 	@Override
 	public AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight) {
 		return anchoredRectangleMock;
+	}
+
+	@Override
+	public AnchoredRectangle createMarinAnchoredRectangle(double userX, double userY, double width, double height, int margin) {
+		return marginAnchoredRectangleMock;
 	}
 }

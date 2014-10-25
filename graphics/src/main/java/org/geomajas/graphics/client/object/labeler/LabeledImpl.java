@@ -40,6 +40,7 @@ public class LabeledImpl extends BaseGraphicsObject implements LabeledUpdateable
 	public LabeledImpl(Resizable resizableSubject, BaseText baseText) {
 		this.resizable = resizableSubject;
 		this.baseText = baseText;
+
 		addRole(LabeledUpdateable.TYPE, this);
 
 		onUpdate();
