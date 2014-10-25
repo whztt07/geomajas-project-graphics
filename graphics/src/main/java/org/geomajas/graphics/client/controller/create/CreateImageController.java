@@ -37,10 +37,6 @@ public class CreateImageController extends CreateController<GImage> implements M
 
 	private int height;
 
-	public CreateImageController(GraphicsService graphicsService) {
-		super(graphicsService);
-	}
-
 	public CreateImageController(GraphicsService graphicsService, int width, int height, String href) {
 		super(graphicsService);
 		setHref(href);

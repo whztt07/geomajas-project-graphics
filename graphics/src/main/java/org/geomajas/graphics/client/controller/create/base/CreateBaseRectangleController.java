@@ -10,8 +10,7 @@
  */
 package org.geomajas.graphics.client.controller.create.base;
 
-import org.geomajas.graphics.client.controller.create.CreateResizableController;
-import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.controller.create.CreateBoundedObjectController;
 import org.geomajas.graphics.client.object.base.BaseRectangle;
 import org.geomajas.graphics.client.service.GraphicsService;
 
@@ -22,14 +21,14 @@ import org.geomajas.graphics.client.service.GraphicsService;
  *
  */
 
-public class CreateBaseRectangleController extends CreateResizableController<BaseRectangle> {
+public class CreateBaseRectangleController extends CreateBoundedObjectController<BaseRectangle> {
 
 	public CreateBaseRectangleController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}
 
 	@Override
-	protected GraphicsObject createObject() {
+	protected BaseRectangle createObjectWithoutBounds() {
 		return new BaseRectangle(0, 0, 0, 0);
 	}
 }

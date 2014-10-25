@@ -13,55 +13,52 @@ package org.geomajas.graphics.client.object.updateable;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.Resizable;
-import org.geomajas.graphics.client.object.base.BaseRectangle;
+import org.geomajas.graphics.client.object.base.BaseImage;
 import org.geomajas.graphics.client.object.labeler.LabeledImpl;
-import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Extension of {@link UpdateableGroupGraphicsObject}
- * that shows a text centered on a {@link org.geomajas.graphics.client.object.base.BaseRectangle}.
+ * Extension of {@link org.geomajas.graphics.client.object.updateable.UpdateableGroupGraphicsObject}
+ * that shows a text centered on a {@link BaseImage}.
  *
  * @author Jan Venstermans
  *
  */
-public class LabeledRectangle extends UpdateableGroupGraphicsObject {
+public class LabeledImage extends UpdateableGroupGraphicsObject {
 
 	private Group rootGroup = new Group();
 
-	private BaseRectangle baseRectangle;
+	private BaseImage baseImage;
 
 	private LabeledImpl labeled;
 
-	public LabeledRectangle(double userX, double userY, double width, double height, String text) {
+	public LabeledImage(int x, int y, int width, int height, String href, String text) {
 		// create base graphics objects
-		baseRectangle = new BaseRectangle(userX, userY, width, height);
-		labeled = new LabeledImpl(baseRectangle, text);
+		baseImage = new BaseImage(x, y, width, height, href);
+		labeled = new LabeledImpl(baseImage, text);
 
 		// register updateables
 		addUpdateable(labeled);
 
 		// register roles of group object
-		addRole(Strokable.TYPE, baseRectangle);
-		addRole(Fillable.TYPE, baseRectangle);
-		addRole(Resizable.TYPE, new ResizableWrapperForUpdateable(baseRectangle, this));
-		addRole(Draggable.TYPE, new DraggableWrapperForUpdateable(baseRectangle, this));
+		addRole(Resizable.TYPE, new ResizableWrapperForUpdateable(baseImage, this));
+		addRole(Draggable.TYPE, new DraggableWrapperForUpdateable(baseImage, this));
 		addRole(LabeledUpdateable.TYPE, labeled);
 
 		// register render order
-		rootGroup.add(baseRectangle.asObject());
+		rootGroup.add(baseImage.asObject());
 		rootGroup.add(labeled.asObject());
 	}
 
 	@Override
 	public Object cloneObject() {
-		Bbox userBounds = baseRectangle.getUserBounds();
-		LabeledRectangle labeledRectangleClone = new LabeledRectangle(userBounds.getX(),
-				userBounds.getY(), userBounds.getWidth(), userBounds.getHeight(), labeled.getTextable().getLabel());
+		Bbox userBounds = baseImage.getUserBounds();
+		LabeledImage labeledRectangleClone = new LabeledImage((int) userBounds.getX(), (int) userBounds.getY(),
+				(int) userBounds.getWidth(), (int) userBounds.getHeight(),
+				baseImage.getHref(), labeled.getTextable().getLabel());
 		return labeledRectangleClone;
 	}
 

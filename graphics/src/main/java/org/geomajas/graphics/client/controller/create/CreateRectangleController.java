@@ -11,7 +11,6 @@
 package org.geomajas.graphics.client.controller.create;
 
 import org.geomajas.graphics.client.object.GRectangle;
-import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -21,14 +20,14 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * 
  */
 
-public class CreateRectangleController extends CreateResizableController<GRectangle> {
+public class CreateRectangleController extends CreateBoundedObjectController<GRectangle> {
 
 	public CreateRectangleController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}
 
 	@Override
-	protected GraphicsObject createObject() {
+	protected GRectangle createObjectWithoutBounds() {
 		return new GRectangle(0, 0, 0, 0);
 	}
 }

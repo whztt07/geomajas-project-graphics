@@ -19,6 +19,7 @@ import org.geomajas.graphics.client.object.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.shape.CoordinatePath;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -149,6 +150,10 @@ public class BasePath extends BaseGraphicsObject implements Resizable, Draggable
 			cc[i] = new Coordinate(coordinates[i].getX(), coordinates[i].getY());
 		}
 		BasePath copy = new BasePath(cc, path.isClosed());
+		CopyUtil.copyProperties(getRole(Strokable.TYPE), copy.getRole(Strokable.TYPE));
+		if (hasRole(Fillable.TYPE) && copy.hasRole(Fillable.TYPE)) {
+			CopyUtil.copyProperties(getRole(Fillable.TYPE), copy.getRole(Fillable.TYPE));
+		}
 		return copy;
 	}
 
@@ -204,7 +209,7 @@ public class BasePath extends BaseGraphicsObject implements Resizable, Draggable
 
 	@Override
 	public void setOpacity(double opacity) {
-		getFillOpacity();
-		getStrokeOpacity();
+		setFillOpacity(opacity);
+		setStrokeOpacity(opacity);
 	}
 }

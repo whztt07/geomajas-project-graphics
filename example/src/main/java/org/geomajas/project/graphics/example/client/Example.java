@@ -14,11 +14,14 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -26,6 +29,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -34,6 +38,8 @@ import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredIconControllerImpl;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredTextController;
+import org.geomajas.graphics.client.controller.create.CreateIconControllerImpl;
+import org.geomajas.graphics.client.controller.create.CreateTextController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseEllipseController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseIconController;
@@ -42,12 +48,10 @@ import org.geomajas.graphics.client.controller.create.base.CreateBasePathControl
 import org.geomajas.graphics.client.controller.create.base.CreateBasePathLineController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseRectangleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseTextController;
-import org.geomajas.graphics.client.controller.create.CreateEllipseController;
-import org.geomajas.graphics.client.controller.create.CreateIconControllerImpl;
-import org.geomajas.graphics.client.controller.create.CreateImageController;
-import org.geomajas.graphics.client.controller.create.CreatePathController;
-import org.geomajas.graphics.client.controller.create.CreateRectangleController;
-import org.geomajas.graphics.client.controller.create.CreateTextController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledEllipseController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledImageController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledPathController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledPathLineController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledRectangleController;
 import org.geomajas.graphics.client.controller.delete.DeleteControllerFactory;
 import org.geomajas.graphics.client.controller.drag.DragControllerFactory;
@@ -96,6 +100,9 @@ public class Example implements EntryPoint {
 	protected CaptionPanel captionPanelBaseCreateButtons;
 
 	@UiField
+	protected CaptionPanel captionPanelCombinedCreateButtons;
+
+	@UiField
 	protected CaptionPanel captionPanelCreateButtons;
 
 	@UiField
@@ -116,9 +123,12 @@ public class Example implements EntryPoint {
 	@UiField
 	protected ToggleButton navigationControllerToggleButton;
 
+	@UiField
+	protected ScrollPanel westScrollPanel;
+
 	private CreateButtonGroupWidget createBaseButtonGroupWidget;
 	private CreateButtonGroupWidget createUpdateableGroupButtonGroupWidget;
-	//private CreateButtonGroupWidget createButtonGroupWidget;
+	private CreateButtonGroupWidget createButtonGroupWidget;
 
 	/* some controllers that have extra functions */
 
@@ -158,8 +168,8 @@ public class Example implements EntryPoint {
 		registerPopupFactoryActionsAndEditiors();
 
 		//create widget and fill
-		//createButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
-		//registerCreateControllersToWidget(createButtonGroupWidget);
+		createButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
+		registerCreateControllersToWidget(createButtonGroupWidget);
 		createBaseButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
 		registerBaseCreateControllersToWidget(createBaseButtonGroupWidget);
 		createUpdateableGroupButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
@@ -221,7 +231,8 @@ public class Example implements EntryPoint {
 		createButtonGroupWidget.addCreateController(new CreateBaseEllipseController(graphicsService), "Base Ellipse");
 		createButtonGroupWidget.addCreateController(
 				new CreateBaseIconController(graphicsService, 16, 16, url), "Base Icon");
-		createButtonGroupWidget.addCreateController(new CreateBaseImageController(graphicsService), "Base Image");
+		createButtonGroupWidget.addCreateController(new CreateBaseImageController(graphicsService, 200, 235,
+				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Base Image");
 		createButtonGroupWidget.addCreateController(
 				new CreateBasePathController(graphicsService, true), "Base Polygon");
 		createButtonGroupWidget.addCreateController(new CreateBasePathLineController(graphicsService), "Base Line");
@@ -230,22 +241,29 @@ public class Example implements EntryPoint {
 	private void registerUpdateableGroupCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
 		createButtonGroupWidget.addCreateController(new CreateLabeledRectangleController(graphicsService),
 				"Labeled Rectangle");
+		createButtonGroupWidget.addCreateController(new CreateLabeledEllipseController(graphicsService),
+				"Labeled Ellipse");
+		createButtonGroupWidget.addCreateController(new CreateLabeledImageController(graphicsService, 200, 235,
+						"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"),
+				"Labeled Image");
+		createButtonGroupWidget.addCreateController(new CreateLabeledPathController(graphicsService, true),
+				"Labeled Polygon");
+		createButtonGroupWidget.addCreateController(new CreateLabeledPathLineController(graphicsService),
+				"Labeled Line");
 	}
 
 	private void registerCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
 		createButtonGroupWidget.addCreateController(new CreateTextController(graphicsService), "Text");
 		createButtonGroupWidget.addCreateController(new CreateAnchoredTextController(graphicsService), "Anchored Text");
-		createButtonGroupWidget.addCreateController(new CreateRectangleController(graphicsService), "Rectangle");
-		createButtonGroupWidget.addCreateController(new CreateLabeledRectangleController(graphicsService),
-				"Labeled Rectangle");
-		createButtonGroupWidget.addCreateController(new CreateEllipseController(graphicsService), "Ellipse");
-		createButtonGroupWidget.addCreateController(new CreateImageController(graphicsService, 200, 235,
-				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Image");
-		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, false), "Line");
-		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, true), "Polygon");
+//		createButtonGroupWidget.addCreateController(new CreateRectangleController(graphicsService), "Rectangle");
+//		createButtonGroupWidget.addCreateController(new CreateEllipseController(graphicsService), "Ellipse");
+//		createButtonGroupWidget.addCreateController(new CreateImageController(graphicsService, 200, 235,
+//				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Image");
+//		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, false), "Line");
+//		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, true), "Polygon");
 
-		createIconController = new CreateIconControllerImpl(graphicsService, 16, 16, url);
-		createButtonGroupWidget.addCreateController(createIconController, "Icon");
+//		createIconController = new CreateIconControllerImpl(graphicsService, 16, 16, url);
+//		createButtonGroupWidget.addCreateController(createIconController, "Icon");
 
 		createAnchoredIconController
 				= new CreateAnchoredIconControllerImpl(graphicsService, 16,	16, null);
@@ -304,15 +322,23 @@ public class Example implements EntryPoint {
 		captionPanelBaseCreateButtons.setContentWidget(createBaseButtonGroupWidget.asWidget());
 		createBaseButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
 
-		captionPanelBaseCreateButtons.setContentWidget(createUpdateableGroupButtonGroupWidget.asWidget());
+		captionPanelCombinedCreateButtons.setContentWidget(createUpdateableGroupButtonGroupWidget.asWidget());
 		createUpdateableGroupButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
 
-//		captionPanelCreateButtons.setContentWidget(createButtonGroupWidget.asWidget());
-//		createButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
+		captionPanelCreateButtons.setContentWidget(createButtonGroupWidget.asWidget());
+		createButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
 
 		// TODO: review icon panel
 		//createIconChoicePanel(createIconController, createAnchoredIconController);
 		//westFlowPanel.add(iconChoicePanel);
+
+		Window.addResizeHandler(new ResizeHandler() {
+			@Override
+			public void onResize(ResizeEvent resizeEvent) {
+				updateWestSectionToWindowHeight();
+			}
+		});
+		updateWestSectionToWindowHeight();
 	}
 
 	private void createIconChoicePanel(final CreateIconControllerImpl createIconController,
@@ -351,5 +377,9 @@ public class Example implements EntryPoint {
 		iconChoicePanel.add(rb2);
 		iconChoicePanel.setVisible(false);
 		rb1.setValue(true);
+	}
+
+	private void updateWestSectionToWindowHeight() {
+		westScrollPanel.setHeight(Window.getClientHeight() + "px");
 	}
 }

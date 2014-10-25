@@ -10,18 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.create;
 
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
-import org.geomajas.graphics.client.object.anchor.Anchored;
-import org.geomajas.graphics.client.operation.AddOperation;
-import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.util.BboxPosition;
-import org.geomajas.graphics.client.util.GraphicsUtil;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
-
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
@@ -30,17 +18,29 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.anchor.Anchored;
+import org.geomajas.graphics.client.operation.AddOperation;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
+import org.geomajas.graphics.client.util.BboxPosition;
+import org.geomajas.graphics.client.util.GraphicsUtil;
+import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 /**
- * Generic controller that creates a {@link Resizable}.
+ * Generic controller that allows to drag a rectangle on the map,
+ * passing the rectangle as bounds to a {@link GraphicsObject}.
  * 
  * @author Jan De Moerloose
- * @param <T>
+ * @author Jan Venstermans
+ * @param <T> objects whose bounds can be set
  * 
  */
-public abstract class CreateResizableController<T extends GraphicsObject>
-	extends CreateController<T> implements MouseDownHandler,
-		MouseMoveHandler, MouseUpHandler {
+public abstract class CreateBoundedObjectController<T extends GraphicsObject>
+		extends CreateController<T> implements MouseDownHandler, MouseMoveHandler, MouseUpHandler {
 
 	private GraphicsObject dragResizable;
 
@@ -56,13 +56,14 @@ public abstract class CreateResizableController<T extends GraphicsObject>
 	private HandlerRegistration registration;
 
 	/**
-	 * Create the object. This object should support the {@link Resizable} role.
+	 * Create the object without bounds.
+	 * This object should support the {@link Resizable} role.
 	 * 
 	 * @return
 	 */
-	protected abstract GraphicsObject createObject();
+	protected abstract T createObjectWithoutBounds();
 
-	public CreateResizableController(GraphicsService graphicsService) {
+	public CreateBoundedObjectController(GraphicsService graphicsService) {
 		super(graphicsService);
 		container = createContainer();
 	}
@@ -98,7 +99,7 @@ public abstract class CreateResizableController<T extends GraphicsObject>
 	public void onMouseDown(MouseDownEvent event) {
 		begin = getUserCoordinate(event);
 		if (dragResizable == null) {
-			dragResizable = createObject();
+			dragResizable = createObjectWithoutBounds();
 			dragResizable.getRole(Resizable.TYPE).setUserBounds(new Bbox(begin.getX(), begin.getY(), 0, 0));
 			setAnchor(dragResizable);
 			dragResizable.asObject().addMouseMoveHandler(this);
@@ -108,21 +109,9 @@ public abstract class CreateResizableController<T extends GraphicsObject>
 		DOM.setCapture(dragResizable.asObject().getElement());
 	}
 
-	private void setAnchor(GraphicsObject object) {
-		if (object.hasRole(Anchored.TYPE)) {
-			Bbox userBounds = object.getRole(Resizable.TYPE).getUserBounds();
-			Coordinate midLow = GraphicsUtil.getPosition(userBounds, BboxPosition.MIDDLE_LOW);
-			Coordinate midLowScreen = getObjectContainer().transform(midLow, Space.USER, Space.SCREEN);
-			Coordinate anchorPos = getObjectContainer().transform(
-					new Coordinate(midLowScreen.getX(), midLowScreen.getY() + 20), Space.SCREEN, Space.USER);
-			object.getRole(Anchored.TYPE).setAnchorPosition(anchorPos);
-		}
-
-	}
-
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		GraphicsObject result = createObject();
+		GraphicsObject result = createObjectWithoutBounds();
 		result.getRole(Resizable.TYPE).setUserBounds(dragResizable.getRole(Resizable.TYPE).getUserBounds());
 		setAnchor(result);
 		DOM.releaseCapture(dragResizable.asObject().getElement());
@@ -138,5 +127,21 @@ public abstract class CreateResizableController<T extends GraphicsObject>
 				new Bbox(Math.min(begin.getX(), end.getX()), Math.min(begin.getY(), end.getY()), Math.abs(begin.getX()
 						- end.getX()), Math.abs(begin.getY() - end.getY())));
 		setAnchor(dragResizable);
+	}
+
+	//--------------------------------------------------------------
+	// private methods
+	//--------------------------------------------------------------
+
+	private void setAnchor(GraphicsObject object) {
+		if (object.hasRole(Anchored.TYPE)) {
+			Bbox userBounds = object.getRole(Resizable.TYPE).getUserBounds();
+			Coordinate midLow = GraphicsUtil.getPosition(userBounds, BboxPosition.MIDDLE_LOW);
+			Coordinate midLowScreen = getObjectContainer().transform(midLow, Space.USER, Space.SCREEN);
+			Coordinate anchorPos = getObjectContainer().transform(
+					new Coordinate(midLowScreen.getX(), midLowScreen.getY() + 20), Space.SCREEN, Space.USER);
+			object.getRole(Anchored.TYPE).setAnchorPosition(anchorPos);
+		}
+
 	}
 }

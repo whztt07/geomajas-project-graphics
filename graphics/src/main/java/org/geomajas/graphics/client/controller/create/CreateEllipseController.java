@@ -11,7 +11,6 @@
 package org.geomajas.graphics.client.controller.create;
 
 import org.geomajas.graphics.client.object.GEllipse;
-import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -20,14 +19,14 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan De Moerloose
  * 
  */
-public class CreateEllipseController extends CreateResizableController<GEllipse> {
+public class CreateEllipseController extends CreateBoundedObjectController<GEllipse> {
 
 	public CreateEllipseController(GraphicsService graphicsService) {
 		super(graphicsService);
 	}
 
 	@Override
-	protected GraphicsObject createObject() {
+	protected GEllipse createObjectWithoutBounds() {
 		GEllipse ellipse = new GEllipse(0, 0, 0, 0);
 		return ellipse;
 	}

@@ -41,8 +41,7 @@ public class GPath extends ResizableGraphicsObject implements Fillable, Strokabl
 	}
 
 	public GPath(Coordinate[] coordinates, boolean closed) {
-		this(closed ? new ResizablePath(coordinates, closed) :
-				new ResizablePathLine(coordinates));
+		this(closed ? new ResizablePath(coordinates, closed) : new ResizablePathLine(coordinates));
 	}
 
 	public GPath(ResizablePath path) {
