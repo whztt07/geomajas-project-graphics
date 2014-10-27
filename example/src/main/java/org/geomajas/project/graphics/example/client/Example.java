@@ -47,6 +47,7 @@ import org.geomajas.graphics.client.controller.create.base.CreateBasePathControl
 import org.geomajas.graphics.client.controller.create.base.CreateBasePathLineController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseRectangleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseTextController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateAnchoredIconController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateBorderedTextController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledEllipseController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledImageController;
@@ -58,8 +59,10 @@ import org.geomajas.graphics.client.controller.drag.DragControllerFactory;
 import org.geomajas.graphics.client.controller.popupmenu.PopupMenuControllerFactory;
 import org.geomajas.graphics.client.controller.resize.ResizeControllerFactory;
 import org.geomajas.graphics.client.controller.role.AnchorControllerFactory;
+import org.geomajas.graphics.client.controller.role.AnchoredUpdateableControllerFactory;
 import org.geomajas.graphics.client.controller.role.LabelControllerFactory;
 import org.geomajas.graphics.client.editor.AnchorStyleEditor;
+import org.geomajas.graphics.client.editor.AnchoredUpdateableEditor;
 import org.geomajas.graphics.client.editor.LabelEditor;
 import org.geomajas.graphics.client.editor.LabeledUpdateableEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
@@ -76,6 +79,7 @@ import java.util.List;
  * Example application.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
 public class Example implements EntryPoint {
@@ -200,6 +204,7 @@ public class Example implements EntryPoint {
 		graphicsService.registerControllerFactory(new DeleteControllerFactory());
 		graphicsService.registerControllerFactory(new LabelControllerFactory());
 		graphicsService.registerControllerFactory(new AnchorControllerFactory());
+		graphicsService.registerControllerFactory(new AnchoredUpdateableControllerFactory());
 		graphicsService.registerControllerFactory(popupFactory);
 
 		// TODO: re-asses unsupported controller
@@ -214,6 +219,7 @@ public class Example implements EntryPoint {
 		popupFactory.registerEditor(new StrokeFillEditor());
 		popupFactory.registerAction(new BringToFrontAction());
 		popupFactory.registerEditor(new AnchorStyleEditor());
+		popupFactory.registerEditor(new AnchoredUpdateableEditor());
 
 		// TODO: re-asses unsupported editors/action
 //		popupFactory.registerAction(new DuplicateAction());
@@ -252,6 +258,8 @@ public class Example implements EntryPoint {
 				"Labeled Line");
 		createButtonGroupWidget.addCreateController(new CreateBorderedTextController(graphicsService),
 				"Bordered Text");
+		createButtonGroupWidget.addCreateController(new CreateAnchoredIconController(graphicsService, 16, 16, null),
+				"Anchored Icon");
 	}
 
 	private void registerCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
@@ -267,10 +275,10 @@ public class Example implements EntryPoint {
 //		createIconController = new CreateIconControllerImpl(graphicsService, 16, 16, url);
 //		createButtonGroupWidget.addCreateController(createIconController, "Icon");
 
-		createAnchoredIconController
-				= new CreateAnchoredIconControllerImpl(graphicsService, 16,	16, null);
-		createAnchoredIconController.setChoiceListImageSize(32);
-		createButtonGroupWidget.addCreateController(createAnchoredIconController, "Anchored Icon");
+//		createAnchoredIconController
+//				= new CreateAnchoredIconControllerImpl(graphicsService, 16,	16, null);
+//		createAnchoredIconController.setChoiceListImageSize(32);
+//		createButtonGroupWidget.addCreateController(createAnchoredIconController, "Anchored Icon");
 
 		//TODO: re-asses create controllers
 		/*createButtonGroupWidget.addCreateController(new CreateTextAreaHtmlController(graphicsService), "Textarea");

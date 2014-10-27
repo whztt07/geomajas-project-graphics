@@ -10,6 +10,7 @@
  */
 package org.geomajas.graphics.client.controller.drag;
 
+import com.google.gwt.event.dom.client.MouseMoveEvent;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
@@ -23,12 +24,11 @@ import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-
 /**
  * Uses the mask for dragging.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
 public class GraphicsObjectDragHandler extends AbstractDragHandler {
@@ -49,7 +49,8 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 	protected VectorObject createInvisibleMask() {
 		invisbleMaskGraphicsObject = (GraphicsObject) getObject().cloneObject();
 		invisbleMaskGraphicsObject.setOpacity(0);
-		
+
+		//TODO: remove following section when removing ResizableGraphicsObject
 		// remove the updateableAwareRoles, but leave the RenderableRole
 		if (invisbleMaskGraphicsObject instanceof BaseGraphicsObject) {
 			BaseGraphicsObject baseObject = (BaseGraphicsObject) invisbleMaskGraphicsObject;
@@ -63,7 +64,8 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 				baseObject.removeRole(Bordered.TYPE);
 			}
 		}
-		return invisbleMaskGraphicsObject.asObject();
+
+		return invisbleMaskGraphicsObject.getRole(Draggable.TYPE).asObject();
 	}
 
 	@Override
