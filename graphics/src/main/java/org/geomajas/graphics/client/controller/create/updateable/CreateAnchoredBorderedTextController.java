@@ -11,47 +11,46 @@
 package org.geomajas.graphics.client.controller.create.updateable;
 
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.controller.create.base.CreateBaseIconController;
-import org.geomajas.graphics.client.object.base.BaseIcon;
-import org.geomajas.graphics.client.object.updateable.AnchoredIcon;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseTextController;
+import org.geomajas.graphics.client.object.base.BaseText;
+import org.geomajas.graphics.client.object.updateable.AnchoredBorderedText;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;
 import org.geomajas.graphics.client.shape.MarkerShape;
 
-import java.util.List;
-
 /**
- * Controller that creates a {@link org.geomajas.graphics.client.object.base.BaseIcon}.
+ * Controller that creates a {@link AnchoredBorderedText}.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans
  *
  */
-public class CreateAnchoredIconController extends CreateBaseIconController {
+public class CreateAnchoredBorderedTextController extends CreateBaseTextController {
 
-	private MarkerShape markerShape;
+	private MarkerShape markerShape = MarkerShape.SQUARE;
 
-	public CreateAnchoredIconController(GraphicsService graphicsService, int width, int height, List<String> hrefs) {
-		super(graphicsService, width, height, hrefs);
-		popup.setMarkerSectionVisible(true);
+	public CreateAnchoredBorderedTextController(GraphicsService graphicsService) {
+		super(graphicsService);
 	}
 
-	@Override
-	public void createIconInContainer(String iconUrl, MarkerShape markerShape) {
+	public void setMarkerShape(MarkerShape markerShape) {
 		this.markerShape = markerShape;
-		super.createIconInContainer(iconUrl, markerShape);
 	}
 
 	@Override
-	protected void addObject(BaseIcon result) {
+	protected void addObject(BaseText result) {
+		if (result == null) {
+			execute(null);
+			return;
+		}
 		Coordinate clickPosition = result.getPosition();
 		Coordinate screenIconPosition = transform(clickPosition,
 				GraphicsObjectContainer.Space.USER, GraphicsObjectContainer.Space.SCREEN);
 		Coordinate iconPosition = transform(new Coordinate(screenIconPosition.getX(), screenIconPosition.getY() - 40),
 				GraphicsObjectContainer.Space.SCREEN, GraphicsObjectContainer.Space.USER);
-		AnchoredIcon anchoredIcon = new AnchoredIcon(iconPosition, (int) result.getBounds().getWidth(),
-				(int) result.getBounds().getHeight(), result.getHref(), clickPosition, markerShape);
-		execute(new AddOperation(anchoredIcon));
+		AnchoredBorderedText anchoredBorderedText =
+				new AnchoredBorderedText(iconPosition, result.getLabel(), 10, clickPosition, markerShape);
+		execute(new AddOperation(anchoredBorderedText));
 	}
 }

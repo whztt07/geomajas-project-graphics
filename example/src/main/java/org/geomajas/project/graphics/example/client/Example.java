@@ -37,7 +37,6 @@ import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
 import org.geomajas.graphics.client.controller.create.CreateAnchoredIconControllerImpl;
-import org.geomajas.graphics.client.controller.create.CreateAnchoredTextController;
 import org.geomajas.graphics.client.controller.create.CreateIconControllerImpl;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseEllipseController;
@@ -47,6 +46,7 @@ import org.geomajas.graphics.client.controller.create.base.CreateBasePathControl
 import org.geomajas.graphics.client.controller.create.base.CreateBasePathLineController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseRectangleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseTextController;
+import org.geomajas.graphics.client.controller.create.updateable.CreateAnchoredBorderedTextController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateAnchoredIconController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateBorderedTextController;
 import org.geomajas.graphics.client.controller.create.updateable.CreateLabeledEllipseController;
@@ -107,9 +107,6 @@ public class Example implements EntryPoint {
 	protected CaptionPanel captionPanelCombinedCreateButtons;
 
 	@UiField
-	protected CaptionPanel captionPanelCreateButtons;
-
-	@UiField
 	protected CaptionPanel captionPanelCogPosition;
 
 	@UiField
@@ -132,7 +129,6 @@ public class Example implements EntryPoint {
 
 	private CreateButtonGroupWidget createBaseButtonGroupWidget;
 	private CreateButtonGroupWidget createUpdateableGroupButtonGroupWidget;
-	private CreateButtonGroupWidget createButtonGroupWidget;
 
 	/* some controllers that have extra functions */
 
@@ -172,8 +168,6 @@ public class Example implements EntryPoint {
 		registerPopupFactoryActionsAndEditiors();
 
 		//create widget and fill
-		createButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
-		registerCreateControllersToWidget(createButtonGroupWidget);
 		createBaseButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
 		registerBaseCreateControllersToWidget(createBaseButtonGroupWidget);
 		createUpdateableGroupButtonGroupWidget = new CreateButtonGroupWidget(graphicsService);
@@ -260,30 +254,8 @@ public class Example implements EntryPoint {
 				"Bordered Text");
 		createButtonGroupWidget.addCreateController(new CreateAnchoredIconController(graphicsService, 16, 16, null),
 				"Anchored Icon");
-	}
-
-	private void registerCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
-//		createButtonGroupWidget.addCreateController(new CreateTextController(graphicsService), "Text");
-		createButtonGroupWidget.addCreateController(new CreateAnchoredTextController(graphicsService), "Anchored Text");
-//		createButtonGroupWidget.addCreateController(new CreateRectangleController(graphicsService), "Rectangle");
-//		createButtonGroupWidget.addCreateController(new CreateEllipseController(graphicsService), "Ellipse");
-//		createButtonGroupWidget.addCreateController(new CreateImageController(graphicsService, 200, 235,
-//				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Image");
-//		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, false), "Line");
-//		createButtonGroupWidget.addCreateController(new CreatePathController(graphicsService, true), "Polygon");
-
-//		createIconController = new CreateIconControllerImpl(graphicsService, 16, 16, url);
-//		createButtonGroupWidget.addCreateController(createIconController, "Icon");
-
-//		createAnchoredIconController
-//				= new CreateAnchoredIconControllerImpl(graphicsService, 16,	16, null);
-//		createAnchoredIconController.setChoiceListImageSize(32);
-//		createButtonGroupWidget.addCreateController(createAnchoredIconController, "Anchored Icon");
-
-		//TODO: re-asses create controllers
-		/*createButtonGroupWidget.addCreateController(new CreateTextAreaHtmlController(graphicsService), "Textarea");
-		createButtonGroupWidget.addCreateController(new CreateLineWithTemplateLabeledController(graphicsService),
-				"Line With Templ Labeled"); */
+		createButtonGroupWidget.addCreateController(new CreateAnchoredBorderedTextController(graphicsService),
+				"Anchored Bordered Text");
 	}
 
 	//-----------------------------------------------------------------------------
@@ -334,9 +306,6 @@ public class Example implements EntryPoint {
 
 		captionPanelCombinedCreateButtons.setContentWidget(createUpdateableGroupButtonGroupWidget.asWidget());
 		createUpdateableGroupButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
-
-		captionPanelCreateButtons.setContentWidget(createButtonGroupWidget.asWidget());
-		createButtonGroupWidget.asWidget().setStyleName("graphicsExample-leftPanel-createButtonsPanel");
 
 		// TODO: review icon panel
 		//createIconChoicePanel(createIconController, createAnchoredIconController);
