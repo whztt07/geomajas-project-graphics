@@ -114,4 +114,9 @@ public class AnchoredImpl extends BaseGraphicsObject implements AnchoredUpdateab
 	public void setAnchorVisible(boolean visible) {
 		marker.setVisible(visible);
 	}
+
+	@Override
+	public MarkerShape getMarkerShape() {
+		return marker.getMarkerShape();
+	}
 }

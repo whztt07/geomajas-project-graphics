@@ -15,6 +15,7 @@ import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.RoleType;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.anchored.TwoPointsLine;
+import org.geomajas.graphics.client.shape.MarkerShape;
 
 /**
  * Simplified {@link org.geomajas.graphics.client.object.anchor.Anchored} role.
@@ -49,5 +50,5 @@ public interface AnchoredUpdateable extends Updateable {
 //
 //	void setAnchorPointShape(Shape shape);
 //
-//	MarkerShape getMarkerShape();
+	MarkerShape getMarkerShape();
 }

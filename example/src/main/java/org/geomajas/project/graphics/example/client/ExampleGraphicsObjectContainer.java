@@ -24,11 +24,10 @@ import com.google.web.bindery.event.shared.EventBus;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.object.GIcon;
-import org.geomajas.graphics.client.object.GText;
-import org.geomajas.graphics.client.object.anchor.Anchored;
-import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
 import org.geomajas.graphics.client.object.base.BaseCircle;
+import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.object.updateable.AnchoredBorderedText;
+import org.geomajas.graphics.client.object.updateable.AnchoredIcon;
 import org.geomajas.graphics.client.object.updateable.LabeledEllipse;
 import org.geomajas.graphics.client.object.updateable.LabeledImage;
 import org.geomajas.graphics.client.object.updateable.LabeledPath;
@@ -78,14 +77,21 @@ public class ExampleGraphicsObjectContainer extends AbstractGraphicsObjectContai
 				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png", "Image");
 		LabeledPath path = new LabeledPath(new Coordinate[] { new Coordinate(300, 300), new Coordinate(500, 400) },
 				false, "Path");
-		GText text = new GText(50, 50, "test");
-		text.addRole(new ResizableAnchorer());
-		text.getRole(Anchored.TYPE).setAnchorPosition(new Coordinate(50, 90));
-		text.setFontColor("blue");
-		GIcon anchoredIcon = new GIcon(500, 80, 20, 20, urls.get(2));
-		Coordinate anchoredIconMarkerCoordinate = new Coordinate(anchoredIcon.getPosition());
+
+		// anchored bordered text
+		Coordinate textCoordinate = new Coordinate(50, 50);
+		Coordinate textMarkerCoordinate = new Coordinate(textCoordinate);
+		textMarkerCoordinate.setY(textMarkerCoordinate.getY() + 40);
+		AnchoredBorderedText text = new AnchoredBorderedText(textCoordinate, "test", 10, textMarkerCoordinate, null);
+		text.getRole(Textable.TYPE).setFontColor("blue");
+
+		// anchored icon
+		Coordinate anchoredIconCoordinate = new Coordinate(500, 80);
+		Coordinate anchoredIconMarkerCoordinate = new Coordinate(anchoredIconCoordinate);
 		anchoredIconMarkerCoordinate.setY(anchoredIconMarkerCoordinate.getY() + 40);
-		anchoredIcon.addRole(new ResizableAnchorer(anchoredIconMarkerCoordinate, MarkerShape.CIRCLE));
+		AnchoredIcon anchoredIcon = new AnchoredIcon(anchoredIconCoordinate, 20, 20, urls.get(2),
+				anchoredIconMarkerCoordinate, MarkerShape.CIRCLE);
+
 		add(text);
 		add(rect);
 		add(circle);

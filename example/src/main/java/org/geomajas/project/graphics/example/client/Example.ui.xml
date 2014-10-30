@@ -9,7 +9,6 @@
 				<g:FlowPanel ui:field="westFlowPanel">
 					<g:CaptionPanel captionText="Create Base Objects" ui:field="captionPanelBaseCreateButtons"/>
 					<g:CaptionPanel captionText="Create Combined Objects" ui:field="captionPanelCombinedCreateButtons"/>
-					<g:CaptionPanel captionText="Create objects" ui:field="captionPanelCreateButtons"/>
 					<g:CaptionPanel captionText="Cog position offset" ui:field="captionPanelCogPosition">
 						<g:HTMLPanel>
 							<table>
