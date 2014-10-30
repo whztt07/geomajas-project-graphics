@@ -105,6 +105,10 @@ public class BaseIcon extends BaseGraphicsObject implements Draggable, Resizable
 		return new BaseIcon(createCopy());
 	}
 
+	public String getHref() {
+		return anchoredImage.getHref();
+	}
+
 	private static AnchoredImage createAnchoredImageWithPreserveRatio(double userX, double userY,
 																	  int width, int height, String href) {
 		AnchoredImage anchoredImage = new AnchoredImage(userX, userY, width, height, href, 0.5, 0.5);

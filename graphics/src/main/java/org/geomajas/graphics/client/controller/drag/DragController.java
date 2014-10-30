@@ -10,17 +10,15 @@
  */
 package org.geomajas.graphics.client.controller.drag;
 
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
 import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.object.Draggable;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.anchor.AnchoredTo;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.Group;
-
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
 
 /**
  * {@link org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController}
@@ -56,11 +54,11 @@ public class DragController extends UpdateHandlerGraphicsController implements
 	@Override
 	public void onAction(GraphicsObjectContainerEvent event) {
 		super.onAction(event);
-		if (getObject().hasRole(AnchoredTo.TYPE)) {
-			if (event.getObject() == getObject().getRole(AnchoredTo.TYPE).getMasterObject()) {
-				getObject().getRole(AnchoredTo.TYPE).updateAnchorLine();
-			}
-		}
+//		if (getObject().hasRole(AnchoredTo.TYPE)) {
+//			if (event.getObject() == getObject().getRole(AnchoredTo.TYPE).getMasterObject()) {
+//				getObject().getRole(AnchoredTo.TYPE).updateAnchorLine();
+//			}
+//		}
 	}
 
 	@Override
