@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.object.updateable.wrapper;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.Draggable;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.updateable.Updateable;
 import org.vaadin.gwtgraphics.client.VectorObject;
 

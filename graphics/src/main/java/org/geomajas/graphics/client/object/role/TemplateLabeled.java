@@ -11,6 +11,8 @@
 package org.geomajas.graphics.client.object.role;
 
 
+import org.geomajas.graphics.client.object.RoleType;
+
 /**
  * Implemented by templateLabeled graphics objects.
  * 

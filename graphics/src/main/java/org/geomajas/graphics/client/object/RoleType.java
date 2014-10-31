@@ -8,16 +8,26 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.object.role;
-
+package org.geomajas.graphics.client.object;
 
 /**
- * Empty interface for roles that will result in a rendered plane in the final
- * {@link org.geomajas.graphics.client.object.GraphicsObject}.
+ * Enum-like class that uniquely represents a role type. Add an instance of this class to every new role interface.
  * 
- * @author Jan Venstermans
+ * @author Jan De Moerloose
  * 
+ * @param <T> extends a {@link RoleInterface}
  */
-public abstract interface RenderPlane extends RoleInterface {
+public class RoleType<T extends RoleInterface> {
+
+	private String name;
+
+	public RoleType(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }

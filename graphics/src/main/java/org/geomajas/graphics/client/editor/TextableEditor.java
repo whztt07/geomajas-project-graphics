@@ -22,10 +22,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.mogaleaf.client.common.widgets.ColorHandler;
 import com.mogaleaf.client.common.widgets.SimpleColorPicker;
-import org.geomajas.graphics.client.object.ExternalLabel;
-import org.geomajas.graphics.client.object.GText;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.RoleType;
+import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.object.role.Textable;
 import org.geomajas.graphics.client.operation.LabelOperation;
 import org.geomajas.graphics.client.resource.GraphicsResource;
@@ -137,12 +135,12 @@ public class TextableEditor extends AbstractRoleEditor<Textable> {
 		// only if renderable is labeled, there should always be text
 		// This is the case for GText
 		// TODO make more generic
-		if (getObject() instanceof GText && !(getObject() instanceof ExternalLabel)) {
-
-			if (((GText) getObject()).getRole(Textable.TYPE).getLabel().isEmpty()) {
-				valid = false;
-			}
-		}
+//		if (getObject() instanceof GText && !(getObject() instanceof ExternalLabel)) {
+//
+//			if (((GText) getObject()).getRole(Textable.TYPE).getLabel().isEmpty()) {
+//				valid = false;
+//			}
+//		}
 		return valid;
 	}
 

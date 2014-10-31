@@ -10,16 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.role;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.geomajas.graphics.client.controller.AbstractGraphicsController;
-import org.geomajas.graphics.client.controller.VisibleOnActiveGraphicsController;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.Labeled;
-import org.geomajas.graphics.client.operation.LabelOperation;
-import org.geomajas.graphics.client.service.GraphicsService;
-
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
@@ -33,6 +23,15 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import org.geomajas.graphics.client.controller.AbstractGraphicsController;
+import org.geomajas.graphics.client.controller.VisibleOnActiveGraphicsController;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
+import org.geomajas.graphics.client.operation.LabelOperation;
+import org.geomajas.graphics.client.service.GraphicsService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller to change object label.
@@ -53,11 +52,11 @@ public class LabelController extends AbstractGraphicsController implements Doubl
 
 	private List<HandlerRegistration> popupRegs = new ArrayList<HandlerRegistration>();
 
-	private Labeled object;
+	private LabeledUpdateable object;
 
 	public LabelController(GraphicsObject object, GraphicsService graphicsService) {
 		super(graphicsService, object);
-		this.object = object.getRole(Labeled.TYPE);
+		this.object = object.getRole(LabeledUpdateable.TYPE);
 	}
 
 	@Override

@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.shape;
 
-import org.geomajas.graphics.client.object.Cloneable;
+import org.geomajas.graphics.client.object.role.Cloneable;
 
 /**
  * A non-scaling rectangle that is anchored to its world space location on a specific pixel or anchor location (useful

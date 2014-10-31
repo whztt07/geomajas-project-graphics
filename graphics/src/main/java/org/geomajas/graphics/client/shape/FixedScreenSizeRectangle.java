@@ -13,7 +13,7 @@ package org.geomajas.graphics.client.shape;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.object.Cloneable;
+import org.geomajas.graphics.client.object.role.Cloneable;
 import org.geomajas.graphics.client.util.GraphicsUtil;
 import org.vaadin.gwtgraphics.client.shape.Rectangle;
 

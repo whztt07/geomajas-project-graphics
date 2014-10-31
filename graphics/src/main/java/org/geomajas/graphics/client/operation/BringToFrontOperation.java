@@ -10,16 +10,13 @@
  */
 package org.geomajas.graphics.client.operation;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.anchor.AnchoredTo;
-import org.geomajas.graphics.client.object.anchor.ExternalLabelOfResizable;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
-import com.google.gwt.user.client.ui.Widget;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Operation that brings an object to the front.
@@ -52,13 +49,6 @@ public class BringToFrontOperation implements GraphicsOperation {
 			parent = (VectorObjectContainer) w;
 			beforeIndex = parent.indexOf(object.asObject());
 			parent.bringToFront(object.asObject());
-			for (GraphicsObject grOb : service.getObjectContainer().getObjects()) {
-				if (grOb.hasRole(AnchoredTo.TYPE) && grOb.getRole(AnchoredTo.TYPE) instanceof ExternalLabelOfResizable
-						&& grOb.getRole(AnchoredTo.TYPE).getMasterObject() == object) {
-					externalLabels.add(grOb);
-					parent.bringToFront(grOb.asObject());
-				}
-			}
 		}
 	}
 

@@ -26,8 +26,6 @@ import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -36,8 +34,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
-import org.geomajas.graphics.client.controller.create.CreateAnchoredIconControllerImpl;
-import org.geomajas.graphics.client.controller.create.CreateIconControllerImpl;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseEllipseController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseIconController;
@@ -58,12 +54,9 @@ import org.geomajas.graphics.client.controller.delete.DeleteControllerFactory;
 import org.geomajas.graphics.client.controller.drag.DragControllerFactory;
 import org.geomajas.graphics.client.controller.popupmenu.PopupMenuControllerFactory;
 import org.geomajas.graphics.client.controller.resize.ResizeControllerFactory;
-import org.geomajas.graphics.client.controller.role.AnchorControllerFactory;
 import org.geomajas.graphics.client.controller.role.AnchoredUpdateableControllerFactory;
 import org.geomajas.graphics.client.controller.role.LabelControllerFactory;
-import org.geomajas.graphics.client.editor.AnchorStyleEditor;
 import org.geomajas.graphics.client.editor.AnchoredUpdateableEditor;
-import org.geomajas.graphics.client.editor.LabelEditor;
 import org.geomajas.graphics.client.editor.LabeledUpdateableEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
 import org.geomajas.graphics.client.editor.TextableEditor;
@@ -132,9 +125,9 @@ public class Example implements EntryPoint {
 
 	/* some controllers that have extra functions */
 
-	private CreateIconControllerImpl createIconController;
-
-	private CreateAnchoredIconControllerImpl createAnchoredIconController;
+//	private CreateIconControllerImpl createIconController;
+//
+//	private CreateAnchoredIconControllerImpl createAnchoredIconController;
 
 	private NavigationController navigationController;
 	
@@ -197,7 +190,6 @@ public class Example implements EntryPoint {
 		graphicsService.registerControllerFactory(new DragControllerFactory());
 		graphicsService.registerControllerFactory(new DeleteControllerFactory());
 		graphicsService.registerControllerFactory(new LabelControllerFactory());
-		graphicsService.registerControllerFactory(new AnchorControllerFactory());
 		graphicsService.registerControllerFactory(new AnchoredUpdateableControllerFactory());
 		graphicsService.registerControllerFactory(popupFactory);
 
@@ -208,11 +200,9 @@ public class Example implements EntryPoint {
 	private void registerPopupFactoryActionsAndEditiors() {
 		popupFactory.registerAction(new DeleteAction());
 		popupFactory.registerEditor(new TextableEditor());
-		popupFactory.registerEditor(new LabelEditor());
 		popupFactory.registerEditor(new LabeledUpdateableEditor());
 		popupFactory.registerEditor(new StrokeFillEditor());
 		popupFactory.registerAction(new BringToFrontAction());
-		popupFactory.registerEditor(new AnchorStyleEditor());
 		popupFactory.registerEditor(new AnchoredUpdateableEditor());
 
 		// TODO: re-asses unsupported editors/action
@@ -320,43 +310,43 @@ public class Example implements EntryPoint {
 		updateWestSectionToWindowHeight();
 	}
 
-	private void createIconChoicePanel(final CreateIconControllerImpl createIconController,
-			final CreateAnchoredIconControllerImpl createAnchoredIconController) {
-		iconChoicePanel = new VerticalPanel();
-		RadioButton rb0 = new RadioButton("myRadioGroup", "No icon: sets default");
-		rb0.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				createIconController.setHrefs(null);
-				createAnchoredIconController.setHrefs(null);
-			}
-		});
-		RadioButton rb1 = new RadioButton("myRadioGroup", "1 icon");
-		rb1.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				createIconController.setHrefs(url);
-				createAnchoredIconController.setHrefs(url);
-			}
-		});
-		RadioButton rb2 = new RadioButton("myRadioGroup", "multiple icons");
-		rb2.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				createIconController.setHrefs(urls);
-				createAnchoredIconController.setHrefs(urls);
-			}
-		});
-		iconChoicePanel.add(new Label("Change nr of icons in icon choice list:"));
-		iconChoicePanel.add(rb0);
-		iconChoicePanel.add(rb1);
-		iconChoicePanel.add(rb2);
-		iconChoicePanel.setVisible(false);
-		rb1.setValue(true);
-	}
+//	private void createIconChoicePanel(final CreateIconControllerImpl createIconController,
+//			final CreateAnchoredIconControllerImpl createAnchoredIconController) {
+//		iconChoicePanel = new VerticalPanel();
+//		RadioButton rb0 = new RadioButton("myRadioGroup", "No icon: sets default");
+//		rb0.addClickHandler(new ClickHandler() {
+//
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				createIconController.setHrefs(null);
+//				createAnchoredIconController.setHrefs(null);
+//			}
+//		});
+//		RadioButton rb1 = new RadioButton("myRadioGroup", "1 icon");
+//		rb1.addClickHandler(new ClickHandler() {
+//
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				createIconController.setHrefs(url);
+//				createAnchoredIconController.setHrefs(url);
+//			}
+//		});
+//		RadioButton rb2 = new RadioButton("myRadioGroup", "multiple icons");
+//		rb2.addClickHandler(new ClickHandler() {
+//
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				createIconController.setHrefs(urls);
+//				createAnchoredIconController.setHrefs(urls);
+//			}
+//		});
+//		iconChoicePanel.add(new Label("Change nr of icons in icon choice list:"));
+//		iconChoicePanel.add(rb0);
+//		iconChoicePanel.add(rb1);
+//		iconChoicePanel.add(rb2);
+//		iconChoicePanel.setVisible(false);
+//		rb1.setValue(true);
+//	}
 
 	private void updateWestSectionToWindowHeight() {
 		westScrollPanel.setHeight(Window.getClientHeight() + "px");

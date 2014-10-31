@@ -25,7 +25,7 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.object.updateable.AnchoredUpdateable;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
 import org.geomajas.graphics.client.operation.AnchoredUpdateablePositionOperation;
 import org.geomajas.graphics.client.operation.AnchoredUpdateableStyleOperation;
 import org.geomajas.graphics.client.resource.GraphicsResource;

@@ -8,23 +8,24 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.object.updateable;
+package org.geomajas.graphics.client.object.updateable.anchored;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.object.role.RoleType;
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.object.updateable.anchored.TwoPointsLine;
+import org.geomajas.graphics.client.object.updateable.Updateable;
 import org.geomajas.graphics.client.shape.MarkerShape;
 
 /**
- * Simplified {@link org.geomajas.graphics.client.object.anchor.Anchored} role.
- * TODO: merge Anchored and AnchoredUpdateable roles.
+ * Role for anchor.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
-public interface AnchoredUpdateable extends Updateable {
+public interface AnchoredUpdateable extends Updateable, RoleInterface {
 
 	RoleType<AnchoredUpdateable> TYPE = new RoleType<AnchoredUpdateable>("AnchoredUpdateable");
 

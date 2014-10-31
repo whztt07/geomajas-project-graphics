@@ -8,22 +8,22 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.object.updateable;
+package org.geomajas.graphics.client.object.updateable.labeled;
 
-import org.geomajas.graphics.client.object.role.RenderPlane;
-import org.geomajas.graphics.client.object.role.RoleType;
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.object.updateable.Updateable;
 
 
 /**
- * Simplified {@link org.geomajas.graphics.client.object.role.Labeled} role.
- * TODO: merge Labeled and LabeledUpdateable roles.
+ * Interface for a label.
  * 
  * @author Jan De Moerloose
  * @author Jan Venstermans
  * 
  */
-public interface LabeledUpdateable extends RenderPlane, Updateable {
+public interface LabeledUpdateable extends Updateable, RoleInterface {
 	
 	RoleType<LabeledUpdateable> TYPE = new RoleType<LabeledUpdateable>("LabeledUpdateable");
 

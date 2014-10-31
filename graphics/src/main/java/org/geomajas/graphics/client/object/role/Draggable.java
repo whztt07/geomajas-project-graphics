@@ -10,19 +10,33 @@
  */
 package org.geomajas.graphics.client.object.role;
 
-import com.google.gwt.user.client.ui.Widget;
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
 
-/***
- * Role for {@link Widget}.
+/**
+ * Implemented by objects that can be dragged.
  * 
  * @author Jan De Moerloose
  * 
  */
-public interface HtmlRenderable extends RoleInterface {
+public interface Draggable extends Renderable, RoleInterface {
+	
+	RoleType<Draggable> TYPE = new RoleType<Draggable>("Draggable");
 
-	RoleType<HtmlRenderable> TYPE = new RoleType<HtmlRenderable>("HtmlRenderable");
+	void setPosition(Coordinate position);
 
-	Widget asWidget();
+	Coordinate getPosition();
+	
+	Bbox getUserBounds();
+
+	/**
+	 * Get the bounds in screen space.
+	 *
+	 * @return the bounds in screen space
+	 */
+	Bbox getBounds();
+
+	void setUserBounds(Bbox bbox);
 }

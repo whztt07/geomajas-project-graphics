@@ -13,7 +13,7 @@ package org.geomajas.graphics.client.controller.resize;
 import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**

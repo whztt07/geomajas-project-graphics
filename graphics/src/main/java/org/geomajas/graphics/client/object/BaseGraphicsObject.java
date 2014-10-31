@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.geomajas.graphics.client.object.role.Renderable;
-import org.geomajas.graphics.client.object.role.RoleType;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -34,11 +33,11 @@ public abstract class BaseGraphicsObject implements GraphicsObject {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T getRole(RoleType<T> type) {
+	public <T extends RoleInterface> T getRole(RoleType<T> type) {
 		return (T) roles.get(type);
 	}
 
-	public <T> void addRole(RoleType<T> type, T role) {
+	public <T extends RoleInterface> void addRole(RoleType<T> type, T role) {
 		roles.put(type, role);
 	}
 

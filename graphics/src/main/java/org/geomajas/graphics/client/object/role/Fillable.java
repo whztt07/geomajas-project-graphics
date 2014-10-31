@@ -11,13 +11,16 @@
 package org.geomajas.graphics.client.object.role;
 
 
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
+
 /**
  * Implemented by graphics objects that can be filled.
  * 
  * @author Jan De Moerloose
  * 
  */
-public interface Fillable {
+public interface Fillable extends RoleInterface {
 	
 	RoleType<Fillable> TYPE = new RoleType<Fillable>("Fillable");
 	

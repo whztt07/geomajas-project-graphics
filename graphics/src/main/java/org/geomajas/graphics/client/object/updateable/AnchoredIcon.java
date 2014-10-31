@@ -11,9 +11,10 @@
 package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.Draggable;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.base.BaseIcon;
 import org.geomajas.graphics.client.object.updateable.anchored.AnchoredImpl;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;

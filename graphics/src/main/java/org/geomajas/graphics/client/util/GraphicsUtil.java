@@ -12,8 +12,6 @@ package org.geomajas.graphics.client.util;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.ResizableGraphicsObject;
-import org.geomajas.graphics.client.object.labeler.ResizableLabeler;
 
 /**
  * Utility class for some graphics operations.
@@ -151,7 +149,4 @@ public final class GraphicsUtil {
 		return flipstate;
 	}
 
-	public static void addLabeledRole(ResizableGraphicsObject graphicsObject, String text) {
-		graphicsObject.addRole(new ResizableLabeler(text));
-	}
 }

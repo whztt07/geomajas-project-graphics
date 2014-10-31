@@ -10,15 +10,14 @@
  */
 package org.geomajas.graphics.client.editor;
 
-import org.geomajas.graphics.client.object.updateable.LabeledUpdateable;
-import org.geomajas.graphics.client.object.role.RoleInterface;
-import org.geomajas.graphics.client.object.role.RoleType;
+import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.resource.GraphicsResource;
 
 /**
  * {@link Editor}
  * for the {@link LabeledUpdateable} role.
- * TODO: merge Labeled and LabeledUpdateable roles
  *
  * @author Jan Venstermans
  *

@@ -19,7 +19,7 @@ import org.vaadin.gwtgraphics.client.shape.Rectangle;
 
 /**
  * Implementation of {@link org.geomajas.graphics.client.object.Bordered}
- * role for {@link org.geomajas.graphics.client.object.Resizable} objects.
+ * role for {@link org.geomajas.graphics.client.object.role.Resizable} objects.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans

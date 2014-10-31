@@ -8,14 +8,13 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.object.labeler;
+package org.geomajas.graphics.client.object.updateable.labeled;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.base.BaseText;
-import org.geomajas.graphics.client.object.updateable.LabeledUpdateable;
 import org.geomajas.graphics.client.object.role.Textable;
 import org.vaadin.gwtgraphics.client.VectorObject;
 

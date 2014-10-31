@@ -12,10 +12,7 @@ package org.geomajas.graphics.client.object;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.BaseGraphicsObject;
-import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.util.FlipState;
 import org.geomajas.graphics.client.util.GraphicsUtil;
 import org.vaadin.gwtgraphics.client.VectorObject;

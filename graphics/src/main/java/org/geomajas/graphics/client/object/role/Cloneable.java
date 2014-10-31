@@ -10,13 +10,14 @@
  */
 package org.geomajas.graphics.client.object.role;
 
-
 /**
- * Empty interface as super type for the different roles.
+ * Implemented by all objects that can be deep-cloned.
  * 
- * @author Jan Venstermans
+ * @author Jan De Moerloose
  * 
  */
-public abstract interface RoleInterface {
+public interface Cloneable {
+
+	Object cloneObject();
 
 }

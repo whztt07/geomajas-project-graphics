@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.operation;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.util.FlipState;
 
 /**
