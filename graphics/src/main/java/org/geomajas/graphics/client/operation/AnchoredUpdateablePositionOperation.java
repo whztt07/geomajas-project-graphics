@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.operation;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.updateable.AnchoredUpdateable;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
 
 /**
  * Operation that anchors an object.

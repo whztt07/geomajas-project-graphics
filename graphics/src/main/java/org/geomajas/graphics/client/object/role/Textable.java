@@ -11,6 +11,9 @@
 package org.geomajas.graphics.client.object.role;
 
 
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
+
 /**
  * Implemented by Textable graphics objects.
  * It differs from labeled: Labeled role is an updateable aware role (same level as Renderable);

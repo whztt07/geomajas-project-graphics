@@ -8,21 +8,15 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.object.role;
+package org.geomajas.graphics.client.object;
 
-import com.google.gwt.user.client.ui.Widget;
-import org.geomajas.graphics.client.object.RoleInterface;
-import org.geomajas.graphics.client.object.RoleType;
 
-/***
- * Role for {@link Widget}.
+/**
+ * Empty interface as super type for the different roles.
  * 
- * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
-public interface HtmlRenderable extends RoleInterface {
+public abstract interface RoleInterface {
 
-	RoleType<HtmlRenderable> TYPE = new RoleType<HtmlRenderable>("HtmlRenderable");
-
-	Widget asWidget();
 }

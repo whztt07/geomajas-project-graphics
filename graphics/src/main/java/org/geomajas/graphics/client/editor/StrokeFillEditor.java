@@ -10,18 +10,6 @@
  */
 package org.geomajas.graphics.client.editor;
 
-import org.geomajas.graphics.client.object.GPath;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.operation.FillOperation;
-import org.geomajas.graphics.client.operation.StrokeOperation;
-import org.geomajas.graphics.client.resource.GraphicsResource;
-import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.util.Interruptible;
-import org.geomajas.graphics.client.util.textbox.TextBoxEditorDecorator;
-import org.geomajas.graphics.client.widget.TransparencySliderBar;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -34,6 +22,16 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.mogaleaf.client.common.widgets.ColorHandler;
 import com.mogaleaf.client.common.widgets.SimpleColorPicker;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.Fillable;
+import org.geomajas.graphics.client.object.role.Strokable;
+import org.geomajas.graphics.client.operation.FillOperation;
+import org.geomajas.graphics.client.operation.StrokeOperation;
+import org.geomajas.graphics.client.resource.GraphicsResource;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.util.Interruptible;
+import org.geomajas.graphics.client.util.textbox.TextBoxEditorDecorator;
+import org.geomajas.graphics.client.widget.TransparencySliderBar;
 
 /**
  * {@link Editor} for the {@link Strokable} and {@link Fillable} roles. Supports both roles in a single panel.
@@ -159,7 +157,7 @@ public class StrokeFillEditor implements Editor, Interruptible {
 			strokeColorBox.setText(object.getRole(Strokable.TYPE).getStrokeColor());
 			strokeOpacitySlider.setCurrentValue(
 					1 - object.getRole(Strokable.TYPE).getStrokeOpacity());
-			if (object instanceof GPath) {
+			if (!object.hasRole(Fillable.TYPE)) {
 				strokeLabel.setText("Line Parameters");
 			} else {
 				strokeLabel.setText("Border Parameters");

@@ -11,12 +11,13 @@
 package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.base.BasePath;
-import org.geomajas.graphics.client.object.labeler.LabeledImpl;
+import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
+import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
 import org.geomajas.graphics.client.util.CopyUtil;

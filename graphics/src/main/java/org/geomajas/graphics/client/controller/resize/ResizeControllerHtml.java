@@ -10,40 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.resize;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.controller.AbstractGraphicsController;
-import org.geomajas.graphics.client.event.AddAnchoredLinesEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
-import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.DraggableDecoratedPopupPanel;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
-import org.geomajas.graphics.client.object.ResizableGraphicsObject;
-import org.geomajas.graphics.client.object.ExternalLabel;
-import org.geomajas.graphics.client.object.anchor.Anchorable;
-import org.geomajas.graphics.client.object.anchor.MaskHasLinesToStaticPositions;
-import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
-import org.geomajas.graphics.client.object.role.Labeled;
-import org.geomajas.graphics.client.operation.DragOperation;
-import org.geomajas.graphics.client.operation.ResizeOperation;
-import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
-import org.geomajas.graphics.client.shape.CoordinatePath;
-import org.geomajas.graphics.client.util.BboxPosition;
-import org.geomajas.graphics.client.util.FlipState;
-import org.geomajas.graphics.client.util.GraphicsUtil;
-import org.vaadin.gwtgraphics.client.Group;
-import org.vaadin.gwtgraphics.client.Shape;
-import org.vaadin.gwtgraphics.client.VectorObject;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
-
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -62,6 +28,30 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.controller.AbstractGraphicsController;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.operation.DragOperation;
+import org.geomajas.graphics.client.operation.ResizeOperation;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
+import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
+import org.geomajas.graphics.client.util.BboxPosition;
+import org.geomajas.graphics.client.util.FlipState;
+import org.geomajas.graphics.client.util.GraphicsUtil;
+import org.vaadin.gwtgraphics.client.Group;
+import org.vaadin.gwtgraphics.client.Shape;
+import org.vaadin.gwtgraphics.client.VectorObject;
+import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@link org.geomajas.graphics.client.controller.AbstractGraphicsController}
@@ -71,7 +61,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * 
  */
 public class ResizeControllerHtml extends AbstractGraphicsController implements GraphicsObjectContainerEvent.Handler,
-		MouseDownHandler, AddAnchoredLinesEvent.Handler {
+		MouseDownHandler {
 
 	private static final int HANDLER_SIZE = 8;
 
@@ -124,7 +114,6 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 		this.service = service;
 		// listen to changes to our object
 		service.getObjectContainer().addGraphicsObjectContainerHandler(this);
-		service.getObjectContainer().addAddAnchoredLinesHandler(this);
 	}
 
 	@Override
@@ -137,21 +126,21 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 				if (isActive()) {
 					init();
 				}
-				if (getObject().hasRole(Labeled.TYPE)
-						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
-					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
-							.getExternalLabel();
-					el.update();
-				}
+//				if (getObject().hasRole(Labeled.TYPE)
+//						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
+//					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
+//							.getExternalLabel();
+//					el.update();
+//				}
 			} else if (event.getActionType() == ActionType.REMOVE) {
-				if (getObject().hasRole(Labeled.TYPE)
-						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
-					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
-							.getExternalLabel();
-					if (service.getObjectContainer().getObjects().contains(el)) {
-						service.getObjectContainer().remove(el);
-					}
-				}
+//				if (getObject().hasRole(Labeled.TYPE)
+//						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
+//					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
+//							.getExternalLabel();
+//					if (service.getObjectContainer().getObjects().contains(el)) {
+//						service.getObjectContainer().remove(el);
+//					}
+//				}
 			} else {
 				// handled by meta controller
 			}
@@ -286,15 +275,6 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 		RootPanel.getBodyElement().getStyle().setProperty("cursor", captureCursor);
 	}
 	
-	@Override
-	public void onAction(AddAnchoredLinesEvent event) {
-		if (isActive()) {
-			if (dragOnActivate) {
-				dragHandler.onAction(event);
-			}
-		}
-	}
-
 	/**
 	 * Handles resizing (4 corner handlers + 4 side handlers).
 	 */
@@ -487,7 +467,7 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 	 * 
 	 */
 	class DragHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, ClickHandler, 
-		DoubleClickHandler, AddAnchoredLinesEvent.Handler {
+		DoubleClickHandler {
 
 		private GraphicsObject mask;
 
@@ -537,12 +517,7 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 				mask = (GraphicsObject) getObject().cloneObject();
 				mask.setOpacity(0.5);
 				mask.getRole(Draggable.TYPE).setPosition(beginPosition);
-				if (mask.hasRole(Anchorable.TYPE)) {
-					service.getObjectContainer().findObjectsAnchoredTo(getObject());
-				} else {
-					handlerGroup.add(mask.asObject());
-				}
-				
+				handlerGroup.add(mask.asObject());
 			}
 		}
 
@@ -595,14 +570,6 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 			group.add(invisibleMask.asObject());
 		}
 
-		@Override
-		public void onAction(AddAnchoredLinesEvent event) {
-			List<CoordinatePath> paths = event.getCoordinatePaths();
-			if (paths != null && paths.size() > 0) {
-				((ResizableGraphicsObject) mask).addRole(new MaskHasLinesToStaticPositions(paths));
-			}
-			handlerGroup.add(mask.asObject());
-		}
 	}
 	
 	/**

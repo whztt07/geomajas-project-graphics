@@ -12,10 +12,11 @@ package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.base.BaseEllipse;
-import org.geomajas.graphics.client.object.labeler.LabeledImpl;
+import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
+import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
 import org.vaadin.gwtgraphics.client.Group;

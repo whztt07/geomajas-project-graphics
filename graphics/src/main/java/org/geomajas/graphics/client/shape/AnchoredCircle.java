@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.shape;
 
-import org.geomajas.graphics.client.object.Cloneable;
+import org.geomajas.graphics.client.object.role.Cloneable;
 import org.vaadin.gwtgraphics.client.shape.Circle;
 
 /**

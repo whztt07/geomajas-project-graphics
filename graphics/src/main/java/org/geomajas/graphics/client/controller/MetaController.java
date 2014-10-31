@@ -10,23 +10,6 @@
  */
 package org.geomajas.graphics.client.controller;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.GRectangle;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
-import org.geomajas.graphics.client.object.role.HtmlRenderable;
-import org.geomajas.graphics.client.service.GraphicsService;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
-
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -38,6 +21,22 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.base.BaseRectangle;
+import org.geomajas.graphics.client.object.role.HtmlRenderable;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controller of controllers. Activates all controllers when an object is clicked.
@@ -223,7 +222,7 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 	 */
 	public class BackGroundHandler implements MouseDownHandler, MouseMoveHandler, MouseUpHandler {
 
-		private GRectangle dragRectangle;
+		private BaseRectangle dragRectangle;
 
 		private Coordinate begin;
 
@@ -233,7 +232,7 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 			// start a drag selection !
 			begin = getUserCoordinate(event);
 			if (dragRectangle == null) {
-				dragRectangle = new GRectangle(0, 0, 0, 0);
+				dragRectangle = new BaseRectangle(0, 0, 0, 0);
 				dragRectangle.setStrokeColor("#696969");
 				dragRectangle.setFillOpacity(0);
 				dragRectangle.setUserBounds(new Bbox(begin.getX(), begin.getY(), 0, 0));

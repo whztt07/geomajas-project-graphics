@@ -16,7 +16,7 @@ import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController;
 import org.geomajas.graphics.client.controller.drag.AbstractDragHandler;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.updateable.AnchoredUpdateable;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
 import org.geomajas.graphics.client.operation.AnchoredUpdateablePositionOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;

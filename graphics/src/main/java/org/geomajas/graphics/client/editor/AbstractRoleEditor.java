@@ -11,8 +11,8 @@
 package org.geomajas.graphics.client.editor;
 
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.RoleInterface;
-import org.geomajas.graphics.client.object.role.RoleType;
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**

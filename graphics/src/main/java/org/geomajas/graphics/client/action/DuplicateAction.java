@@ -12,10 +12,7 @@ package org.geomajas.graphics.client.action;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
-import org.geomajas.graphics.client.object.ResizableGraphicsObject;
-import org.geomajas.graphics.client.object.anchor.AnchoredTo;
-import org.geomajas.graphics.client.object.anchor.ExternalLabelOfResizable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.resource.GraphicsResource;
 
 /**
@@ -34,21 +31,17 @@ public class DuplicateAction extends AbstractAction {
 
 	@Override
 	public boolean supports(GraphicsObject object) {
-		if (object.hasRole(AnchoredTo.TYPE) && object.getRole(AnchoredTo.TYPE) instanceof ExternalLabelOfResizable) {
-			return false;
-		}
 		return true;
 	}
 
 	@Override
 	public void execute(GraphicsObject object) {
 		GraphicsObject object2 = (GraphicsObject) object.cloneObject();
-		if (object2 instanceof ResizableGraphicsObject) {
-			ResizableGraphicsObject object2asRgo = (ResizableGraphicsObject) object2;
-			Bbox bounds = object2asRgo.getBounds();
+		if (object2.hasRole(Resizable.TYPE)) {
+			Bbox bounds = object2.getRole(Resizable.TYPE).getUserBounds();
 			bounds.setX(bounds.getX() + 10.0);
 			bounds.setY(bounds.getY() + 10.0);
-			object2asRgo.getRole(Resizable.TYPE).setUserBounds(bounds);
+			object2.getRole(Resizable.TYPE).setUserBounds(bounds);
 		} else {
 			object2.asObject().setTranslation(10.0, 10.0);
 		}

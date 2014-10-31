@@ -11,13 +11,16 @@
 package org.geomajas.graphics.client.object.role;
 
 
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
+
 /**
  * Implemented by graphics objects that can be stroked.
  * 
  * @author Jan De Moerloose
  * 
  */
-public interface Strokable {
+public interface Strokable extends RoleInterface {
 	
 	RoleType<Strokable> TYPE = new RoleType<Strokable>("Strokable");
 

@@ -10,34 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.resize;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.controller.drag.GraphicsObjectDragHandler;
-import org.geomajas.graphics.client.controller.MetaController;
-import org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
-import org.geomajas.graphics.client.event.GraphicsOperationEvent;
-import org.geomajas.graphics.client.object.ExternalLabel;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.Resizable;
-import org.geomajas.graphics.client.object.role.ExternalizableLabeled;
-import org.geomajas.graphics.client.object.role.Labeled;
-import org.geomajas.graphics.client.operation.ResizeOperation;
-import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
-import org.geomajas.graphics.client.util.BboxPosition;
-import org.geomajas.graphics.client.util.FlipState;
-import org.geomajas.graphics.client.util.GraphicsUtil;
-import org.vaadin.gwtgraphics.client.Group;
-import org.vaadin.gwtgraphics.client.Shape;
-import org.vaadin.gwtgraphics.client.VectorObject;
-
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -52,6 +24,30 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.controller.MetaController;
+import org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController;
+import org.geomajas.graphics.client.controller.drag.GraphicsObjectDragHandler;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
+import org.geomajas.graphics.client.event.GraphicsOperationEvent;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.operation.ResizeOperation;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
+import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
+import org.geomajas.graphics.client.util.BboxPosition;
+import org.geomajas.graphics.client.util.FlipState;
+import org.geomajas.graphics.client.util.GraphicsUtil;
+import org.vaadin.gwtgraphics.client.Group;
+import org.vaadin.gwtgraphics.client.Shape;
+import org.vaadin.gwtgraphics.client.VectorObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@link org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController}
@@ -105,21 +101,21 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 				if (isActive()) {
 					init();
 				}
-				if (getObject().hasRole(Labeled.TYPE)
-						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
-					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
-							.getExternalLabel();
-					el.update();
-				}
+//				if (getObject().hasRole(Labeled.TYPE)
+//						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
+//					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
+//							.getExternalLabel();
+//					el.update();
+//				}
 			} else if (event.getActionType() == ActionType.REMOVE) {
-				if (getObject().hasRole(Labeled.TYPE)
-						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
-					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
-							.getExternalLabel();
-					if (getService().getObjectContainer().getObjects().contains(el)) {
-						getService().getObjectContainer().remove(el);
-					}
-				}
+//				if (getObject().hasRole(Labeled.TYPE)
+//						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
+//					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
+//							.getExternalLabel();
+//					if (getService().getObjectContainer().getObjects().contains(el)) {
+//						getService().getObjectContainer().remove(el);
+//					}
+//				}
 			} else {
 				// handled by meta controller
 			}

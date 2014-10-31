@@ -10,26 +10,6 @@
  */
 package org.geomajas.graphics.client.service.objectcontainer;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.geomajas.graphics.client.event.AddAnchoredLinesEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
-import org.geomajas.graphics.client.event.GraphicsObjectSelectedEvent;
-import org.geomajas.graphics.client.event.GraphicsOperationEvent;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.anchor.AnchoredTo;
-import org.geomajas.graphics.client.object.role.HtmlRenderable;
-import org.geomajas.graphics.client.service.HasAllMouseAndClickHandlers;
-import org.geomajas.graphics.client.service.HasHandlerVectorObjectContainer;
-import org.geomajas.graphics.client.service.HasHandlerWidget;
-import org.geomajas.graphics.client.shape.CoordinatePath;
-import org.vaadin.gwtgraphics.client.Group;
-import org.vaadin.gwtgraphics.client.VectorObject;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -54,6 +34,22 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
+import org.geomajas.graphics.client.event.GraphicsObjectSelectedEvent;
+import org.geomajas.graphics.client.event.GraphicsOperationEvent;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.HtmlRenderable;
+import org.geomajas.graphics.client.service.HasAllMouseAndClickHandlers;
+import org.geomajas.graphics.client.service.HasHandlerVectorObjectContainer;
+import org.geomajas.graphics.client.service.HasHandlerWidget;
+import org.vaadin.gwtgraphics.client.Group;
+import org.vaadin.gwtgraphics.client.VectorObject;
+import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -281,23 +277,6 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 	public com.google.web.bindery.event.shared.HandlerRegistration addGraphicsOperationEventHandler(
 			org.geomajas.graphics.client.event.GraphicsOperationEvent.Handler handler) {
 		return eventBus.addHandler(GraphicsOperationEvent.getType(), handler);
-	}
-
-	@Override
-	public com.google.web.bindery.event.shared.HandlerRegistration addAddAnchoredLinesHandler(
-			org.geomajas.graphics.client.event.AddAnchoredLinesEvent.Handler handler) {
-		return eventBus.addHandler(AddAnchoredLinesEvent.getType(), handler);
-	}
-
-	@Override
-	public void findObjectsAnchoredTo(GraphicsObject object) {
-		List<CoordinatePath> coordinatePaths = new ArrayList<CoordinatePath>();
-		for (GraphicsObject go : objects) {
-			if (go.hasRole(AnchoredTo.TYPE) && go.getRole(AnchoredTo.TYPE).getMasterObject() == object) {
-				coordinatePaths.add(go.getRole(AnchoredTo.TYPE).getAnchorLineClone());
-			}
-		}
-		eventBus.fireEvent(new AddAnchoredLinesEvent(object, coordinatePaths));
 	}
 
 	/**

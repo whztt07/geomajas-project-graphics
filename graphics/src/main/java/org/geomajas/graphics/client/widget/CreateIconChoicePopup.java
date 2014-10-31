@@ -32,11 +32,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.create.CreateIconController;
-import org.geomajas.graphics.client.object.GIcon;
-import org.geomajas.graphics.client.object.anchor.Anchored;
-import org.geomajas.graphics.client.object.anchor.ResizableAnchorer;
+import org.geomajas.graphics.client.object.updateable.AnchoredIcon;
 import org.geomajas.graphics.client.resource.GraphicsResource;
-import org.geomajas.graphics.client.shape.AnchoredImage;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.DrawingArea;
 import org.vaadin.gwtgraphics.client.Group;
@@ -53,9 +50,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Popup window with icon and marker choice, used by
- * {@link org.geomajas.graphics.client.controller.create.CreateIconControllerImpl} and
- * {@link org.geomajas.graphics.client.controller.create.CreateAnchoredIconControllerImpl}.
+ * Popup window with icon and marker choice.
  * 
  * @author Jan Venstermans
  * 
@@ -95,8 +90,6 @@ public class CreateIconChoicePopup {
 
 	@UiField
 	protected CaptionPanel previewCaptionPanel;
-
-	private GIcon previewIcon;
 
 	private DrawingArea previewArea;
 
@@ -331,17 +324,11 @@ public class CreateIconChoicePopup {
 		previewArea.clear();
 
 		// icon
-		previewIcon = new GIcon(new AnchoredImage(0, 0, previewImageWidth,
-				previewImageHeight, selectedIconUrl, 0.5, 0.5));
 		Coordinate iconPosition = new Coordinate(previewArea.getWidth() / 2, 20);
-		previewIcon.setPosition(iconPosition);
-
-		// maker
-		previewIcon.addRole(new ResizableAnchorer(new Coordinate(0, 0), selectedMarkerShape));
 		Coordinate markerPosition  = new Coordinate(iconPosition);
 		markerPosition.setY(markerPosition.getY() + 40);
-		previewIcon.getRole(Anchored.TYPE).setAnchorPosition(markerPosition);
-
+		AnchoredIcon previewIcon = new AnchoredIcon(iconPosition, previewImageWidth,
+				previewImageHeight, selectedIconUrl, markerPosition, selectedMarkerShape);
 		previewArea.add(previewIcon.asObject());
 	}
 

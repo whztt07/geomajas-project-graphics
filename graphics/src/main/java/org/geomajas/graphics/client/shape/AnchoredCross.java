@@ -13,7 +13,7 @@ package org.geomajas.graphics.client.shape;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.geomajas.graphics.client.object.Cloneable;
+import org.geomajas.graphics.client.object.role.Cloneable;
 import org.vaadin.gwtgraphics.client.shape.Path;
 import org.vaadin.gwtgraphics.client.shape.path.LineTo;
 import org.vaadin.gwtgraphics.client.shape.path.MoveTo;

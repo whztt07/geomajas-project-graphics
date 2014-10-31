@@ -8,21 +8,22 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.object.updateable;
+package org.geomajas.graphics.client.object.updateable.bordered;
 
 import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.object.role.RoleType;
+import org.geomajas.graphics.client.object.RoleInterface;
+import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.object.role.Strokable;
+import org.geomajas.graphics.client.object.updateable.Updateable;
 
 /**
- * Simplified {@link org.geomajas.graphics.client.object.Bordered} role.
- * TODO: merge Bordered and BorderedUpdateable roles.
+ * Interface for a border.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans
  * 
  */
-public interface BorderedUpdateable extends Updateable {
+public interface BorderedUpdateable extends Updateable, RoleInterface {
 
 	RoleType<BorderedUpdateable> TYPE = new RoleType<BorderedUpdateable>("BorderedUpdateable");
 

@@ -10,19 +10,27 @@
  */
 package org.geomajas.graphics.client.object.role;
 
-import com.google.gwt.user.client.ui.Widget;
+import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
 
-/***
- * Role for {@link Widget}.
+/**
+ * Implemented by graphical objects that can be represented an array of coordinates.
  * 
  * @author Jan De Moerloose
  * 
  */
-public interface HtmlRenderable extends RoleInterface {
+public interface CoordinateBased extends RoleInterface {
 
-	RoleType<HtmlRenderable> TYPE = new RoleType<HtmlRenderable>("HtmlRenderable");
+	RoleType<CoordinateBased> TYPE = new RoleType<CoordinateBased>("CoordinateBased");
 
-	Widget asWidget();
+	void setCoordinates(Coordinate[] coordinates);
+
+	void addCoordinate(Coordinate coordinate);
+
+	Coordinate getLastCoordinate();
+
+	int getCoordinateCount();
+
+	void moveCoordinate(Coordinate coordinate, int index);
 }

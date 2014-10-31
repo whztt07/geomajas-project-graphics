@@ -11,7 +11,6 @@
 package org.geomajas.graphics.client.object;
 
 import org.geomajas.graphics.client.object.role.Renderable;
-import org.geomajas.graphics.client.object.role.RoleType;
 import org.vaadin.gwtgraphics.client.Transparent;
 
 
@@ -22,10 +21,10 @@ import org.vaadin.gwtgraphics.client.Transparent;
  * @author Jan De Moerloose
  * 
  */
-public interface GraphicsObject extends Renderable, Cloneable, Transparent {
+public interface GraphicsObject extends Renderable, org.geomajas.graphics.client.object.role.Cloneable, Transparent {
 
 	boolean hasRole(RoleType<?> type);
 
-	<T> T getRole(RoleType<T> type);
+	<T extends RoleInterface> T getRole(RoleType<T> type);
 	
 }

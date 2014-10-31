@@ -11,10 +11,9 @@
 package org.geomajas.graphics.client.object.base;
 
 import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.GraphicsMockSetup;
-import org.geomajas.graphics.client.object.Draggable;
-import org.geomajas.graphics.client.object.Resizable;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.junit.Assert;

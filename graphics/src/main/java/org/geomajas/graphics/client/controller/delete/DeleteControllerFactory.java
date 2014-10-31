@@ -13,8 +13,6 @@ package org.geomajas.graphics.client.controller.delete;
 import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.anchor.AnchoredTo;
-import org.geomajas.graphics.client.object.anchor.ExternalLabelOfResizable;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -27,9 +25,6 @@ public class DeleteControllerFactory implements GraphicsControllerFactory {
 
 	@Override
 	public boolean supports(GraphicsObject object) {
-		if (object.hasRole(AnchoredTo.TYPE) && object.getRole(AnchoredTo.TYPE) instanceof ExternalLabelOfResizable) {
-			return false;
-		}
 		return true;
 	}
 

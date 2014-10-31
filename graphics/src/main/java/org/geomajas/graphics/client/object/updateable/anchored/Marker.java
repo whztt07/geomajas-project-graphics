@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.object.updateable.anchored;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
-import org.geomajas.graphics.client.object.Cloneable;
+import org.geomajas.graphics.client.object.role.Cloneable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
@@ -22,7 +22,7 @@ import org.vaadin.gwtgraphics.client.Shape;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Implementation of {@link org.geomajas.graphics.client.object.updateable.AnchoredUpdateable} role.
+ * Implementation of {@link AnchoredUpdateable} role.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans
@@ -75,7 +75,7 @@ public class Marker extends BaseGraphicsObject implements Strokable, Fillable {
 	}
 
 	protected Shape createAnchor(Shape shape) {
-		if (shape != null && shape instanceof org.geomajas.graphics.client.object.Cloneable) {
+		if (shape != null && shape instanceof Cloneable) {
 			anchor = (Shape) ((Cloneable) shape).cloneObject();
 		} else {
 			// standard marker shape: rectangle

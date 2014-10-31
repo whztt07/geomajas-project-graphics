@@ -11,8 +11,6 @@
 package org.geomajas.graphics.client.action;
 
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.anchor.AnchoredTo;
-import org.geomajas.graphics.client.object.anchor.ExternalLabelOfResizable;
 import org.geomajas.graphics.client.operation.BringToFrontOperation;
 import org.geomajas.graphics.client.resource.GraphicsResource;
 
@@ -32,9 +30,6 @@ public class BringToFrontAction extends AbstractAction {
 
 	@Override
 	public boolean supports(GraphicsObject object) {
-		if (object.hasRole(AnchoredTo.TYPE) && object.getRole(AnchoredTo.TYPE) instanceof ExternalLabelOfResizable) {
-			return false;
-		}
 		return true;
 	}
 

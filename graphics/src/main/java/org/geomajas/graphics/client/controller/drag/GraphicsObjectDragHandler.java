@@ -13,12 +13,8 @@ package org.geomajas.graphics.client.controller.drag;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
-import org.geomajas.graphics.client.object.BaseGraphicsObject;
-import org.geomajas.graphics.client.object.Bordered;
-import org.geomajas.graphics.client.object.Draggable;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.anchor.Anchored;
-import org.geomajas.graphics.client.object.role.Labeled;
 import org.geomajas.graphics.client.operation.DragOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
@@ -49,22 +45,6 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 	protected VectorObject createInvisibleMask() {
 		invisbleMaskGraphicsObject = (GraphicsObject) getObject().cloneObject();
 		invisbleMaskGraphicsObject.setOpacity(0);
-
-		//TODO: remove following section when removing ResizableGraphicsObject
-		// remove the updateableAwareRoles, but leave the RenderableRole
-		if (invisbleMaskGraphicsObject instanceof BaseGraphicsObject) {
-			BaseGraphicsObject baseObject = (BaseGraphicsObject) invisbleMaskGraphicsObject;
-			if (baseObject.hasRole(Anchored.TYPE)) {
-				baseObject.removeRole(Anchored.TYPE);
-			}
-			if (baseObject.hasRole(Labeled.TYPE)) {
-				baseObject.removeRole(Labeled.TYPE);
-			}
-			if (baseObject.hasRole(Bordered.TYPE)) {
-				baseObject.removeRole(Bordered.TYPE);
-			}
-		}
-
 		return invisbleMaskGraphicsObject.getRole(Draggable.TYPE).asObject();
 	}
 
