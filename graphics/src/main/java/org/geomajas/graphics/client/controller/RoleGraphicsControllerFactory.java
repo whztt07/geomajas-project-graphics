@@ -10,7 +10,6 @@
  */
 package org.geomajas.graphics.client.controller;
 
-import org.geomajas.graphics.client.controller.drag.DragController;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
@@ -19,8 +18,10 @@ import org.geomajas.graphics.client.object.RoleType;
  * Implementation of {@link GraphicsControllerFactory} for a {@link GraphicsObject} with a specific
  * {@link org.geomajas.graphics.client.object.RoleInterface}.
  *
- * @author Jan Venstermans
+ * @param <R> roleInterface that the graphicsObject needs for the controller
+ * @param <C> type of graphicsController that will be created
  *
+ * @author Jan Venstermans
  */
 public abstract class RoleGraphicsControllerFactory<R extends RoleInterface, C extends GraphicsController>
 		implements GraphicsControllerFactory<C> {

@@ -14,9 +14,8 @@ import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.Group;
 

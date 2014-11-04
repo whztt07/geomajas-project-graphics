@@ -16,8 +16,8 @@ import org.geomajas.graphics.client.service.GraphicsService;
 /**
  * Factory for {@link org.geomajas.graphics.client.controller.GraphicsController} instances.
  * 
+ * @param <C> type of graphicsController that will be created
  * @author Jan De Moerloose
- * 
  */
 public interface GraphicsControllerFactory<C extends GraphicsController> {
 

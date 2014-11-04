@@ -44,8 +44,8 @@ import java.util.Map;
  * @author Jan De Moerloose
  * 
  */
-public class MetaController extends AbstractInterruptibleGraphicsController implements MouseDownHandler, DoubleClickHandler,
-		GraphicsObjectContainerEvent.Handler {
+public class MetaController extends AbstractInterruptibleGraphicsController
+		implements MouseDownHandler, DoubleClickHandler, GraphicsObjectContainerEvent.Handler {
 
 	private VectorObjectContainer container;
 

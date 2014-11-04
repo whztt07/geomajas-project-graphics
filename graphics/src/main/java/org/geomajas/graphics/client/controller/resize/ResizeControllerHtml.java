@@ -60,8 +60,8 @@ import java.util.List;
  * @author Jan De Moerloose
  * 
  */
-public class ResizeControllerHtml extends AbstractInterruptibleGraphicsController implements GraphicsObjectContainerEvent.Handler,
-		MouseDownHandler {
+public class ResizeControllerHtml extends AbstractInterruptibleGraphicsController
+		implements GraphicsObjectContainerEvent.Handler, MouseDownHandler {
 
 	private static final int HANDLER_SIZE = 8;
 

@@ -11,7 +11,6 @@
 package org.geomajas.graphics.client.controller;
 
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.Group;

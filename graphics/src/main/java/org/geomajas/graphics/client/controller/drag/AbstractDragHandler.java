@@ -10,17 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.drag;
 
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.controller.MetaController;
-import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.Draggable;
-import org.geomajas.graphics.client.operation.GraphicsOperation;
-import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.service.GraphicsService;
-import org.vaadin.gwtgraphics.client.Group;
-import org.vaadin.gwtgraphics.client.VectorObject;
-
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -35,6 +24,15 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.controller.MetaController;
+import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.operation.GraphicsOperation;
+import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
+import org.vaadin.gwtgraphics.client.Group;
+import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
  * Base class for a handling drag functions. Two extra objects are
