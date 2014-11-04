@@ -16,7 +16,6 @@ import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.object.role.Renderable;
 import org.geomajas.graphics.client.object.role.Textable;
 import org.geomajas.graphics.client.shape.AnchoredText;
 import org.geomajas.graphics.client.util.FlipState;
@@ -28,7 +27,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  * @author Jan De Moerloose
  * @author Jan Venstermans
  */
-public class BaseText extends BaseGraphicsObject implements Draggable, Textable, Resizable, Renderable {
+public class BaseText extends BaseGraphicsObject implements Draggable, Textable, Resizable {
 
 	// centered around userX, userY
 	private AnchoredText text;

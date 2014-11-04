@@ -13,9 +13,6 @@ package org.geomajas.graphics.client.object;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.geomajas.graphics.client.object.role.Renderable;
-import org.vaadin.gwtgraphics.client.VectorObject;
-
 /**
  * Base class for {@link GraphicsObject} implementations. Keeps track of the object's roles.
  * 
@@ -43,11 +40,6 @@ public abstract class BaseGraphicsObject implements GraphicsObject {
 
 	public void removeRole(RoleType<?> type) {
 		roles.remove(type);
-	}
-
-	@Override
-	public VectorObject asObject() {
-		return getRole(Renderable.TYPE).asObject();
 	}
 
 	protected Map<RoleType<?>, Object> getRoles() {

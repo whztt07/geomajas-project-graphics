@@ -10,21 +10,16 @@
  */
 package org.geomajas.graphics.client.object.role;
 
-import org.geomajas.graphics.client.object.RoleInterface;
-import org.geomajas.graphics.client.object.RoleType;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
  * Implemented by all graphical objects. Rendering happens through {@link #asObject()} method, which returns the
  * {@link VectorObject} that corresponds to this graphical object (usually a group for complex objects).
- * TODO: remove RoleInterface extension
- * 
+ *
  * @author Jan De Moerloose
  * 
  */
-public interface Renderable extends RoleInterface {
-
-	RoleType<Renderable> TYPE = new RoleType<Renderable>("Renderable");
+public interface Renderable {
 
 	VectorObject asObject();
 
