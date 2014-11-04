@@ -47,9 +47,6 @@ public class AnchoredUpdateableController extends UpdateHandlerGraphicsControlle
 	public AnchoredUpdateableController(GraphicsObject object, GraphicsService service) {
 		super(service, object);
 		this.anchorPointObject = object.getRole(AnchoredUpdateable.TYPE);
-		setContainer(createContainer());
-		// listen to changes to our object
-		service.getObjectContainer().addGraphicsObjectContainerHandler(this);
 	}
 
 	@Override
@@ -88,8 +85,7 @@ public class AnchoredUpdateableController extends UpdateHandlerGraphicsControlle
 		
 		private Shape invisibleSquareAnchor;
 
-		public AnchorDragHandler(GraphicsObject object,
-				GraphicsService service,
+		public AnchorDragHandler(GraphicsObject object, GraphicsService service,
 				UpdateHandlerGraphicsController graphicsHandler) {
 			super(object, service, graphicsHandler);
 		}
@@ -127,8 +123,7 @@ public class AnchoredUpdateableController extends UpdateHandlerGraphicsControlle
 		}
 
 		@Override
-		protected GraphicsOperation createGraphicsOperation(Coordinate before,
-				Coordinate after) {
+		protected GraphicsOperation createGraphicsOperation(Coordinate before, Coordinate after) {
 			return new AnchoredUpdateablePositionOperation(getObject(), before, after);
 		}
 

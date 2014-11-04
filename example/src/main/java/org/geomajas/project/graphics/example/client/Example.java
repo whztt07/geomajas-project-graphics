@@ -186,8 +186,8 @@ public class Example implements EntryPoint {
 	//-----------------------------------------------------------------------------
 
 	private void registerControllerFactories() {
-		graphicsService.registerControllerFactory(new ResizeControllerFactory());
-//		graphicsService.registerControllerFactory(new DragControllerFactory());
+//		graphicsService.registerControllerFactory(new ResizeControllerFactory());
+		graphicsService.registerControllerFactory(new DragControllerFactory());
 		graphicsService.registerControllerFactory(new DeleteControllerFactory());
 		graphicsService.registerControllerFactory(new LabelControllerFactory());
 		graphicsService.registerControllerFactory(new AnchoredUpdateableControllerFactory());

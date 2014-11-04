@@ -21,7 +21,7 @@ import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Uses the mask for dragging.
+ * Extension of {@link AbstractDragHandler}
  * 
  * @author Jan De Moerloose
  * @author Jan Venstermans
@@ -36,9 +36,12 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 		super(object, service, graphicsController);
 	}
 
+	public Draggable getDraggable() {
+		return getObject().getRole(Draggable.TYPE);
+	}
+
 	public void update() {
-		invisbleMaskGraphicsObject.getRole(Draggable.TYPE).setPosition(
-				getObject().getRole(Draggable.TYPE).getPosition());
+		invisbleMaskGraphicsObject.getRole(Draggable.TYPE).setPosition(getDraggable().getPosition());
 	}
 
 	@Override
@@ -58,7 +61,7 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 
 	@Override
 	protected Coordinate getObjectPosition() {
-		return getObject().getRole(Draggable.TYPE).getPosition();
+		return getDraggable().getPosition();
 	}
 
 	@Override

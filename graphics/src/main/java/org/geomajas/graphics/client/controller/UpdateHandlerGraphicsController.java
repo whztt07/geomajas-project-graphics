@@ -18,9 +18,13 @@ import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 /**
- * Useful base class for {@link GraphicsController}.
+ * Extension of {@link AbstractInterruptibleGraphicsController} containing a {@link Group} of handlers
+ * and s {@link VectorObjectContainer}.
+ * This class also listens to {@link org.geomajas.graphics.client.event.GraphicsObjectContainerEvent}; upon Update,
+ * the {@link VectorObjectContainer} and {@link Group} of handlers will be updated.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
 public abstract class UpdateHandlerGraphicsController extends AbstractInterruptibleGraphicsController
@@ -36,35 +40,14 @@ public abstract class UpdateHandlerGraphicsController extends AbstractInterrupti
 	 */
 	private VectorObjectContainer container;
 
-	public UpdateHandlerGraphicsController(GraphicsService graphicsService,
-			GraphicsObject object) {
+	public UpdateHandlerGraphicsController(GraphicsService graphicsService, GraphicsObject object) {
 		super(graphicsService, object);
+		// create container
+		setContainer(createContainer());
+		// listen to changes to our object
+		getObjectContainer().addGraphicsObjectContainerHandler(this);
 	}
 
-	public abstract void updateHandlers();
-
-	public Group getHandlerGroup() {
-		return handlerGroup;
-	}
-
-	public void setHandlerGroup(Group handlerGroup) {
-		this.handlerGroup = handlerGroup;
-	}
-
-	public VectorObjectContainer getContainer() {
-		return container;
-	}
-
-	public void setContainer(VectorObjectContainer container) {
-		this.container = container;
-	}
-	
-	@Override
-	public void destroy() {
-		getContainer().clear();
-		removeContainer(getContainer());
-	}
-	
 	@Override
 	public void setActive(boolean active) {
 		if (active != isActive()) {
@@ -87,23 +70,57 @@ public abstract class UpdateHandlerGraphicsController extends AbstractInterrupti
 			}
 		}
 	}
-	
+
+	@Override
+	public void destroy() {
+		getContainer().clear();
+		removeContainer(getContainer());
+	}
+
 	@Override
 	public void onAction(GraphicsObjectContainerEvent event) {
 		if (event.getObject() == getObject()) {
-			if (event.getActionType() == ActionType.UPDATE) {
-				// must re-initialize as this object has changed (mask)
-				getContainer().clear();
-				setHandlerGroup(null);
-				if (isActive()) {
-					init();
-				}
-			} else {
-				// handled by meta controller
+			switch (event.getActionType()) {
+				case UPDATE:
+					// must re-initialize as this object has changed (mask)
+					getContainer().clear();
+					setHandlerGroup(null);
+					if (isActive()) {
+						init();
+					}
+					break;
+				default:
+					// handled by meta controller
+					break;
 			}
 		}
 	}
-	
+
+	//--------------------------------
+	// abstract methods
+	//--------------------------------
+
+	public abstract void updateHandlers();
+
 	protected abstract void init();
-	
+
+	//--------------------------------------------------
+	// getters and setters of HandlerGroup and container
+	//--------------------------------------------------
+
+	public Group getHandlerGroup() {
+		return handlerGroup;
+	}
+
+	public void setHandlerGroup(Group handlerGroup) {
+		this.handlerGroup = handlerGroup;
+	}
+
+	public VectorObjectContainer getContainer() {
+		return container;
+	}
+
+	public void setContainer(VectorObjectContainer container) {
+		this.container = container;
+	}
 }

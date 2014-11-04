@@ -83,10 +83,8 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 	public ResizeController(GraphicsObject object, GraphicsService service, boolean dragOnActivate) {
 		super(service, object);
 		this.object = object.getRole(Resizable.TYPE);
-		setContainer(createContainer());
 		this.dragOnActivate = dragOnActivate;
 		// listen to changes to our object
-		service.getObjectContainer().addGraphicsObjectContainerHandler(this);
 		service.getObjectContainer().addGraphicsOperationEventHandler(this);
 	}
 

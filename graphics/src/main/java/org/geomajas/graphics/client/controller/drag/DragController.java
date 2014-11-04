@@ -22,7 +22,7 @@ import org.vaadin.gwtgraphics.client.Group;
 
 /**
  * {@link org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController}
- * that handles resizing (through anchor points) and dragging.
+ * that handles dragging.
  * 
  * @author Jan De Moerloose
  * 
@@ -44,26 +44,21 @@ public class DragController extends UpdateHandlerGraphicsController implements M
 	public DragController(GraphicsObject object, GraphicsService service, boolean dragOnActivate) {
 		super(service, object);
 		this.object = object.getRole(Draggable.TYPE);
-		setContainer(createContainer());
 		this.dragOnActivate = dragOnActivate;
-
-		// listen to changes to our object
-		service.getObjectContainer().addGraphicsObjectContainerHandler(this);
 	}
 
-	@Override
-	public void onAction(GraphicsObjectContainerEvent event) {
-		super.onAction(event);
-	}
-
+	/**
+	 * This {@link MouseDownHandler} handler method is called from the
+	 * {@link org.geomajas.graphics.client.controller.MetaController}.
+	 *
+	 * @param event
+	 */
 	@Override
 	public void onMouseDown(MouseDownEvent event) {
-		if (isActive()) {
-			if (dragOnActivate) {
-				if (BboxService.contains(object.getUserBounds(), getUserCoordinate(event))) {
-					dragHandler.onMouseDown(event);
-					event.stopPropagation();
-				}
+		if (isActive() && dragOnActivate) {
+			if (BboxService.contains(object.getUserBounds(), getUserCoordinate(event))) {
+				dragHandler.onMouseDown(event);
+				event.stopPropagation();
 			}
 		}
 	}
