@@ -38,12 +38,9 @@ public class DragController extends UpdateHandlerGraphicsController implements M
 	 */
 	private GraphicsObjectDragHandler dragHandler;
 
-	private boolean dragOnActivate;
-	
-	public DragController(GraphicsObject object, GraphicsService service, boolean dragOnActivate) {
+	public DragController(GraphicsObject object, GraphicsService service) {
 		super(service, object);
 		this.object = object.getRole(Draggable.TYPE);
-		this.dragOnActivate = dragOnActivate;
 	}
 
 	/**
@@ -54,7 +51,7 @@ public class DragController extends UpdateHandlerGraphicsController implements M
 	 */
 	@Override
 	public void onMouseDown(MouseDownEvent event) {
-		if (isActive() && dragOnActivate) {
+		if (isActive()) {
 			if (BboxService.contains(object.getUserBounds(), getUserCoordinate(event))) {
 				dragHandler.onMouseDown(event);
 				event.stopPropagation();

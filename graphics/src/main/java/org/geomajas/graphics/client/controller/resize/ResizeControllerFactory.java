@@ -23,20 +23,13 @@ import org.geomajas.graphics.client.service.GraphicsService;
  */
 public class ResizeControllerFactory extends RoleGraphicsControllerFactory<Resizable, ResizeController> {
 	
-	private boolean dragOnActivate;
-	
 	public ResizeControllerFactory() {
-		this(true);
-	}
-
-	public ResizeControllerFactory(boolean dragOnActivate) {
 		super(Resizable.TYPE);
-		this.dragOnActivate = dragOnActivate;
 	}
 
 	@Override
 	public ResizeController createController(GraphicsService graphicsService, GraphicsObject object) {
-		return new ResizeController(object, graphicsService, dragOnActivate);
+		return new ResizeController(object, graphicsService);
 	}
 
 }

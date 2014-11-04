@@ -23,20 +23,13 @@ import org.geomajas.graphics.client.service.GraphicsService;
  */
 public class DragControllerFactory extends RoleGraphicsControllerFactory<Draggable, DragController> {
 	
-	private boolean dragOnActivate;
-	
 	public DragControllerFactory() {
-		this(true);
-	}
-
-	public DragControllerFactory(boolean dragOnActivate) {
 		super(Draggable.TYPE);
-		this.dragOnActivate = dragOnActivate;
 	}
 
 	@Override
 	public DragController createController(GraphicsService graphicsService, GraphicsObject object) {
-		return new DragController(object, graphicsService, dragOnActivate);
+		return new DragController(object, graphicsService);
 	}
 
 }
