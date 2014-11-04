@@ -60,7 +60,7 @@ public class ResizeControllerTest {
 		SimpleEventBus eventBus = new SimpleEventBus();
 		GraphicsService service = new GraphicsServiceImpl(eventBus, false);
 		service.setObjectContainer(objectContainer);
-		ResizeController r = new ResizeController(m, service, true);
+		ResizeController r = new ResizeController(m, service);
 		List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
 		for (BboxPosition type : BboxPosition.values()) {
 			handlers.add(r.new ResizeHandler(type));

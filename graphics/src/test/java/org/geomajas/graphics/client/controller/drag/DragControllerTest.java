@@ -50,7 +50,7 @@ public class DragControllerTest {
 	@Test
 	public void testDrag() {
 		MockDraggable m = new MockDraggable(new Coordinate(5, 6), new Bbox(0, 0, 50, 50));
-		ResizeController r = new ResizeController(m, service, true);
+		ResizeController r = new ResizeController(m, service);
 		GraphicsObjectDragHandler h = new GraphicsObjectDragHandler(m, service, r);
 
 		h.onDragStart(100, 100);

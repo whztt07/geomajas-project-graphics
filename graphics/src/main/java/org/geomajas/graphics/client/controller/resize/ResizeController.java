@@ -29,9 +29,7 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.controller.MetaController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
-import org.geomajas.graphics.client.controller.drag.GraphicsObjectDragHandler;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
 import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Resizable;
@@ -54,36 +52,27 @@ import java.util.List;
  * that handles resizing (through anchor points).
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * 
  */
 public class ResizeController extends UpdateHandlerGraphicsControllerWithVisibleElement
-		implements GraphicsObjectContainerEvent.Handler, MouseDownHandler, GraphicsOperationEvent.Handler {
+		implements GraphicsObjectContainerEvent.Handler, GraphicsOperationEvent.Handler {
 
 	private static final int HANDLER_SIZE = 8;
 
 	/**
 	 * Object under control.
 	 */
-	private Resizable object;
+	private Resizable resizable;
 
 	/**
 	 * List of resize handlers (small corner and mid-size squares to stretch the object)
 	 */
 	private List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
 
-	/**
-	 * Handler to drag our object.
-	 */
-	private GraphicsObjectDragHandler dragHandler;
-
-	private String captureCursor;
-
-	private boolean dragOnActivate;
-	
-	public ResizeController(GraphicsObject object, GraphicsService service, boolean dragOnActivate) {
+	public ResizeController(GraphicsObject object, GraphicsService service) {
 		super(service, object);
-		this.object = object.getRole(Resizable.TYPE);
-		this.dragOnActivate = dragOnActivate;
+		this.resizable = object.getRole(Resizable.TYPE);
 		// listen to changes to our object
 		service.getObjectContainer().addGraphicsOperationEventHandler(this);
 	}
@@ -91,28 +80,18 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 	@Override
 	public void onAction(GraphicsObjectContainerEvent event) {
 		if (event.getObject() == getObject()) {
-			if (event.getActionType() == ActionType.UPDATE) {
-				// must re-initialize as this object has changed (mask)
-				getContainer().clear();
-				setHandlerGroup(null);
-				if (isActive()) {
-					init();
-				}
-			} else if (event.getActionType() == ActionType.REMOVE) {
-			} else {
-				// handled by meta controller
-			}
-		}
-	}
-
-	@Override
-	public void onMouseDown(MouseDownEvent event) {
-		if (isActive()) {
-			if (dragOnActivate) {
-				if (BboxService.contains(object.getUserBounds(), getUserCoordinate(event))) {
-					dragHandler.onMouseDown(event);
-					event.stopPropagation();
-				}
+			switch (event.getActionType()) {
+				case UPDATE:
+					// must re-initialize as this object has changed (mask)
+					getContainer().clear();
+					setHandlerGroup(null);
+					if (isActive()) {
+						init();
+					}
+					break;
+				default:
+					// handled by meta controller
+					break;
 			}
 		}
 	}
@@ -120,7 +99,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 	@Override
 	public void setControllerElementsVisible(boolean visible) {
 		for (ResizeHandler handler : handlers) {
-			handler.setVisible(!dragHandler.isDragging());
+			handler.setVisible(visible);
 		}
 	}
 
@@ -134,11 +113,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 	@Override
 	protected void init() {
 		setHandlerGroup(new Group());
-		// create the drag handler and attach it
-		dragHandler = new GraphicsObjectDragHandler(getObject(), getService(), this);
-		getHandlerGroup().add(dragHandler.getInvisbleMaskGraphicsObject().asObject());
-		// create all resize handlers and attach them
-		if (object.isAutoHeight()) {
+		if (resizable.isAutoHeight()) {
 			BboxPosition[] positions = new BboxPosition[] { BboxPosition.CORNER_UL, BboxPosition.CORNER_UR };
 			for (BboxPosition position : positions) {
 				ResizeHandler handler = new ResizeHandler(position);
@@ -165,9 +140,6 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 		// update positions
 		for (ResizeHandler handler : handlers) {
 			handler.update();
-		}
-		if (dragHandler != null) {
-			dragHandler.update();
 		}
 	}
 
@@ -236,6 +208,8 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 		private FlipState flipstate;
 
 		private GraphicsObject mask;
+
+		private String captureCursor;
 		
 		/**
 		 * Are we dragging ?
@@ -254,7 +228,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 		}
 
 		public void update() {
-			Bbox userBounds = object.getUserBounds();
+			Bbox userBounds = resizable.getUserBounds();
 			Bbox screenBounds = transform(userBounds,
 					Space.USER, Space.SCREEN);
 			Coordinate screenCenter = BboxService.getCenterPoint(screenBounds);
@@ -357,7 +331,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 				setDragging(false);
 				getHandlerGroup().remove(mask.asObject());
 				mask = null;
-				boolean preserveRatio = ((Resizable) object).isPreserveRatio() || event.isShiftKeyDown();
+				boolean preserveRatio = resizable.isPreserveRatio() || event.isShiftKeyDown();
 				onDragStop(event.getClientX(), event.getClientY(), preserveRatio);
 				release(rectangle.getElement());
 			}
@@ -366,7 +340,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 		/** {@inheritDoc} */
 		public void onMouseMove(MouseMoveEvent event) {
 			if (dragging) {
-				boolean preserveRatio = ((Resizable) object).isPreserveRatio() || event.isShiftKeyDown();
+				boolean preserveRatio = resizable.isPreserveRatio() || event.isShiftKeyDown();
 				mask.getRole(Resizable.TYPE).setUserBounds(
 						getNewBounds(event.getClientX(), event.getClientY(), preserveRatio));
 				onDragContinue();
@@ -380,7 +354,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 
 		protected void onDragStart(int x, int y) {
 			userBegin = transform(new Coordinate(x, y), Space.SCREEN, Space.USER);
-			beginBounds = GraphicsUtil.clone(object.getUserBounds());
+			beginBounds = GraphicsUtil.clone(resizable.getUserBounds());
 		}
 
 		protected void onDragContinue() {
