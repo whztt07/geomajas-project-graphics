@@ -10,15 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.resize;
 
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.object.role.Draggable;
-import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.util.FlipState;
-import org.vaadin.gwtgraphics.client.VectorObject;
-
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -30,6 +21,13 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.Label;
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.util.FlipState;
 
 /**
  * DecoratedPopupPanel centered around it's position.
@@ -99,11 +97,6 @@ public class DraggableDecoratedPopupPanel extends DecoratedPopupPanel implements
 		return "arial";
 	}
 
-	@Override
-	public VectorObject asObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void setPosition(Coordinate position) {

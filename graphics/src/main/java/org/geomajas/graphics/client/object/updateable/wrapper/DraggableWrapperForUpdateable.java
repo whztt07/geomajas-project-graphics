@@ -14,7 +14,6 @@ import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.updateable.Updateable;
-import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
  * Wrapper around a {@link Draggable} that will trigger
@@ -60,10 +59,5 @@ public class DraggableWrapperForUpdateable implements Draggable {
 	public void setUserBounds(Bbox bbox) {
 		delegate.setUserBounds(bbox);
 		updateable.onUpdate();
-	}
-
-	@Override
-	public VectorObject asObject() {
-		return delegate.asObject();
 	}
 }

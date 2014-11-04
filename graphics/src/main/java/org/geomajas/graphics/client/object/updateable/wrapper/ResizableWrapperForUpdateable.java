@@ -15,7 +15,6 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.updateable.Updateable;
 import org.geomajas.graphics.client.util.FlipState;
-import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
  * Wrapper around a {@link Resizable} that will trigger
@@ -79,8 +78,4 @@ public class ResizableWrapperForUpdateable implements Resizable {
 		updateable.onUpdate();
 	}
 
-	@Override
-	public VectorObject asObject() {
-		return delegate.asObject();
-	}
 }

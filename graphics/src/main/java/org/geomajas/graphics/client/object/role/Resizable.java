@@ -22,7 +22,7 @@ import org.geomajas.graphics.client.util.FlipState;
  * @author Jan De Moerloose
  * 
  */
-public interface Resizable extends Renderable, RoleInterface {
+public interface Resizable extends RoleInterface {
 
 	RoleType<Resizable> TYPE = new RoleType<Resizable>("Resizable");
 

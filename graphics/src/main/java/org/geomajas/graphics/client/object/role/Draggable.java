@@ -21,7 +21,7 @@ import org.geomajas.graphics.client.object.RoleType;
  * @author Jan De Moerloose
  * 
  */
-public interface Draggable extends Renderable, RoleInterface {
+public interface Draggable extends RoleInterface {
 	
 	RoleType<Draggable> TYPE = new RoleType<Draggable>("Draggable");
 
