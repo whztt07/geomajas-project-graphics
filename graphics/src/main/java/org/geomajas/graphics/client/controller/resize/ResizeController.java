@@ -28,7 +28,7 @@ import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.controller.MetaController;
-import org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController;
+import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.controller.drag.GraphicsObjectDragHandler;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
@@ -50,13 +50,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController}
+ * {@link org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement}
  * that handles resizing (through anchor points).
  * 
  * @author Jan De Moerloose
  * 
  */
-public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsController
+public class ResizeController extends UpdateHandlerGraphicsControllerWithVisibleElement
 		implements GraphicsObjectContainerEvent.Handler, MouseDownHandler, GraphicsOperationEvent.Handler {
 
 	private static final int HANDLER_SIZE = 8;
@@ -222,7 +222,7 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 	 * There are 8 handlers: 4 corner handlers + 4 side handlers.
 	 * For every position, there is this DragHandler that will result in resizing of the graphics object.
 	 */
-	private class ResizeHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseOverHandler,
+	public class ResizeHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseOverHandler,
 			MouseOutHandler {
 
 		private BboxPosition type;

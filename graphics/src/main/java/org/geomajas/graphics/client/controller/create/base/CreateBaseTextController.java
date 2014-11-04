@@ -41,8 +41,6 @@ import java.util.List;
  */
 public class CreateBaseTextController extends CreateController<BaseText> implements MouseUpHandler {
 
-	private boolean active;
-
 	private HandlerRegistration registration;
 
 	private TextPopup popup = new TextPopup();
@@ -59,7 +57,7 @@ public class CreateBaseTextController extends CreateController<BaseText> impleme
 
 	@Override
 	public void setActive(boolean active) {
-		this.active = active;
+		super.setActive(active);
 		if (active) {
 			registration = getObjectContainer().addMouseUpHandler(this);
 		} else {
@@ -68,15 +66,6 @@ public class CreateBaseTextController extends CreateController<BaseText> impleme
 				registration = null;
 			}
 		}
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override

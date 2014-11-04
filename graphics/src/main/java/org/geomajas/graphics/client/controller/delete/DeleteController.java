@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.controller.delete;
 
-import org.geomajas.graphics.client.controller.AbstractGraphicsController;
+import org.geomajas.graphics.client.controller.AbstractInterruptibleGraphicsController;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.RemoveOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
@@ -27,15 +27,11 @@ import com.google.gwt.user.client.Event.NativePreviewHandler;
  * @author Jan De Moerloose
  * 
  */
-public class DeleteController extends AbstractGraphicsController implements NativePreviewHandler {
-
-	private GraphicsObject object;
+public class DeleteController extends AbstractInterruptibleGraphicsController implements NativePreviewHandler {
 
 	public DeleteController(GraphicsObject object, GraphicsService graphicsService) {
-		super(graphicsService);
-		this.object = object;
+		super(graphicsService, object);
 		Event.addNativePreviewHandler(this);
-
 	}
 
 	@Override
@@ -44,26 +40,9 @@ public class DeleteController extends AbstractGraphicsController implements Nati
 			NativeEvent ne = event.getNativeEvent();
 			if (ne.getKeyCode() == KeyCodes.KEY_DELETE || (ne.getCtrlKey() && ne.getKeyCode() == 'X')) {
 				if (isActive()) {
-					execute(new RemoveOperation(object));
+					execute(new RemoveOperation(getObject()));
 				}
 			}
 		}
 	}
-
-	private boolean active;
-
-	@Override
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
-	}
-
 }

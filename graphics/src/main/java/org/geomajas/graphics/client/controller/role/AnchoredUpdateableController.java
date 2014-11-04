@@ -13,7 +13,7 @@ package org.geomajas.graphics.client.controller.role;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
-import org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController;
+import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.controller.drag.AbstractDragHandler;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
@@ -32,7 +32,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  * @author Jan Venstermans
  * 
  */
-public class AnchoredUpdateableController extends UpdateHandlerVisibleOnActiveGraphicsController {
+public class AnchoredUpdateableController extends UpdateHandlerGraphicsControllerWithVisibleElement {
 
 	/**
 	 * Object under control.
@@ -78,7 +78,7 @@ public class AnchoredUpdateableController extends UpdateHandlerVisibleOnActiveGr
 
 	/**
 	 * Implementation of {@link org.geomajas.graphics.client.controller.drag.AbstractDragHandler}
-	 * for {@link org.geomajas.graphics.client.controller.role.AnchoredUpdateableController}.
+	 * for {@link AnchoredUpdateableController}.
 	 * 
 	 * @author Jan De Moerloose
 	 * @author Jan Venstermans

@@ -35,8 +35,6 @@ import java.util.List;
 public class CreateBaseIconController extends CreateController<BaseIcon>
 		implements MouseUpHandler, CreateIconController {
 
-	private boolean active;
-
 	private HandlerRegistration registration;
 
 	private List<String> hrefs;
@@ -86,8 +84,8 @@ public class CreateBaseIconController extends CreateController<BaseIcon>
 
 	@Override
 	public void setActive(boolean active) {
-		this.active = active;
-		if (active) {
+		super.setActive(active);
+		if (isActive()) {
 			registration = getObjectContainer().addMouseUpHandler(this);
 		} else {
 			if (registration != null) {
@@ -95,15 +93,6 @@ public class CreateBaseIconController extends CreateController<BaseIcon>
 				registration = null;
 			}
 		}
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override

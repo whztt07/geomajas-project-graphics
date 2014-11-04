@@ -23,8 +23,8 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import org.geomajas.graphics.client.controller.AbstractGraphicsController;
-import org.geomajas.graphics.client.controller.VisibleOnActiveGraphicsController;
+import org.geomajas.graphics.client.controller.AbstractInterruptibleGraphicsController;
+import org.geomajas.graphics.client.controller.GraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
 import org.geomajas.graphics.client.operation.LabelOperation;
@@ -39,10 +39,8 @@ import java.util.List;
  * @author Jan De Moerloose
  * 
  */
-public class LabelController extends AbstractGraphicsController implements DoubleClickHandler,
-		VisibleOnActiveGraphicsController {
-
-	private boolean active;
+public class LabelController extends AbstractInterruptibleGraphicsController implements DoubleClickHandler,
+		GraphicsControllerWithVisibleElement {
 
 	private HandlerRegistration registration;
 
@@ -61,7 +59,7 @@ public class LabelController extends AbstractGraphicsController implements Doubl
 
 	@Override
 	public void setActive(boolean active) {
-		this.active = active;
+		super.setActive(active);
 		if (active) {
 			registration = getObjectContainer().addDoubleClickHandler(this);
 		} else {
@@ -79,15 +77,6 @@ public class LabelController extends AbstractGraphicsController implements Doubl
 		popupRegs.add(popup.addCloseHandler(handler));
 		popupRegs.add(popup.addDomHandler(handler, KeyDownEvent.getType()));
 		DOM.setCapture(popup.getElement());
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	public void clearPopup() {

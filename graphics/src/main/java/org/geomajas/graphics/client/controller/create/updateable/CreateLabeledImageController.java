@@ -20,15 +20,13 @@ import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Controller that creates a {@link org.geomajas.graphics.client.object.GImage}.
+ * Controller that creates a {@link LabeledImage}.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans
  *
  */
 public class CreateLabeledImageController extends CreateController<LabeledImage> implements MouseUpHandler {
-
-	private boolean active;
 
 	private HandlerRegistration registration;
 
@@ -47,7 +45,7 @@ public class CreateLabeledImageController extends CreateController<LabeledImage>
 
 	@Override
 	public void setActive(boolean active) {
-		this.active = active;
+		super.setActive(active);
 		if (active) {
 			registration = getObjectContainer().addMouseUpHandler(this);
 		} else {
@@ -80,15 +78,6 @@ public class CreateLabeledImageController extends CreateController<LabeledImage>
 
 	public void setHeight(int height) {
 		this.height = height;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override

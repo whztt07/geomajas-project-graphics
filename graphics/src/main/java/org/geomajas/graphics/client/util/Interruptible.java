@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.util;
 
 
 /**
- * Interface for {@link Action} or Controller classes that have an interruptible workflow.
+ * Interface for an interruptible workflow.
  * 
  * @author Jan Venstermans
  * 

@@ -23,7 +23,7 @@ import org.vaadin.gwtgraphics.client.VectorObjectContainer;
  * @author Jan De Moerloose
  * 
  */
-public abstract class UpdateHandlerGraphicsController extends AbstractGraphicsController
+public abstract class UpdateHandlerGraphicsController extends AbstractInterruptibleGraphicsController
 		implements GraphicsObjectContainerEvent.Handler {
 	
 	/**
@@ -35,11 +35,6 @@ public abstract class UpdateHandlerGraphicsController extends AbstractGraphicsCo
 	 * Our own container.
 	 */
 	private VectorObjectContainer container;
-	
-	/**
-	 * Is controller active (listening to mouse events) ?
-	 */
-	private boolean active;
 
 	public UpdateHandlerGraphicsController(GraphicsService graphicsService,
 			GraphicsObject object) {
@@ -71,15 +66,10 @@ public abstract class UpdateHandlerGraphicsController extends AbstractGraphicsCo
 	}
 	
 	@Override
-	public boolean isActive() {
-		return active;
-	}
-	
-	@Override
 	public void setActive(boolean active) {
-		if (active != this.active) {
-			this.active = active;
-			if (active) {
+		if (active != isActive()) {
+			super.setActive(active);
+			if (isActive()) {
 				if (getHandlerGroup() == null || getHandlerGroup().getVectorObjectCount() < 1) {
 					// create and (implicitly) activate the handler group
 					init();

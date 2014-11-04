@@ -46,8 +46,6 @@ public abstract class CreateBoundedObjectController<T extends GraphicsObject>
 
 	private Coordinate begin;
 
-	private boolean active;
-
 	/**
 	 * Our own container.
 	 */
@@ -70,7 +68,7 @@ public abstract class CreateBoundedObjectController<T extends GraphicsObject>
 
 	@Override
 	public void setActive(boolean active) {
-		this.active = active;
+		super.setActive(active);
 		if (active) {
 			container = createContainer();
 			registration = getObjectContainer().addMouseDownHandler(this);
@@ -84,15 +82,6 @@ public abstract class CreateBoundedObjectController<T extends GraphicsObject>
 				registration = null;
 			}
 		}
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override

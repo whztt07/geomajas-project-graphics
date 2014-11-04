@@ -11,7 +11,7 @@
 package org.geomajas.graphics.client.controller.create;
 
 import com.google.web.bindery.event.shared.HandlerRegistration;
-import org.geomajas.graphics.client.controller.AbstractGraphicsController;
+import org.geomajas.graphics.client.controller.AbstractInterruptibleGraphicsController;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.AddOperation;
@@ -26,28 +26,12 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan Venstermans
  * 
  */
-public abstract class CreateController<T extends GraphicsObject> extends AbstractGraphicsController {
-
-	private boolean active;
+public abstract class CreateController<T extends GraphicsObject> extends AbstractInterruptibleGraphicsController {
 
 	private HandlerRegistration registration;
 
 	public CreateController(GraphicsService graphicsService) {
 		super(graphicsService);
-	}
-
-	@Override
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	protected void addObject(final T result) {

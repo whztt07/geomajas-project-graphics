@@ -33,15 +33,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller that creates a {@link org.geomajas.graphics.client.object.GPath}.
+ * Controller that creates a {@link BasePathLine}.
  *
  * @author Jan De Moerloose
  *
  */
 public class CreateBasePathLineController extends CreateController<BasePathLine>
 		implements MouseDownHandler, MouseMoveHandler, DoubleClickHandler, Fillable {
-
-	private boolean active;
 
 	private List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
 
@@ -70,8 +68,8 @@ public class CreateBasePathLineController extends CreateController<BasePathLine>
 
 	@Override
 	public void setActive(boolean active) {
-		this.active = active;
-		if (active) {
+		super.setActive(active);
+		if (isActive()) {
 			container = createContainer();
 			registrations.add(getObjectContainer().addMouseDownHandler(this));
 		} else {
@@ -85,15 +83,6 @@ public class CreateBasePathLineController extends CreateController<BasePathLine>
 			}
 			container = null;
 		}
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override

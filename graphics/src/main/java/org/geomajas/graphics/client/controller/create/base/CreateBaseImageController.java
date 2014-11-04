@@ -27,8 +27,6 @@ import org.geomajas.graphics.client.service.GraphicsService;
  */
 public class CreateBaseImageController extends CreateController<BaseImage> implements MouseUpHandler {
 
-	private boolean active;
-
 	private HandlerRegistration registration;
 
 	private String href;
@@ -46,8 +44,8 @@ public class CreateBaseImageController extends CreateController<BaseImage> imple
 
 	@Override
 	public void setActive(boolean active) {
-		this.active = active;
-		if (active) {
+		super.setActive(active);
+		if (isActive()) {
 			registration = getObjectContainer().addMouseUpHandler(this);
 		} else {
 			if (registration != null) {
@@ -79,15 +77,6 @@ public class CreateBaseImageController extends CreateController<BaseImage> imple
 
 	public void setHeight(int height) {
 		this.height = height;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	@Override

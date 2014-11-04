@@ -31,11 +31,11 @@ import com.google.gwt.user.client.ui.RootPanel;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.controller.AbstractGraphicsController;
+import org.geomajas.graphics.client.controller.AbstractInterruptibleGraphicsController;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
-import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.operation.DragOperation;
 import org.geomajas.graphics.client.operation.ResizeOperation;
@@ -54,13 +54,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link org.geomajas.graphics.client.controller.AbstractGraphicsController}
+ * {@link org.geomajas.graphics.client.controller.AbstractInterruptibleGraphicsController}
  * that handles resizing (through anchor points) and dragging.
  * 
  * @author Jan De Moerloose
  * 
  */
-public class ResizeControllerHtml extends AbstractGraphicsController implements GraphicsObjectContainerEvent.Handler,
+public class ResizeControllerHtml extends AbstractInterruptibleGraphicsController implements GraphicsObjectContainerEvent.Handler,
 		MouseDownHandler {
 
 	private static final int HANDLER_SIZE = 8;
@@ -94,11 +94,6 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 	 * Are we dragging ?
 	 */
 	private boolean dragging;
-
-	/**
-	 * Is controller active (listening to mouse events) ?
-	 */
-	private boolean active;
 
 	private String captureCursor;
 
@@ -149,9 +144,9 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 
 	@Override
 	public void setActive(boolean active) {
-		if (active != this.active) {
-			this.active = active;
-			if (active) {
+		if (active != isActive()) {
+			super.setActive(active);
+			if (isActive()) {
 				if (handlerGroup == null || handlerGroup.getVectorObjectCount() < 1) {
 					// create and (implicitly) activate the handler group
 					init();
@@ -167,11 +162,6 @@ public class ResizeControllerHtml extends AbstractGraphicsController implements 
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
 	}
 
 	@Override

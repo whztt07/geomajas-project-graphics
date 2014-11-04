@@ -17,7 +17,7 @@ import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateabl
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Factory for the {@link org.geomajas.graphics.client.controller.role.AnchoredUpdateableController}.
+ * Factory for the {@link AnchoredUpdateableController}.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans

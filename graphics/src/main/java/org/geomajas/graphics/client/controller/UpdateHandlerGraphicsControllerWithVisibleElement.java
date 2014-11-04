@@ -14,15 +14,15 @@ import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Useful base class for {@link GraphicsController}.
+ * {@link GraphicsControllerWithVisibleElement} implementation of {@link UpdateHandlerGraphicsController}.
  *
  * @author Jan De Moerloose
  *
  */
-public abstract class UpdateHandlerVisibleOnActiveGraphicsController extends UpdateHandlerGraphicsController
-		implements VisibleOnActiveGraphicsController {
+public abstract class UpdateHandlerGraphicsControllerWithVisibleElement extends UpdateHandlerGraphicsController
+		implements GraphicsControllerWithVisibleElement {
 
-	public UpdateHandlerVisibleOnActiveGraphicsController(GraphicsService graphicsService, GraphicsObject object) {
+	public UpdateHandlerGraphicsControllerWithVisibleElement(GraphicsService graphicsService, GraphicsObject object) {
 		super(graphicsService, object);
 	}
 

@@ -10,7 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.drag;
 
-import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.controller.RoleGraphicsControllerFactory;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;

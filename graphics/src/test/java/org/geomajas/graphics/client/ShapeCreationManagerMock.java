@@ -10,13 +10,10 @@
  */
 package org.geomajas.graphics.client;
 
-import org.geomajas.graphics.client.controller.popupmenu.PopupMenuController;
-import org.geomajas.graphics.client.editor.Editor;
 import org.geomajas.graphics.client.shape.AnchoredRectangle;
 import org.geomajas.graphics.client.shape.AnchoredText;
 import org.geomajas.graphics.client.shape.MockAnchoredText;
 import org.geomajas.graphics.client.shape.ShapeCreationManager;
-import org.geomajas.graphics.client.widget.createcontrollergroup.CreateControllerGroupPresenter;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 

@@ -13,7 +13,6 @@ package org.geomajas.graphics.client.controller.drag;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.controller.drag.GraphicsObjectDragHandler;
 import org.geomajas.graphics.client.controller.resize.ResizeController;
 import org.geomajas.graphics.client.object.MockDraggable;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;

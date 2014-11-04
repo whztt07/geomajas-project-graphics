@@ -13,12 +13,13 @@ package org.geomajas.graphics.client.controller;
 
 /**
  * Extension of {@link GraphicsController} with
- * {@link VisibleOnActiveGraphicsController#setControllerElementsVisible(boolean)} method.
+ * {@link GraphicsControllerWithVisibleElement#setControllerElementsVisible(boolean)} method.
+ * This is used for a {@link GraphicsController} that has controller elements that can be set visilbe/invisible.
  *
  * @author Jan Venstermans
  *
  */
-public interface VisibleOnActiveGraphicsController extends GraphicsController {
+public interface GraphicsControllerWithVisibleElement extends GraphicsController {
 
 	void setControllerElementsVisible(boolean visible);
 }

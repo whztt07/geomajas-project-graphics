@@ -25,11 +25,11 @@ import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.base.BaseRectangle;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.HtmlRenderable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
@@ -44,10 +44,8 @@ import java.util.Map;
  * @author Jan De Moerloose
  * 
  */
-public class MetaController extends AbstractGraphicsController implements MouseDownHandler, DoubleClickHandler,
-		GraphicsController, GraphicsObjectContainerEvent.Handler {
-
-	protected boolean active;
+public class MetaController extends AbstractInterruptibleGraphicsController implements MouseDownHandler, DoubleClickHandler,
+		GraphicsObjectContainerEvent.Handler {
 
 	private VectorObjectContainer container;
 
@@ -65,9 +63,9 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 	}
 
 	public void setActive(boolean active) {
-		if (active != this.active) {
-			this.active = active;
-			if (active) {
+		if (active != isActive()) {
+			super.setActive(active);
+			if (isActive()) {
 				// for activation of objects
 				for (GraphicsObject object : getObjectContainer().getObjects()) {
 					registrations.add(object.asObject().addMouseDownHandler(this));
@@ -96,11 +94,6 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 
 	protected void register(HandlerRegistration registration) {
 		registrations.add(registration);
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
 	}
 
 	@Override
@@ -190,7 +183,7 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 				controllers.get(object).add(factory.createController(getService(), object));
 			}
 		}
-		if (active) {
+		if (isActive()) {
 			registrations.add(object.asObject().addMouseDownHandler(this));
 			if (object.hasRole(HtmlRenderable.TYPE)) {
 				registrations.add(object.getRole(HtmlRenderable.TYPE).asWidget()
@@ -284,8 +277,8 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 	public void setControllersOfObjectVisible(GraphicsObject object, boolean visible) {
 		if (controllers.containsKey(object)) {
 			for (GraphicsController controller : controllers.get(object)) {
-				if (controller.isActive() && controller instanceof VisibleOnActiveGraphicsController) {
-					((VisibleOnActiveGraphicsController) controller).setControllerElementsVisible(visible);
+				if (controller.isActive() && controller instanceof GraphicsControllerWithVisibleElement) {
+					((GraphicsControllerWithVisibleElement) controller).setControllerElementsVisible(visible);
 				}
 			}
 		}

@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.controller.popupmenu;
 
 import com.google.gwt.user.client.ui.IsWidget;
 import org.geomajas.graphics.client.action.Action;
-import org.geomajas.graphics.client.controller.VisibleOnActiveGraphicsController;
+import org.geomajas.graphics.client.controller.GraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 
@@ -26,7 +26,7 @@ import org.geomajas.graphics.client.event.GraphicsOperationEvent;
  *
  */
 public interface PopupMenuController extends GraphicsObjectContainerEvent.Handler,
-	GraphicsOperationEvent.Handler, VisibleOnActiveGraphicsController {
+	GraphicsOperationEvent.Handler, GraphicsControllerWithVisibleElement {
 
 	/**
 	 * MVP view part of {@link PopupMenuController}.
