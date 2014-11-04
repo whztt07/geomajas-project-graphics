@@ -11,8 +11,10 @@
 package org.geomajas.graphics.client.controller.drag;
 
 import com.google.gwt.event.dom.client.MouseMoveEvent;
+import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
+import org.geomajas.graphics.client.object.base.BaseRectangle;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.DragOperation;
@@ -21,7 +23,7 @@ import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Extension of {@link AbstractDragHandler}
+ * Extension of {@link AbstractDragHandler} with a {@link BaseRectangle} for an invisible mask.
  * 
  * @author Jan De Moerloose
  * @author Jan Venstermans
@@ -29,26 +31,25 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class GraphicsObjectDragHandler extends AbstractDragHandler {
 	
-	private GraphicsObject invisbleMaskGraphicsObject;
+	private BaseRectangle invisbleMaskGraphicsObject;
 
 	public GraphicsObjectDragHandler(GraphicsObject object, GraphicsService service,
 			UpdateHandlerGraphicsController graphicsController) {
 		super(object, service, graphicsController);
 	}
 
-	public Draggable getDraggable() {
-		return getObject().getRole(Draggable.TYPE);
-	}
-
+	@Override
 	public void update() {
 		invisbleMaskGraphicsObject.getRole(Draggable.TYPE).setPosition(getDraggable().getPosition());
 	}
 
 	@Override
 	protected VectorObject createInvisibleMask() {
-		invisbleMaskGraphicsObject = (GraphicsObject) getObject().cloneObject();
+		// make an invisible mask that is a rectangle of the bounds of the draggable.
+		Bbox bbox = getDraggable().getBounds();
+		invisbleMaskGraphicsObject = new BaseRectangle(bbox.getX(), bbox.getY(), bbox.getWidth(), bbox.getHeight());
 		invisbleMaskGraphicsObject.setOpacity(0);
-		return invisbleMaskGraphicsObject.getRole(Draggable.TYPE).asObject();
+		return invisbleMaskGraphicsObject.asObject();
 	}
 
 	@Override
@@ -78,6 +79,10 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 
 	public GraphicsObject getInvisbleMaskGraphicsObject() {
 		return invisbleMaskGraphicsObject;
+	}
+
+	public Draggable getDraggable() {
+		return getObject().getRole(Draggable.TYPE);
 	}
 
 }
