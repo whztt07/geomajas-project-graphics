@@ -51,14 +51,13 @@ import java.util.List;
 
 /**
  * {@link org.geomajas.graphics.client.controller.UpdateHandlerVisibleOnActiveGraphicsController}
- * that handles resizing (through anchor points) and dragging.
+ * that handles resizing (through anchor points).
  * 
  * @author Jan De Moerloose
  * 
  */
 public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsController
-		implements GraphicsObjectContainerEvent.Handler,
-		MouseDownHandler, GraphicsOperationEvent.Handler {
+		implements GraphicsObjectContainerEvent.Handler, MouseDownHandler, GraphicsOperationEvent.Handler {
 
 	private static final int HANDLER_SIZE = 8;
 
@@ -101,28 +100,12 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 				if (isActive()) {
 					init();
 				}
-//				if (getObject().hasRole(Labeled.TYPE)
-//						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
-//					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
-//							.getExternalLabel();
-//					el.update();
-//				}
 			} else if (event.getActionType() == ActionType.REMOVE) {
-//				if (getObject().hasRole(Labeled.TYPE)
-//						&& getObject().getRole(Labeled.TYPE) instanceof ExternalizableLabeled) {
-//					ExternalLabel el = ((ExternalizableLabeled) (getObject().getRole(ExternalizableLabeled.TYPE)))
-//							.getExternalLabel();
-//					if (getService().getObjectContainer().getObjects().contains(el)) {
-//						getService().getObjectContainer().remove(el);
-//					}
-//				}
 			} else {
 				// handled by meta controller
 			}
 		}
 	}
-
-	
 
 	@Override
 	public void onMouseDown(MouseDownEvent event) {
@@ -133,6 +116,60 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 					event.stopPropagation();
 				}
 			}
+		}
+	}
+
+	@Override
+	public void setControllerElementsVisible(boolean visible) {
+		for (ResizeHandler handler : handlers) {
+			handler.setVisible(!dragHandler.isDragging());
+		}
+	}
+
+	@Override
+	public void onOperation(GraphicsOperationEvent event) {
+		if (event.getOperation().getObject() == getObject() && handlers != null) {
+			updateHandlers();
+		}
+	}
+
+	@Override
+	protected void init() {
+		setHandlerGroup(new Group());
+		// create the drag handler and attach it
+		dragHandler = new GraphicsObjectDragHandler(getObject(), getService(), this);
+		getHandlerGroup().add(dragHandler.getInvisbleMaskGraphicsObject().asObject());
+		// create all resize handlers and attach them
+		if (object.isAutoHeight()) {
+			BboxPosition[] positions = new BboxPosition[] { BboxPosition.CORNER_UL, BboxPosition.CORNER_UR };
+			for (BboxPosition position : positions) {
+				ResizeHandler handler = new ResizeHandler(position);
+				handler.render();
+				handler.addToGroup(getHandlerGroup());
+				handlers.add(handler);
+			}
+		} else {
+			for (BboxPosition type : BboxPosition.values()) {
+				ResizeHandler handler = new ResizeHandler(type);
+				handler.render();
+				handler.addToGroup(getHandlerGroup());
+				handlers.add(handler);
+			}
+		}
+		// update positions
+		updateHandlers();
+		// add the group
+		getContainer().add(getHandlerGroup());
+	}
+
+	@Override
+	public void updateHandlers() {
+		// update positions
+		for (ResizeHandler handler : handlers) {
+			handler.update();
+		}
+		if (dragHandler != null) {
+			dragHandler.update();
 		}
 	}
 
@@ -179,52 +216,13 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 		clickableArea.setFixedSize(true);
 		return clickableArea;
 	}
-
-	@Override
-	protected void init() {
-		setHandlerGroup(new Group());
-		// create the drag handler and attach it
-		dragHandler = new GraphicsObjectDragHandler(getObject(), getService(), this);
-		getHandlerGroup().add(dragHandler.getInvisbleMaskGraphicsObject().asObject());
-		// create all resize handlers and attach them
-		if (object.isAutoHeight()) {
-			BboxPosition[] positions = new BboxPosition[] { BboxPosition.CORNER_UL, BboxPosition.CORNER_UR };
-			for (BboxPosition position : positions) {
-				ResizeHandler handler = new ResizeHandler(position);
-				handler.render();
-				handler.addToGroup(getHandlerGroup());
-				handlers.add(handler);
-			}		
-		} else {
-			for (BboxPosition type : BboxPosition.values()) {
-				ResizeHandler handler = new ResizeHandler(type);
-				handler.render();
-				handler.addToGroup(getHandlerGroup());
-				handlers.add(handler);
-			}
-		}
-		// update positions
-		updateHandlers();
-		// add the group
-		getContainer().add(getHandlerGroup());
-	}
-
-	public void updateHandlers() {
-		// update positions
-		for (ResizeHandler handler : handlers) {
-			handler.update();
-		}
-		if (dragHandler != null) {
-			dragHandler.update();
-		}
-	}
 	
 	/**
 	 * Handles resizing.
-	 * There are (4 corner handlers + 4 side handlers).
+	 * There are 8 handlers: 4 corner handlers + 4 side handlers.
 	 * For every position, there is this DragHandler that will result in resizing of the graphics object.
 	 */
-	class ResizeHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseOverHandler,
+	private class ResizeHandler implements MouseDownHandler, MouseUpHandler, MouseMoveHandler, MouseOverHandler,
 			MouseOutHandler {
 
 		private BboxPosition type;
@@ -435,20 +433,6 @@ public class ResizeController extends UpdateHandlerVisibleOnActiveGraphicsContro
 		}
 
 
-	}
-
-	@Override
-	public void setControllerElementsVisible(boolean visible) {
-		for (ResizeHandler handler : handlers) {
-			handler.setVisible(!dragHandler.isDragging());
-		}
-	}
-	
-	@Override
-	public void onOperation(GraphicsOperationEvent event) {
-		if (event.getOperation().getObject() == getObject() && handlers != null) {
-			updateHandlers();
-		}
 	}
 
 }

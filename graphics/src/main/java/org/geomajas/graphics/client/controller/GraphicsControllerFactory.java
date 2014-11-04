@@ -19,7 +19,7 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan De Moerloose
  * 
  */
-public interface GraphicsControllerFactory {
+public interface GraphicsControllerFactory<C extends GraphicsController> {
 
 	/**
 	 * Does the factory support this object ?
@@ -36,5 +36,5 @@ public interface GraphicsControllerFactory {
 	 * @param object
 	 * @return the controller for this object
 	 */
-	GraphicsController createController(GraphicsService graphicsService, GraphicsObject object);
+	C createController(GraphicsService graphicsService, GraphicsObject object);
 }

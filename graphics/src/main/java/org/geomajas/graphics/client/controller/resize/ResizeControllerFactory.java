@@ -10,8 +10,7 @@
  */
 package org.geomajas.graphics.client.controller.resize;
 
-import org.geomajas.graphics.client.controller.GraphicsController;
-import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
+import org.geomajas.graphics.client.controller.RoleGraphicsControllerFactory;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.service.GraphicsService;
@@ -22,25 +21,21 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan De Moerloose
  * 
  */
-public class ResizeControllerFactory implements GraphicsControllerFactory {
+public class ResizeControllerFactory extends RoleGraphicsControllerFactory<Resizable, ResizeController> {
 	
 	private boolean dragOnActivate;
 	
 	public ResizeControllerFactory() {
-		this(true, true);
+		this(true);
 	}
 
-	public ResizeControllerFactory(boolean dragOnActivate, boolean showOriginalObjectWhileDragging) {
+	public ResizeControllerFactory(boolean dragOnActivate) {
+		super(Resizable.TYPE);
 		this.dragOnActivate = dragOnActivate;
 	}
 
 	@Override
-	public boolean supports(GraphicsObject object) {
-		return object.hasRole(Resizable.TYPE);
-	}
-
-	@Override
-	public GraphicsController createController(GraphicsService graphicsService, GraphicsObject object) {
+	public ResizeController createController(GraphicsService graphicsService, GraphicsObject object) {
 		return new ResizeController(object, graphicsService, dragOnActivate);
 	}
 

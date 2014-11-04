@@ -11,19 +11,18 @@
 package org.geomajas.graphics.client.controller.drag;
 
 import org.geomajas.graphics.client.controller.GraphicsController;
-import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
-import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.controller.RoleGraphicsControllerFactory;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Factory for the {@link org.geomajas.graphics.client.controller.resize.ResizeController}.
+ * Factory for the {@link DragController}.
  * 
  * @author Jan De Moerloose
  * 
  */
-public class DragControllerFactory implements GraphicsControllerFactory {
+public class DragControllerFactory extends RoleGraphicsControllerFactory<Draggable, DragController> {
 	
 	private boolean dragOnActivate;
 	
@@ -32,16 +31,12 @@ public class DragControllerFactory implements GraphicsControllerFactory {
 	}
 
 	public DragControllerFactory(boolean dragOnActivate) {
+		super(Draggable.TYPE);
 		this.dragOnActivate = dragOnActivate;
 	}
 
 	@Override
-	public boolean supports(GraphicsObject object) {
-		return object.hasRole(Draggable.TYPE) && !object.hasRole(Resizable.TYPE);
-	}
-
-	@Override
-	public GraphicsController createController(GraphicsService graphicsService, GraphicsObject object) {
+	public DragController createController(GraphicsService graphicsService, GraphicsObject object) {
 		return new DragController(object, graphicsService, dragOnActivate);
 	}
 

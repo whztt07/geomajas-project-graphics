@@ -10,7 +10,6 @@
  */
 package org.geomajas.graphics.client.controller.delete;
 
-import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.service.GraphicsService;
@@ -21,7 +20,7 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan De Moerloose
  * 
  */
-public class DeleteControllerFactory implements GraphicsControllerFactory {
+public class DeleteControllerFactory implements GraphicsControllerFactory<DeleteController> {
 
 	@Override
 	public boolean supports(GraphicsObject object) {
@@ -29,7 +28,7 @@ public class DeleteControllerFactory implements GraphicsControllerFactory {
 	}
 
 	@Override
-	public GraphicsController createController(GraphicsService graphicsService, GraphicsObject object) {
+	public DeleteController createController(GraphicsService graphicsService, GraphicsObject object) {
 		return new DeleteController(object, graphicsService);
 	}
 

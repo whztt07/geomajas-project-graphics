@@ -27,8 +27,7 @@ import org.vaadin.gwtgraphics.client.Group;
  * @author Jan De Moerloose
  * 
  */
-public class DragController extends UpdateHandlerGraphicsController implements
-		MouseDownHandler {
+public class DragController extends UpdateHandlerGraphicsController implements MouseDownHandler {
 
 	/**
 	 * Object under control.
@@ -47,6 +46,7 @@ public class DragController extends UpdateHandlerGraphicsController implements
 		this.object = object.getRole(Draggable.TYPE);
 		setContainer(createContainer());
 		this.dragOnActivate = dragOnActivate;
+
 		// listen to changes to our object
 		service.getObjectContainer().addGraphicsObjectContainerHandler(this);
 	}
@@ -54,11 +54,6 @@ public class DragController extends UpdateHandlerGraphicsController implements
 	@Override
 	public void onAction(GraphicsObjectContainerEvent event) {
 		super.onAction(event);
-//		if (getObject().hasRole(AnchoredTo.TYPE)) {
-//			if (event.getObject() == getObject().getRole(AnchoredTo.TYPE).getMasterObject()) {
-//				getObject().getRole(AnchoredTo.TYPE).updateAnchorLine();
-//			}
-//		}
 	}
 
 	@Override
