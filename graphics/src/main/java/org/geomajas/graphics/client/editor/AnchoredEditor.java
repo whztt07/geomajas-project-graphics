@@ -25,9 +25,9 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
-import org.geomajas.graphics.client.operation.AnchoredUpdateablePositionOperation;
-import org.geomajas.graphics.client.operation.AnchoredUpdateableStyleOperation;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
+import org.geomajas.graphics.client.operation.AnchoredPositionOperation;
+import org.geomajas.graphics.client.operation.AnchoredStyleOperation;
 import org.geomajas.graphics.client.resource.GraphicsResource;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.util.textbox.ColorTextBoxValidator;
@@ -36,13 +36,14 @@ import org.geomajas.graphics.client.util.textbox.IntegerTextBoxValidator;
 import org.geomajas.graphics.client.widget.TransparencySliderBar;
 
 /**
- * {@link org.geomajas.graphics.client.editor.Editor} for the {@link AnchoredUpdateable} role.
+ * {@link org.geomajas.graphics.client.editor.Editor} for the
+ * {@link org.geomajas.graphics.client.object.updateable.anchored.Anchored} role.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans
  *
  */
-public class AnchoredUpdateableEditor implements Editor {
+public class AnchoredEditor implements Editor {
 
 	private static final Binder UIBINDER = GWT.create(Binder.class);
 
@@ -50,7 +51,7 @@ public class AnchoredUpdateableEditor implements Editor {
 	 * UI binder.
 	 *
 	 */
-	interface Binder extends UiBinder<HTMLPanel, AnchoredUpdateableEditor> {
+	interface Binder extends UiBinder<HTMLPanel, AnchoredEditor> {
 
 	}
 
@@ -101,7 +102,7 @@ public class AnchoredUpdateableEditor implements Editor {
 		this.service = service;
 	}
 
-	public AnchoredUpdateableEditor() {
+	public AnchoredEditor() {
 		widget = UIBINDER.createAndBindUi(this);
 		widget.setStyleName("anchorPointPopup");
 		widget.setStyleName("popupWindow", true);
@@ -150,7 +151,7 @@ public class AnchoredUpdateableEditor implements Editor {
 
 	@Override
 	public boolean supports(GraphicsObject object) {
-		return object.hasRole(AnchoredUpdateable.TYPE) ;
+		return object.hasRole(Anchored.TYPE) ;
 	}
 
 	@Override
@@ -180,7 +181,7 @@ public class AnchoredUpdateableEditor implements Editor {
 		double beforeStrokeOpacity = getAnchorLineStrokable().getStrokeOpacity();
 		String beforePointColor = getAnchorMarkerShapeStrokable().getStrokeColor();
 		double beforePointOpacity = getAnchorMarkerShapeStrokable().getStrokeOpacity();
-		service.execute(new AnchoredUpdateableStyleOperation(object, beforeStrokeWidth,
+		service.execute(new AnchoredStyleOperation(object, beforeStrokeWidth,
 				beforeStrokeColor, beforeStrokeOpacity, beforePointColor, 
 					beforePointOpacity, strokeWidthBox.getInteger(),
 						strokeColorBox.getLabel(), 1 - strokeOpacitySlider
@@ -189,7 +190,7 @@ public class AnchoredUpdateableEditor implements Editor {
 
 		//location
 		Coordinate beforePosition  = getAnchored().getAnchorPosition();
-		service.execute(new AnchoredUpdateablePositionOperation(object, beforePosition, new Coordinate(
+		service.execute(new AnchoredPositionOperation(object, beforePosition, new Coordinate(
 				pointPositionX.getDouble(), pointPositionY.getDouble())));
 
 	}
@@ -249,7 +250,7 @@ public class AnchoredUpdateableEditor implements Editor {
 		return getAnchored().getAnchorMarkerShapeFillable();
 	}
 
-	private AnchoredUpdateable getAnchored() {
-		return object.getRole(AnchoredUpdateable.TYPE);
+	private Anchored getAnchored() {
+		return object.getRole(Anchored.TYPE);
 	}
 }

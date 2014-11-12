@@ -22,7 +22,7 @@ import org.vaadin.gwtgraphics.client.Shape;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Implementation of {@link AnchoredUpdateable} role.
+ * Implementation of {@link Anchored} role.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans

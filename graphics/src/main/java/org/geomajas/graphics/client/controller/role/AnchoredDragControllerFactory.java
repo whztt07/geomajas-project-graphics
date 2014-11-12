@@ -13,26 +13,26 @@ package org.geomajas.graphics.client.controller.role;
 import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
- * Factory for the {@link AnchoredUpdateableController}.
+ * Factory for the {@link AnchoredDragController}.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans
  *
  */
-public class AnchoredUpdateableControllerFactory implements GraphicsControllerFactory {
+public class AnchoredDragControllerFactory implements GraphicsControllerFactory {
 	
 	@Override
 	public boolean supports(GraphicsObject object) {
-		return object.hasRole(AnchoredUpdateable.TYPE);
+		return object.hasRole(Anchored.TYPE);
 	}
 
 	@Override
 	public GraphicsController createController(GraphicsService graphicsService, GraphicsObject object) {
-		return new AnchoredUpdateableController(object, graphicsService);
+		return new AnchoredDragController(object, graphicsService);
 	}
 
 }

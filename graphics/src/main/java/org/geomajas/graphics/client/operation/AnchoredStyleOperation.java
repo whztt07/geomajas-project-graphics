@@ -11,7 +11,7 @@
 package org.geomajas.graphics.client.operation;
 
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 
 /**
  * Operation that anchors an object.
@@ -20,7 +20,7 @@ import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateabl
  * @author Jan Venstermans
  * 
  */
-public class AnchoredUpdateableStyleOperation implements GraphicsOperation {
+public class AnchoredStyleOperation implements GraphicsOperation {
 
 	private int beforeStrokeWidth;
 
@@ -44,10 +44,10 @@ public class AnchoredUpdateableStyleOperation implements GraphicsOperation {
 
 	private GraphicsObject anchored;
 
-	public AnchoredUpdateableStyleOperation(GraphicsObject anchored, int beforeStrokeWidth,
-			String beforeStrokeColor, double beforeStrokeOpacity, String beforePointColor, double beforePointOpacity,
-			int afterStrokeWidth, String afterStrokeColor, double afterStrokeOpacity, String afterPointColor,
-			double afterPointOpacity) {
+	public AnchoredStyleOperation(GraphicsObject anchored, int beforeStrokeWidth,
+		  String beforeStrokeColor, double beforeStrokeOpacity, String beforePointColor, double beforePointOpacity,
+		  int afterStrokeWidth, String afterStrokeColor, double afterStrokeOpacity, String afterPointColor,
+		  double afterPointOpacity) {
 		this.anchored = anchored;
 		this.beforeStrokeWidth = beforeStrokeWidth;
 		this.beforeStrokeColor = beforeStrokeColor;
@@ -83,8 +83,8 @@ public class AnchoredUpdateableStyleOperation implements GraphicsOperation {
 		asAnchored().getAnchorMarkerShapeFillable().setFillOpacity(beforePointOpacity);
 	}
 
-	private AnchoredUpdateable asAnchored() {
-		return anchored.getRole(AnchoredUpdateable.TYPE);
+	private Anchored asAnchored() {
+		return anchored.getRole(Anchored.TYPE);
 	}
 
 	@Override

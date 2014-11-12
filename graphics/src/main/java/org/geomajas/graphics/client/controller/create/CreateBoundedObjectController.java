@@ -22,7 +22,7 @@ import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
@@ -123,13 +123,13 @@ public abstract class CreateBoundedObjectController<T extends GraphicsObject>
 	//--------------------------------------------------------------
 
 	private void setAnchor(GraphicsObject object) {
-		if (object.hasRole(AnchoredUpdateable.TYPE)) {
+		if (object.hasRole(Anchored.TYPE)) {
 			Bbox userBounds = object.getRole(Resizable.TYPE).getUserBounds();
 			Coordinate midLow = GraphicsUtil.getPosition(userBounds, BboxPosition.MIDDLE_LOW);
 			Coordinate midLowScreen = getObjectContainer().transform(midLow, Space.USER, Space.SCREEN);
 			Coordinate anchorPos = getObjectContainer().transform(
 					new Coordinate(midLowScreen.getX(), midLowScreen.getY() + 20), Space.SCREEN, Space.USER);
-			object.getRole(AnchoredUpdateable.TYPE).setAnchorPosition(anchorPos);
+			object.getRole(Anchored.TYPE).setAnchorPosition(anchorPos);
 		}
 
 	}

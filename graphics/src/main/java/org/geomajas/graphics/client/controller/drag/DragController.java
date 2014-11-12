@@ -34,7 +34,7 @@ public class DragController extends UpdateHandlerGraphicsController implements M
 	private Draggable object;
 
 	/**
-	 * Handler to drag our object.
+	 * Handler to drag the object.
 	 */
 	private GraphicsObjectDragHandler dragHandler;
 

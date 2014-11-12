@@ -16,8 +16,8 @@ import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.controller.drag.AbstractDragHandler;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
-import org.geomajas.graphics.client.operation.AnchoredUpdateablePositionOperation;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
+import org.geomajas.graphics.client.operation.AnchoredPositionOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.shape.MarkerShape;
@@ -26,28 +26,30 @@ import org.vaadin.gwtgraphics.client.Shape;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Controller to change object anchor.
+ * Controller to drag the anchor of an {@link Anchored} role.
  * 
  * @author Jan De Moerloose
  * @author Jan Venstermans
  * 
  */
-public class AnchoredUpdateableController extends UpdateHandlerGraphicsControllerWithVisibleElement {
+public class AnchoredDragController extends UpdateHandlerGraphicsControllerWithVisibleElement {
 
 	/**
 	 * Object under control.
 	 */
-	private AnchoredUpdateable anchorPointObject;
+	private Anchored anchorPointObject;
 
 	/**
-	 * Handler to drag our anchor.
+	 * Handler to drag the anchor.
 	 */
-	private AnchorDragHandler dragHandler;
+	private AbstractDragHandler dragHandler;
 
-	public AnchoredUpdateableController(GraphicsObject object, GraphicsService service) {
+	public AnchoredDragController(GraphicsObject object, GraphicsService service) {
 		super(service, object);
-		this.anchorPointObject = object.getRole(AnchoredUpdateable.TYPE);
+		this.anchorPointObject = object.getRole(Anchored.TYPE);
 	}
+
+
 
 	@Override
 	protected void init() {
@@ -70,12 +72,12 @@ public class AnchoredUpdateableController extends UpdateHandlerGraphicsControlle
 
 	@Override
 	public void setControllerElementsVisible(boolean visible) {
-		getObject().getRole(AnchoredUpdateable.TYPE).setAnchorVisible(visible);
+		getObject().getRole(Anchored.TYPE).setAnchorVisible(visible);
 	}
 
 	/**
 	 * Implementation of {@link org.geomajas.graphics.client.controller.drag.AbstractDragHandler}
-	 * for {@link AnchoredUpdateableController}.
+	 * for {@link AnchoredDragController}.
 	 * 
 	 * @author Jan De Moerloose
 	 * @author Jan Venstermans
@@ -113,7 +115,7 @@ public class AnchoredUpdateableController extends UpdateHandlerGraphicsControlle
 		protected GraphicsObject createDraggingMask() {
 			GraphicsObject maskObject = (GraphicsObject) getObject().cloneObject();
 			maskObject.setOpacity(0.5);
-			maskObject.getRole(AnchoredUpdateable.TYPE).setAnchorPosition(getBeginPositionUser());
+			maskObject.getRole(Anchored.TYPE).setAnchorPosition(getBeginPositionUser());
 			return maskObject;
 		}
 
@@ -124,13 +126,13 @@ public class AnchoredUpdateableController extends UpdateHandlerGraphicsControlle
 
 		@Override
 		protected GraphicsOperation createGraphicsOperation(Coordinate before, Coordinate after) {
-			return new AnchoredUpdateablePositionOperation(getObject(), before, after);
+			return new AnchoredPositionOperation(getObject(), before, after);
 		}
 
 		@Override
 		protected void mouseMoveContent(MouseMoveEvent event) {
 			Coordinate newAnchorPosition = getNewPosition(event.getClientX(), event.getClientY());
-			getDraggingMask().getRole(AnchoredUpdateable.TYPE).setAnchorPosition(newAnchorPosition);
+			getDraggingMask().getRole(Anchored.TYPE).setAnchorPosition(newAnchorPosition);
 		}
 
 	}

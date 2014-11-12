@@ -25,9 +25,9 @@ import org.geomajas.graphics.client.shape.MarkerShape;
  * @author Jan Venstermans
  * 
  */
-public interface AnchoredUpdateable extends Updateable, RoleInterface {
+public interface Anchored extends Updateable, RoleInterface {
 
-	RoleType<AnchoredUpdateable> TYPE = new RoleType<AnchoredUpdateable>("AnchoredUpdateable");
+	RoleType<Anchored> TYPE = new RoleType<Anchored>("AnchoredUpdateable");
 
 	/* anchor line */
 

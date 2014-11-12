@@ -30,7 +30,6 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
@@ -54,9 +53,9 @@ import org.geomajas.graphics.client.controller.delete.DeleteControllerFactory;
 import org.geomajas.graphics.client.controller.drag.DragControllerFactory;
 import org.geomajas.graphics.client.controller.popupmenu.PopupMenuControllerFactory;
 import org.geomajas.graphics.client.controller.resize.ResizeControllerFactory;
-import org.geomajas.graphics.client.controller.role.AnchoredUpdateableControllerFactory;
+import org.geomajas.graphics.client.controller.role.AnchoredDragControllerFactory;
 import org.geomajas.graphics.client.controller.role.LabelControllerFactory;
-import org.geomajas.graphics.client.editor.AnchoredUpdateableEditor;
+import org.geomajas.graphics.client.editor.AnchoredEditor;
 import org.geomajas.graphics.client.editor.LabeledUpdateableEditor;
 import org.geomajas.graphics.client.editor.StrokeFillEditor;
 import org.geomajas.graphics.client.editor.TextableEditor;
@@ -128,15 +127,15 @@ public class Example implements EntryPoint {
 //	private CreateIconControllerImpl createIconController;
 //
 //	private CreateAnchoredIconControllerImpl createAnchoredIconController;
+//
+//	private VerticalPanel iconChoicePanel;
+//
+//	private CheckBox checkExternalLabel;
 
 	private NavigationController navigationController;
-	
-	private GraphicsService graphicsService;
-	
-	private VerticalPanel iconChoicePanel;
 
-	private CheckBox checkExternalLabel;
-	
+	private GraphicsService graphicsService;
+
 	private List<String> urls = new ArrayList<String>(Arrays.asList(GWT.getModuleBaseURL() + "image/slider.gif",
 			GWT.getModuleBaseURL() + "image/cloud.png",
 			GWT.getModuleBaseURL() + "image/sun.jpg"));
@@ -190,11 +189,8 @@ public class Example implements EntryPoint {
 		graphicsService.registerControllerFactory(new DragControllerFactory());
 		graphicsService.registerControllerFactory(new DeleteControllerFactory());
 		graphicsService.registerControllerFactory(new LabelControllerFactory());
-		graphicsService.registerControllerFactory(new AnchoredUpdateableControllerFactory());
+		graphicsService.registerControllerFactory(new AnchoredDragControllerFactory());
 		graphicsService.registerControllerFactory(popupFactory);
-
-		// TODO: re-asses unsupported controller
-//		graphicsService.registerControllerFactory(new ExternalizableLabeledControllerFactory());
 	}
 	
 	private void registerPopupFactoryActionsAndEditiors() {
@@ -203,14 +199,10 @@ public class Example implements EntryPoint {
 		popupFactory.registerEditor(new LabeledUpdateableEditor());
 		popupFactory.registerEditor(new StrokeFillEditor());
 		popupFactory.registerAction(new BringToFrontAction());
-		popupFactory.registerEditor(new AnchoredUpdateableEditor());
+		popupFactory.registerEditor(new AnchoredEditor());
 
 		// TODO: re-asses unsupported editors/action
 //		popupFactory.registerAction(new DuplicateAction());
-//		popupFactory.registerEditor(new ExternalLabelEditor());
-//		popupFactory.registerAction(new AddTextAsAnchorAction());
-//		popupFactory.registerAction(new ToggleLabelAction());
-//		popupFactory.registerEditor(new TemplateLabelEditor());
 	}
 
 	private void registerBaseCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {

@@ -27,7 +27,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  * @author Jan Venstermans
  *
  */
-public class AnchoredImpl extends BaseGraphicsObject implements AnchoredUpdateable {
+public class AnchoredImpl extends BaseGraphicsObject implements Anchored {
 
 	private Group rootGroup = new Group();
 
@@ -45,7 +45,7 @@ public class AnchoredImpl extends BaseGraphicsObject implements AnchoredUpdateab
 		anchorLine = new TwoPointsLine(BboxService.getCenterPoint(resizable.getUserBounds()), anchorPosition);
 
 		// register roles of group object
-		addRole(AnchoredUpdateable.TYPE, this);
+		addRole(Anchored.TYPE, this);
 
 		// register render order
 		rootGroup.add(anchorLine.asObject());

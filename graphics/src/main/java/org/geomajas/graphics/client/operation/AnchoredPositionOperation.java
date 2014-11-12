@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.operation;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateable;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 
 /**
  * Operation that anchors an object.
@@ -21,7 +21,7 @@ import org.geomajas.graphics.client.object.updateable.anchored.AnchoredUpdateabl
  * @author Jan Venstermans
  * 
  */
-public class AnchoredUpdateablePositionOperation implements GraphicsOperation {
+public class AnchoredPositionOperation implements GraphicsOperation {
 
 	private Coordinate beforePosition;
 
@@ -29,8 +29,8 @@ public class AnchoredUpdateablePositionOperation implements GraphicsOperation {
 
 	private GraphicsObject anchored;
 
-	public AnchoredUpdateablePositionOperation(GraphicsObject anchored, Coordinate beforePosition,
-											   Coordinate afterPosition) {
+	public AnchoredPositionOperation(GraphicsObject anchored, Coordinate beforePosition,
+									 Coordinate afterPosition) {
 		this.beforePosition = beforePosition;
 		this.afterPosition = afterPosition;
 		this.anchored = anchored;
@@ -46,8 +46,8 @@ public class AnchoredUpdateablePositionOperation implements GraphicsOperation {
 		asAnchored().setAnchorPosition(beforePosition);
 	}
 
-	private AnchoredUpdateable asAnchored() {
-		return anchored.getRole(AnchoredUpdateable.TYPE);
+	private Anchored asAnchored() {
+		return anchored.getRole(Anchored.TYPE);
 	}
 
 	@Override
