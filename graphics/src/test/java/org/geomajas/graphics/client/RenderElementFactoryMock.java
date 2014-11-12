@@ -14,12 +14,12 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
-import org.geomajas.graphics.client.render.Ellipse;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
+import org.geomajas.graphics.client.shape.MockAnchoredEllipse;
 import org.geomajas.graphics.client.shape.MockAnchoredRectangle;
 import org.geomajas.graphics.client.shape.MockAnchoredText;
 import org.geomajas.graphics.client.render.shape.RenderElementFactory;
 import org.geomajas.graphics.client.shape.MockCoordinatePath;
-import org.geomajas.graphics.client.shape.MockEllipse;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -77,8 +77,8 @@ public class RenderElementFactoryMock implements RenderElementFactory {
 	}
 
 	@Override
-	public Ellipse createEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY) {
-		MockEllipse mockEllipse = new MockEllipse();
+	public AnchoredEllipse createEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY) {
+		MockAnchoredEllipse mockEllipse = new MockAnchoredEllipse();
 		mockEllipse.setUserRadiusX(userRadiusX);
 		mockEllipse.setUserRadiusY(userRadiusY);
 		mockEllipse.setUserX(ellipseCenterX);

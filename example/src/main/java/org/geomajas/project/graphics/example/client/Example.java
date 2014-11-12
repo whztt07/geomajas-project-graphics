@@ -31,6 +31,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.web.bindery.event.shared.SimpleEventBus;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
@@ -247,24 +248,24 @@ public class Example implements EntryPoint {
 	private void fillWestFlowPanel() {
 		String tooltipText = "x and y offset from left top position. 0-0 position inside object. " +
 				"Positive offset values means: more outside the object. Offset step is size of the cog.";
-		textBoxCogXOffset.setText(popupFactory.getOffsetX() + "");
+		textBoxCogXOffset.setText(Graphics.getGraphicsConstants().getOffsetX() + "");
 		textBoxCogXOffset.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				try {
-					popupFactory.setOffsetX(Double.parseDouble(textBoxCogXOffset.getText()));
+					Graphics.getGraphicsConstants().setOffsetX(Double.parseDouble(textBoxCogXOffset.getText()));
 				} catch (Exception ex) {
 					//don't do anything
 				}
 			}
 		});
 		textBoxCogXOffset.setTitle(tooltipText);
-		textBoxCogYOffset.setText(popupFactory.getOffsetY() + "");
+		textBoxCogYOffset.setText(Graphics.getGraphicsConstants().getOffsetY() + "");
 		textBoxCogYOffset.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				try {
-					popupFactory.setOffsetY(Double.parseDouble(textBoxCogYOffset.getText()));
+					Graphics.getGraphicsConstants().setOffsetY(Double.parseDouble(textBoxCogYOffset.getText()));
 				} catch (Exception ex) {
 					//don't do anything
 				}

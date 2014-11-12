@@ -10,16 +10,9 @@
  */
 package org.geomajas.graphics.client.shape;
 
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.render.CoordinatePath;
-import org.geomajas.graphics.client.render.Ellipse;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class MockEllipse implements Ellipse {
+public class MockAnchoredEllipse implements AnchoredEllipse {
 
 	private double userX;
 	private double userY;

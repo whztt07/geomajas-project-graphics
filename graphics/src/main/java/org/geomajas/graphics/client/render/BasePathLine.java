@@ -17,8 +17,8 @@ import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Extention of {@link org.geomajas.graphics.client.object.base.BasePath} for an unclosed path SVG object (a line), with a pointer event area
- * with a (stroke)width  value of at least
+ * Extention of {@link org.geomajas.graphics.client.object.base.BasePath} for an unclosed path SVG object (a line),
+ * with a pointer event area with a (stroke)width  value of at least
  * {@link org.geomajas.graphics.client.object.GPath.ResizablePathLine#getPointerEventAreaminimumWidth()} ()}.
  * This value can be customized.
  * Implementation details: a second transparant line object of the minimum width is combined with the

@@ -10,12 +10,11 @@
  */
 package org.geomajas.graphics.client.render.shape;
 
-import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
-import org.geomajas.graphics.client.render.Ellipse;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
 
 /**
  * Interface for specific view elements.
@@ -29,9 +28,10 @@ public interface RenderElementFactory {
 
 	AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight);
 
-	AnchoredRectangle createMarginAnchoredRectangle(double userX, double userY, double width, double height, int margin);
+	AnchoredRectangle createMarginAnchoredRectangle(double userX, double userY,
+													double width, double height, int margin);
 
 	CoordinatePath createCoordinatePath(Coordinate[] coordinates, boolean closed);
 
-	Ellipse createEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY);
+	AnchoredEllipse createEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY);
 }

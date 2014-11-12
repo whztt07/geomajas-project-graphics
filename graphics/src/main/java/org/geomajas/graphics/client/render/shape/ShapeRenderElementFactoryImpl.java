@@ -15,7 +15,7 @@ import org.geomajas.graphics.client.object.updateable.bordered.MarginAnchoredRec
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
-import org.geomajas.graphics.client.render.Ellipse;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
 
 /**
  * Default implementation of {@link RenderElementFactory} for {@link org.vaadin.gwtgraphics.client.Shape} objects.
@@ -47,80 +47,8 @@ public class ShapeRenderElementFactoryImpl implements RenderElementFactory {
 	}
 
 	@Override
-	public Ellipse createEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY) {
-		final org.vaadin.gwtgraphics.client.shape.Ellipse ellipseShape =
-				new org.vaadin.gwtgraphics.client.shape.Ellipse(
-						ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY);
-		return new Ellipse() {
-			@Override
-			public void setUserX(double x) {
-				ellipseShape.setUserX(x);
-			}
-
-			@Override
-			public void setUserY(double y) {
-				ellipseShape.setUserY(y);
-			}
-
-			@Override
-			public double getUserX() {
-				return ellipseShape.getUserX();
-			}
-
-			@Override
-			public double getUserY() {
-				return ellipseShape.getUserY();
-			}
-
-			@Override
-			public double getUserRadiusX() {
-				return ellipseShape.getUserRadiusX();
-			}
-
-			@Override
-			public double getUserRadiusY() {
-				return ellipseShape.getUserRadiusY();
-			}
-
-			@Override
-			public void setUserRadiusX(double v) {
-				ellipseShape.setUserRadiusX(v);
-			}
-
-			@Override
-			public void setUserRadiusY(double v) {
-				ellipseShape.setUserRadiusY(v);
-			}
-
-			@Override
-			public int getX() {
-				return ellipseShape.getX();
-			}
-
-			@Override
-			public int getRadiusX() {
-				return ellipseShape.getRadiusX();
-			}
-
-			@Override
-			public int getY() {
-				return ellipseShape.getY();
-			}
-
-			@Override
-			public int getRadiusY() {
-				return ellipseShape.getRadiusY();
-			}
-
-			@Override
-			public void setFillOpacity(double opacity) {
-				ellipseShape.setFillOpacity(opacity);
-			}
-
-			@Override
-			public void setStrokeOpacity(double opacity) {
-				ellipseShape.setStrokeOpacity(opacity);
-			}
-		};
+	public AnchoredEllipse createEllipse(double ellipseCenterX,
+										 double ellipseCenterY, double userRadiusX, double userRadiusY) {
+		return new AnchoredEllipseImpl(ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY);
 	}
 }

@@ -47,11 +47,6 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 	public static final int IMG_DIST = 10;
 
 	private View menu;
-	
-	// value that determines the offset of the cog icon from the left hand side of theresizable it is linked to.
-	private double offsetX;
-	
-	private double offsetY;
 
 	private String iconUrl;
 
@@ -65,10 +60,8 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 	private List<Action> actions;
 	
 	public PopupMenuControllerImpl(List<Action> actions, GraphicsObject object, GraphicsService service,
-								   double offsetX, double offsetY, String iconUrl) {
+								  String iconUrl) {
 		super(service, object);
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
 		this.iconUrl = iconUrl;
 
 		//only register actions that are compatible with the object
@@ -164,7 +157,8 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 
 		public PropertyHandler() {
 			propertyImage = new AnchoredImage(0, 0, 16, 16, iconUrl != null ? iconUrl : GWT.getModuleBaseURL()
-					+ "image/cogContrast.png", offsetX, offsetY);
+					+ "image/cogContrast.png", Graphics.getGraphicsConstants().getOffsetX(),
+					Graphics.getGraphicsConstants().getOffsetY());
 			propertyImage.setFixedSize(true);
 			propertyImage.addMouseDownHandler(this);
 		}

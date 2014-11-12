@@ -33,27 +33,15 @@ public class PopupMenuControllerFactory implements GraphicsControllerFactory {
 
 	private List<Action> actions = new ArrayList<Action>();
 	
-	// anchor X offset for the popupMenu icon, relative to the left top border of the Bbox of the resizable
-	private double offsetX;
-	
-	// anchor Y offset for the popupMenu icon, relative to the left top border of the Bbox of the resizable
-	private double offsetY;
-	
 	// URL for the PopupMenu icon
 	protected String iconUrl;
 	
 	public PopupMenuControllerFactory() {
-		this(2, 2);
+		this(null);
 	}
 	
-	public PopupMenuControllerFactory(double offsetX, double offsetY) {
-		this(offsetX, offsetY, null);
-	}
-	
-	public PopupMenuControllerFactory(double offsetX, double offsetY, String iconUrl) {
+	public PopupMenuControllerFactory(String iconUrl) {
 		super();
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
 		this.iconUrl = iconUrl;
 	}
 	
@@ -67,8 +55,7 @@ public class PopupMenuControllerFactory implements GraphicsControllerFactory {
 		for (Action action : actions) {
 			action.setService(graphicsService);
 		}
-		PopupMenuController controller = new PopupMenuControllerImpl(actions, object, graphicsService, offsetX, offsetY,
-				iconUrl);
+		PopupMenuController controller = new PopupMenuControllerImpl(actions, object, graphicsService, iconUrl);
 		return controller;
 	}
 
@@ -143,22 +130,6 @@ public class PopupMenuControllerFactory implements GraphicsControllerFactory {
 			}
 		}
 		return interruptibles;
-	}
-
-	public double getOffsetX() {
-		return offsetX;
-	}
-
-	public void setOffsetX(double offsetX) {
-		this.offsetX = offsetX;
-	}
-
-	public double getOffsetY() {
-		return offsetY;
-	}
-
-	public void setOffsetY(double offsetY) {
-		this.offsetY = offsetY;
 	}
 
 	/**

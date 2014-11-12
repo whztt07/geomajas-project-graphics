@@ -17,7 +17,7 @@ import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.render.Ellipse;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -31,7 +31,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class BaseEllipse extends BaseGraphicsObject implements Resizable, Draggable {
 
-	private Ellipse ellipse;
+	private AnchoredEllipse anchoredEllipse;
 
 	public BaseEllipse(Bbox boundingBox) {
 		this(BboxService.getCenterPoint(boundingBox), boundingBox.getWidth() / 2, boundingBox.getHeight() / 2);
@@ -42,29 +42,30 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 	}
 
 	public BaseEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY) {
-		this(Graphics.getRenderElementFactory().createEllipse(ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY));
+		this(Graphics.getRenderElementFactory().
+				createEllipse(ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY));
 	}
 
-	public BaseEllipse(Ellipse ellipse) {
-		this.ellipse = ellipse;
+	public BaseEllipse(AnchoredEllipse anchoredEllipse) {
+		this.anchoredEllipse = anchoredEllipse;
 		addRole(Resizable.TYPE, this);
 		addRole(Draggable.TYPE, this);
 	}
 
 	@Override
 	public void setUserPosition(Coordinate position) {
-		ellipse.setUserX(position.getX());
-		ellipse.setUserY(position.getY());
+		anchoredEllipse.setUserX(position.getX());
+		anchoredEllipse.setUserY(position.getY());
 	}
 
 	@Override
 	public Coordinate getUserPosition() {
-		return new Coordinate(ellipse.getUserX(), ellipse.getUserY());
+		return new Coordinate(anchoredEllipse.getUserX(), anchoredEllipse.getUserY());
 	}
 
 	public Object cloneObject() {
-		BaseEllipse mask = new BaseEllipse(ellipse.getUserX(), ellipse.getUserY(), ellipse.getUserRadiusX(),
-				ellipse.getUserRadiusY());
+		BaseEllipse mask = new BaseEllipse(anchoredEllipse.getUserX(),
+				anchoredEllipse.getUserY(), anchoredEllipse.getUserRadiusX(), anchoredEllipse.getUserRadiusY());
 		return mask;
 	}
 
@@ -76,8 +77,8 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 	@Override
 	public void setUserBounds(Bbox bounds) {
 		setUserPosition(BboxService.getCenterPoint(bounds));
-		ellipse.setUserRadiusX(bounds.getWidth() / 2);
-		ellipse.setUserRadiusY(bounds.getHeight() / 2);
+		anchoredEllipse.setUserRadiusX(bounds.getWidth() / 2);
+		anchoredEllipse.setUserRadiusY(bounds.getHeight() / 2);
 	}
 
 	@Override
@@ -92,26 +93,31 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 
 	@Override
 	public Bbox getUserBounds() {
-		return new Bbox(ellipse.getUserX() - ellipse.getUserRadiusX(), ellipse.getUserY()
-				- ellipse.getUserRadiusY(), 2 * ellipse.getUserRadiusX(), 2 * ellipse.getUserRadiusY());
+		return new Bbox(anchoredEllipse.getUserX() - anchoredEllipse.getUserRadiusX(), anchoredEllipse.getUserY()
+				- anchoredEllipse.getUserRadiusY(), 2 * anchoredEllipse.getUserRadiusX(),
+				2 * anchoredEllipse.getUserRadiusY());
 	}
 
 	@Override
 	public Bbox getBounds() {
-		return new Bbox(ellipse.getX() - ellipse.getRadiusX(), ellipse.getY() - ellipse.getRadiusY(),
-				2 * ellipse.getRadiusX(), 2 * ellipse.getRadiusY());
+		return new Bbox(anchoredEllipse.getX() - anchoredEllipse.getRadiusX(),
+				anchoredEllipse.getY() - anchoredEllipse.getRadiusY(),
+				2 * anchoredEllipse.getRadiusX(), 2 * anchoredEllipse.getRadiusY());
 	}
 
 	@Override
 	public VectorObject asObject() {
-		return (VectorObject) ellipse;
+		if (anchoredEllipse instanceof VectorObject) {
+			return (VectorObject) anchoredEllipse;
+		}
+		return null;
 	}
 
 
 	@Override
 	public void setOpacity(double opacity) {
-		ellipse.setFillOpacity(opacity);
-		ellipse.setStrokeOpacity(opacity);
+		anchoredEllipse.setFillOpacity(opacity);
+		anchoredEllipse.setStrokeOpacity(opacity);
 	}
 
 }

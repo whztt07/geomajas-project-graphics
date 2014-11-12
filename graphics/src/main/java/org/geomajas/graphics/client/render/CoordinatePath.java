@@ -10,7 +10,6 @@
  */
 package org.geomajas.graphics.client.render;
 
-import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.util.HasBounds;
 import org.geomajas.graphics.client.util.HasFill;

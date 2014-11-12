@@ -10,8 +10,6 @@
  */
 package org.geomajas.graphics.client.object.role;
 
-import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.util.HasBounds;
