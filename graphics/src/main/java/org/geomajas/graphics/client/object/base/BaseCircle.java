@@ -41,13 +41,13 @@ public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggab
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		circle.setUserX(position.getX());
 		circle.setUserY(position.getY());
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return new Coordinate(circle.getUserX(), circle.getUserY());
 	}
 

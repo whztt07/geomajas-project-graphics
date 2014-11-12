@@ -35,14 +35,14 @@ public class DraggableWrapperForUpdateable implements Draggable {
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
-		delegate.setPosition(position);
+	public void setUserPosition(Coordinate position) {
+		delegate.setUserPosition(position);
 		updateable.onUpdate();
 	}
 
 	@Override
-	public Coordinate getPosition() {
-		return delegate.getPosition();
+	public Coordinate getUserPosition() {
+		return delegate.getUserPosition();
 	}
 
 	@Override

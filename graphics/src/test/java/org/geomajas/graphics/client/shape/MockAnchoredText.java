@@ -10,25 +10,35 @@
  */
 package org.geomajas.graphics.client.shape;
 
+import org.geomajas.graphics.client.render.AnchoredText;
+
 public class MockAnchoredText implements AnchoredText {
 
+	//position
 	private double userX;
 	private double userY;
 	private double anchorX;
 	private double anchorY;
 	private double userWidth;
 	private double userHeight;
-	private double fillOpacity;
-	private double strokeOpacity;
-	private int strokeWidth;
+	private int x;
+	private int y;
+
+	//text
 	private String text;
-	private String fillColor;
-	private String fillFamily;
-	private int fontSize;
 	private int textHeight;
 	private int textWidth;
+	//font
 	private String fontFamily;
+	private int fontSize;
+	private String fontColor;
+	// stroke
 	private String strokeColor;
+	private double strokeOpacity;
+	private int strokeWidth;
+	//fill
+	private String fillColor;
+	private double fillOpacity;
 
 	@Override
 	public void setUserX(double userX) {
@@ -51,11 +61,6 @@ public class MockAnchoredText implements AnchoredText {
 	}
 
 	@Override
-	public String getText() {
-		return text;
-	}
-
-	@Override
 	public double getAnchorX() {
 		return anchorX;
 	}
@@ -63,31 +68,6 @@ public class MockAnchoredText implements AnchoredText {
 	@Override
 	public double getAnchorY() {
 		return anchorY;
-	}
-
-	@Override
-	public int getStrokeWidth() {
-		return strokeWidth;
-	}
-
-	@Override
-	public String getFillColor() {
-		return fillColor;
-	}
-
-	@Override
-	public String getFontFamily() {
-		return fillFamily;
-	}
-
-	@Override
-	public int getFontSize() {
-		return fontSize;
-	}
-
-	@Override
-	public void setText(String label) {
-	   this.text = label;
 	}
 
 	@Override
@@ -102,13 +82,39 @@ public class MockAnchoredText implements AnchoredText {
 
 	@Override
 	public int getX() {
-		return 0;
+		return x;
 	}
 
 	@Override
 	public int getY() {
-		return 0;
+		return y;
 	}
+
+	public void setAnchorX(double anchorX) {
+		this.anchorX = anchorX;
+	}
+
+	public void setAnchorY(double anchorY) {
+		this.anchorY = anchorY;
+	}
+
+	public void setUserWidth(double userWidth) {
+		this.userWidth = userWidth;
+	}
+
+	public void setUserHeight(double userHeight) {
+		this.userHeight = userHeight;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	//text
 
 	@Override
 	public int getTextHeight() {
@@ -121,8 +127,60 @@ public class MockAnchoredText implements AnchoredText {
 	}
 
 	@Override
-	public void setFillColor(String color) {
-		this.fillColor = color;
+	public String getText() {
+		return text;
+	}
+
+	public void setTextHeight(int textHeight) {
+		this.textHeight = textHeight;
+	}
+
+	public void setTextWidth(int textWidth) {
+		this.textWidth = textWidth;
+	}
+
+
+	@Override
+	public void setText(String label) {
+		this.text = label;
+	}
+
+
+	// font
+
+	@Override
+	public String getFontFamily() {
+		return fontFamily;
+	}
+
+	@Override
+	public int getFontSize() {
+		return fontSize;
+	}
+
+	@Override
+	public void setFontColor(String color) {
+		this.fontColor = color;
+	}
+
+	@Override
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	public void setFontSize(int fontSize) {
+		this.fontSize = fontSize;
+	}
+
+	public void setFontFamily(String fontFamily) {
+		this.fontFamily = fontFamily;
+	}
+
+	// stroke
+
+	@Override
+	public String getStrokeColor() {
+		return strokeColor;
 	}
 
 	@Override
@@ -131,28 +189,18 @@ public class MockAnchoredText implements AnchoredText {
 	}
 
 	@Override
-	public void setFontSize(int size) {
-		 this.fontSize = size;
-	}
-
-	@Override
-	public void update() {
-
-	}
-
-	@Override
-	public void setFontFamily(String font) {
-	   this.fontFamily = font;
+	public int getStrokeWidth() {
+		return strokeWidth;
 	}
 
 	@Override
 	public void setStrokeWidth(int width) {
-		 this.strokeWidth = width;
+		this.strokeWidth = width;
 	}
 
 	@Override
-	public double getFillOpacity() {
-		return fillOpacity;
+	public double getStrokeOpacity() {
+		return strokeOpacity;
 	}
 
 	@Override
@@ -160,8 +208,25 @@ public class MockAnchoredText implements AnchoredText {
 		strokeOpacity = fillOpacity;
 	}
 
+	// fill
+
+	@Override
+	public double getFillOpacity() {
+		return fillOpacity;
+	}
+
 	@Override
 	public void setFillOpacity(double opacity) {
 		fillOpacity = opacity;
+	}
+
+	@Override
+	public String getFillColor() {
+		return fillColor;
+	}
+
+	@Override
+	public void setFillColor(String color) {
+		this.fillColor = color;
 	}
 }

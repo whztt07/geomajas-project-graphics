@@ -92,7 +92,7 @@ public class CreateBaseTextController extends CreateController<BaseText> impleme
 	
 	public static BaseText createTextDefault(String text, Coordinate position) {
 		BaseText result = new BaseText(0, 0, text);
-		result.setPosition(position);
+		result.setUserPosition(position);
 		result.setFontColor("black");
 		return result;
 	}

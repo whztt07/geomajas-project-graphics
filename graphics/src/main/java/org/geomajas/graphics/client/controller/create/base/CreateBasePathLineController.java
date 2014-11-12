@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.create.CreateController;
-import org.geomajas.graphics.client.object.base.BasePathLine;
+import org.geomajas.graphics.client.render.BasePathLine;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;

@@ -65,9 +65,9 @@ public class LabeledPath extends UpdateableGroupGraphicsObject {
 	public Object cloneObject() {
 		LabeledPath clone = new LabeledPath(copyCoordinatesOfBasePath(), basePath.isClosed(),
 				labeled.getTextable().getLabel());
-		CopyUtil.copyProperties(getRole(Strokable.TYPE), clone.getRole(Strokable.TYPE));
+		CopyUtil.copyStrokableProperties(getRole(Strokable.TYPE), clone.getRole(Strokable.TYPE));
 		if (hasRole(Fillable.TYPE) && clone.hasRole(Fillable.TYPE)) {
-			CopyUtil.copyProperties(getRole(Fillable.TYPE), clone.getRole(Fillable.TYPE));
+			CopyUtil.copyFillableProperties(getRole(Fillable.TYPE), clone.getRole(Fillable.TYPE));
 		}
 		return clone;
 	}

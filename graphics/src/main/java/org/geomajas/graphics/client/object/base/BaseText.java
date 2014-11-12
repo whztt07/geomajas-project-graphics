@@ -17,7 +17,7 @@ import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.shape.AnchoredText;
+import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -41,7 +41,7 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 	}
 
 	public BaseText(double userX, double userY, String text) {
-		this(Graphics.getShapeCreationManager().createAnchoredText(userX, userY, text, 0.5, 0.5));
+		this(Graphics.getRenderElementFactory().createAnchoredText(userX, userY, text, 0.5, 0.5));
 	}
 
 	public BaseText(AnchoredText text) {
@@ -70,13 +70,13 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		text.setUserX(position.getX());
 		text.setUserY(position.getY());
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		double userX = text.getUserX();
 		double userY = text.getUserY();
 		return new Coordinate(userX, userY);
@@ -84,7 +84,7 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 
 	@Override
 	public Object cloneObject() {
-		AnchoredText clone = Graphics.getShapeCreationManager().createAnchoredText(
+		AnchoredText clone = Graphics.getRenderElementFactory().createAnchoredText(
 				text.getUserX(), text.getUserY(), text.getText(), text.getAnchorX(), text.getAnchorY());
 		clone.setStrokeWidth(text.getStrokeWidth());
 		clone.setFillColor(text.getFillColor()); // this is font color
@@ -161,7 +161,6 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 	@Override
 	public void setFontSize(int size) {
 		text.setFontSize(size);
-		text.update();
 	}
 
 	@Override
@@ -172,7 +171,6 @@ public class BaseText extends BaseGraphicsObject implements Draggable, Textable,
 	@Override
 	public void setFontFamily(String font) {
 		text.setFontFamily(font);
-		text.update();
 	}
 
 	@Override

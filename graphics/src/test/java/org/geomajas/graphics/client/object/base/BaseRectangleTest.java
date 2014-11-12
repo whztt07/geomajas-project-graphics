@@ -11,12 +11,15 @@
 package org.geomajas.graphics.client.object.base;
 
 import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.GraphicsMockSetup;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class BaseRectangleTest extends GraphicsMockSetup {
@@ -54,6 +57,9 @@ public class BaseRectangleTest extends GraphicsMockSetup {
 	public void testCloneObjectDraggable() throws Exception {
 		Bbox bbox =  new Bbox(15, 20, 5, 5);
 		baseRectangle = createRectangleText(bbox.getX(), bbox.getY(), bbox.getWidth(), bbox.getHeight());
+		Draggable expected = baseRectangle.getRole(Draggable.TYPE);
+		expected.setUserPosition(new Coordinate(2, 15));
+		expected.setUserBounds(new Bbox(15, 20, 5, 5));
 
 		Object clone = baseRectangle.cloneObject();
 
@@ -61,13 +67,16 @@ public class BaseRectangleTest extends GraphicsMockSetup {
 		Assert.assertTrue(clone instanceof BaseRectangle);
 		BaseRectangle baseRectangleClone = (BaseRectangle) clone;
 		Assert.assertTrue(baseRectangleClone.hasRole(Draggable.TYPE));
-		assertRoleEqualityDraggable(baseRectangleClone.getRole(Draggable.TYPE), baseRectangleClone.getRole(Draggable.TYPE));
+		assertRoleEqualityDraggable(expected, baseRectangleClone.getRole(Draggable.TYPE));
 	}
 
 	@Test
 	 public void testCloneObjectResizable() throws Exception {
 		Bbox bbox =  new Bbox(15, 20, 5, 5);
 		baseRectangle = createRectangleText(bbox.getX(), bbox.getY(), bbox.getWidth(), bbox.getHeight());
+		Resizable expected = baseRectangle.getRole(Resizable.TYPE);
+		expected.setUserPosition(new Coordinate(2, 15));
+		expected.setUserBounds(new Bbox(15, 20, 5, 5));
 
 		Object clone = baseRectangle.cloneObject();
 
@@ -75,13 +84,17 @@ public class BaseRectangleTest extends GraphicsMockSetup {
 		Assert.assertTrue(clone instanceof BaseRectangle);
 		BaseRectangle baseRectangleClone = (BaseRectangle) clone;
 		Assert.assertTrue(baseRectangleClone.hasRole(Resizable.TYPE));
-		assertRoleEqualityResizable(baseRectangleClone.getRole(Resizable.TYPE), baseRectangleClone.getRole(Resizable.TYPE));
+		assertRoleEqualityResizable(expected, baseRectangleClone.getRole(Resizable.TYPE));
 	}
 
 	@Test
 	public void testCloneObjectStrokable() throws Exception {
 		Bbox bbox =  new Bbox(15, 20, 5, 5);
 		baseRectangle = createRectangleText(bbox.getX(), bbox.getY(), bbox.getWidth(), bbox.getHeight());
+		Strokable expected = baseRectangle.getRole(Strokable.TYPE);
+		expected.setStrokeColor("strokeColor");
+		expected.setStrokeOpacity(0.3);
+		expected.setStrokeWidth(8);
 
 		Object clone = baseRectangle.cloneObject();
 
@@ -89,13 +102,16 @@ public class BaseRectangleTest extends GraphicsMockSetup {
 		Assert.assertTrue(clone instanceof BaseRectangle);
 		BaseRectangle baseRectangleClone = (BaseRectangle) clone;
 		Assert.assertTrue(baseRectangleClone.hasRole(Strokable.TYPE));
-		assertRoleEqualityStrokable(baseRectangleClone.getRole(Strokable.TYPE), baseRectangleClone.getRole(Strokable.TYPE));
+		assertRoleEqualityStrokable(expected, baseRectangleClone.getRole(Strokable.TYPE));
 	}
 
 	@Test
 	public void testCloneObjectFillable() throws Exception {
 		Bbox bbox =  new Bbox(15, 20, 5, 5);
 		baseRectangle = createRectangleText(bbox.getX(), bbox.getY(), bbox.getWidth(), bbox.getHeight());
+		Fillable expected = baseRectangle.getRole(Fillable.TYPE);
+		expected.setFillColor("fillColor");
+		expected.setFillOpacity(0.4);
 
 		Object clone = baseRectangle.cloneObject();
 
@@ -103,7 +119,7 @@ public class BaseRectangleTest extends GraphicsMockSetup {
 		Assert.assertTrue(clone instanceof BaseRectangle);
 		BaseRectangle baseRectangleClone = (BaseRectangle) clone;
 		Assert.assertTrue(baseRectangleClone.hasRole(Fillable.TYPE));
-		assertRoleEqualityFillable(baseRectangleClone.getRole(Fillable.TYPE), baseRectangleClone.getRole(Fillable.TYPE));
+		assertRoleEqualityFillable(expected, baseRectangleClone.getRole(Fillable.TYPE));
 	}
 
 	private BaseRectangle createRectangleText(double userX, double userY, double width, double height) {

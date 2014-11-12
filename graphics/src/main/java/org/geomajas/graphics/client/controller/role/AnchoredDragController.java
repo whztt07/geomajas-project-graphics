@@ -20,7 +20,7 @@ import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.operation.AnchoredPositionOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.render.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.Shape;
 import org.vaadin.gwtgraphics.client.VectorObject;

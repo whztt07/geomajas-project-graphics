@@ -13,7 +13,7 @@ package org.geomajas.graphics.client.object.base;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.shape.StyledRectangle;
+import org.geomajas.graphics.client.render.shape.StyledRectangle;
 import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.shape.Rectangle;
 

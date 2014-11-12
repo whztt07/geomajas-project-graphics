@@ -10,6 +10,7 @@
  */
 package org.geomajas.graphics.client.object.base;
 
+import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.GraphicsMockSetup;
 import org.geomajas.graphics.client.object.role.Draggable;
@@ -63,6 +64,9 @@ public class BaseTextTest extends GraphicsMockSetup {
 		Coordinate coordinate =  new Coordinate(15, 20);
 		String startString = "startString";
 		baseText = createBaseText(coordinate.getX(), coordinate.getY(), startString);
+		Draggable expected = baseText.getRole(Draggable.TYPE);
+		expected.setUserPosition(new Coordinate(2, 15));
+		expected.setUserBounds(new Bbox(15, 20, 5, 5));
 
 		Object clone = baseText.cloneObject();
 

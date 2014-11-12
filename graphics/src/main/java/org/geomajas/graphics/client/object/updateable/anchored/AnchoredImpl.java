@@ -17,7 +17,7 @@ import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.Updateable;
-import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.render.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 

@@ -13,6 +13,7 @@ package org.geomajas.graphics.client.object.role;
 
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
+import org.geomajas.graphics.client.util.HasStroke;
 
 /**
  * Implemented by graphics objects that can be stroked.
@@ -20,24 +21,12 @@ import org.geomajas.graphics.client.object.RoleType;
  * @author Jan De Moerloose
  * 
  */
-public interface Strokable extends RoleInterface {
+public interface Strokable extends RoleInterface, HasStroke {
 	
 	RoleType<Strokable> TYPE = new RoleType<Strokable>("Strokable");
 
-	String getStrokeColor();
-
-	void setStrokeColor(String strokeColor);
-
-	int getStrokeWidth();
-
-	void setStrokeWidth(int strokeWidth);
-
-	double getStrokeOpacity();
-
-	void setStrokeOpacity(double strokeOpacity);
-	
 //	String setStrokeStyle();
-//	
+//
 //	void setStrokeStyle(String style);
 
 }

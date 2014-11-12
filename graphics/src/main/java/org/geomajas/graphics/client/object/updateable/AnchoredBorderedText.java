@@ -22,7 +22,7 @@ import org.geomajas.graphics.client.object.updateable.bordered.Bordered;
 import org.geomajas.graphics.client.object.updateable.bordered.BorderedImpl;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.TextableWrapperForUpdateable;
-import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.render.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 

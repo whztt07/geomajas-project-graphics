@@ -13,24 +13,25 @@ package org.geomajas.graphics.client;
 import junit.framework.Assert;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.object.role.CoordinateBased;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.shape.ShapeCreationManager;
+import org.geomajas.graphics.client.render.shape.RenderElementFactory;
 import org.junit.Before;
 
 public class GraphicsMockSetup {
 
 	protected GraphicsViewManagerMock viewManagerMock = new GraphicsViewManagerMock();
 
-	protected ShapeCreationManager shapeCreationManagerMock = new ShapeCreationManagerMock();
+	protected RenderElementFactory renderElementFactoryMock = new RenderElementFactoryMock();
 
 	@Before
 	public void injectMock() {
 		Graphics.setViewManager(viewManagerMock);
-		Graphics.setShapeCreationManager(shapeCreationManagerMock);
+		Graphics.setRenderElementFactory(renderElementFactoryMock);
 	}
 
 	public void assertRoleEqualityTextable(Textable textableExpected, Textable textableNew) {
@@ -46,10 +47,10 @@ public class GraphicsMockSetup {
 		Assert.assertNotNull(draggableExpected);
 		Assert.assertNotNull(draggableNew);
 
-		Assert.assertNotNull(draggableExpected.getPosition());
-		Assert.assertNotNull(draggableNew.getPosition());
-		Coordinate coordinateExpected = draggableExpected.getPosition();
-		Coordinate coordinateNew = draggableNew.getPosition();
+		Assert.assertNotNull(draggableExpected.getUserPosition());
+		Assert.assertNotNull(draggableNew.getUserPosition());
+		Coordinate coordinateExpected = draggableExpected.getUserPosition();
+		Coordinate coordinateNew = draggableNew.getUserPosition();
 		Assert.assertEquals(coordinateExpected.getX(), coordinateNew.getX());
 		Assert.assertEquals(coordinateExpected.getY(), coordinateNew.getY());
 
@@ -69,10 +70,10 @@ public class GraphicsMockSetup {
 		Assert.assertNotNull(resizableExpected);
 		Assert.assertNotNull(resizableNew);
 
-		Assert.assertNotNull(resizableExpected.getPosition());
-		Assert.assertNotNull(resizableNew.getPosition());
-		Coordinate coordinateExpected = resizableExpected.getPosition();
-		Coordinate coordinateNew = resizableNew.getPosition();
+		Assert.assertNotNull(resizableExpected.getUserPosition());
+		Assert.assertNotNull(resizableNew.getUserPosition());
+		Coordinate coordinateExpected = resizableExpected.getUserPosition();
+		Coordinate coordinateNew = resizableNew.getUserPosition();
 		Assert.assertEquals(coordinateExpected.getX(), coordinateNew.getX());
 		Assert.assertEquals(coordinateExpected.getY(), coordinateNew.getY());
 
@@ -106,6 +107,20 @@ public class GraphicsMockSetup {
 
 		Assert.assertEquals(fillableExpected.getFillColor(), fillableNew.getFillColor());
 		Assert.assertEquals(fillableExpected.getFillOpacity(), fillableNew.getFillOpacity());
+	}
+
+	public void assertRoleEqualityCoordinateBased(CoordinateBased coordinateBasedExpected,
+												  CoordinateBased coordinateBasedNew) {
+		Assert.assertNotNull(coordinateBasedExpected);
+		Assert.assertNotNull(coordinateBasedNew);
+
+		Assert.assertEquals(coordinateBasedExpected.getCoordinateCount(), coordinateBasedNew.getCoordinateCount());
+		Assert.assertEquals(coordinateBasedExpected.getLastCoordinate(), coordinateBasedNew.getLastCoordinate());
+		Coordinate[] coordinatesExpected = coordinateBasedExpected.getCoordinates();
+		Coordinate[] coordinatesNew = coordinateBasedNew.getCoordinates();
+		for (int i = 0 ; i < coordinateBasedExpected.getCoordinateCount() ; i++) {
+			Assert.assertEquals(coordinatesExpected[i], coordinatesNew[i]);
+		}
 	}
 
 }

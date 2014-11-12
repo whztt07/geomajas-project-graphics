@@ -14,6 +14,8 @@ import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
+import org.geomajas.graphics.client.util.HasBounds;
+import org.geomajas.graphics.client.util.HasPosition;
 
 /**
  * Implemented by objects that can be dragged.
@@ -21,22 +23,7 @@ import org.geomajas.graphics.client.object.RoleType;
  * @author Jan De Moerloose
  * 
  */
-public interface Draggable extends RoleInterface {
+public interface Draggable extends RoleInterface, HasBounds, HasPosition {
 	
 	RoleType<Draggable> TYPE = new RoleType<Draggable>("Draggable");
-
-	void setPosition(Coordinate position);
-
-	Coordinate getPosition();
-	
-	Bbox getUserBounds();
-
-	/**
-	 * Get the bounds in screen space.
-	 *
-	 * @return the bounds in screen space
-	 */
-	Bbox getBounds();
-
-	void setUserBounds(Bbox bbox);
 }

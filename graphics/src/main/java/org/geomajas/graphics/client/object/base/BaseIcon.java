@@ -15,7 +15,7 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.shape.AnchoredImage;
+import org.geomajas.graphics.client.render.shape.AnchoredImage;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -46,13 +46,13 @@ public class BaseIcon extends BaseGraphicsObject implements Draggable, Resizable
 	}
 
 	@Override
-	public void setPosition(Coordinate imageAnchorPosition) {
+	public void setUserPosition(Coordinate imageAnchorPosition) {
 		anchoredImage.setUserX(imageAnchorPosition.getX());
 		anchoredImage.setUserY(imageAnchorPosition.getY());
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return new Coordinate(anchoredImage.getUserX(), anchoredImage.getUserY());
 	}
 

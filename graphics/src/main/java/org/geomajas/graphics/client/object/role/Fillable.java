@@ -13,6 +13,7 @@ package org.geomajas.graphics.client.object.role;
 
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
+import org.geomajas.graphics.client.util.HasFill;
 
 /**
  * Implemented by graphics objects that can be filled.
@@ -20,25 +21,8 @@ import org.geomajas.graphics.client.object.RoleType;
  * @author Jan De Moerloose
  * 
  */
-public interface Fillable extends RoleInterface {
+public interface Fillable extends RoleInterface, HasFill {
 	
 	RoleType<Fillable> TYPE = new RoleType<Fillable>("Fillable");
 	
-	/**
-	 * Changeable style elements of a fillable object.
-	 * 
-	 * @author Jan Venstermans
-	 * 
-	 */
-	public enum StyleElement {
-		FILL_COLOR, FILL_OPACITY
-	}
-
-	void setFillColor(String fillColor);
-
-	void setFillOpacity(double fillOpacity);
-
-	String getFillColor();
-
-	double getFillOpacity();
 }

@@ -41,13 +41,13 @@ public class BaseImage extends BaseGraphicsObject implements Resizable, Draggabl
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		image.setUserX(position.getX());
 		image.setUserY(position.getY());
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return new Coordinate(image.getUserX(), image.getUserY());
 	}
 

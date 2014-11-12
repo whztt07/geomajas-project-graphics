@@ -8,9 +8,10 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.shape;
+package org.geomajas.graphics.client.render.shape;
 
-import org.vaadin.gwtgraphics.client.shape.Rectangle;
+import org.geomajas.graphics.client.object.role.Cloneable;
+import org.vaadin.gwtgraphics.client.shape.Circle;
 
 /**
  * A non-scaling rectangle that is anchored to its world space location on a specific pixel or anchor location (useful
@@ -19,7 +20,7 @@ import org.vaadin.gwtgraphics.client.shape.Rectangle;
  * @author Jan De Moerloose
  * 
  */
-public class AnchoredRectangleImpl extends Rectangle implements AnchoredRectangle {
+public class AnchoredCircle extends Circle implements Cloneable {
 
 	private int anchorX;
 
@@ -31,14 +32,13 @@ public class AnchoredRectangleImpl extends Rectangle implements AnchoredRectangl
 	 * 
 	 * @param userX x-location in world coordinates
 	 * @param userY y-location in world coordinates
-	 * @param userWidth width in pixels
-	 * @param userHeight height in pixels
+	 * @param userRadius width in pixels
 	 * @param anchorX x-location of the anchor point (rectangle-relative)
 	 * @param anchorY y-location of the anchor point (rectangle-relative)
 	 */
-	public AnchoredRectangleImpl(double userX, double userY, double userWidth, double userHeight,
-								 int anchorX, int anchorY) {
-		super(userX, userY, userWidth, userHeight);
+	public AnchoredCircle(double userX, double userY, double userRadius, 
+			int anchorX, int anchorY) {
+		super(userX, userY, userRadius);
 		this.anchorX = anchorX;
 		this.anchorY = anchorY;
 	}
@@ -48,20 +48,11 @@ public class AnchoredRectangleImpl extends Rectangle implements AnchoredRectangl
 		getImpl().setX(getElement(), (int) Math.round(getUserX() * getScaleX() + getDeltaX()) - anchorX, isAttached());
 		getImpl().setY(getElement(), (int) Math.round(getUserY() * getScaleY() + getDeltaY()) - anchorY, isAttached());
 		// don't scale, but have to set width/height here !
-		setWidth((int) getUserWidth());
-		setHeight((int) getUserHeight());
+		setRadius((int) getUserRadius());
 	}
 
 	@Override
 	public Object cloneObject() {
-		return new AnchoredRectangleImpl(getUserX(), getUserY(), getUserWidth(), getUserHeight(), anchorX, anchorY);
-	}
-	
-	public int getAnchorX() {
-		return anchorX;
-	}
-
-	public int getAnchorY() {
-		return anchorX;
+		return new AnchoredCircle(getUserX(), getUserY(), getUserRadius(), anchorX, anchorY);
 	}
 }

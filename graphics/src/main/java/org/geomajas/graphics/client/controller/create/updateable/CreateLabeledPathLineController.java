@@ -11,7 +11,7 @@
 package org.geomajas.graphics.client.controller.create.updateable;
 
 import org.geomajas.graphics.client.controller.create.base.CreateBasePathLineController;
-import org.geomajas.graphics.client.object.base.BasePathLine;
+import org.geomajas.graphics.client.render.BasePathLine;
 import org.geomajas.graphics.client.object.updateable.LabeledPath;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;

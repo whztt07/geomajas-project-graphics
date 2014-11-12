@@ -15,6 +15,8 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.util.FlipState;
+import org.geomajas.graphics.client.util.HasBounds;
+import org.geomajas.graphics.client.util.HasPosition;
 
 /**
  * Implemented by resizable graphics objects. Resizing can include flipping if the resizing handle is "folded".
@@ -22,7 +24,7 @@ import org.geomajas.graphics.client.util.FlipState;
  * @author Jan De Moerloose
  * 
  */
-public interface Resizable extends RoleInterface {
+public interface Resizable extends RoleInterface, HasPosition, HasBounds {
 
 	RoleType<Resizable> TYPE = new RoleType<Resizable>("Resizable");
 
@@ -32,27 +34,6 @@ public interface Resizable extends RoleInterface {
 	 * @param state
 	 */
 	void flip(FlipState state);
-
-	/**
-	 * Set the bounds in user space.
-	 * 
-	 * @param bounds
-	 *            the new bounds
-	 */
-	void setUserBounds(Bbox bounds);
-
-	/**
-	 * @see #setUserBounds(Bbox)
-	 * @return the bounds
-	 */
-	Bbox getUserBounds();
-
-	/**
-	 * Get the bounds in screen space.
-	 * 
-	 * @return the bounds in screen space
-	 */
-	Bbox getBounds();
 
 	/**
 	 * Should the width/height ratio be preserved when resizing this object ?
@@ -67,9 +48,5 @@ public interface Resizable extends RoleInterface {
 	 * @return true if height is automatic.
 	 */
 	boolean isAutoHeight();
-
-	Coordinate getPosition();
-
-	void setPosition(Coordinate position);
 
 }

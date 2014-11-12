@@ -12,13 +12,14 @@ package org.geomajas.graphics.client.object.base;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.CoordinateBased;
 import org.geomajas.graphics.client.object.role.Draggable;
-import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.shape.CoordinatePath;
+import org.geomajas.graphics.client.render.CoordinatePath;
 import org.geomajas.graphics.client.util.CopyUtil;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
@@ -44,7 +45,11 @@ public class BasePath extends BaseGraphicsObject implements Resizable, Draggable
 	}
 
 	public BasePath(Coordinate[] coordinates, boolean closed) {
-		path = new CoordinatePath(coordinates, closed);
+		this(Graphics.getRenderElementFactory().createCoordinatePath(coordinates, closed));
+	}
+
+	public BasePath(CoordinatePath coordinatePath) {
+		path = coordinatePath;
 		addRole(Strokable.TYPE, this);
 		addRole(Resizable.TYPE, this);
 		addRole(CoordinateBased.TYPE, this);
@@ -119,7 +124,7 @@ public class BasePath extends BaseGraphicsObject implements Resizable, Draggable
 
 	@Override
 	public Bbox getUserBounds() {
-		return path.getUserbounds();
+		return path.getUserBounds();
 	}
 
 	@Override
@@ -128,31 +133,31 @@ public class BasePath extends BaseGraphicsObject implements Resizable, Draggable
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		path.setUserPosition(position);
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return path.getUserPosition();
 	}
 
 	@Override
 	public VectorObject asObject() {
-		return path;
+		if (path instanceof VectorObject) {
+			return (VectorObject) path;
+		}
+		return null;
 	}
 
 	@Override
 	public Object cloneObject() {
-		Coordinate[] coordinates = path.getCoordinates();
-		Coordinate[] cc = new Coordinate[coordinates.length];
-		for (int i = 0; i < coordinates.length; i++) {
-			cc[i] = new Coordinate(coordinates[i].getX(), coordinates[i].getY());
-		}
-		BasePath copy = new BasePath(cc, path.isClosed());
-		CopyUtil.copyProperties(getRole(Strokable.TYPE), copy.getRole(Strokable.TYPE));
+		BasePath copy = new BasePath(CopyUtil.deepCopyCoordinates(getCoordinates()), path.isClosed());
+		CopyUtil.copyResizableProperties(getRole(Resizable.TYPE), copy.getRole(Resizable.TYPE));
+		CopyUtil.copyDraggableProperties(getRole(Draggable.TYPE), copy.getRole(Draggable.TYPE));
+		CopyUtil.copyStrokableProperties(getRole(Strokable.TYPE), copy.getRole(Strokable.TYPE));
 		if (hasRole(Fillable.TYPE) && copy.hasRole(Fillable.TYPE)) {
-			CopyUtil.copyProperties(getRole(Fillable.TYPE), copy.getRole(Fillable.TYPE));
+			CopyUtil.copyFillableProperties(getRole(Fillable.TYPE), copy.getRole(Fillable.TYPE));
 		}
 		return copy;
 	}

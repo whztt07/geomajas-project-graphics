@@ -23,18 +23,18 @@ public class MockDraggable extends BaseGraphicsObject implements Draggable {
 	private Bbox bounds;
 
 	public MockDraggable(Coordinate position, Bbox bounds) {
-		setPosition(position);
+		setUserPosition(position);
 		setUserBounds(bounds);
 		addRole(Draggable.TYPE, this);
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		this.position = (Coordinate) position.clone();
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return new Coordinate(position);
 	}
 

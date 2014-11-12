@@ -8,8 +8,9 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.shape;
+package org.geomajas.graphics.client.render.shape;
 
+import org.geomajas.graphics.client.render.AnchoredText;
 import org.vaadin.gwtgraphics.client.shape.Text;
 
 /**
@@ -84,5 +85,15 @@ public class AnchoredTextImpl extends Text implements AnchoredText {
 
 	public void update() {
 		drawTransformed();
+	}
+
+	@Override
+	public void setFontColor(String color) {
+		setFillColor(color);
+	}
+
+	@Override
+	public String getFontColor() {
+		return getFillColor();
 	}
 }

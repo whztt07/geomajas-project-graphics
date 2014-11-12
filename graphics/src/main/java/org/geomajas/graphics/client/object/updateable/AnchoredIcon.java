@@ -16,7 +16,7 @@ import org.geomajas.graphics.client.object.base.BaseIcon;
 import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.object.updateable.anchored.AnchoredImpl;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
-import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.render.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -55,7 +55,7 @@ public class AnchoredIcon extends UpdateableGroupGraphicsObject {
 
 	@Override
 	public Object cloneObject() {
-		AnchoredIcon clone = new AnchoredIcon(baseIcon.getPosition(), (int) baseIcon.getBounds().getWidth(),
+		AnchoredIcon clone = new AnchoredIcon(baseIcon.getUserPosition(), (int) baseIcon.getBounds().getWidth(),
 				(int) baseIcon.getBounds().getHeight(), baseIcon.getHref(), anchored.getAnchorPosition(),
 				anchored.getMarkerShape());
 		return clone;

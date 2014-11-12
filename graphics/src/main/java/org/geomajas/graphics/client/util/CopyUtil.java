@@ -11,7 +11,10 @@
 package org.geomajas.graphics.client.util;
 
 import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Fillable;
+import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Strokable;
 
 /**
@@ -31,27 +34,66 @@ public final class CopyUtil {
 	}
 
 	/**
-	 * TODO: move to Fillable role?
+	 * Copy all {@link Fillable} properties from original to copy.
 	 *
 	 * @param fillableOriginal
-	 * @param fillable
+	 * @param fillableCopy
 	 */
-	public static void copyProperties(Fillable fillableOriginal, Fillable fillable) {
-		fillable.setFillOpacity(fillableOriginal.getFillOpacity());
-		fillable.setFillColor(fillableOriginal.getFillColor());
+	public static void copyFillableProperties(Fillable fillableOriginal, Fillable fillableCopy) {
+		fillableCopy.setFillOpacity(fillableOriginal.getFillOpacity());
+		fillableCopy.setFillColor(fillableOriginal.getFillColor());
 	}
 
 	/**
-	 * TODO: move to Strokable role?
+	 * Copy all {@link Strokable} properties from original to copy.
 	 *
 	 * @param strokableOriginal
-	 * @param strokable
+	 * @param strokableCopy
 	 */
-	public static void copyProperties(Strokable strokableOriginal, Strokable strokable) {
-		strokable.setStrokeOpacity(strokable.getStrokeOpacity());
-		strokable.setStrokeColor(strokable.getStrokeColor());
-		strokable.setStrokeWidth(strokable.getStrokeWidth());
+	public static void copyStrokableProperties(Strokable strokableOriginal, Strokable strokableCopy) {
+		strokableCopy.setStrokeOpacity(strokableOriginal.getStrokeOpacity());
+		strokableCopy.setStrokeColor(strokableOriginal.getStrokeColor());
+		strokableCopy.setStrokeWidth(strokableOriginal.getStrokeWidth());
 	}
 
+	/**
+	 * Copy values of array of coordinates to new array.
+	 *
+	 * @param coordinatesOriginal
+	 * @return
+	 */
+	public static Coordinate[] deepCopyCoordinates(Coordinate[] coordinatesOriginal) {
+		if (coordinatesOriginal != null) {
+			Coordinate[] copy = new Coordinate[coordinatesOriginal.length];
+			for (int i = 0; i < coordinatesOriginal.length; i++) {
+				copy[i] = deepCopyCoordinate(coordinatesOriginal[i]);
+			}
+			return copy;
+		}
+		return null;
+	}
 
+	public static Coordinate deepCopyCoordinate(Coordinate coordinateOriginal) {
+		if (coordinateOriginal != null) {
+			return new Coordinate(coordinateOriginal.getX(), coordinateOriginal.getY());
+		}
+		return null;
+	}
+
+	public static Bbox deepCopyBbox(Bbox bbox) {
+		if (bbox != null) {
+			return new Bbox(bbox.getX(), bbox.getY(), bbox.getWidth(), bbox.getHeight());
+		}
+		return null;
+	}
+
+	public static void copyResizableProperties(Resizable resizableOriginal, Resizable resizableCopy) {
+		resizableCopy.setUserPosition(deepCopyCoordinate(resizableOriginal.getUserPosition()));
+		resizableCopy.setUserBounds(deepCopyBbox(resizableOriginal.getUserBounds()));
+	}
+
+	public static void copyDraggableProperties(Draggable draggableOriginal, Draggable draggableCopy) {
+		draggableCopy.setUserPosition(deepCopyCoordinate(draggableOriginal.getUserPosition()));
+		draggableCopy.setUserBounds(deepCopyBbox(draggableOriginal.getUserBounds()));
+	}
 }

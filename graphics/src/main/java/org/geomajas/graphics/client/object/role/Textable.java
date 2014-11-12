@@ -13,6 +13,7 @@ package org.geomajas.graphics.client.object.role;
 
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
+import org.geomajas.graphics.client.util.HasFont;
 
 /**
  * Implemented by Textable graphics objects.
@@ -22,7 +23,7 @@ import org.geomajas.graphics.client.object.RoleType;
  * @author Jan Venstermans
  * 
  */
-public interface Textable extends RoleInterface {
+public interface Textable extends RoleInterface, HasFont {
 	
 	RoleType<Textable> TYPE = new RoleType<Textable>("Textable");
 
@@ -30,15 +31,5 @@ public interface Textable extends RoleInterface {
 
 	String getLabel();
 
-	void setFontColor(String color);
 
-	String getFontColor();
-	
-	void setFontSize(int size);
-
-	int getFontSize();
-	
-	void setFontFamily(String font);
-
-	String getFontFamily();
 }

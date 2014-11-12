@@ -17,7 +17,7 @@ import org.geomajas.graphics.client.object.updateable.AnchoredBorderedText;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;
-import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.render.shape.MarkerShape;
 
 /**
  * Controller that creates a {@link AnchoredBorderedText}.
@@ -44,7 +44,7 @@ public class CreateAnchoredBorderedTextController extends CreateBaseTextControll
 			execute(null);
 			return;
 		}
-		Coordinate clickPosition = result.getPosition();
+		Coordinate clickPosition = result.getUserPosition();
 		Coordinate screenIconPosition = transform(clickPosition,
 				GraphicsObjectContainer.Space.USER, GraphicsObjectContainer.Space.SCREEN);
 		Coordinate iconPosition = transform(new Coordinate(screenIconPosition.getX(), screenIconPosition.getY() - 40),

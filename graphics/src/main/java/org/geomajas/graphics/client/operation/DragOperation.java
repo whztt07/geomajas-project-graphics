@@ -37,12 +37,12 @@ public class DragOperation implements GraphicsOperation {
 
 	@Override
 	public void execute() {
-		asDraggable().setPosition(afterPosition);
+		asDraggable().setUserPosition(afterPosition);
 	}
 
 	@Override
 	public void undo() {
-		asDraggable().setPosition(beforePosition);
+		asDraggable().setUserPosition(beforePosition);
 	}
 
 	private Draggable asDraggable() {

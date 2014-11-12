@@ -40,7 +40,7 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 
 	@Override
 	public void update() {
-		invisbleMaskGraphicsObject.getRole(Draggable.TYPE).setPosition(getDraggable().getPosition());
+		invisbleMaskGraphicsObject.getRole(Draggable.TYPE).setUserPosition(getDraggable().getUserPosition());
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 	protected GraphicsObject createDraggingMask() {
 		GraphicsObject maskObject = (GraphicsObject) getObject().cloneObject();
 		maskObject.setOpacity(0.5);
-		maskObject.getRole(Draggable.TYPE).setPosition(getBeginPositionUser());
+		maskObject.getRole(Draggable.TYPE).setUserPosition(getBeginPositionUser());
 		return maskObject;
 	}
 
 	@Override
 	protected Coordinate getObjectPosition() {
-		return getDraggable().getPosition();
+		return getDraggable().getUserPosition();
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class GraphicsObjectDragHandler extends AbstractDragHandler {
 
 	@Override
 	protected void mouseMoveContent(MouseMoveEvent event) {
-		getDraggingMask().getRole(Draggable.TYPE).setPosition(
+		getDraggingMask().getRole(Draggable.TYPE).setUserPosition(
 				getNewPosition(event.getClientX(), event.getClientY()));
 	}
 

@@ -56,9 +56,9 @@ public class DragControllerTest {
 		h.onDragStart(100, 100);
 		h.onDragStop(105, 110);
 
-		Assert.assertTrue(m.getPosition().equalsDelta(new Coordinate(10, 16), DOUBLE_DELTA));
+		Assert.assertTrue(m.getUserPosition().equalsDelta(new Coordinate(10, 16), DOUBLE_DELTA));
 		service.undo();
-		Assert.assertTrue(m.getPosition().equalsDelta(new Coordinate(5, 6), DOUBLE_DELTA));
+		Assert.assertTrue(m.getUserPosition().equalsDelta(new Coordinate(5, 6), DOUBLE_DELTA));
 	}
 
 }

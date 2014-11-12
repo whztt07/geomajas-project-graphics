@@ -99,7 +99,7 @@ public class DraggableDecoratedPopupPanel extends DecoratedPopupPanel implements
 
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		this.coordinate = position;
 		centerText();
 	}
@@ -113,7 +113,7 @@ public class DraggableDecoratedPopupPanel extends DecoratedPopupPanel implements
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return coordinate;
 	}
 
@@ -131,7 +131,7 @@ public class DraggableDecoratedPopupPanel extends DecoratedPopupPanel implements
 
 	@Override
 	public void setUserBounds(Bbox bounds) {
-		setPosition(BboxService.getCenterPoint(bounds));
+		setUserPosition(BboxService.getCenterPoint(bounds));
 		setWidth(bounds.getWidth() + "");
 		setHeight(bounds.getHeight() + "");
 	}
@@ -154,7 +154,7 @@ public class DraggableDecoratedPopupPanel extends DecoratedPopupPanel implements
 	@Override
 	public void onMouseMove(MouseMoveEvent event) {
 //		if(dragging){
-//			setPosition(new Coordinate(event.getScreenX(), event.getScreenY()));
+//			setUserPosition(new Coordinate(event.getScreenX(), event.getScreenY()));
 //		}
 	}
 
@@ -166,8 +166,8 @@ public class DraggableDecoratedPopupPanel extends DecoratedPopupPanel implements
 	@Override
 	public void onMouseDown(MouseDownEvent event) {
 		dragging = true;
-		getPosition();
-		setPosition(new Coordinate(event.getClientX(), event.getClientY()));
+		getUserPosition();
+		setUserPosition(new Coordinate(event.getClientX(), event.getClientY()));
 		getOffsetWidth();
 		getOffsetHeight();
 		getAbsoluteLeft();

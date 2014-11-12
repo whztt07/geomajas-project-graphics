@@ -26,7 +26,7 @@ import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.shape.AnchoredImage;
+import org.geomajas.graphics.client.render.shape.AnchoredImage;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.GraphicsUtil;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;

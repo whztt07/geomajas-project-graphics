@@ -69,7 +69,7 @@ public class LabeledImpl extends BaseGraphicsObject implements Labeled, Updateab
 
 	private void centerText() {
 		Coordinate center = BboxService.getCenterPoint(resizable.getUserBounds());
-		baseText.setPosition(center);
+		baseText.setUserPosition(center);
 	}
 
 	@Override

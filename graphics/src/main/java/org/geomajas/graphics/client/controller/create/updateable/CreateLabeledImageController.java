@@ -83,7 +83,7 @@ public class CreateLabeledImageController extends CreateController<LabeledImage>
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
 		LabeledImage result = new LabeledImage(0, 0, width, height, href, "Image");
-		result.getRole(Draggable.TYPE).setPosition(getUserCoordinate(event));
+		result.getRole(Draggable.TYPE).setUserPosition(getUserCoordinate(event));
 		execute(new AddOperation(result));
 	}
 

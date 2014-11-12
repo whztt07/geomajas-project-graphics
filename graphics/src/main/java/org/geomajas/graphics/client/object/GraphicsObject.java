@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.object;
 
-import org.geomajas.graphics.client.object.role.Renderable;
+import org.geomajas.graphics.client.render.Renderable;
 import org.vaadin.gwtgraphics.client.Transparent;
 
 

@@ -36,7 +36,7 @@ import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.operation.ResizeOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
+import org.geomajas.graphics.client.render.shape.AnchoredRectangleImpl;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.FlipState;
 import org.geomajas.graphics.client.util.GraphicsUtil;

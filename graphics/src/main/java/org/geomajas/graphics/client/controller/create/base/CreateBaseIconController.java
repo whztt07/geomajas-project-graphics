@@ -20,7 +20,7 @@ import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.base.BaseIcon;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.render.shape.MarkerShape;
 import org.geomajas.graphics.client.widget.CreateIconChoicePopup;
 
 import java.util.List;
@@ -120,7 +120,7 @@ public class CreateBaseIconController extends CreateController<BaseIcon>
 
 	public void createIconInContainer(String iconUrl, MarkerShape markerShape) {
 		BaseIcon result = createIcon(clickPosition, iconUrl);
-		result.getRole(Draggable.TYPE).setPosition(clickPosition);
+		result.getRole(Draggable.TYPE).setUserPosition(clickPosition);
 		addObject(result);
 	}
 	

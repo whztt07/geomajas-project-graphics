@@ -257,7 +257,7 @@ public class MetaController extends AbstractInterruptibleGraphicsController
 							activateControllersForObject(object, null);
 						}
 					} else if (object.hasRole(Draggable.TYPE)) {
-						Coordinate p = object.getRole(Draggable.TYPE).getPosition();
+						Coordinate p = object.getRole(Draggable.TYPE).getUserPosition();
 						if (BboxService.contains(dragRectangle.getUserBounds(), p)) {
 							activateControllersForObject(object, null);
 						}

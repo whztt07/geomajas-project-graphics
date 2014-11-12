@@ -41,7 +41,7 @@ import org.geomajas.graphics.client.operation.DragOperation;
 import org.geomajas.graphics.client.operation.ResizeOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
+import org.geomajas.graphics.client.render.shape.AnchoredRectangleImpl;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.FlipState;
 import org.geomajas.graphics.client.util.GraphicsUtil;
@@ -506,7 +506,7 @@ public class ResizeControllerHtml extends AbstractInterruptibleGraphicsControlle
 				}
 				mask = (GraphicsObject) getObject().cloneObject();
 				mask.setOpacity(0.5);
-				mask.getRole(Draggable.TYPE).setPosition(beginPosition);
+				mask.getRole(Draggable.TYPE).setUserPosition(beginPosition);
 				handlerGroup.add(mask.asObject());
 			}
 		}
@@ -525,14 +525,14 @@ public class ResizeControllerHtml extends AbstractInterruptibleGraphicsControlle
 		/** {@inheritDoc} */
 		public void onMouseMove(MouseMoveEvent event) {
 			if (dragging) {
-				mask.getRole(Draggable.TYPE).setPosition(getNewPosition(event.getClientX(), event.getClientY()));
+				mask.getRole(Draggable.TYPE).setUserPosition(getNewPosition(event.getClientX(), event.getClientY()));
 				onDragContinue();
 			}
 		}
 
 		protected void onDragStart(int x, int y) {
 			userBegin = transform(new Coordinate(x, y), Space.SCREEN, Space.USER);
-			beginPosition = (Coordinate) object.getPosition().clone();
+			beginPosition = (Coordinate) object.getUserPosition().clone();
 		}
 
 		protected void onDragContinue() {

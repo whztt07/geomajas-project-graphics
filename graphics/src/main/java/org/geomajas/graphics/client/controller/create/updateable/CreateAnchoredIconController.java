@@ -17,7 +17,7 @@ import org.geomajas.graphics.client.object.updateable.AnchoredIcon;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;
-import org.geomajas.graphics.client.shape.MarkerShape;
+import org.geomajas.graphics.client.render.shape.MarkerShape;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class CreateAnchoredIconController extends CreateBaseIconController {
 
 	@Override
 	protected void addObject(BaseIcon result) {
-		Coordinate clickPosition = result.getPosition();
+		Coordinate clickPosition = result.getUserPosition();
 		Coordinate screenIconPosition = transform(clickPosition,
 				GraphicsObjectContainer.Space.USER, GraphicsObjectContainer.Space.SCREEN);
 		Coordinate iconPosition = transform(new Coordinate(screenIconPosition.getX(), screenIconPosition.getY() - 40),

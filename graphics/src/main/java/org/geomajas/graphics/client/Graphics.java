@@ -10,8 +10,8 @@
  */
 package org.geomajas.graphics.client;
 
-import org.geomajas.graphics.client.shape.ShapeCreationManager;
-import org.geomajas.graphics.client.shape.ShapeCreationManagerImpl;
+import org.geomajas.graphics.client.render.shape.RenderElementFactory;
+import org.geomajas.graphics.client.render.shape.ShapeRenderElementFactoryImpl;
 
 /**
  * Starting class for the Graphics Project.
@@ -23,7 +23,7 @@ public final class Graphics {
 
 	private static GraphicsViewManager viewManager;
 
-	private static ShapeCreationManager shapeCreationManager;
+	private static RenderElementFactory renderElementFactory;
 
 	private Graphics() {
 	}
@@ -39,14 +39,14 @@ public final class Graphics {
 		Graphics.viewManager = viewManager;
 	}
 
-	public static ShapeCreationManager getShapeCreationManager() {
-		if (shapeCreationManager == null) {
-			shapeCreationManager = new ShapeCreationManagerImpl();
+	public static RenderElementFactory getRenderElementFactory() {
+		if (renderElementFactory == null) {
+			renderElementFactory = new ShapeRenderElementFactoryImpl();
 		}
-		return shapeCreationManager;
+		return renderElementFactory;
 	}
 
-	public static void setShapeCreationManager(ShapeCreationManager shapeCreationManager) {
-		Graphics.shapeCreationManager = shapeCreationManager;
+	public static void setRenderElementFactory(RenderElementFactory renderElementFactory) {
+		Graphics.renderElementFactory = renderElementFactory;
 	}
 }

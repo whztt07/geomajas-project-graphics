@@ -26,6 +26,8 @@ public interface CoordinateBased extends RoleInterface {
 
 	void setCoordinates(Coordinate[] coordinates);
 
+	Coordinate[] getCoordinates();
+
 	void addCoordinate(Coordinate coordinate);
 
 	Coordinate getLastCoordinate();

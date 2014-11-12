@@ -36,7 +36,7 @@ public class CreateLabeledPathController extends CreateBasePathController {
 		LabeledPath labeledPath = new LabeledPath(path.getCoordinates(), path.isClosed(),
 				path.isClosed() ? "Polygon" : "Line");
 		if (labeledPath.hasRole(Fillable.TYPE) && path.hasRole(Fillable.TYPE)) {
-			CopyUtil.copyProperties(path.getRole(Fillable.TYPE), labeledPath.getRole(Fillable.TYPE));
+			CopyUtil.copyFillableProperties(path.getRole(Fillable.TYPE), labeledPath.getRole(Fillable.TYPE));
 		}
 		execute(new AddOperation(labeledPath));
 	}

@@ -8,15 +8,16 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.object.base;
+package org.geomajas.graphics.client.render;
 
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.shape.CoordinatePath;
+import org.geomajas.graphics.client.object.base.BasePath;
+import org.geomajas.graphics.client.render.shape.CoordinatePathShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Extention of {@link BasePath} for an unclosed path SVG object (a line), with a pointer event area
+ * Extention of {@link org.geomajas.graphics.client.object.base.BasePath} for an unclosed path SVG object (a line), with a pointer event area
  * with a (stroke)width  value of at least
  * {@link org.geomajas.graphics.client.object.GPath.ResizablePathLine#getPointerEventAreaminimumWidth()} ()}.
  * This value can be customized.
@@ -31,7 +32,7 @@ public class BasePathLine extends BasePath {
 	/**
 	 * Transparant helper line object, still generating pointer events .
 	 */
-	private CoordinatePath clickArea;
+	private CoordinatePathShape clickArea;
 
 	private Group group;
 
@@ -51,10 +52,10 @@ public class BasePathLine extends BasePath {
 	public BasePathLine(Coordinate[] coordinates) {
 		super(coordinates, false);
 		group = new Group();
-		group.add(path);
-		clickArea = new CoordinatePath(coordinates, false);
+		group.add(((VectorObject) path));
+		clickArea = new CoordinatePathShape(coordinates, false);
 		clickArea.setStrokeWidth(pointerEventAreaminimumWidth);
-		clickArea.setStrokeOpacity(0);  // makes it invisble, but mouse events will still be registered
+		clickArea.setStrokeOpacity(0);  // makes it invisible, but mouse events will still be registered
 		group.add(clickArea);
 	}
 
@@ -82,8 +83,8 @@ public class BasePathLine extends BasePath {
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
-		super.setPosition(position);
+	public void setUserPosition(Coordinate position) {
+		super.setUserPosition(position);
 		clickArea.setUserPosition(position);
 	}
 

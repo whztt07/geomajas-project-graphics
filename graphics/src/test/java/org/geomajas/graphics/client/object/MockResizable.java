@@ -26,18 +26,18 @@ public class MockResizable extends BaseGraphicsObject implements Resizable {
 	private FlipState flipState = FlipState.NONE;
 
 	public MockResizable(Coordinate position, Bbox bounds) {
-		setPosition(position);
+		setUserPosition(position);
 		setUserBounds(bounds);
 		addRole(Resizable.TYPE, this);
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		this.position = (Coordinate) position.clone();
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return new Coordinate(position);
 	}
 

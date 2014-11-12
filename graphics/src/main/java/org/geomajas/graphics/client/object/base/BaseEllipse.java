@@ -13,12 +13,14 @@ package org.geomajas.graphics.client.object.base;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.render.Ellipse;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
-import org.vaadin.gwtgraphics.client.shape.Ellipse;
+
 
 /**
  * Extension of {@link BaseGraphicsObject} for a ellipse.
@@ -40,7 +42,7 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 	}
 
 	public BaseEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY) {
-		this(new Ellipse(ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY));
+		this(Graphics.getRenderElementFactory().createEllipse(ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY));
 	}
 
 	public BaseEllipse(Ellipse ellipse) {
@@ -50,20 +52,20 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		ellipse.setUserX(position.getX());
 		ellipse.setUserY(position.getY());
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return new Coordinate(ellipse.getUserX(), ellipse.getUserY());
 	}
 
 	public Object cloneObject() {
-		Ellipse mask = new Ellipse(ellipse.getUserX(), ellipse.getUserY(), ellipse.getUserRadiusX(),
+		BaseEllipse mask = new BaseEllipse(ellipse.getUserX(), ellipse.getUserY(), ellipse.getUserRadiusX(),
 				ellipse.getUserRadiusY());
-		return new BaseEllipse(mask);
+		return mask;
 	}
 
 	@Override
@@ -73,7 +75,7 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 
 	@Override
 	public void setUserBounds(Bbox bounds) {
-		setPosition(BboxService.getCenterPoint(bounds));
+		setUserPosition(BboxService.getCenterPoint(bounds));
 		ellipse.setUserRadiusX(bounds.getWidth() / 2);
 		ellipse.setUserRadiusY(bounds.getHeight() / 2);
 	}
@@ -102,7 +104,7 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 
 	@Override
 	public VectorObject asObject() {
-		return ellipse;
+		return (VectorObject) ellipse;
 	}
 
 

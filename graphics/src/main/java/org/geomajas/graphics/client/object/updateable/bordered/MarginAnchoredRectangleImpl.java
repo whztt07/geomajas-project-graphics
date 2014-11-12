@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.object.updateable.bordered;
 
-import org.geomajas.graphics.client.shape.AnchoredRectangleImpl;
+import org.geomajas.graphics.client.render.shape.AnchoredRectangleImpl;
 
 /**
  * A non-scaling rectangle that is anchored to its world space location on a specific pixel or anchor location (useful

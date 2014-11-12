@@ -8,7 +8,14 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.shape;
+package org.geomajas.graphics.client.render.shape;
+
+import org.geomajas.geometry.Bbox;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.render.AnchoredRectangle;
+import org.geomajas.graphics.client.render.AnchoredText;
+import org.geomajas.graphics.client.render.CoordinatePath;
+import org.geomajas.graphics.client.render.Ellipse;
 
 /**
  * Interface for specific view elements.
@@ -16,11 +23,15 @@ package org.geomajas.graphics.client.shape;
  * @author Jan Venstermans
  *
  */
-public interface ShapeCreationManager {
+public interface RenderElementFactory {
 
 	AnchoredText createAnchoredText(double userX, double userY, String text, double anchorX, double anchorY);
 
 	AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight);
 
-	AnchoredRectangle createMarinAnchoredRectangle(double userX, double userY, double width, double height, int margin);
+	AnchoredRectangle createMarginAnchoredRectangle(double userX, double userY, double width, double height, int margin);
+
+	CoordinatePath createCoordinatePath(Coordinate[] coordinates, boolean closed);
+
+	Ellipse createEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY);
 }

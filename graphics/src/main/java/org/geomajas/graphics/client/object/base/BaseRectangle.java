@@ -18,7 +18,8 @@ import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.shape.AnchoredRectangle;
+import org.geomajas.graphics.client.render.AnchoredRectangle;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -33,7 +34,7 @@ public class BaseRectangle extends BaseGraphicsObject implements Resizable, Drag
 	private AnchoredRectangle rectangle;
 
 	public BaseRectangle(double userX, double userY, double width, double height) {
-		this(Graphics.getShapeCreationManager().createAnchoredRectangle(userX, userY, width, height));
+		this(Graphics.getRenderElementFactory().createAnchoredRectangle(userX, userY, width, height));
 	}
 
 	public BaseRectangle(AnchoredRectangle rectangle) {
@@ -45,20 +46,23 @@ public class BaseRectangle extends BaseGraphicsObject implements Resizable, Drag
 	}
 
 	@Override
-	public void setPosition(Coordinate position) {
+	public void setUserPosition(Coordinate position) {
 		rectangle.setUserX(position.getX());
 		rectangle.setUserY(position.getY());
 	}
 
 	@Override
-	public Coordinate getPosition() {
+	public Coordinate getUserPosition() {
 		return new Coordinate(rectangle.getUserX(), rectangle.getUserY());
 	}
 
 	@Override
 	public Object cloneObject() {
-		AnchoredRectangle mask = Graphics.getShapeCreationManager().createAnchoredRectangle(
+		AnchoredRectangle mask = Graphics.getRenderElementFactory().createAnchoredRectangle(
 				rectangle.getUserX(), rectangle.getUserY(), rectangle.getUserWidth(), rectangle.getUserHeight());
+		BaseRectangle clone =  new BaseRectangle(mask);
+		CopyUtil.copyStrokableProperties(this, clone);
+		CopyUtil.copyFillableProperties(this, clone);
 		return new BaseRectangle(mask);
 	}
 
