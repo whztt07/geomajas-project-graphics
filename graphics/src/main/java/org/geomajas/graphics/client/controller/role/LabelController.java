@@ -26,7 +26,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.graphics.client.controller.AbstractInterruptibleGraphicsController;
 import org.geomajas.graphics.client.controller.GraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
+import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.operation.LabelOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 
@@ -50,11 +50,11 @@ public class LabelController extends AbstractInterruptibleGraphicsController imp
 
 	private List<HandlerRegistration> popupRegs = new ArrayList<HandlerRegistration>();
 
-	private LabeledUpdateable object;
+	private Labeled object;
 
 	public LabelController(GraphicsObject object, GraphicsService graphicsService) {
 		super(graphicsService, object);
-		this.object = object.getRole(LabeledUpdateable.TYPE);
+		this.object = object.getRole(Labeled.TYPE);
 	}
 
 	@Override

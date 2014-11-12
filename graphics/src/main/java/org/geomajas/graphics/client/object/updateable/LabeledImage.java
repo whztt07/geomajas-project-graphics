@@ -14,8 +14,8 @@ import org.geomajas.geometry.Bbox;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.base.BaseImage;
+import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
-import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
 import org.vaadin.gwtgraphics.client.Group;
@@ -47,7 +47,7 @@ public class LabeledImage extends UpdateableGroupGraphicsObject {
 		// register roles of group object
 		addRole(Resizable.TYPE, new ResizableWrapperForUpdateable(baseImage, this));
 		addRole(Draggable.TYPE, new DraggableWrapperForUpdateable(baseImage, this));
-		addRole(LabeledUpdateable.TYPE, labeled);
+		addRole(Labeled.TYPE, labeled);
 
 		// register render order
 		rootGroup.add(baseImage.asObject());

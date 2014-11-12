@@ -13,7 +13,6 @@ package org.geomajas.graphics.client.object.updateable.labeled;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.object.updateable.Updateable;
 
 
 /**
@@ -23,9 +22,9 @@ import org.geomajas.graphics.client.object.updateable.Updateable;
  * @author Jan Venstermans
  * 
  */
-public interface LabeledUpdateable extends Updateable, RoleInterface {
+public interface Labeled extends RoleInterface {
 	
-	RoleType<LabeledUpdateable> TYPE = new RoleType<LabeledUpdateable>("LabeledUpdateable");
+	RoleType<Labeled> TYPE = new RoleType<Labeled>("Labeled");
 
 	Textable getTextable();
 

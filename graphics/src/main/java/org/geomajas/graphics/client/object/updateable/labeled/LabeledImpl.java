@@ -16,17 +16,18 @@ import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.base.BaseText;
 import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.object.updateable.Updateable;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Implementation of {@link LabeledUpdateable} role.
+ * Implementation of {@link Labeled} role with the {@link Updateable} interface.
  * The label is a {@link BaseText} that is positioned based on a {@link Resizable}.
  *
  * @author Jan De Moerloose
  * @author Jan Venstermans
  *
  */
-public class LabeledImpl extends BaseGraphicsObject implements LabeledUpdateable {
+public class LabeledImpl extends BaseGraphicsObject implements Labeled, Updateable {
 
 	private Resizable resizable; // subject
 
@@ -40,7 +41,7 @@ public class LabeledImpl extends BaseGraphicsObject implements LabeledUpdateable
 		this.resizable = resizableSubject;
 		this.baseText = baseText;
 
-		addRole(LabeledUpdateable.TYPE, this);
+		addRole(Labeled.TYPE, this);
 
 		onUpdate();
 	}

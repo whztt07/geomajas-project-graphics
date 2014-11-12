@@ -10,11 +10,10 @@
  */
 package org.geomajas.graphics.client.object.updateable.bordered;
 
-import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
+import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.object.updateable.Updateable;
 
 /**
  * Interface for a border.
@@ -23,9 +22,9 @@ import org.geomajas.graphics.client.object.updateable.Updateable;
  * @author Jan Venstermans
  * 
  */
-public interface BorderedUpdateable extends Updateable, RoleInterface {
+public interface Bordered extends RoleInterface {
 
-	RoleType<BorderedUpdateable> TYPE = new RoleType<BorderedUpdateable>("BorderedUpdateable");
+	RoleType<Bordered> TYPE = new RoleType<Bordered>("Bordered");
 
 	Strokable getStrokable();
 

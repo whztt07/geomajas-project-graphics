@@ -18,8 +18,8 @@ import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.role.Textable;
 import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.object.updateable.anchored.AnchoredImpl;
+import org.geomajas.graphics.client.object.updateable.bordered.Bordered;
 import org.geomajas.graphics.client.object.updateable.bordered.BorderedImpl;
-import org.geomajas.graphics.client.object.updateable.bordered.BorderedUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.TextableWrapperForUpdateable;
 import org.geomajas.graphics.client.shape.MarkerShape;
@@ -60,7 +60,7 @@ public class AnchoredBorderedText extends UpdateableGroupGraphicsObject {
 		addRole(Draggable.TYPE, new DraggableWrapperForUpdateable(baseText, this));
 		addRole(Strokable.TYPE, bordered.getStrokable());
 		addRole(Fillable.TYPE, bordered.getFillable());
-		addRole(BorderedUpdateable.TYPE, bordered);
+		addRole(Bordered.TYPE, bordered);
 		addRole(Anchored.TYPE, anchored);
 
 		// register render order

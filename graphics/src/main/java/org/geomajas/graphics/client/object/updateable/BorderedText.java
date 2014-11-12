@@ -15,8 +15,8 @@ import org.geomajas.graphics.client.object.base.BaseText;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.object.updateable.bordered.Bordered;
 import org.geomajas.graphics.client.object.updateable.bordered.BorderedImpl;
-import org.geomajas.graphics.client.object.updateable.bordered.BorderedUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.TextableWrapperForUpdateable;
 import org.vaadin.gwtgraphics.client.Group;
@@ -50,7 +50,7 @@ public class BorderedText extends UpdateableGroupGraphicsObject {
 		addRole(Draggable.TYPE, new DraggableWrapperForUpdateable(baseText, this));
 		addRole(Strokable.TYPE, bordered.getStrokable());
 		addRole(Fillable.TYPE, bordered.getFillable());
-		addRole(BorderedUpdateable.TYPE, bordered);
+		addRole(Bordered.TYPE, bordered);
 
 		// register render order
 		rootGroup.add(bordered.asObject());

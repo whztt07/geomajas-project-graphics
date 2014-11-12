@@ -14,10 +14,10 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.base.BasePath;
+import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
 import org.geomajas.graphics.client.util.CopyUtil;
@@ -54,7 +54,7 @@ public class LabeledPath extends UpdateableGroupGraphicsObject {
 		}
 		addRole(Resizable.TYPE, new ResizableWrapperForUpdateable(basePath, this));
 		addRole(Draggable.TYPE, new DraggableWrapperForUpdateable(basePath, this));
-		addRole(LabeledUpdateable.TYPE, labeled);
+		addRole(Labeled.TYPE, labeled);
 
 		// register render order
 		rootGroup.add(basePath.asObject());

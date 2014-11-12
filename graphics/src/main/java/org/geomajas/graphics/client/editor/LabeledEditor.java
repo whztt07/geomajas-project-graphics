@@ -10,19 +10,19 @@
  */
 package org.geomajas.graphics.client.editor;
 
-import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
+import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
 import org.geomajas.graphics.client.resource.GraphicsResource;
 
 /**
  * {@link Editor}
- * for the {@link LabeledUpdateable} role.
+ * for the {@link org.geomajas.graphics.client.object.updateable.labeled.Labeled} role.
  *
  * @author Jan Venstermans
  *
  */
-public class LabeledUpdateableEditor extends AbstractDelegateRoleEditor<LabeledUpdateable, TextableEditor> {
+public class LabeledEditor extends AbstractDelegateRoleEditor<Labeled, TextableEditor> {
 
 	@Override
 	public TextableEditor createNewDelegate() {
@@ -35,8 +35,8 @@ public class LabeledUpdateableEditor extends AbstractDelegateRoleEditor<LabeledU
 	}
 
 	@Override
-	protected RoleType<LabeledUpdateable> getType() {
-		return LabeledUpdateable.TYPE;
+	protected RoleType<Labeled> getType() {
+		return Labeled.TYPE;
 	}
 
 	@Override

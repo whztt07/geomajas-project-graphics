@@ -16,18 +16,19 @@ import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
+import org.geomajas.graphics.client.object.updateable.Updateable;
 import org.geomajas.graphics.client.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Extension of {@link org.geomajas.graphics.client.object.updateable.UpdateableGroupGraphicsObject}
+ * Implementation of {@link Anchored} with the {@link Updateable} interface.
  * that shows an anchor linked to a {@link org.geomajas.graphics.client.object.base.BaseIcon}.
  *
  * @author Jan Venstermans
  *
  */
-public class AnchoredImpl extends BaseGraphicsObject implements Anchored {
+public class AnchoredImpl extends BaseGraphicsObject implements Anchored, Updateable {
 
 	private Group rootGroup = new Group();
 

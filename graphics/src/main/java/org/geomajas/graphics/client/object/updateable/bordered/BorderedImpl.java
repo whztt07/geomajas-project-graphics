@@ -14,10 +14,11 @@ import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
+import org.geomajas.graphics.client.object.updateable.Updateable;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
- * Implementation of {@link BorderedUpdateable} role.
+ * Implementation of {@link Bordered} role with the {@link Updateable} interface.
  * The label is a {@link MarginBaseRectangle} that is positioned based on the borders of a {@link Draggable},
  * extended by a margin.
  *
@@ -25,7 +26,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  * @author Jan Venstermans
  *
  */
-public class BorderedImpl extends BaseGraphicsObject implements BorderedUpdateable {
+public class BorderedImpl extends BaseGraphicsObject implements Bordered, Updateable {
 
 	private Draggable draggable;
 
@@ -40,7 +41,7 @@ public class BorderedImpl extends BaseGraphicsObject implements BorderedUpdateab
 		borderRect.setFillColor("#CCFF99");
 		borderRect.setStrokeColor("#CCCC99");
 
-		addRole(BorderedUpdateable.TYPE, this);
+		addRole(Bordered.TYPE, this);
 
 		onUpdate();
 	}

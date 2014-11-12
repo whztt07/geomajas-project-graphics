@@ -11,11 +11,10 @@
 package org.geomajas.graphics.client.object.updateable.anchored;
 
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.RoleInterface;
 import org.geomajas.graphics.client.object.RoleType;
+import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.object.updateable.Updateable;
 import org.geomajas.graphics.client.shape.MarkerShape;
 
 /**
@@ -25,9 +24,9 @@ import org.geomajas.graphics.client.shape.MarkerShape;
  * @author Jan Venstermans
  * 
  */
-public interface Anchored extends Updateable, RoleInterface {
+public interface Anchored extends RoleInterface {
 
-	RoleType<Anchored> TYPE = new RoleType<Anchored>("AnchoredUpdateable");
+	RoleType<Anchored> TYPE = new RoleType<Anchored>("Anchored");
 
 	/* anchor line */
 

@@ -12,7 +12,7 @@ package org.geomajas.graphics.client.operation;
 
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Textable;
-import org.geomajas.graphics.client.object.updateable.labeled.LabeledUpdateable;
+import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.service.GraphicsService;
 
 /**
@@ -78,8 +78,8 @@ public class LabelOperation implements GraphicsOperation {
 
 	public Textable asTextable() {
 		Textable textable = null;
-		if (labeled.hasRole(LabeledUpdateable.TYPE)) {
-			textable = labeled.getRole(LabeledUpdateable.TYPE).getTextable();
+		if (labeled.hasRole(Labeled.TYPE)) {
+			textable = labeled.getRole(Labeled.TYPE).getTextable();
 		} else if (labeled.hasRole(Textable.TYPE)) {
 			textable = labeled.getRole(Textable.TYPE);
 		}
