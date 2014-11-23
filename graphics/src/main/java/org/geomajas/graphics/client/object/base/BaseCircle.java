@@ -13,12 +13,13 @@ package org.geomajas.graphics.client.object.base;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.render.AnchoredCircle;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
-import org.vaadin.gwtgraphics.client.shape.Circle;
 
 /**
  * Extension of {@link BaseGraphicsObject} for a circle.
@@ -28,13 +29,13 @@ import org.vaadin.gwtgraphics.client.shape.Circle;
  */
 public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggable {
 
-	private Circle circle;
+	private AnchoredCircle circle;
 
 	public BaseCircle(double x, double y, double radius) {
-		this(new Circle(x, y, radius));
+		this(Graphics.getRenderElementFactory().createCircle(x, y, radius));
 	}
 
-	public BaseCircle(Circle circle) {
+	public BaseCircle(AnchoredCircle circle) {
 		this.circle = circle;
 		addRole(Resizable.TYPE, this);
 		addRole(Draggable.TYPE, this);
@@ -52,8 +53,8 @@ public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggab
 	}
 
 	public Object cloneObject() {
-		Circle mask = new Circle(circle.getUserX(), circle.getUserY(), circle.getUserRadius());
-		return new BaseCircle(mask);
+		BaseCircle mask = new BaseCircle(circle.getUserX(), circle.getUserY(), circle.getUserRadius());
+		return mask;
 	}
 
 	@Override
@@ -93,7 +94,10 @@ public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggab
 
 	@Override
 	public VectorObject asObject() {
-		return circle;
+		if (circle instanceof VectorObject) {
+			return (VectorObject) circle;
+		}
+		return null;
 	}
 
 

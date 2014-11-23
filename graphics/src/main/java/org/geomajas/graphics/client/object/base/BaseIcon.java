@@ -12,11 +12,10 @@ package org.geomajas.graphics.client.object.base;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
-import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.render.shape.AnchoredImage;
-import org.geomajas.graphics.client.util.FlipState;
+import org.geomajas.graphics.client.render.AnchoredImage;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -26,23 +25,26 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  * @author Jan Venstermans
  * 
  */
-public class BaseIcon extends BaseGraphicsObject implements Draggable, Resizable {
+public class BaseIcon extends BaseGraphicsObject implements Draggable {
 
 	private AnchoredImage anchoredImage;
 
 	public BaseIcon(double userX, double userY, int width, int height, String href) {
-		this(createAnchoredImageWithPreserveRatio(userX, userY, width, height, href));
+		this(Graphics.getRenderElementFactory().createAnchoredImage(userX, userY,
+				width, height, href, true, 0.5, 0.5));
 	}
 
 	public BaseIcon(AnchoredImage anchoredImage) {
 		this.anchoredImage = anchoredImage;
-		addRole(Resizable.TYPE, this);
 		addRole(Draggable.TYPE, this);
 	}
 
 	@Override
 	public VectorObject asObject() {
-		return anchoredImage;
+		if (anchoredImage instanceof VectorObject) {
+			return (VectorObject) anchoredImage;
+		}
+		return null;
 	}
 
 	@Override
@@ -56,16 +58,10 @@ public class BaseIcon extends BaseGraphicsObject implements Draggable, Resizable
 		return new Coordinate(anchoredImage.getUserX(), anchoredImage.getUserY());
 	}
 
-	public AnchoredImage createCopy() {
-		AnchoredImage mask = new AnchoredImage(anchoredImage.getUserX(), anchoredImage.getUserY(),
-				anchoredImage.getWidth(), anchoredImage.getHeight(), anchoredImage.getHref(),
-				anchoredImage.getAnchorX(), anchoredImage.getAnchorY());
-		return mask;
-	}
-
+	@Override
 	public void setOpacity(double opacity) {
 		try {
-			anchoredImage.getElement().getStyle().setOpacity(opacity);
+			anchoredImage.setOpacity(opacity);
 		} catch (Exception e) {
 			// do nothing
 		}
@@ -74,11 +70,6 @@ public class BaseIcon extends BaseGraphicsObject implements Draggable, Resizable
 	@Override
 	public Bbox getUserBounds() {
 		return anchoredImage.getUserBounds();
-	}
-
-	@Override
-	public void flip(FlipState state) {
-		// do nothing
 	}
 
 	@Override
@@ -91,28 +82,13 @@ public class BaseIcon extends BaseGraphicsObject implements Draggable, Resizable
 		return anchoredImage.getBounds();
 	}
 
-	@Override
-	public boolean isPreserveRatio() {
-		return anchoredImage.getPreserveAspectRatio();
-	}
-
-	@Override
-	public boolean isAutoHeight() {
-		return false;
-	}
-
 	public Object cloneObject() {
-		return new BaseIcon(createCopy());
+		return new BaseIcon(anchoredImage.getUserX(), anchoredImage.getUserY(),
+				anchoredImage.getWidth(), anchoredImage.getHeight(), anchoredImage.getHref());
 	}
 
 	public String getHref() {
 		return anchoredImage.getHref();
 	}
 
-	private static AnchoredImage createAnchoredImageWithPreserveRatio(double userX, double userY,
-																	  int width, int height, String href) {
-		AnchoredImage anchoredImage = new AnchoredImage(userX, userY, width, height, href, 0.5, 0.5);
-		anchoredImage.setPreserveAspectRatio(true);
-		return anchoredImage;
-	}
 }

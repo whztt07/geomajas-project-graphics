@@ -24,9 +24,9 @@ import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.render.shape.AnchoredImageImpl;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.render.shape.AnchoredImage;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.GraphicsUtil;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
@@ -134,11 +134,11 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 		}
 	}
 	
-	public AnchoredImage getPropertyImage() {
+	public AnchoredImageImpl getPropertyImage() {
 		return handler.getPropertyImage();
 	}
 	
-	public void setPropertyImage(AnchoredImage propertyImage) {
+	public void setPropertyImage(AnchoredImageImpl propertyImage) {
 		handler.setPropertyImage(propertyImage);
 	}
 
@@ -153,10 +153,10 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 	 */
 	class PropertyHandler implements MouseDownHandler {
 
-		private AnchoredImage propertyImage;
+		private AnchoredImageImpl propertyImage;
 
 		public PropertyHandler() {
-			propertyImage = new AnchoredImage(0, 0, 16, 16, iconUrl != null ? iconUrl : GWT.getModuleBaseURL()
+			propertyImage = new AnchoredImageImpl(0, 0, 16, 16, iconUrl != null ? iconUrl : GWT.getModuleBaseURL()
 					+ "image/cogContrast.png", Graphics.getGraphicsConstants().getOffsetX(),
 					Graphics.getGraphicsConstants().getOffsetY());
 			propertyImage.setFixedSize(true);
@@ -192,12 +192,12 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 		}
 		
 		
-		public AnchoredImage getPropertyImage() {
+		public AnchoredImageImpl getPropertyImage() {
 			return propertyImage;
 		}
 
 		
-		public void setPropertyImage(AnchoredImage propertyImage) {
+		public void setPropertyImage(AnchoredImageImpl propertyImage) {
 			this.propertyImage = propertyImage;
 		}
 		

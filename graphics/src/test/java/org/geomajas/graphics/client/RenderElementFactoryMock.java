@@ -11,14 +11,18 @@
 package org.geomajas.graphics.client;
 
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.render.AnchoredCircle;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
+import org.geomajas.graphics.client.render.AnchoredImage;
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
-import org.geomajas.graphics.client.render.AnchoredEllipse;
+import org.geomajas.graphics.client.render.shape.RenderElementFactory;
+import org.geomajas.graphics.client.shape.MockAnchoredCircle;
 import org.geomajas.graphics.client.shape.MockAnchoredEllipse;
+import org.geomajas.graphics.client.shape.MockAnchoredImage;
 import org.geomajas.graphics.client.shape.MockAnchoredRectangle;
 import org.geomajas.graphics.client.shape.MockAnchoredText;
-import org.geomajas.graphics.client.render.shape.RenderElementFactory;
 import org.geomajas.graphics.client.shape.MockCoordinatePath;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -85,4 +89,40 @@ public class RenderElementFactoryMock implements RenderElementFactory {
 		mockEllipse.setUserY(ellipseCenterY);
 		return mockEllipse;
 	}
+
+	@Override
+	public AnchoredCircle createCircle(double circleCenterX, double circleCenterY, double radius) {
+		MockAnchoredCircle mockAnchoredCircle = new MockAnchoredCircle();
+		mockAnchoredCircle.setUserRadius(radius);
+		mockAnchoredCircle.setUserX(circleCenterX);
+		mockAnchoredCircle.setUserY(circleCenterY);
+		return mockAnchoredCircle;
+	}
+
+	@Override
+	public AnchoredCircle createAnchoredCircle(double circleCenterX, double circleCenterY, double radius, int anchorX, int anchorY) {
+		MockAnchoredCircle mockAnchoredCircle = new MockAnchoredCircle();
+		mockAnchoredCircle.setUserRadius(radius);
+		mockAnchoredCircle.setUserX(circleCenterX);
+		mockAnchoredCircle.setUserY(circleCenterY);
+		return mockAnchoredCircle;
+	}
+
+	@Override
+	public AnchoredImage createAnchoredImage(double userX, double userY, int width, int height,
+											 String href, boolean preserveRatio, double anchorX, double anchorY) {
+		MockAnchoredImage mockAnchoredImage = new MockAnchoredImage();
+		mockAnchoredImage.setUserX(userX);
+		mockAnchoredImage.setUserY(userY);
+		mockAnchoredImage.setWidth(width);
+		mockAnchoredImage.setUserWidth(width);
+		mockAnchoredImage.setHeight(height);
+		mockAnchoredImage.setUserHeight(height);
+		mockAnchoredImage.setHref(href);
+		mockAnchoredImage.setPreserveAspectRatio(preserveRatio);
+		mockAnchoredImage.setAnchorX(anchorX);
+		mockAnchoredImage.setAnchorY(anchorY);
+		return mockAnchoredImage;
+	}
+
 }

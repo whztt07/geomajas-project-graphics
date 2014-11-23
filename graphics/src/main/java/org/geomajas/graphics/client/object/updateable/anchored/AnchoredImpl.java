@@ -13,7 +13,7 @@ package org.geomajas.graphics.client.object.updateable.anchored;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
-import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.Updateable;
@@ -36,14 +36,14 @@ public class AnchoredImpl extends BaseGraphicsObject implements Anchored, Update
 
 	private TwoPointsLine anchorLine;
 
-	private Resizable resizable; // subject
+	private Draggable draggable; // subject
 
-	public AnchoredImpl(Resizable resizable, Coordinate anchorPosition, MarkerShape markerShape) {
-		this.resizable = resizable;
+	public AnchoredImpl(Draggable draggable, Coordinate anchorPosition, MarkerShape markerShape) {
+		this.draggable = draggable;
 
 		// create base graphics objects
 		marker = new Marker(anchorPosition, markerShape);
-		anchorLine = new TwoPointsLine(BboxService.getCenterPoint(resizable.getUserBounds()), anchorPosition);
+		anchorLine = new TwoPointsLine(BboxService.getCenterPoint(draggable.getUserBounds()), anchorPosition);
 
 		// register roles of group object
 		addRole(Anchored.TYPE, this);
@@ -55,7 +55,7 @@ public class AnchoredImpl extends BaseGraphicsObject implements Anchored, Update
 
 	@Override
 	public Object cloneObject() {
-		AnchoredImpl clone = new AnchoredImpl(resizable, marker.getPosition(), marker.getMarkerShape());
+		AnchoredImpl clone = new AnchoredImpl(draggable, marker.getPosition(), marker.getMarkerShape());
 		return clone;
 	}
 
@@ -101,7 +101,7 @@ public class AnchoredImpl extends BaseGraphicsObject implements Anchored, Update
 
 	@Override
 	public void onUpdate() {
-		Coordinate anchoredPosition = BboxService.getCenterPoint(resizable.getUserBounds());
+		Coordinate anchoredPosition = BboxService.getCenterPoint(draggable.getUserBounds());
 		anchorLine.setCoordinates(anchoredPosition, marker.getPosition());
 	}
 

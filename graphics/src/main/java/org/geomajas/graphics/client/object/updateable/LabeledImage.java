@@ -38,7 +38,7 @@ public class LabeledImage extends UpdateableGroupGraphicsObject {
 
 	public LabeledImage(int x, int y, int width, int height, String href, String text) {
 		// create base graphics objects
-		baseImage = new BaseImage(x, y, width, height, href);
+		baseImage = new BaseImage(x, y, width, height, href, true);
 		labeled = new LabeledImpl(baseImage, text);
 
 		// register updateables

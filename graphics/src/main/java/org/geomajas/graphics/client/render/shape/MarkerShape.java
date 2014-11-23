@@ -67,7 +67,7 @@ public enum MarkerShape {
 				return new AnchoredRectangleImpl(0, 0,
 						8, 8, 4, 4);
 			case CIRCLE:
-				return new AnchoredCircle(0, 0, 4, 0, 0);
+				return new AnchoredCircleImpl(0, 0, 4, 0, 0);
 			case CROSS:
 				return new AnchoredCross(6, 6, 8);
 		}
@@ -88,7 +88,7 @@ public enum MarkerShape {
 				return new AnchoredRectangleImpl(posX, posX,
 						size, size, (int) size / 2, (int) size / 2);
 			case CIRCLE:
-				return new AnchoredCircle(posX, posY, size / 2, 0, 0);
+				return new AnchoredCircleImpl(posX, posY, size / 2, 0, 0);
 			case CROSS:
 				return new AnchoredCross(posX, posY, (int) size);
 		}

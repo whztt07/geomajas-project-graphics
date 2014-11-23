@@ -81,7 +81,7 @@ public class CreateBaseImageController extends CreateController<BaseImage> imple
 
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		BaseImage result = new BaseImage(0, 0, width, height, href);
+		BaseImage result = new BaseImage(0, 0, width, height, href, true);
 		result.getRole(Draggable.TYPE).setUserPosition(getUserCoordinate(event));
 		execute(new AddOperation(result));
 	}

@@ -22,7 +22,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BaseAnchoredEllipseTest extends GraphicsMockSetup {
+public class BaseEllipseTest extends GraphicsMockSetup {
 
 	private BaseEllipse baseEllipse;
 
@@ -33,7 +33,7 @@ public class BaseAnchoredEllipseTest extends GraphicsMockSetup {
 	}
 
 	@Test
-	public void testConstructorUnclosedPathCreatesRoles() throws Exception {
+	public void testConstructorCreatesRoles() throws Exception {
 		// resizable
 		Assert.assertTrue(baseEllipse.hasRole(Resizable.TYPE));
 		Resizable resizable = baseEllipse.getRole(Resizable.TYPE);
@@ -56,9 +56,9 @@ public class BaseAnchoredEllipseTest extends GraphicsMockSetup {
 
 		Assert.assertNotNull(clone);
 		Assert.assertTrue(clone instanceof BaseEllipse);
-		BaseEllipse basePathClone = (BaseEllipse) clone;
-		Assert.assertTrue(basePathClone.hasRole(Draggable.TYPE));
-		assertRoleEqualityDraggable(expected, basePathClone.getRole(Draggable.TYPE));
+		BaseEllipse baseEllipseClone = (BaseEllipse) clone;
+		Assert.assertTrue(baseEllipseClone.hasRole(Draggable.TYPE));
+		assertRoleEqualityDraggable(expected, baseEllipseClone.getRole(Draggable.TYPE));
 	}
 
 	@Test
@@ -71,8 +71,8 @@ public class BaseAnchoredEllipseTest extends GraphicsMockSetup {
 
 		Assert.assertNotNull(clone);
 		Assert.assertTrue(clone instanceof BaseEllipse);
-		BaseEllipse basePathClone = (BaseEllipse) clone;
-		Assert.assertTrue(basePathClone.hasRole(Resizable.TYPE));
-		assertRoleEqualityResizable(expected, basePathClone.getRole(Resizable.TYPE));
+		BaseEllipse baseEllipseClone = (BaseEllipse) clone;
+		Assert.assertTrue(baseEllipseClone.hasRole(Resizable.TYPE));
+		assertRoleEqualityResizable(expected, baseEllipseClone.getRole(Resizable.TYPE));
 	}
 }

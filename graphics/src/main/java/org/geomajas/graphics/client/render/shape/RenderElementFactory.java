@@ -11,10 +11,12 @@
 package org.geomajas.graphics.client.render.shape;
 
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.render.AnchoredCircle;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
+import org.geomajas.graphics.client.render.AnchoredImage;
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
-import org.geomajas.graphics.client.render.AnchoredEllipse;
 
 /**
  * Interface for specific view elements.
@@ -34,4 +36,13 @@ public interface RenderElementFactory {
 	CoordinatePath createCoordinatePath(Coordinate[] coordinates, boolean closed);
 
 	AnchoredEllipse createEllipse(double ellipseCenterX, double ellipseCenterY, double userRadiusX, double userRadiusY);
+
+	AnchoredCircle createCircle(double circleCenterX, double circleCenterY, double radius);
+
+	AnchoredCircle createAnchoredCircle(double circleCenterX, double circleCenterY, double radius,
+										int anchorX, int anchorY);
+
+	AnchoredImage createAnchoredImage(double userX, double userY, int width, int height, String href,
+									  boolean preserveRatio, double anchorX, double anchorY);
+
 }

@@ -11,6 +11,7 @@
 package org.geomajas.graphics.client.render.shape;
 
 import org.geomajas.graphics.client.object.role.Cloneable;
+import org.geomajas.graphics.client.render.AnchoredCircle;
 import org.vaadin.gwtgraphics.client.shape.Circle;
 
 /**
@@ -20,7 +21,7 @@ import org.vaadin.gwtgraphics.client.shape.Circle;
  * @author Jan De Moerloose
  * 
  */
-public class AnchoredCircle extends Circle implements Cloneable {
+public class AnchoredCircleImpl extends Circle implements Cloneable, AnchoredCircle {
 
 	private int anchorX;
 
@@ -36,8 +37,8 @@ public class AnchoredCircle extends Circle implements Cloneable {
 	 * @param anchorX x-location of the anchor point (rectangle-relative)
 	 * @param anchorY y-location of the anchor point (rectangle-relative)
 	 */
-	public AnchoredCircle(double userX, double userY, double userRadius, 
-			int anchorX, int anchorY) {
+	public AnchoredCircleImpl(double userX, double userY, double userRadius,
+							  int anchorX, int anchorY) {
 		super(userX, userY, userRadius);
 		this.anchorX = anchorX;
 		this.anchorY = anchorY;
@@ -53,6 +54,6 @@ public class AnchoredCircle extends Circle implements Cloneable {
 
 	@Override
 	public Object cloneObject() {
-		return new AnchoredCircle(getUserX(), getUserY(), getUserRadius(), anchorX, anchorY);
+		return new AnchoredCircleImpl(getUserX(), getUserY(), getUserRadius(), anchorX, anchorY);
 	}
 }

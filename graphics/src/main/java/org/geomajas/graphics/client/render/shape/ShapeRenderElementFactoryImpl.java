@@ -12,10 +12,12 @@ package org.geomajas.graphics.client.render.shape;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.object.updateable.bordered.MarginAnchoredRectangleImpl;
+import org.geomajas.graphics.client.render.AnchoredCircle;
+import org.geomajas.graphics.client.render.AnchoredEllipse;
+import org.geomajas.graphics.client.render.AnchoredImage;
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
-import org.geomajas.graphics.client.render.AnchoredEllipse;
 
 /**
  * Default implementation of {@link RenderElementFactory} for {@link org.vaadin.gwtgraphics.client.Shape} objects.
@@ -50,5 +52,25 @@ public class ShapeRenderElementFactoryImpl implements RenderElementFactory {
 	public AnchoredEllipse createEllipse(double ellipseCenterX,
 										 double ellipseCenterY, double userRadiusX, double userRadiusY) {
 		return new AnchoredEllipseImpl(ellipseCenterX, ellipseCenterY, userRadiusX, userRadiusY);
+	}
+
+	@Override
+	public AnchoredCircle createCircle(double circleCenterX, double circleCenterY, double radius) {
+		return createAnchoredCircle(circleCenterX, circleCenterY, radius, 0, 0);
+	}
+
+	@Override
+	public AnchoredCircle createAnchoredCircle(double circleCenterX, double circleCenterY, double radius,
+											   int anchorX, int anchorY) {
+		return new AnchoredCircleImpl(circleCenterX, circleCenterY, radius, anchorX, anchorY);
+	}
+
+	@Override
+	public AnchoredImage createAnchoredImage(double userX, double userY, int width, int height,
+											 String href, boolean preserveRatio,
+											 double anchorX, double anchorY) {
+		AnchoredImageImpl anchoredImage = new AnchoredImageImpl(userX, userY, width, height, href, anchorX, anchorY);
+		anchoredImage.setPreserveAspectRatio(preserveRatio);
+		return anchoredImage;
 	}
 }
