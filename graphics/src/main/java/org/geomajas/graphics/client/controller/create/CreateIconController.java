@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.controller.create;
 
-import org.geomajas.graphics.client.render.shape.MarkerShape;
+import org.geomajas.graphics.client.object.updateable.anchored.MarkerShape;
 
 /**
  * Controller that creates a {@link org.geomajas.graphics.client.object.GIcon}.

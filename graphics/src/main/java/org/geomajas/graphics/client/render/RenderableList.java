@@ -10,18 +10,17 @@
  */
 package org.geomajas.graphics.client.render;
 
-import org.vaadin.gwtgraphics.client.VectorObject;
+import java.util.List;
 
 /**
- * Implemented by all graphical objects. Rendering happens through {@link #asObject()} method, which returns the
- * {@link VectorObject} that corresponds to this graphical object (usually a group for complex objects).
+ * Contains an ordered list of {@link Renderable} objects.
  *
- * @author Jan De Moerloose
- * 
+ * @author Jan Venstermans
+ *
  */
-public interface Renderable {
+public interface RenderableList extends Renderable {
 
-	VectorObject asObject();
+	void addRenderable(Renderable renderable);
 
-	void setOpacity(double opacity);
+	List<Renderable> getRenderableList();
 }

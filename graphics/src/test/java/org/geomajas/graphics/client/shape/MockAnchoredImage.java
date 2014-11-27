@@ -120,6 +120,7 @@ public class MockAnchoredImage implements AnchoredImage {
 
 	public void setWidth(int width) {
 		this.width = width;
+		setBoundsValues(null, null, width, null);
 	}
 
 	@Override
@@ -134,14 +135,17 @@ public class MockAnchoredImage implements AnchoredImage {
 
 	public void setHeight(int height) {
 		this.height = height;
+		setBoundsValues(null, null, null, height);
 	}
 
 	public void setX(int x) {
 		this.x = x;
+		setBoundsValues(x, null, null, null);
 	}
 
 	public void setY(int y) {
 		this.y = y;
+		setBoundsValues(null, y, null, null);
 	}
 
 	public void setHref(String href) {
@@ -189,6 +193,24 @@ public class MockAnchoredImage implements AnchoredImage {
 		}
 		if (userHeight != null) {
 			userBounds.setHeight(userHeight);
+		}
+	}
+
+	private void setBoundsValues(Integer x, Integer y, Integer width, Integer height) {
+		if (bounds == null) {
+			bounds = new Bbox();
+		}
+		if (x != null) {
+			bounds.setX(x);
+		}
+		if (y != null) {
+			bounds.setY(y);
+		}
+		if (width != null) {
+			bounds.setWidth(width);
+		}
+		if (height != null) {
+			bounds.setHeight(height);
 		}
 	}
 }

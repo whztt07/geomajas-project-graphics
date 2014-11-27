@@ -10,37 +10,17 @@
  */
 package org.geomajas.graphics.client.render;
 
+import org.geomajas.graphics.client.object.role.Cloneable;
 import org.geomajas.graphics.client.object.updateable.anchored.AnchorMarker;
 
 /**
- * A non-scaling text that is anchored to its world space location on a specific pixel or anchor location (useful for
- * location markers).
+ * A non-scaling cross (diagonals of a square) that is anchored to its world space location on a specific pixel or
+ * anchor location (useful for location markers).
+ * Using own veriosn of the steps code from {@link org.vaadin.gwtgraphics.client.shape.Path} internally in this class.
  *
- * @author Jan De Moerloose
  * @author Jan Venstermans
- * 
+ *
  */
-public interface AnchoredCircle extends AnchorMarker {
+public interface AnchoredCross extends Cloneable, AnchorMarker {
 
-	void setUserX(double x);
-
-	void setUserY(double y);
-
-	double getUserX();
-
-	double getUserY();
-
-	double getUserRadius();
-
-	void setUserRadius(double v);
-
-	int getX();
-
-	int getRadius();
-
-	int getY();
-
-	void setFillOpacity(double opacity);
-
-	void setStrokeOpacity(double opacity);
 }

@@ -10,13 +10,18 @@
  */
 package org.geomajas.graphics.client;
 
+import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchorMarker;
 import org.geomajas.graphics.client.render.AnchoredCircle;
 import org.geomajas.graphics.client.render.AnchoredEllipse;
 import org.geomajas.graphics.client.render.AnchoredImage;
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
+import org.geomajas.graphics.client.render.MockRenderableList;
+import org.geomajas.graphics.client.render.RenderableList;
 import org.geomajas.graphics.client.render.shape.RenderElementFactory;
 import org.geomajas.graphics.client.shape.MockAnchoredCircle;
 import org.geomajas.graphics.client.shape.MockAnchoredEllipse;
@@ -58,7 +63,7 @@ public class RenderElementFactoryMock implements RenderElementFactory {
 	}
 
 	@Override
-	public AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight) {
+	public AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight, int anchorX, int anchorY) {
 		MockAnchoredRectangle mockAnchoredRectangle = new MockAnchoredRectangle();
 		mockAnchoredRectangle.setUserX(userX);
 		mockAnchoredRectangle.setUserY(userY);
@@ -68,8 +73,16 @@ public class RenderElementFactoryMock implements RenderElementFactory {
 	}
 
 	@Override
-	public AnchoredRectangle createMarginAnchoredRectangle(double userX, double userY, double width, double height, int margin) {
-		return marginAnchoredRectangleMock;
+	public AnchoredRectangle createMarginAnchoredRectangle(double userX, double userY, double userWidth,
+														   double userHeight,
+														   int margin) {
+		MockAnchoredRectangle mockAnchoredRectangle = new MockAnchoredRectangle();
+		mockAnchoredRectangle.setUserX(userX);
+		mockAnchoredRectangle.setUserY(userY);
+		mockAnchoredRectangle.setUserWidth(userWidth);
+		mockAnchoredRectangle.setUserHeight(userHeight);
+		//TODO: margin?
+		return mockAnchoredRectangle;
 	}
 
 	@Override
@@ -77,7 +90,35 @@ public class RenderElementFactoryMock implements RenderElementFactory {
 		MockCoordinatePath mockCoordinatePath = new MockCoordinatePath();
 		mockCoordinatePath.setClosed(closed);
 		mockCoordinatePath.setCoordinates(coordinates);
+		Bbox bbox = createBboxOfCoordinates(coordinates);
+		mockCoordinatePath.setUserBounds(bbox);
+		mockCoordinatePath.setUserPosition(BboxService.getCenterPoint(bbox));
 		return mockCoordinatePath;
+	}
+
+	private Bbox createBboxOfCoordinates(Coordinate[] coordinates) {
+		if (coordinates.length > 0) {
+			Coordinate coordinateLow = new Coordinate(coordinates[0]); //lower left
+			Coordinate coordinateHigh = new Coordinate(coordinates[0]); //upper right
+			for (int i = 1; i < coordinates.length; i++) {
+				Coordinate coordinate = coordinates[i];
+				if (coordinate.getX() < coordinateLow.getX()) {
+					coordinateLow.setX(coordinate.getX());
+				}
+				if (coordinate.getX() > coordinateHigh.getX()) {
+					coordinateHigh.setX(coordinate.getX());
+				}
+				if (coordinate.getY() < coordinateLow.getY()) {
+					coordinateLow.setY(coordinate.getY());
+				}
+				if (coordinate.getY() > coordinateHigh.getY()) {
+					coordinateHigh.setY(coordinate.getY());
+				}
+			}
+			return new Bbox(coordinateLow.getX(), coordinateLow.getY(), coordinateHigh.getX() - coordinateLow.getX(),
+					coordinateHigh.getY() - coordinateLow.getY());
+		}
+		return new Bbox();
 	}
 
 	@Override
@@ -123,6 +164,35 @@ public class RenderElementFactoryMock implements RenderElementFactory {
 		mockAnchoredImage.setAnchorX(anchorX);
 		mockAnchoredImage.setAnchorY(anchorY);
 		return mockAnchoredImage;
+	}
+
+	@Override
+	public RenderableList createRenderableList() {
+		return new MockRenderableList();
+	}
+
+	@Override
+	public AnchorMarker createMarkerAnchoredRectangle(double userX, double userY, double userWidth, double userHeight, int anchorX, int anchorY) {
+		MockAnchoredRectangle mockAnchoredRectangle = new MockAnchoredRectangle();
+		mockAnchoredRectangle.setUserX(userX);
+		mockAnchoredRectangle.setUserY(userY);
+		mockAnchoredRectangle.setUserWidth(userWidth);
+		mockAnchoredRectangle.setUserHeight(userHeight);
+		return mockAnchoredRectangle;
+	}
+
+	@Override
+	public AnchorMarker createMarkerAnchoredCircle(double circleCenterX, double circleCenterY, double radius, int anchorX, int anchorY) {
+		MockAnchoredCircle mockAnchoredCircle = new MockAnchoredCircle();
+		mockAnchoredCircle.setUserRadius(radius);
+		mockAnchoredCircle.setUserX(circleCenterX);
+		mockAnchoredCircle.setUserY(circleCenterY);
+		return mockAnchoredCircle;
+	}
+
+	@Override
+	public AnchorMarker createMarkerAnchoredCross(double userX, double userY, int crossHeightPixels) {
+		throw new UnsupportedOperationException();
 	}
 
 }

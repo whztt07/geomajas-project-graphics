@@ -12,13 +12,13 @@ package org.geomajas.graphics.client.object.updateable.anchored;
 
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.Updateable;
-import org.geomajas.graphics.client.render.shape.MarkerShape;
-import org.vaadin.gwtgraphics.client.Group;
+import org.geomajas.graphics.client.render.RenderableList;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -30,7 +30,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class AnchoredImpl extends BaseGraphicsObject implements Anchored, Updateable {
 
-	private Group rootGroup = new Group();
+	private RenderableList renderableList;
 
 	private Marker marker;
 
@@ -49,8 +49,9 @@ public class AnchoredImpl extends BaseGraphicsObject implements Anchored, Update
 		addRole(Anchored.TYPE, this);
 
 		// register render order
-		rootGroup.add(anchorLine.asObject());
-		rootGroup.add(marker.asObject());
+		renderableList = Graphics.getRenderElementFactory().createRenderableList();
+		renderableList.addRenderable(anchorLine);
+		renderableList.addRenderable(marker);
 	}
 
 	@Override
@@ -65,12 +66,12 @@ public class AnchoredImpl extends BaseGraphicsObject implements Anchored, Update
 
 	@Override
 	public VectorObject asObject() {
-		return rootGroup;
+		return renderableList.asObject();
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		rootGroup.setOpacity(opacity);
+		renderableList.setOpacity(opacity);
 	}
 
 	@Override

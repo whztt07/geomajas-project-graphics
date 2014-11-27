@@ -206,4 +206,15 @@ public class CoordinatePathShape extends Shape implements CoordinatePath {
 		setUserY(coordinates[0].getX());
 		drawTransformed();
 	}
+
+	@Override
+	public VectorObject asObject() {
+		return this;
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+		setFillOpacity(opacity);
+		setStrokeOpacity(opacity);
+	}
 }

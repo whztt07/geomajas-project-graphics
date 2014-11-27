@@ -34,7 +34,7 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.create.CreateIconController;
 import org.geomajas.graphics.client.object.updateable.AnchoredIcon;
 import org.geomajas.graphics.client.resource.GraphicsResource;
-import org.geomajas.graphics.client.render.shape.MarkerShape;
+import org.geomajas.graphics.client.object.updateable.anchored.MarkerShape;
 import org.vaadin.gwtgraphics.client.DrawingArea;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.Shape;

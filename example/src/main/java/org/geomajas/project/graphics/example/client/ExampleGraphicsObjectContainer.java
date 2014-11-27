@@ -33,7 +33,7 @@ import org.geomajas.graphics.client.object.updateable.LabeledImage;
 import org.geomajas.graphics.client.object.updateable.LabeledPath;
 import org.geomajas.graphics.client.object.updateable.LabeledRectangle;
 import org.geomajas.graphics.client.service.objectcontainer.AbstractGraphicsObjectContainer;
-import org.geomajas.graphics.client.render.shape.MarkerShape;
+import org.geomajas.graphics.client.object.updateable.anchored.MarkerShape;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.vaadin.gwtgraphics.client.DrawingArea;
 

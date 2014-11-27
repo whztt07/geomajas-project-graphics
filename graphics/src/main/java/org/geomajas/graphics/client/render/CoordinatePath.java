@@ -22,7 +22,7 @@ import org.geomajas.graphics.client.util.HasStroke;
  * @author Jan Venstermans
  * 
  */
-public interface CoordinatePath extends HasStroke, HasFill, HasBounds {
+public interface CoordinatePath extends HasStroke, HasFill, HasBounds, Renderable {
 
 	boolean isClosed();
 
@@ -42,4 +42,5 @@ public interface CoordinatePath extends HasStroke, HasFill, HasBounds {
 
 	Coordinate getUserPosition();
 
+	void setDashArray(String dashArray);
 }

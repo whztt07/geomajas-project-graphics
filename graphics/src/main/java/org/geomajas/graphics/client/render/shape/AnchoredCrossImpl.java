@@ -10,15 +10,16 @@
  */
 package org.geomajas.graphics.client.render.shape;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.geomajas.graphics.client.object.role.Cloneable;
+import org.geomajas.graphics.client.render.AnchoredCross;
+import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.shape.Path;
 import org.vaadin.gwtgraphics.client.shape.path.LineTo;
 import org.vaadin.gwtgraphics.client.shape.path.MoveTo;
 import org.vaadin.gwtgraphics.client.shape.path.PathStep;
 import org.vaadin.gwtgraphics.client.shape.path.ScaleHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A non-scaling cross (diagonals of a square) that is anchored to its world space location on a specific pixel or
@@ -28,7 +29,7 @@ import org.vaadin.gwtgraphics.client.shape.path.ScaleHelper;
  * @author Jan Venstermans
  * 
  */
-public class AnchoredCross extends Path implements Cloneable {
+public class AnchoredCrossImpl extends Path implements AnchoredCross {
 
 	private int crossHeightPixels;
 	
@@ -43,14 +44,14 @@ public class AnchoredCross extends Path implements Cloneable {
 	 * @param userY y-location in world coordinates of the cross intersection point
 	 * @param crossHeightPixels height of the  in pixels
 	 */
-	public AnchoredCross(double userX, double userY, int crossHeightPixels) {
+	public AnchoredCrossImpl(double userX, double userY, int crossHeightPixels) {
 		super(userX, userY);
 		this.crossHeightPixels = crossHeightPixels;
 	}
 
 	@Override
 	public Object cloneObject() {
-		return new AnchoredCross(getUserX(), getUserY(), crossHeightPixels);
+		return new AnchoredCrossImpl(getUserX(), getUserY(), crossHeightPixels);
 	}
 	
 	protected void drawTransformed() {
@@ -88,5 +89,16 @@ public class AnchoredCross extends Path implements Cloneable {
 	
 	public void lineRelativelyTo(int x, int y) {
 		steps.add(new LineTo(true, x, y));
+	}
+
+	@Override
+	public VectorObject asObject() {
+		return this;
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+		setFillOpacity(opacity);
+		setStrokeOpacity(opacity);
 	}
 }

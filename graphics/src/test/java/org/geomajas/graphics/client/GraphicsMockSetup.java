@@ -19,6 +19,7 @@ import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.render.shape.RenderElementFactory;
 import org.junit.Before;
 
@@ -121,6 +122,16 @@ public class GraphicsMockSetup {
 		for (int i = 0 ; i < coordinateBasedExpected.getCoordinateCount() ; i++) {
 			Assert.assertEquals(coordinatesExpected[i], coordinatesNew[i]);
 		}
+	}
+
+	public void assertRoleEqualityAnchored(Anchored anchoredExpected, Anchored anchoredNew) {
+		assertRoleEqualityStrokable(anchoredExpected.getAnchorLineStrokable(), anchoredNew.getAnchorLineStrokable());
+		assertRoleEqualityStrokable(anchoredExpected.getAnchorMarkerShapeStrokable(),
+				anchoredNew.getAnchorMarkerShapeStrokable());
+		assertRoleEqualityFillable(anchoredExpected.getAnchorMarkerShapeFillable(),
+				anchoredNew.getAnchorMarkerShapeFillable());
+
+		Assert.assertEquals(anchoredExpected.getAnchorPosition(), anchoredNew.getAnchorPosition());
 	}
 
 }

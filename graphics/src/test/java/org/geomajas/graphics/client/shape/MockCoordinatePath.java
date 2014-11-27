@@ -13,6 +13,7 @@ package org.geomajas.graphics.client.shape;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.render.CoordinatePath;
+import org.vaadin.gwtgraphics.client.VectorObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,13 +82,17 @@ public class MockCoordinatePath implements CoordinatePath {
 
 	@Override
 	public void setUserPosition(Coordinate userPosition) {
-
 		this.userPosition = userPosition;
 	}
 
 	@Override
 	public Coordinate getUserPosition() {
 		return userPosition;
+	}
+
+	@Override
+	public void setDashArray(String dashArray) {
+
 	}
 
 	@Override
@@ -162,6 +167,16 @@ public class MockCoordinatePath implements CoordinatePath {
 	@Override
 	public void setFillColor(String color) {
 		this.fillColor = color;
+	}
+
+	@Override
+	public VectorObject asObject() {
+		return null;
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+
 	}
 }
 

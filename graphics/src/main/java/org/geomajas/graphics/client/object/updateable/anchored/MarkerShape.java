@@ -9,11 +9,13 @@
  * details, see LICENSE.txt in the project root.
  */
 
-package org.geomajas.graphics.client.render.shape;
+package org.geomajas.graphics.client.object.updateable.anchored;
 
+import org.geomajas.graphics.client.Graphics;
+import org.geomajas.graphics.client.render.shape.AnchoredCircleImpl;
+import org.geomajas.graphics.client.render.shape.AnchoredCrossImpl;
+import org.geomajas.graphics.client.render.shape.AnchoredRectangleImpl;
 import org.vaadin.gwtgraphics.client.Shape;
-import org.vaadin.gwtgraphics.client.shape.Circle;
-import org.vaadin.gwtgraphics.client.shape.Rectangle;
 
 /**
  * Enumeration of standard Marker Shapes.
@@ -49,27 +51,26 @@ public enum MarkerShape {
 		this.title = title;
 	}
 
-	public Shape getSimpleShape() {
-		switch(this) {
-			case SQUARE:
-				return new Rectangle(2, 2, 8, 8);
-			case CIRCLE:
-				return new Circle(6, 6, 4);
-			case CROSS:
-				return CROSS.getMarkerShape();
-		}
-		return null;
-	}
+//	public AnchorMarker getSimpleShape() {
+//		switch(this) {
+//			case SQUARE:
+//				return new Rectangle(2, 2, 8, 8);
+//			case CIRCLE:
+//				return new Circle(6, 6, 4);
+//			case CROSS:
+//				return CROSS.getMarkerShape();
+//		}
+//		return null;
+//	}
 
-	public Shape getMarkerShape() {
+	public AnchorMarker getMarkerShape() {
 		switch(this) {
 			case SQUARE:
-				return new AnchoredRectangleImpl(0, 0,
-						8, 8, 4, 4);
+				return Graphics.getRenderElementFactory().createMarkerAnchoredRectangle(0, 0, 8, 8, 4, 4);
 			case CIRCLE:
-				return new AnchoredCircleImpl(0, 0, 4, 0, 0);
+				return Graphics.getRenderElementFactory().createMarkerAnchoredCircle(0, 0, 4, 0, 0);
 			case CROSS:
-				return new AnchoredCross(6, 6, 8);
+				return Graphics.getRenderElementFactory().createMarkerAnchoredCross(6, 6, 8);
 		}
 		return null;
 	}
@@ -90,7 +91,7 @@ public enum MarkerShape {
 			case CIRCLE:
 				return new AnchoredCircleImpl(posX, posY, size / 2, 0, 0);
 			case CROSS:
-				return new AnchoredCross(posX, posY, (int) size);
+				return new AnchoredCrossImpl(posX, posY, (int) size);
 		}
 		return null;
 	}

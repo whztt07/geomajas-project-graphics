@@ -58,7 +58,7 @@ public class MarginBaseRectangle extends BaseGraphicsObject implements Resizable
 	@Override
 	public Object cloneObject() {
 		AnchoredRectangle mask = Graphics.getRenderElementFactory().createAnchoredRectangle(
-				rectangle.getUserX(), rectangle.getUserY(), rectangle.getUserWidth(), rectangle.getUserHeight());
+				rectangle.getUserX(), rectangle.getUserY(), rectangle.getUserWidth(), rectangle.getUserHeight(), 0, 0);
 		return new MarginBaseRectangle(mask);
 	}
 

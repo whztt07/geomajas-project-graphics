@@ -11,14 +11,16 @@
 package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Bbox;
+import org.geomajas.graphics.client.Graphics;
+import org.geomajas.graphics.client.object.base.BaseImage;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.object.base.BaseImage;
 import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
-import org.vaadin.gwtgraphics.client.Group;
+import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -30,7 +32,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class LabeledImage extends UpdateableGroupGraphicsObject {
 
-	private Group rootGroup = new Group();
+	private RenderableList renderableList;
 
 	private BaseImage baseImage;
 
@@ -50,17 +52,19 @@ public class LabeledImage extends UpdateableGroupGraphicsObject {
 		addRole(Labeled.TYPE, labeled);
 
 		// register render order
-		rootGroup.add(baseImage.asObject());
-		rootGroup.add(labeled.asObject());
+		renderableList = Graphics.getRenderElementFactory().createRenderableList();
+		renderableList.addRenderable(baseImage);
+		renderableList.addRenderable(labeled);
 	}
 
 	@Override
 	public Object cloneObject() {
 		Bbox userBounds = baseImage.getUserBounds();
-		LabeledImage labeledRectangleClone = new LabeledImage((int) userBounds.getX(), (int) userBounds.getY(),
+		LabeledImage labeledImageClone = new LabeledImage((int) userBounds.getX(), (int) userBounds.getY(),
 				(int) userBounds.getWidth(), (int) userBounds.getHeight(),
 				baseImage.getHref(), labeled.getTextable().getLabel());
-		return labeledRectangleClone;
+		CopyUtil.copyLabeledProperties(this.getRole(Labeled.TYPE), labeledImageClone.getRole(Labeled.TYPE));
+		return labeledImageClone;
 	}
 
 	//---------------------------------
@@ -69,11 +73,11 @@ public class LabeledImage extends UpdateableGroupGraphicsObject {
 
 	@Override
 	public VectorObject asObject() {
-		return rootGroup;
+		return renderableList.asObject();
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		rootGroup.setOpacity(opacity);
+		renderableList.setOpacity(opacity);
 	}
 }

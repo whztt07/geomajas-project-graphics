@@ -16,13 +16,13 @@ import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.controller.drag.AbstractDragHandler;
 import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchorMarker;
 import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
+import org.geomajas.graphics.client.object.updateable.anchored.MarkerShape;
 import org.geomajas.graphics.client.operation.AnchoredPositionOperation;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.geomajas.graphics.client.render.shape.MarkerShape;
 import org.vaadin.gwtgraphics.client.Group;
-import org.vaadin.gwtgraphics.client.Shape;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -85,7 +85,7 @@ public class AnchoredDragController extends UpdateHandlerGraphicsControllerWithV
 	 */
 	class AnchorDragHandler extends AbstractDragHandler {
 		
-		private Shape invisibleSquareAnchor;
+		private AnchorMarker invisibleSquareAnchor;
 
 		public AnchorDragHandler(GraphicsObject object, GraphicsService service,
 				UpdateHandlerGraphicsController graphicsHandler) {
@@ -99,7 +99,7 @@ public class AnchoredDragController extends UpdateHandlerGraphicsControllerWithV
 		}
 
 		public void addToGroup(Group group) {			
-			group.add(invisibleSquareAnchor);
+			group.add(invisibleSquareAnchor.asObject());
 		}
 		
 		@Override
@@ -108,7 +108,7 @@ public class AnchoredDragController extends UpdateHandlerGraphicsControllerWithV
 			invisibleSquareAnchor.setFixedSize(true);
 			invisibleSquareAnchor.setFillOpacity(0);
 			invisibleSquareAnchor.setStrokeOpacity(0);
-			return invisibleSquareAnchor;
+			return invisibleSquareAnchor.asObject();
 		}
 
 		@Override

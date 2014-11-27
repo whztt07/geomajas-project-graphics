@@ -11,14 +11,12 @@
 package org.geomajas.graphics.client.object.updateable.anchored;
 
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Cloneable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.render.shape.AnchoredRectangleImpl;
-import org.geomajas.graphics.client.render.shape.MarkerShape;
-import org.vaadin.gwtgraphics.client.Group;
-import org.vaadin.gwtgraphics.client.Shape;
+import org.geomajas.graphics.client.render.RenderableList;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -30,27 +28,27 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class Marker extends BaseGraphicsObject implements Strokable, Fillable {
 
-	private Shape anchor;
+	private AnchorMarker anchor;
 
-	private Shape background;
+	private AnchorMarker background;
 
 	private MarkerShape markerShape = MarkerShape.SQUARE;
 
-	private Group markerGroup;
+	private RenderableList markerGroup;
 
 	public Marker(Coordinate markerPosition, MarkerShape markerShape) {
 		this.markerShape = (markerShape != null) ? markerShape : MarkerShape.SQUARE;
 		anchor = createAnchor(this.markerShape.getMarkerShape());
-		markerGroup = new Group();
+		markerGroup = Graphics.getRenderElementFactory().createRenderableList();
 		// add a transparant but clickable background object in case of Cross Markershape
 		// The cross itself is not clickable/draggable enough
 		if (this.markerShape.equals(MarkerShape.CROSS)) {
 			background = MarkerShape.SQUARE.getMarkerShape();
 			background.setFillOpacity(0);
 			background.setStrokeOpacity(0);
-			markerGroup.add(background);
+			markerGroup.addRenderable(background);
 		}
-		markerGroup.add(anchor);
+		markerGroup.addRenderable(anchor);
 		setPosition(markerPosition);
 
 		addRole(Strokable.TYPE, this);
@@ -74,12 +72,12 @@ public class Marker extends BaseGraphicsObject implements Strokable, Fillable {
 		return markerShape;
 	}
 
-	protected Shape createAnchor(Shape shape) {
+	protected AnchorMarker createAnchor(AnchorMarker shape) {
 		if (shape != null && shape instanceof Cloneable) {
-			anchor = (Shape) ((Cloneable) shape).cloneObject();
+			anchor = (AnchorMarker) ((Cloneable) shape).cloneObject();
 		} else {
 			// standard marker shape: rectangle
-			anchor = new AnchoredRectangleImpl(0, 0, 8, 8, 4, 4);
+			anchor =  Graphics.getRenderElementFactory().createAnchoredRectangle(0, 0, 8, 8, 4, 4);
 		}
 		anchor.setFixedSize(true);
 		anchor.setFillColor("#FF6600");
@@ -163,7 +161,7 @@ public class Marker extends BaseGraphicsObject implements Strokable, Fillable {
 
 	@Override
 	public VectorObject asObject() {
-		return markerGroup;
+		return markerGroup.asObject();
 	}
 
 	public void setVisible(boolean visible) {

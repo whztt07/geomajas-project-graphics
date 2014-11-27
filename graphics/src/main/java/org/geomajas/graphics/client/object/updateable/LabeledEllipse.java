@@ -12,14 +12,16 @@ package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.Graphics;
+import org.geomajas.graphics.client.object.base.BaseEllipse;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
-import org.geomajas.graphics.client.object.base.BaseEllipse;
 import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
-import org.vaadin.gwtgraphics.client.Group;
+import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -30,7 +32,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class LabeledEllipse extends UpdateableGroupGraphicsObject {
 
-	private Group rootGroup = new Group();
+	private RenderableList renderableList;
 
 	private BaseEllipse baseEllipse;
 
@@ -56,13 +58,16 @@ public class LabeledEllipse extends UpdateableGroupGraphicsObject {
 		addRole(Labeled.TYPE, labeled);
 
 		// register render order
-		rootGroup.add(baseEllipse.asObject());
-		rootGroup.add(labeled.asObject());
+		renderableList = Graphics.getRenderElementFactory().createRenderableList();
+		renderableList.addRenderable(baseEllipse);
+		renderableList.addRenderable(labeled);
 	}
 
 	@Override
 	public Object cloneObject() {
-		return new LabeledEllipse(baseEllipse.getUserBounds(), labeled.getTextable().getLabel());
+		LabeledEllipse clone = new LabeledEllipse(baseEllipse.getUserBounds(), labeled.getTextable().getLabel());
+		CopyUtil.copyLabeledProperties(this.getRole(Labeled.TYPE), clone.getRole(Labeled.TYPE));
+		return clone;
 	}
 
 	//---------------------------------
@@ -71,11 +76,11 @@ public class LabeledEllipse extends UpdateableGroupGraphicsObject {
 
 	@Override
 	public VectorObject asObject() {
-		return rootGroup;
+		return renderableList.asObject();
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		rootGroup.setOpacity(opacity);
+		renderableList.setOpacity(opacity);
 	}
 }

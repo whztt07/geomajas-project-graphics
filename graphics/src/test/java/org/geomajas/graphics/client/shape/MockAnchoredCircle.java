@@ -11,6 +11,7 @@
 package org.geomajas.graphics.client.shape;
 
 import org.geomajas.graphics.client.render.AnchoredCircle;
+import org.vaadin.gwtgraphics.client.VectorObject;
 
 public class MockAnchoredCircle implements AnchoredCircle {
 
@@ -21,7 +22,12 @@ public class MockAnchoredCircle implements AnchoredCircle {
 	private int y;
 	private int radius;
 	private double fillOpacity;
+	private String fillColor;
+	private String strokeColor;
+	private int strokeWidth;
 	private double strokeOpacity;
+	private boolean fixedSize;
+	private boolean visible;
 
 	@Override
 	public void setUserX(double x) {
@@ -93,6 +99,56 @@ public class MockAnchoredCircle implements AnchoredCircle {
 
 	public void setRadius(int radius) {
 		this.radius = radius;
+	}
+
+	public String getFillColor() {
+		return fillColor;
+	}
+
+	public void setFillColor(String fillColor) {
+		this.fillColor = fillColor;
+	}
+
+	public String getStrokeColor() {
+		return strokeColor;
+	}
+
+	public void setStrokeColor(String strokeColor) {
+		this.strokeColor = strokeColor;
+	}
+
+	public int getStrokeWidth() {
+		return strokeWidth;
+	}
+
+	public void setStrokeWidth(int strokeWidth) {
+		this.strokeWidth = strokeWidth;
+	}
+
+	public boolean isFixedSize() {
+		return fixedSize;
+	}
+
+	public void setFixedSize(boolean fixedSize) {
+		this.fixedSize = fixedSize;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	@Override
+	public VectorObject asObject() {
+		return null;
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+
 	}
 }
 

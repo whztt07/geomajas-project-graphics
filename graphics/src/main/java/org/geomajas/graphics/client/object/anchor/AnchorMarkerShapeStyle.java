@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.object.anchor;
 
-import org.geomajas.graphics.client.render.shape.MarkerShape;
+import org.geomajas.graphics.client.object.updateable.anchored.MarkerShape;
 import org.vaadin.gwtgraphics.client.Shape;
 
 /**

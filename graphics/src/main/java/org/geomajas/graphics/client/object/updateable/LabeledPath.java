@@ -11,17 +11,18 @@
 package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.role.Draggable;
-import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.base.BasePath;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Fillable;
+import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
-import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
+import org.geomajas.graphics.client.render.RenderableList;
 import org.geomajas.graphics.client.util.CopyUtil;
-import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -33,7 +34,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class LabeledPath extends UpdateableGroupGraphicsObject {
 
-	private Group rootGroup = new Group();
+	private RenderableList renderableList;
 
 	private BasePath basePath;
 
@@ -57,8 +58,9 @@ public class LabeledPath extends UpdateableGroupGraphicsObject {
 		addRole(Labeled.TYPE, labeled);
 
 		// register render order
-		rootGroup.add(basePath.asObject());
-		rootGroup.add(labeled.asObject());
+		renderableList = Graphics.getRenderElementFactory().createRenderableList();
+		renderableList.addRenderable(basePath);
+		renderableList.addRenderable(labeled);
 	}
 
 	@Override
@@ -69,6 +71,7 @@ public class LabeledPath extends UpdateableGroupGraphicsObject {
 		if (hasRole(Fillable.TYPE) && clone.hasRole(Fillable.TYPE)) {
 			CopyUtil.copyFillableProperties(getRole(Fillable.TYPE), clone.getRole(Fillable.TYPE));
 		}
+		CopyUtil.copyLabeledProperties(this.getRole(Labeled.TYPE), clone.getRole(Labeled.TYPE));
 		return clone;
 	}
 
@@ -90,11 +93,11 @@ public class LabeledPath extends UpdateableGroupGraphicsObject {
 
 	@Override
 	public VectorObject asObject() {
-		return rootGroup;
+		return renderableList.asObject();
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		rootGroup.setOpacity(opacity);
+		renderableList.setOpacity(opacity);
 	}
 }

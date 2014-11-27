@@ -11,13 +11,15 @@
 package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.base.BaseIcon;
+import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.object.updateable.anchored.AnchoredImpl;
+import org.geomajas.graphics.client.object.updateable.anchored.MarkerShape;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
-import org.geomajas.graphics.client.render.shape.MarkerShape;
-import org.vaadin.gwtgraphics.client.Group;
+import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -29,7 +31,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class AnchoredIcon extends UpdateableGroupGraphicsObject {
 
-	private Group rootGroup = new Group();
+	private RenderableList renderableList;
 
 	private BaseIcon baseIcon;
 
@@ -49,8 +51,9 @@ public class AnchoredIcon extends UpdateableGroupGraphicsObject {
 		addRole(Anchored.TYPE, anchored);
 
 		// register render order
-		rootGroup.add(anchored.asObject());
-		rootGroup.add(baseIcon.asObject());
+		renderableList = Graphics.getRenderElementFactory().createRenderableList();
+		renderableList.addRenderable(anchored);
+		renderableList.addRenderable(baseIcon);
 	}
 
 	@Override
@@ -58,6 +61,7 @@ public class AnchoredIcon extends UpdateableGroupGraphicsObject {
 		AnchoredIcon clone = new AnchoredIcon(baseIcon.getUserPosition(), (int) baseIcon.getBounds().getWidth(),
 				(int) baseIcon.getBounds().getHeight(), baseIcon.getHref(), anchored.getAnchorPosition(),
 				anchored.getMarkerShape());
+		CopyUtil.copyAnchoredProperties(this.getRole(Anchored.TYPE), clone.getRole(Anchored.TYPE));
 		return clone;
 	}
 
@@ -67,11 +71,11 @@ public class AnchoredIcon extends UpdateableGroupGraphicsObject {
 
 	@Override
 	public VectorObject asObject() {
-		return rootGroup;
+		return renderableList.asObject();
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		rootGroup.setOpacity(opacity);
+		renderableList.setOpacity(opacity);
 	}
 }

@@ -16,6 +16,10 @@ import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.object.role.Strokable;
+import org.geomajas.graphics.client.object.role.Textable;
+import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
+import org.geomajas.graphics.client.object.updateable.bordered.Bordered;
+import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 
 /**
  * Utility class for some graphics operations.
@@ -95,5 +99,34 @@ public final class CopyUtil {
 	public static void copyDraggableProperties(Draggable draggableOriginal, Draggable draggableCopy) {
 		draggableCopy.setUserPosition(deepCopyCoordinate(draggableOriginal.getUserPosition()));
 		draggableCopy.setUserBounds(deepCopyBbox(draggableOriginal.getUserBounds()));
+	}
+
+	public static void copyTextableProperties(Textable textableOriginal, Textable textableCopy) {
+		textableCopy.setLabel(textableOriginal.getLabel());
+		textableCopy.setFontColor(textableOriginal.getFontColor());
+		textableCopy.setFontFamily(textableOriginal.getFontFamily());
+		textableCopy.setFontSize(textableOriginal.getFontSize());
+	}
+
+	//-------------------------------------------
+	// UPDATEABLE
+	//-------------------------------------------
+
+	public static void copyBorderedProperties(Bordered borderedOriginal, Bordered borderedCopy) {
+		copyFillableProperties(borderedOriginal.getFillable(), borderedCopy.getFillable());
+		copyStrokableProperties(borderedOriginal.getStrokable(), borderedCopy.getStrokable());
+	}
+
+	public static void copyLabeledProperties(Labeled labeledOriginal, Labeled labeledCopy) {
+		copyTextableProperties(labeledOriginal.getTextable(), labeledCopy.getTextable());
+	}
+
+	public static void copyAnchoredProperties(Anchored anchoredOriginal, Anchored anchoredCopy) {
+		copyStrokableProperties(anchoredOriginal.getAnchorLineStrokable(), anchoredCopy.getAnchorLineStrokable());
+		copyStrokableProperties(anchoredOriginal.getAnchorMarkerShapeStrokable(),
+				anchoredCopy.getAnchorMarkerShapeStrokable());
+		copyFillableProperties(anchoredOriginal.getAnchorMarkerShapeFillable(),
+				anchoredCopy.getAnchorMarkerShapeFillable());
+		anchoredCopy.setAnchorPosition(deepCopyCoordinate(anchoredOriginal.getAnchorPosition()));
 	}
 }

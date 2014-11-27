@@ -11,6 +11,7 @@
 package org.geomajas.graphics.client.render.shape;
 
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchorMarker;
 import org.geomajas.graphics.client.object.updateable.bordered.MarginAnchoredRectangleImpl;
 import org.geomajas.graphics.client.render.AnchoredCircle;
 import org.geomajas.graphics.client.render.AnchoredEllipse;
@@ -18,6 +19,8 @@ import org.geomajas.graphics.client.render.AnchoredImage;
 import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
+import org.geomajas.graphics.client.render.RenderGroup;
+import org.geomajas.graphics.client.render.RenderableList;
 
 /**
  * Default implementation of {@link RenderElementFactory} for {@link org.vaadin.gwtgraphics.client.Shape} objects.
@@ -33,8 +36,9 @@ public class ShapeRenderElementFactoryImpl implements RenderElementFactory {
 	}
 
 	@Override
-	public AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight) {
-		return new AnchoredRectangleImpl(userX, userY, userWidth, userHeight, 0, 0);
+	public AnchoredRectangle createAnchoredRectangle(double userX, double userY, double userWidth, double userHeight,
+													 int anchorX, int anchorY) {
+		return new AnchoredRectangleImpl(userX, userY, userWidth, userHeight, anchorX, anchorY);
 	}
 
 	@Override
@@ -72,5 +76,27 @@ public class ShapeRenderElementFactoryImpl implements RenderElementFactory {
 		AnchoredImageImpl anchoredImage = new AnchoredImageImpl(userX, userY, width, height, href, anchorX, anchorY);
 		anchoredImage.setPreserveAspectRatio(preserveRatio);
 		return anchoredImage;
+	}
+
+	@Override
+	public RenderableList createRenderableList() {
+		return new RenderGroup();
+	}
+
+	@Override
+	public AnchorMarker createMarkerAnchoredRectangle(double userX, double userY, double userWidth,
+													  double userHeight, int anchorX, int anchorY) {
+		return new AnchoredRectangleImpl(userX, userY, userWidth, userHeight, anchorX, anchorY);
+	}
+
+	@Override
+	public AnchorMarker createMarkerAnchoredCircle(double circleCenterX, double circleCenterY,
+												   double radius, int anchorX, int anchorY) {
+		return new AnchoredCircleImpl(circleCenterX, circleCenterY, radius, anchorX, anchorY);
+	}
+
+	@Override
+	public AnchorMarker createMarkerAnchoredCross(double userX, double userY, int crossHeightPixels) {
+		return new AnchoredCrossImpl(6, 6, 8);
 	}
 }

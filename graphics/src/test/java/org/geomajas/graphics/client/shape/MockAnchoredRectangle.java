@@ -11,6 +11,7 @@
 package org.geomajas.graphics.client.shape;
 
 import org.geomajas.graphics.client.render.AnchoredRectangle;
+import org.vaadin.gwtgraphics.client.VectorObject;
 
 public class MockAnchoredRectangle implements AnchoredRectangle {
 
@@ -27,6 +28,8 @@ public class MockAnchoredRectangle implements AnchoredRectangle {
 	private int y;
 	private int width;
 	private int height;
+	private boolean fixedSize;
+	private boolean visible;
 
 	@Override
 	public void setUserX(double userX) {
@@ -163,5 +166,31 @@ public class MockAnchoredRectangle implements AnchoredRectangle {
 	@Override
 	public Object cloneObject() {
 		return null;
+	}
+
+	public boolean isFixedSize() {
+		return fixedSize;
+	}
+
+	public void setFixedSize(boolean fixedSize) {
+		this.fixedSize = fixedSize;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	@Override
+	public VectorObject asObject() {
+		return null;
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+
 	}
 }

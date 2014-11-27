@@ -14,10 +14,10 @@ import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseTextController;
 import org.geomajas.graphics.client.object.base.BaseText;
 import org.geomajas.graphics.client.object.updateable.AnchoredBorderedText;
+import org.geomajas.graphics.client.object.updateable.anchored.MarkerShape;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;
-import org.geomajas.graphics.client.render.shape.MarkerShape;
 
 /**
  * Controller that creates a {@link AnchoredBorderedText}.

@@ -10,6 +10,7 @@
  */
 package org.geomajas.graphics.client.object.updateable;
 
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.base.BaseText;
 import org.geomajas.graphics.client.object.role.Fillable;
@@ -19,7 +20,8 @@ import org.geomajas.graphics.client.object.updateable.bordered.Bordered;
 import org.geomajas.graphics.client.object.updateable.bordered.BorderedImpl;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.TextableWrapperForUpdateable;
-import org.vaadin.gwtgraphics.client.Group;
+import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -31,7 +33,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class BorderedText extends UpdateableGroupGraphicsObject {
 
-	private Group rootGroup = new Group();
+	private RenderableList renderableList;
 
 	private BaseText baseText;
 
@@ -53,14 +55,17 @@ public class BorderedText extends UpdateableGroupGraphicsObject {
 		addRole(Bordered.TYPE, bordered);
 
 		// register render order
-		rootGroup.add(bordered.asObject());
-		rootGroup.add(baseText.asObject());
+		renderableList = Graphics.getRenderElementFactory().createRenderableList();
+		renderableList.addRenderable(bordered);
+		renderableList.addRenderable(baseText);
 	}
 
 	@Override
 	public Object cloneObject() {
 		BorderedText clone = new BorderedText(baseText.getUserX(),
 				baseText.getUserY(), baseText.getLabel(), bordered.getMargin());
+		CopyUtil.copyTextableProperties(this.getRole(Textable.TYPE), clone.getRole(Textable.TYPE));
+		CopyUtil.copyBorderedProperties(this.getRole(Bordered.TYPE), clone.getRole(Bordered.TYPE));
 		return clone;
 	}
 
@@ -70,11 +75,11 @@ public class BorderedText extends UpdateableGroupGraphicsObject {
 
 	@Override
 	public VectorObject asObject() {
-		return rootGroup;
+		return renderableList.asObject();
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		rootGroup.setOpacity(opacity);
+		renderableList.setOpacity(opacity);
 	}
 }

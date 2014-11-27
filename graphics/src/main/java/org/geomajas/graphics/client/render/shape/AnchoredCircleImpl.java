@@ -12,6 +12,7 @@ package org.geomajas.graphics.client.render.shape;
 
 import org.geomajas.graphics.client.object.role.Cloneable;
 import org.geomajas.graphics.client.render.AnchoredCircle;
+import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.shape.Circle;
 
 /**
@@ -55,5 +56,16 @@ public class AnchoredCircleImpl extends Circle implements Cloneable, AnchoredCir
 	@Override
 	public Object cloneObject() {
 		return new AnchoredCircleImpl(getUserX(), getUserY(), getUserRadius(), anchorX, anchorY);
+	}
+
+	@Override
+	public VectorObject asObject() {
+		return this;
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+	   	setFillOpacity(opacity);
+	   	setStrokeOpacity(opacity);
 	}
 }

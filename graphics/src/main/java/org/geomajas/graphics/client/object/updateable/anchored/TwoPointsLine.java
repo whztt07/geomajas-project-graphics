@@ -11,9 +11,10 @@
 package org.geomajas.graphics.client.object.updateable.anchored;
 
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Strokable;
-import org.geomajas.graphics.client.render.shape.CoordinatePathShape;
+import org.geomajas.graphics.client.render.CoordinatePath;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -55,10 +56,10 @@ public class TwoPointsLine extends BaseGraphicsObject implements Strokable {
 		}
 	}
 
-	private CoordinatePathShape coordinatePath;
+	private CoordinatePath coordinatePath;
 
 	public TwoPointsLine(Coordinate coordinate1, Coordinate coordinate2) {
-		coordinatePath = new CoordinatePathShape(false);
+		coordinatePath = Graphics.getRenderElementFactory().createCoordinatePath(new Coordinate[0], false);
 		addRole(Strokable.TYPE, this);
 		setCoordinates((coordinate1 != null) ? coordinate1 : new Coordinate(),
 				(coordinate2 != null) ? coordinate2 : new Coordinate());
@@ -115,7 +116,7 @@ public class TwoPointsLine extends BaseGraphicsObject implements Strokable {
 
 	@Override
 	public VectorObject asObject() {
-		return coordinatePath;
+		return coordinatePath.asObject();
 	}
 
 	private Coordinate getCoordinate1() {

@@ -11,6 +11,7 @@
 package org.geomajas.graphics.client.render.shape;
 
 import org.geomajas.graphics.client.render.AnchoredRectangle;
+import org.vaadin.gwtgraphics.client.VectorObject;
 import org.vaadin.gwtgraphics.client.shape.Rectangle;
 
 /**
@@ -64,5 +65,16 @@ public class AnchoredRectangleImpl extends Rectangle implements AnchoredRectangl
 
 	public int getAnchorY() {
 		return anchorX;
+	}
+
+	@Override
+	public VectorObject asObject() {
+		return this;
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+		setFillOpacity(opacity);
+		setStrokeOpacity(opacity);
 	}
 }

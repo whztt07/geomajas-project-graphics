@@ -34,7 +34,7 @@ public class BaseRectangle extends BaseGraphicsObject implements Resizable, Drag
 	private AnchoredRectangle rectangle;
 
 	public BaseRectangle(double userX, double userY, double width, double height) {
-		this(Graphics.getRenderElementFactory().createAnchoredRectangle(userX, userY, width, height));
+		this(Graphics.getRenderElementFactory().createAnchoredRectangle(userX, userY, width, height, 0, 0));
 	}
 
 	public BaseRectangle(AnchoredRectangle rectangle) {
@@ -59,7 +59,7 @@ public class BaseRectangle extends BaseGraphicsObject implements Resizable, Drag
 	@Override
 	public Object cloneObject() {
 		AnchoredRectangle mask = Graphics.getRenderElementFactory().createAnchoredRectangle(
-				rectangle.getUserX(), rectangle.getUserY(), rectangle.getUserWidth(), rectangle.getUserHeight());
+				rectangle.getUserX(), rectangle.getUserY(), rectangle.getUserWidth(), rectangle.getUserHeight(), 0, 0);
 		BaseRectangle clone =  new BaseRectangle(mask);
 		CopyUtil.copyStrokableProperties(this, clone);
 		CopyUtil.copyFillableProperties(this, clone);

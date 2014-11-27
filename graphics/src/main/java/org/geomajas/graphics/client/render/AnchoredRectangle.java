@@ -11,6 +11,7 @@
 package org.geomajas.graphics.client.render;
 
 import org.geomajas.graphics.client.object.role.Cloneable;
+import org.geomajas.graphics.client.object.updateable.anchored.AnchorMarker;
 import org.geomajas.graphics.client.util.HasFill;
 import org.geomajas.graphics.client.util.HasStroke;
 
@@ -22,7 +23,7 @@ import org.geomajas.graphics.client.util.HasStroke;
  * @author Jan Venstermans
  * 
  */
-public interface AnchoredRectangle extends Cloneable, HasStroke, HasFill {
+public interface AnchoredRectangle extends Cloneable, HasStroke, HasFill, AnchorMarker {
 
 	void setUserX(double userX);
 

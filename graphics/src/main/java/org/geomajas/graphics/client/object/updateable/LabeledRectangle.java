@@ -11,16 +11,18 @@
 package org.geomajas.graphics.client.object.updateable;
 
 import org.geomajas.geometry.Bbox;
-import org.geomajas.graphics.client.object.role.Draggable;
-import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.base.BaseRectangle;
+import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Fillable;
+import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.geomajas.graphics.client.object.updateable.labeled.LabeledImpl;
-import org.geomajas.graphics.client.object.role.Fillable;
-import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.updateable.wrapper.DraggableWrapperForUpdateable;
 import org.geomajas.graphics.client.object.updateable.wrapper.ResizableWrapperForUpdateable;
-import org.vaadin.gwtgraphics.client.Group;
+import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
 /**
@@ -32,7 +34,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  */
 public class LabeledRectangle extends UpdateableGroupGraphicsObject {
 
-	private Group rootGroup = new Group();
+	private RenderableList renderableList;
 
 	private BaseRectangle baseRectangle;
 
@@ -54,8 +56,9 @@ public class LabeledRectangle extends UpdateableGroupGraphicsObject {
 		addRole(Labeled.TYPE, labeled);
 
 		// register render order
-		rootGroup.add(baseRectangle.asObject());
-		rootGroup.add(labeled.asObject());
+		renderableList = Graphics.getRenderElementFactory().createRenderableList();
+		renderableList.addRenderable(baseRectangle);
+		renderableList.addRenderable(labeled);
 	}
 
 	@Override
@@ -63,6 +66,9 @@ public class LabeledRectangle extends UpdateableGroupGraphicsObject {
 		Bbox userBounds = baseRectangle.getUserBounds();
 		LabeledRectangle labeledRectangleClone = new LabeledRectangle(userBounds.getX(),
 				userBounds.getY(), userBounds.getWidth(), userBounds.getHeight(), labeled.getTextable().getLabel());
+		CopyUtil.copyStrokableProperties(this.getRole(Strokable.TYPE), labeledRectangleClone.getRole(Strokable.TYPE));
+		CopyUtil.copyFillableProperties(this.getRole(Fillable.TYPE), labeledRectangleClone.getRole(Fillable.TYPE));
+		CopyUtil.copyLabeledProperties(this.getRole(Labeled.TYPE), labeledRectangleClone.getRole(Labeled.TYPE));
 		return labeledRectangleClone;
 	}
 
@@ -72,11 +78,11 @@ public class LabeledRectangle extends UpdateableGroupGraphicsObject {
 
 	@Override
 	public VectorObject asObject() {
-		return rootGroup;
+		return renderableList.asObject();
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		rootGroup.setOpacity(opacity);
+		renderableList.setOpacity(opacity);
 	}
 }
