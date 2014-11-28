@@ -74,13 +74,18 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 				public void onPreviewNativeEvent(NativePreviewEvent event) {
 					if (event.getTypeInt() == Event.ONKEYDOWN) {
 						NativeEvent ne = event.getNativeEvent();
-
-						if (ne.getCtrlKey() && ne.getKeyCode() == 'Z') {
-							event.cancel();
-							undo();
-						} else if (ne.getCtrlKey() && ne.getKeyCode() == 'Y') {
-							event.cancel();
-							redo();
+						// if CTRL key or META key is down (META for MAC)
+						if (ne.getCtrlKey() || ne.getMetaKey()) {
+							switch (ne.getKeyCode()) {
+								case 'Z':
+									event.cancel();
+									undo();
+									break;
+								case 'Y':
+									event.cancel();
+									redo();
+									break;
+							}
 						}
 					}
 				}
