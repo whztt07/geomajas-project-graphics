@@ -12,6 +12,7 @@ package org.geomajas.graphics.client.controller.role;
 
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.controller.drag.AbstractDragHandler;
@@ -53,7 +54,7 @@ public class AnchoredDragController extends UpdateHandlerGraphicsControllerWithV
 
 	@Override
 	protected void init() {
-		setHandlerGroup(new Group());
+		setHandlerGroup(Graphics.getRenderElementFactory().createRenderableList());
 		// create the drag handler and attach it
 		dragHandler = new AnchorDragHandler(getObject(), getService(), this);
 		dragHandler.addToGroup(getHandlerGroup());

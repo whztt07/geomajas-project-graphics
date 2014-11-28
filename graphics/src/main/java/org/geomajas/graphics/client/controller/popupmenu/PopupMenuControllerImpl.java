@@ -24,12 +24,13 @@ import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.render.AnchoredImage;
 import org.geomajas.graphics.client.render.shape.AnchoredImageImpl;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.GraphicsUtil;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 	/**
 	 * Our own container.
 	 */
-	private VectorObjectContainer container;
+	private RenderObjectContainer container;
 
 	private PropertyHandler handler;
 
@@ -134,7 +135,7 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 		}
 	}
 	
-	public AnchoredImageImpl getPropertyImage() {
+	public AnchoredImage getPropertyImage() {
 		return handler.getPropertyImage();
 	}
 	
@@ -153,7 +154,7 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 	 */
 	class PropertyHandler implements MouseDownHandler {
 
-		private AnchoredImageImpl propertyImage;
+		private AnchoredImage propertyImage;
 
 		public PropertyHandler() {
 			propertyImage = new AnchoredImageImpl(0, 0, 16, 16, iconUrl != null ? iconUrl : GWT.getModuleBaseURL()
@@ -175,11 +176,11 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 			propertyImage.setUserY(pos.getY());
 		}
 
-		public void remove(VectorObjectContainer container) {
+		public void remove(RenderObjectContainer container) {
 			container.remove(propertyImage);
 		}
 
-		public void add(VectorObjectContainer container) {
+		public void add(RenderObjectContainer container) {
 			container.add(propertyImage);
 		}
 
@@ -192,7 +193,7 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 		}
 		
 		
-		public AnchoredImageImpl getPropertyImage() {
+		public AnchoredImage getPropertyImage() {
 			return propertyImage;
 		}
 
@@ -209,7 +210,7 @@ public class PopupMenuControllerImpl extends AbstractInterruptibleGraphicsContro
 			// create and (implicitly) activate the handler group
 			init();
 		}
-		handler.getPropertyImage().setVisible(visible);
+		handler.getPropertyImage().setOpacity(visible ? 1 : 0);
 	}
 
 	@Override

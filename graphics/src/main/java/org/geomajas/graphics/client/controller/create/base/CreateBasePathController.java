@@ -28,7 +28,7 @@ import org.geomajas.graphics.client.object.base.BasePath;
 import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class CreateBasePathController extends CreateController<BasePath> impleme
 
 	private BasePath previewPath;
 
-	private VectorObjectContainer container;
+	private RenderObjectContainer container;
 
 	private boolean closedPath;
 
@@ -148,15 +148,15 @@ public class CreateBasePathController extends CreateController<BasePath> impleme
 					// add the preview extra point !
 					previewPath.addCoordinate(new Coordinate(getUserCoordinate(event)));
 					previewPath.setFillOpacity(previewPath.getFillOpacity() * 0.7);
-					container.add(previewPath.asObject());
+					container.add(previewPath);
 				}
 				// we have to show our intermediate result !
-				container.add(path.asObject());
+				container.add(path);
 				// start the drag line, captures all events from now !
 				if (dragLine == null) {
 					dragLine = createPath();
 					dragLine.setStrokeOpacity(1);
-					container.add(dragLine.asObject());
+					container.add(dragLine);
 				}
 				Coordinate c1 = path.getLastCoordinate();
 				Coordinate c2 = getUserCoordinate(event);

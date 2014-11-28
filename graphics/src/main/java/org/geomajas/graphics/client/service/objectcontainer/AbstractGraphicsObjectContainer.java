@@ -34,6 +34,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
@@ -66,7 +67,7 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 
 	private HasHandlerWidget backGround;
 
-	private ObjectGroup objectGroup = new ObjectGroup();
+	private RenderObjectContainerWithHasAllMouseAndClickHandlers objectGroup;
 
 	private EventBus eventBus;
 
@@ -81,6 +82,7 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 	protected AbstractGraphicsObjectContainer(EventBus eventBus, VectorObjectContainer rootGroup,
 			Widget backGroundWidget) {
 		this.eventBus = eventBus;
+		objectGroup = Graphics.getRenderElementFactory().createRenderObjectContainerWithHasAllMouseAndClickHandlers();
 		setRootContainer(rootGroup);
 		setBackGround(backGroundWidget);
 	}
@@ -204,22 +206,20 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 	}
 
 	@Override
-	public VectorObjectContainer createContainer() {
-		Group group = new Group();
+	public RenderObjectContainer createContainer() {
+		RenderObjectContainer group = Graphics.getRenderElementFactory().createRenderObjectContainer();
 		objectGroup.add(group);
 		return group;
 	}
 
 	@Override
-	public void removeContainer(VectorObjectContainer container) {
-		objectGroup.remove((Group) container);
+	public void removeContainer(RenderObjectContainer container) {
+		objectGroup.remove(container);
 	}
 
 	@Override
-	public void bringContainerToFront(VectorObjectContainer container) {
-		if (container instanceof VectorObject) {
-			objectGroup.bringToFront((VectorObject) container);
-		}
+	public void bringContainerToFront(RenderObjectContainer container) {
+		objectGroup.bringToFront(container);
 	}
 
 	@Override
@@ -229,7 +229,7 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 
 	@Override
 	public void add(GraphicsObject object) {
-		objectGroup.add(object.asObject());
+		objectGroup.add(object);
 		if (object.hasRole(HtmlRenderable.TYPE)) {
 			if (widgetContainer != null) {
 				widgetContainer.add(object.getRole(HtmlRenderable.TYPE).asWidget());
@@ -241,7 +241,7 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 
 	@Override
 	public void remove(GraphicsObject object) {
-		objectGroup.remove(object.asObject());
+		objectGroup.remove(object);
 		objects.remove(object);
 		eventBus.fireEvent(new GraphicsObjectContainerEvent(object, ActionType.REMOVE));
 	}
@@ -277,15 +277,5 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 	public com.google.web.bindery.event.shared.HandlerRegistration addGraphicsOperationEventHandler(
 			org.geomajas.graphics.client.event.GraphicsOperationEvent.Handler handler) {
 		return eventBus.addHandler(GraphicsOperationEvent.getType(), handler);
-	}
-
-	/**
-	 * The {@link Group} that contains all {@link GraphicsObject}s of this container.
-	 *
-	 * @author Jan De Moerloose
-	 *
-	 */
-	class ObjectGroup extends Group implements HasAllMouseAndClickHandlers {
-
 	}
 }

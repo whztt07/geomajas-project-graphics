@@ -22,7 +22,6 @@ import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.service.HasAllMouseAndClickHandlers;
 import org.geomajas.graphics.client.util.BboxPosition;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 import java.util.List;
 
@@ -49,21 +48,21 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 	 * 
 	 * @return a new container
 	 */
-	VectorObjectContainer createContainer();
+	RenderObjectContainer createContainer();
 
 	/**
 	 * Remove this container from the root container.
 	 * 
 	 * @param container
 	 */
-	void removeContainer(VectorObjectContainer container);
+	void removeContainer(RenderObjectContainer container);
 
 	/**
 	 * Add this container from the root container.
 	 *
 	 * @param container
 	 */
-	void bringContainerToFront(VectorObjectContainer container);
+	void bringContainerToFront(RenderObjectContainer container);
 
 	/**
 	 * Get all the objects of this container.

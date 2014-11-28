@@ -20,7 +20,7 @@ import org.geomajas.geometry.Bbox;
  * @author Jan Venstermans
  * 
  */
-public interface AnchoredImage {
+public interface AnchoredImage extends Renderable {
 
 	// user bounds
 

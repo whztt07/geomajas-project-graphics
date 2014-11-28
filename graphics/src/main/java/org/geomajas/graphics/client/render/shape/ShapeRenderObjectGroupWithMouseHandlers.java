@@ -8,21 +8,17 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.render;
+package org.geomajas.graphics.client.render.shape;
 
-import java.util.List;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainerWithHasAllMouseAndClickHandlers;
 
 /**
- * Contains an ordered list of {@link Renderable} objects.
+ * Extension of {@link org.vaadin.gwtgraphics.client.shape.Rectangle} that adds margin,...
  *
  * @author Jan Venstermans
  *
  */
-public interface RenderableList extends Renderable {
+public class ShapeRenderObjectGroupWithMouseHandlers extends ShapeRenderObjectGroup
+		implements RenderObjectContainerWithHasAllMouseAndClickHandlers {
 
-	void addRenderable(Renderable renderable);
-
-	void removeRenderable(Renderable renderable);
-
-	List<Renderable> getRenderableList();
 }

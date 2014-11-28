@@ -8,21 +8,17 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.graphics.client.render;
+package org.geomajas.graphics.client.service.objectcontainer;
 
-import java.util.List;
+import org.geomajas.graphics.client.service.HasAllMouseAndClickHandlers;
 
 /**
- * Contains an ordered list of {@link Renderable} objects.
- *
+ * Container of graphics objects.
+ * 
  * @author Jan Venstermans
- *
+ * 
  */
-public interface RenderableList extends Renderable {
+public interface RenderObjectContainerWithHasAllMouseAndClickHandlers
+ extends RenderObjectContainer, HasAllMouseAndClickHandlers {
 
-	void addRenderable(Renderable renderable);
-
-	void removeRenderable(Renderable renderable);
-
-	List<Renderable> getRenderableList();
 }

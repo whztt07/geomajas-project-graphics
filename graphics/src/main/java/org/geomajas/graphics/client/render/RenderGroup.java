@@ -37,6 +37,12 @@ public class RenderGroup implements RenderableList {
 	}
 
 	@Override
+	public void removeRenderable(Renderable renderable) {
+		renderableList.remove(renderable);
+		group.remove(renderable.asObject());
+	}
+
+	@Override
 	public List<Renderable> getRenderableList() {
 		return renderableList;
 	}

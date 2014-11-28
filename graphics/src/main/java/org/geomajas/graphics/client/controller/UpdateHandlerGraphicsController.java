@@ -12,7 +12,9 @@ package org.geomajas.graphics.client.controller;
 
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.render.RenderableList;
 import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
@@ -32,12 +34,12 @@ public abstract class UpdateHandlerGraphicsController extends AbstractInterrupti
 	/**
 	 * Group with all handler objects.
 	 */
-	private Group handlerGroup;
+	private RenderableList handlerGroup;
 	
 	/**
 	 * Our own container.
 	 */
-	private VectorObjectContainer container;
+	private RenderObjectContainer container;
 
 	public UpdateHandlerGraphicsController(GraphicsService graphicsService, GraphicsObject object) {
 		super(graphicsService, object);
@@ -52,7 +54,8 @@ public abstract class UpdateHandlerGraphicsController extends AbstractInterrupti
 		if (active != isActive()) {
 			super.setActive(active);
 			if (isActive()) {
-				if (getHandlerGroup() == null || getHandlerGroup().getVectorObjectCount() < 1) {
+				if (getHandlerGroup() == null || getHandlerGroup().getRenderableList() == null ||
+						getHandlerGroup().getRenderableList().size() < 1) {
 					// create and (implicitly) activate the handler group
 					init();
 				} else {
@@ -107,19 +110,19 @@ public abstract class UpdateHandlerGraphicsController extends AbstractInterrupti
 	// getters and setters of HandlerGroup and container
 	//--------------------------------------------------
 
-	public Group getHandlerGroup() {
+	public RenderableList getHandlerGroup() {
 		return handlerGroup;
 	}
 
-	public void setHandlerGroup(Group handlerGroup) {
+	public void setHandlerGroup(RenderableList handlerGroup) {
 		this.handlerGroup = handlerGroup;
 	}
 
-	public VectorObjectContainer getContainer() {
+	public RenderObjectContainer getContainer() {
 		return container;
 	}
 
-	public void setContainer(VectorObjectContainer container) {
+	public void setContainer(RenderObjectContainer container) {
 		this.container = container;
 	}
 }

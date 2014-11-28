@@ -19,6 +19,9 @@ import org.geomajas.graphics.client.render.AnchoredRectangle;
 import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
 import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainerWithHasAllMouseAndClickHandlers;
+import org.vaadin.gwtgraphics.client.Group;
 
 /**
  * Interface for specific view elements.
@@ -57,4 +60,8 @@ public interface RenderElementFactory {
 											int anchorX, int anchorY);
 
 	AnchorMarker createMarkerAnchoredCross(double userX, double userY, int crossHeightPixels);
+
+	RenderObjectContainer createRenderObjectContainer();
+
+	RenderObjectContainerWithHasAllMouseAndClickHandlers createRenderObjectContainerWithHasAllMouseAndClickHandlers();
 }

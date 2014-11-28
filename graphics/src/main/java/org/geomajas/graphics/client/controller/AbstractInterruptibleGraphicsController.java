@@ -19,6 +19,7 @@ import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.GraphicsServiceImpl;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.Interruptible;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
@@ -160,15 +161,15 @@ public abstract class AbstractInterruptibleGraphicsController implements Graphic
 		return (GraphicsServiceImpl) graphicsService;
 	}
 
-	protected VectorObjectContainer createContainer() {
+	protected RenderObjectContainer createContainer() {
 		return getGraphicsServiceImpl().createContainer();
 	}
 
-	protected void removeContainer(VectorObjectContainer container) {
+	protected void removeContainer(RenderObjectContainer container) {
 		getGraphicsServiceImpl().removeContainer(container);
 	}
 
-	protected void bringContainerToFront(VectorObjectContainer container) {
+	protected void bringContainerToFront(RenderObjectContainer container) {
 		getGraphicsServiceImpl().bringContainerToFront(container);
 	}
 }

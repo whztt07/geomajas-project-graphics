@@ -21,6 +21,7 @@ import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 import com.google.gwt.dom.client.NativeEvent;
@@ -158,15 +159,15 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 		this.objectContainer = objectContainer;
 	}
 
-	public VectorObjectContainer createContainer() {
+	public RenderObjectContainer createContainer() {
 		return objectContainer.createContainer();
 	}
 
-	public void bringContainerToFront(VectorObjectContainer container) {
+	public void bringContainerToFront(RenderObjectContainer container) {
 		objectContainer.bringContainerToFront(container);
 	}
 
-	public void removeContainer(VectorObjectContainer container) {
+	public void removeContainer(RenderObjectContainer container) {
 		objectContainer.removeContainer(container);
 	}
 

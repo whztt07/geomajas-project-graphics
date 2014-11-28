@@ -31,7 +31,7 @@ import org.geomajas.graphics.client.object.role.Draggable;
 import org.geomajas.graphics.client.object.role.HtmlRenderable;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -47,7 +47,7 @@ import java.util.Map;
 public class MetaController extends AbstractInterruptibleGraphicsController
 		implements MouseDownHandler, DoubleClickHandler, GraphicsObjectContainerEvent.Handler {
 
-	private VectorObjectContainer container;
+	private RenderObjectContainer container;
 
 	private Map<GraphicsObject, List<GraphicsController>> controllers;
 
@@ -232,7 +232,7 @@ public class MetaController extends AbstractInterruptibleGraphicsController
 				dragRectangle.asObject().addMouseMoveHandler(this);
 				dragRectangle.asObject().addMouseUpHandler(this);
 				container = createContainer();
-				container.add(dragRectangle.asObject());
+				container.add(dragRectangle);
 			}
 			DOM.setCapture(dragRectangle.asObject().getElement());
 		}
@@ -265,7 +265,7 @@ public class MetaController extends AbstractInterruptibleGraphicsController
 					}
 				}
 				DOM.releaseCapture(dragRectangle.asObject().getElement());
-				container.remove(dragRectangle.asObject());
+				container.remove(dragRectangle);
 				dragRectangle = null;
 				removeContainer(container);
 				event.stopPropagation();

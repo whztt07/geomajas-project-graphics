@@ -29,6 +29,7 @@ import org.geomajas.graphics.client.controller.MetaController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
+import org.geomajas.graphics.client.render.RenderableList;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
 import org.vaadin.gwtgraphics.client.Group;
@@ -114,11 +115,10 @@ public abstract class AbstractDragHandler implements MouseDownHandler,
 			onDragStart(event.getClientX(), event.getClientY());
 			if (draggingMask != null) { // may happen in unusual scenario where
 				// mouse-up is not called
-				graphicsHandler.getHandlerGroup().remove(
-						draggingMask.asObject());
+				graphicsHandler.getHandlerGroup().removeRenderable(draggingMask);
 			}
 			draggingMask = createDraggingMask();
-			graphicsHandler.getHandlerGroup().add(draggingMask.asObject());
+			graphicsHandler.getHandlerGroup().addRenderable(draggingMask);
 		}
 	}
 
@@ -136,15 +136,15 @@ public abstract class AbstractDragHandler implements MouseDownHandler,
 	public void onMouseUp(MouseUpEvent event) {
 		if (dragging) {
 			setDragging(false);
-			graphicsHandler.getHandlerGroup().remove(draggingMask.asObject());
+			graphicsHandler.getHandlerGroup().removeRenderable(draggingMask);
 			draggingMask = null;
 			onDragStop(event.getClientX(), event.getClientY());
 			release(invisibleClickArea.getElement());
 		}
 	}
 
-	public void addToGroup(Group group) {
-		group.add(invisibleClickArea);
+	public void addToGroup(RenderableList group) {
+		group.addRenderable(invisibleClickArea);
 	}
 
 	//--------------------------------------------

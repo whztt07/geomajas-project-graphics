@@ -21,6 +21,8 @@ import org.geomajas.graphics.client.render.AnchoredText;
 import org.geomajas.graphics.client.render.CoordinatePath;
 import org.geomajas.graphics.client.render.RenderGroup;
 import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainerWithHasAllMouseAndClickHandlers;
 
 /**
  * Default implementation of {@link RenderElementFactory} for {@link org.vaadin.gwtgraphics.client.Shape} objects.
@@ -98,5 +100,16 @@ public class ShapeRenderElementFactoryImpl implements RenderElementFactory {
 	@Override
 	public AnchorMarker createMarkerAnchoredCross(double userX, double userY, int crossHeightPixels) {
 		return new AnchoredCrossImpl(6, 6, 8);
+	}
+
+	@Override
+	public RenderObjectContainer createRenderObjectContainer() {
+		return new ShapeRenderObjectGroup();
+	}
+
+	@Override
+	public RenderObjectContainerWithHasAllMouseAndClickHandlers
+		createRenderObjectContainerWithHasAllMouseAndClickHandlers() {
+		return new ShapeRenderObjectGroupWithMouseHandlers();
 	}
 }

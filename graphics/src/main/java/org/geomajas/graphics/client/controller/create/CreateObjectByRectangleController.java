@@ -26,9 +26,9 @@ import org.geomajas.graphics.client.object.updateable.anchored.Anchored;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.GraphicsUtil;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 /**
  * Generic controller that allows to drag a rectangle on the map,
@@ -49,7 +49,7 @@ public abstract class CreateObjectByRectangleController<T extends GraphicsObject
 	/**
 	 * Our own container.
 	 */
-	private VectorObjectContainer container;
+	private RenderObjectContainer container;
 
 	private HandlerRegistration registration;
 
@@ -93,7 +93,7 @@ public abstract class CreateObjectByRectangleController<T extends GraphicsObject
 			setAnchor(dragResizable);
 			dragResizable.asObject().addMouseMoveHandler(this);
 			dragResizable.asObject().addMouseUpHandler(this);
-			container.add(dragResizable.asObject());
+			container.add(dragResizable);
 		}
 		DOM.setCapture(dragResizable.asObject().getElement());
 	}
@@ -104,7 +104,7 @@ public abstract class CreateObjectByRectangleController<T extends GraphicsObject
 		result.getRole(Resizable.TYPE).setUserBounds(dragResizable.getRole(Resizable.TYPE).getUserBounds());
 		setAnchor(result);
 		DOM.releaseCapture(dragResizable.asObject().getElement());
-		container.remove(dragResizable.asObject());
+		container.remove(dragResizable);
 		dragResizable = null;
 		execute(new AddOperation(result));
 	}

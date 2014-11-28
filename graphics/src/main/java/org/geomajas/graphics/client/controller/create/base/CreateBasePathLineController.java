@@ -24,10 +24,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.controller.create.CreateController;
-import org.geomajas.graphics.client.render.BasePathLine;
 import org.geomajas.graphics.client.object.role.Fillable;
+import org.geomajas.graphics.client.render.BasePathLine;
 import org.geomajas.graphics.client.service.GraphicsService;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class CreateBasePathLineController extends CreateController<BasePathLine>
 
 	private BasePathLine previewPath;
 
-	private VectorObjectContainer container;
+	private RenderObjectContainer container;
 
 	private boolean showPreview;
 
@@ -136,15 +136,15 @@ public class CreateBasePathLineController extends CreateController<BasePathLine>
 					// add the preview extra point !
 					previewPath.addCoordinate(new Coordinate(getUserCoordinate(event)));
 					previewPath.setFillOpacity(previewPath.getFillOpacity() * 0.7);
-					container.add(previewPath.asObject());
+					container.add(previewPath);
 				}
 				// we have to show our intermediate result !
-				container.add(path.asObject());
+				container.add(path);
 				// start the drag line, captures all events from now !
 				if (dragLine == null) {
 					dragLine = createPath();
 					dragLine.setStrokeOpacity(1);
-					container.add(dragLine.asObject());
+					container.add(dragLine);
 				}
 				Coordinate c1 = path.getLastCoordinate();
 				Coordinate c2 = getUserCoordinate(event);

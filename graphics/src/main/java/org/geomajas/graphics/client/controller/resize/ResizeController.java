@@ -27,6 +27,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
+import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.controller.MetaController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
@@ -34,13 +35,14 @@ import org.geomajas.graphics.client.event.GraphicsOperationEvent;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.object.role.Resizable;
 import org.geomajas.graphics.client.operation.ResizeOperation;
+import org.geomajas.graphics.client.render.AnchoredRectangle;
+import org.geomajas.graphics.client.render.RenderableList;
+import org.geomajas.graphics.client.render.shape.AnchoredRectangleImpl;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.geomajas.graphics.client.service.objectcontainer.GraphicsObjectContainer.Space;
-import org.geomajas.graphics.client.render.shape.AnchoredRectangleImpl;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.geomajas.graphics.client.util.FlipState;
 import org.geomajas.graphics.client.util.GraphicsUtil;
-import org.vaadin.gwtgraphics.client.Group;
 import org.vaadin.gwtgraphics.client.Shape;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -112,7 +114,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 
 	@Override
 	protected void init() {
-		setHandlerGroup(new Group());
+		setHandlerGroup(Graphics.getRenderElementFactory().createRenderableList());
 		if (resizable.isAutoHeight()) {
 			BboxPosition[] positions = new BboxPosition[] { BboxPosition.CORNER_UL, BboxPosition.CORNER_UR };
 			for (BboxPosition position : positions) {
@@ -165,9 +167,9 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 		}
 	}
 
-	protected Shape createHandlerArea(BboxPosition type) {
+	protected AnchoredRectangle createHandlerArea(BboxPosition type) {
 		Coordinate anchor = getAnchorPointCoordinate(type, HANDLER_SIZE);
-		AnchoredRectangleImpl handler = new AnchoredRectangleImpl(0, 0, HANDLER_SIZE, HANDLER_SIZE, (int) anchor.getX(),
+		AnchoredRectangle handler = new AnchoredRectangleImpl(0, 0, HANDLER_SIZE, HANDLER_SIZE, (int) anchor.getX(),
 				(int) anchor.getY());
 		handler.setFillColor("#99FFFF");
 		handler.setStrokeColor("#000000");
@@ -175,9 +177,10 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 		return handler;
 	}
 
-	protected Shape createClickableArea(BboxPosition type) {
+	protected AnchoredRectangle createClickableArea(BboxPosition type) {
 		Coordinate anchor = getAnchorPointCoordinate(type, HANDLER_SIZE);
-		AnchoredRectangleImpl clickableArea = new AnchoredRectangleImpl(0, 0, 2 * HANDLER_SIZE, 2 * HANDLER_SIZE,
+		AnchoredRectangle clickableArea = Graphics.getRenderElementFactory().createAnchoredRectangle(
+				0, 0, 2 * HANDLER_SIZE, 2 * HANDLER_SIZE,
 				(int) anchor.getX(), (int) anchor.getY());
 		clickableArea.setFillColor("#000000");
 		clickableArea.setStrokeColor("#000000");
@@ -197,9 +200,9 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 
 		private BboxPosition type;
 
-		private Shape clickableArea;
+		private AnchoredRectangle clickableArea;
 
-		private Shape rectangle;
+		private AnchoredRectangle rectangle;
 
 		private Coordinate userBegin;
 
@@ -255,8 +258,8 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 			if (getHandlerGroup() != null) {
 				clickableArea = createClickableArea(type);
 				rectangle = createHandlerArea(type);
-				setCursor(clickableArea);
-				setCursor(rectangle);
+//				setCursor(clickableArea);
+//				setCursor(rectangle);
 			}
 		}
 
@@ -299,9 +302,9 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 			return type;
 		}
 
-		public void addToGroup(Group group) {
-			group.add(clickableArea);
-			group.add(rectangle);
+		public void addToGroup(RenderableList group) {
+			group.addRenderable(clickableArea);
+			group.addRenderable(rectangle);
 			clickableArea.addMouseDownHandler(this);
 			rectangle.addMouseDownHandler(this);
 			rectangle.addMouseUpHandler(this);
@@ -316,12 +319,12 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 				setDragging(true);
 				onDragStart(event.getClientX(), event.getClientY());
 				if (mask != null) { // may happen in unusual scenario where mouse-up is not called
-					getHandlerGroup().remove(mask.asObject());
+					getHandlerGroup().removeRenderable(mask);
 				}
 				mask = (GraphicsObject) getObject().cloneObject();
 				mask.setOpacity(0.5);
 				mask.getRole(Resizable.TYPE).setUserBounds(beginBounds);
-				getHandlerGroup().add(mask.asObject());
+				getHandlerGroup().addRenderable(mask);
 			}
 		}
 
@@ -329,7 +332,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 		public void onMouseUp(MouseUpEvent event) {
 			if (dragging) {
 				setDragging(false);
-				getHandlerGroup().remove(mask.asObject());
+				getHandlerGroup().removeRenderable(mask);
 				mask = null;
 				boolean preserveRatio = resizable.isPreserveRatio() || event.isShiftKeyDown();
 				onDragStop(event.getClientX(), event.getClientY(), preserveRatio);

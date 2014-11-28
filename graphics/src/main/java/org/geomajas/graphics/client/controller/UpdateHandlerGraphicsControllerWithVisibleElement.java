@@ -28,7 +28,7 @@ public abstract class UpdateHandlerGraphicsControllerWithVisibleElement extends 
 
 	@Override
 	public void setControllerElementsVisible(boolean visible) {
-		getHandlerGroup().setVisible(visible);
+		getHandlerGroup().setOpacity(visible ? 1 : 0);
 	}
 	
 }

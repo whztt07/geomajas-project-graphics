@@ -30,8 +30,8 @@ import org.geomajas.graphics.client.object.role.cache.StrokableCache;
 import org.geomajas.graphics.client.object.updateable.anchored.TwoPointsLine;
 import org.geomajas.graphics.client.operation.AddOperation;
 import org.geomajas.graphics.client.service.GraphicsService;
+import org.geomajas.graphics.client.service.objectcontainer.RenderObjectContainer;
 import org.geomajas.graphics.client.util.CopyUtil;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
 /**
  * Generic controller that allows to drag a rectangle on the map,
@@ -52,7 +52,7 @@ public class CreateBaseCircleByRadiusController
 	/**
 	 * Our own container.
 	 */
-	private VectorObjectContainer container;
+	private RenderObjectContainer container;
 
 	private HandlerRegistration registration;
 
@@ -105,12 +105,12 @@ public class CreateBaseCircleByRadiusController
 			dragResizable.asObject().addMouseUpHandler(this);
 			CopyUtil.copyStrokableProperties(circleStrokable, dragResizable);
 			CopyUtil.copyFillableProperties(circleFillable, dragResizable);
-			container.add(dragResizable.asObject());
+			container.add(dragResizable);
 
 			//line
 			tempPath = new TwoPointsLine(new Coordinate(begin), new Coordinate(begin));
 			CopyUtil.copyStrokableProperties(pathStrokable, tempPath);
-			container.add(tempPath.asObject());
+			container.add(tempPath);
 		}
 		DOM.setCapture(dragResizable.asObject().getElement());
 	}
@@ -129,8 +129,8 @@ public class CreateBaseCircleByRadiusController
 		CopyUtil.copyStrokableProperties(circleStrokable, result);
 		CopyUtil.copyFillableProperties(circleFillable, result);
 		DOM.releaseCapture(dragResizable.asObject().getElement());
-		container.remove(dragResizable.asObject());
-		container.remove(tempPath.asObject());
+		container.remove(dragResizable);
+		container.remove(tempPath);
 		dragResizable = null;
 		tempPath = null;
 		execute(new AddOperation(result));
