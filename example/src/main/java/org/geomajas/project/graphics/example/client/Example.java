@@ -34,6 +34,7 @@ import com.google.web.bindery.event.shared.SimpleEventBus;
 import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
+import org.geomajas.graphics.client.action.DuplicateAction;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseEllipseController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseIconController;
@@ -201,9 +202,7 @@ public class Example implements EntryPoint {
 		popupFactory.registerEditor(new StrokeFillEditor());
 		popupFactory.registerAction(new BringToFrontAction());
 		popupFactory.registerEditor(new AnchoredEditor());
-
-		// TODO: re-asses unsupported editors/action
-//		popupFactory.registerAction(new DuplicateAction());
+		popupFactory.registerAction(new DuplicateAction());
 	}
 
 	private void registerBaseCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {
