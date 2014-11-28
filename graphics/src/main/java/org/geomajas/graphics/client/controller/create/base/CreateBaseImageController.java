@@ -35,11 +35,15 @@ public class CreateBaseImageController extends CreateController<BaseImage> imple
 
 	private int height;
 
-	public CreateBaseImageController(GraphicsService graphicsService, int width, int height, String href) {
+	private boolean preserveAspectRatio;
+
+	public CreateBaseImageController(GraphicsService graphicsService, int width, int height, String href,
+									 boolean preserveAspectRatio) {
 		super(graphicsService);
 		setHref(href);
 		setHeight(height);
 		setWidth(width);
+		setPreserveAspectRatio(preserveAspectRatio);
 	}
 
 	@Override
@@ -79,9 +83,17 @@ public class CreateBaseImageController extends CreateController<BaseImage> imple
 		this.height = height;
 	}
 
+	public boolean isPreserveAspectRatio() {
+		return preserveAspectRatio;
+	}
+
+	public void setPreserveAspectRatio(boolean preserveAspectRatio) {
+		this.preserveAspectRatio = preserveAspectRatio;
+	}
+
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		BaseImage result = new BaseImage(0, 0, width, height, href, true);
+		BaseImage result = new BaseImage(0, 0, width, height, href, preserveAspectRatio);
 		result.getRole(Draggable.TYPE).setUserPosition(getUserCoordinate(event));
 		execute(new AddOperation(result));
 	}

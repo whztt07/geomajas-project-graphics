@@ -221,7 +221,11 @@ public class Example implements EntryPoint {
 		createButtonGroupWidget.addCreateController(
 				new CreateBaseIconController(graphicsService, 16, 16, url), "Base Icon");
 		createButtonGroupWidget.addCreateController(new CreateBaseImageController(graphicsService, 200, 235,
-				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png"), "Base Image");
+				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png", true),
+				"Base Image (preserve ratio)");
+		createButtonGroupWidget.addCreateController(new CreateBaseImageController(graphicsService, 200, 235,
+				"http://tuxpaint.org/stamps/stamps/animals/birds/cartoon/tux.png", false),
+				"Base Image (not preserve ratio)");
 		createButtonGroupWidget.addCreateController(
 				new CreateBasePathController(graphicsService, true), "Base Polygon");
 		createButtonGroupWidget.addCreateController(new CreateBasePathLineController(graphicsService), "Base Line");
