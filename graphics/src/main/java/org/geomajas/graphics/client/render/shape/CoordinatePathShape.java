@@ -42,10 +42,6 @@ public class CoordinatePathShape extends Shape implements CoordinatePath {
 
 	private Bbox bounds;
 
-	public CoordinatePathShape(boolean closed) {
-		this(new Coordinate[] { new Coordinate(), new Coordinate() }, closed);
-	}
-
 	public CoordinatePathShape(Coordinate[] coordinates, boolean closed) {
 		this.closed = closed;
 		if (!closed) {
@@ -73,46 +69,63 @@ public class CoordinatePathShape extends Shape implements CoordinatePath {
 
 	@Override
 	public Coordinate getLastCoordinate() {
-		return (Coordinate) coordinates[coordinates.length - 1].clone();
+		if (hasCoordinates()) {
+			return (Coordinate) coordinates[coordinates.length - 1].clone();
+		}
+		return null;
 	}
 
 	@Override
 	public void addCoordinate(Coordinate coordinate) {
-		Coordinate[] newCoords = new Coordinate[coordinates.length + 1];
-		System.arraycopy(coordinates, 0, newCoords, 0, coordinates.length);
-		newCoords[coordinates.length] = coordinate;
-		setCoordinates(newCoords);
+		if (hasCoordinates()) {
+			Coordinate[] newCoords = new Coordinate[coordinates.length + 1];
+			System.arraycopy(coordinates, 0, newCoords, 0, coordinates.length);
+			newCoords[coordinates.length] = coordinate;
+			setCoordinates(newCoords);
+		} else {
+			setCoordinates(new Coordinate[] { coordinate });
+		}
 	}
 
 	@Override
 	public void moveCoordinate(Coordinate coordinate, int index) {
-		if (index < coordinates.length) {
+		if (coordinates != null && index < coordinates.length) {
 			coordinates[index] = (Coordinate) coordinate.clone();
+			setCoordinates(coordinates);
 		}
-		setCoordinates(coordinates);
 	}
 
 	@Override
 	public int getCoordinateCount() {
-		return coordinates.length;
+		if (hasCoordinates()) {
+			return coordinates.length;
+		}
+		return 0;
 	}
 
 	@Override
 	public void setUserPosition(Coordinate position) {
-		double x = coordinates[0].getX();
-		double y = coordinates[0].getY();
-		double dX = position.getX() - x;
-		double dY = position.getY() - y;
-		for (int i = 0; i < coordinates.length; i++) {
-			coordinates[i].setX(coordinates[i].getX() + dX);
-			coordinates[i].setY(coordinates[i].getY() + dY);
+		if (hasCoordinates()) {
+			double x = coordinates[0].getX();
+			double y = coordinates[0].getY();
+			double dX = position.getX() - x;
+			double dY = position.getY() - y;
+			for (int i = 0; i < coordinates.length; i++) {
+				coordinates[i].setX(coordinates[i].getX() + dX);
+				coordinates[i].setY(coordinates[i].getY() + dY);
+			}
+			setCoordinates(coordinates);
+		} else {
+			setCoordinates(new Coordinate[] {position});
 		}
-		setCoordinates(coordinates);
 	}
 
 	@Override
 	public Coordinate getUserPosition() {
-		return (Coordinate) coordinates[0].clone();
+		if (hasCoordinates()) {
+			return (Coordinate) coordinates[0].clone();
+		}
+		return null;
 	}
 
 	@Override
@@ -163,48 +176,58 @@ public class CoordinatePathShape extends Shape implements CoordinatePath {
 
 	protected List<PathStep> calcSteps() {
 		List<PathStep> result = new ArrayList<PathStep>();
-		Coordinate prev = coordinates[0];
-		result.add(new MoveTo(false, prev.getX(), prev.getY()));
-		for (int i = 1; i < coordinates.length; i++) {
-			Coordinate next = coordinates[i];
-			result.add(new LineTo(true, next.getX() - prev.getX(), next.getY() - prev.getY()));
-			prev = next;
-		}
-		if (closed) {
-			result.add(new ClosePath());
+		if (hasCoordinates()) {
+			Coordinate prev = coordinates[0];
+			result.add(new MoveTo(false, prev.getX(), prev.getY()));
+			for (int i = 1; i < coordinates.length; i++) {
+				Coordinate next = coordinates[i];
+				result.add(new LineTo(true, next.getX() - prev.getX(), next.getY() - prev.getY()));
+				prev = next;
+			}
+			if (closed) {
+				result.add(new ClosePath());
+			}
 		}
 		return result;
 	}
 
 	protected Bbox calcBounds() {
-		Coordinate c = coordinates[0];
-		Bbox result = new Bbox(c.getX(), c.getY(), 0, 0);
-		for (int i = 1; i < coordinates.length; i++) {
-			c = coordinates[i];
-			result = BboxService.union(result, new Bbox(c.getX(), c.getY(), 0, 0));
+		if (hasCoordinates()) {
+			Coordinate c = coordinates[0];
+			Bbox result = new Bbox(c.getX(), c.getY(), 0, 0);
+			for (int i = 1; i < coordinates.length; i++) {
+				c = coordinates[i];
+				result = BboxService.union(result, new Bbox(c.getX(), c.getY(), 0, 0));
+			}
+			return result;
 		}
-		return result;
+		return new Bbox();
 	}
 
 	protected void drawTransformed() {
-		// apply translation
-		MoveTo moveTo = (MoveTo) steps.get(0);
-		steps.set(0, new MoveTo(moveTo.isRelativeCoords(), moveTo.getUserX() + getDeltaX(), moveTo.getUserY()
-				+ getDeltaY()));
-		// apply scale
-		ScaleHelper scaleHelper = new ScaleHelper(getScaleX(), getScaleY());
-		for (PathStep step : steps) {
-			step.scale(scaleHelper);
+		if (steps != null && steps.size() > 0) {
+			// apply translation
+			MoveTo moveTo = (MoveTo) steps.get(0);
+			steps.set(0, new MoveTo(moveTo.isRelativeCoords(), moveTo.getUserX() + getDeltaX(), moveTo.getUserY()
+					+ getDeltaY()));
+			// apply scale
+			ScaleHelper scaleHelper = new ScaleHelper(getScaleX(), getScaleY());
+			for (PathStep step : steps) {
+				step.scale(scaleHelper);
+			}
+			getImpl().drawPath(getElement(), steps);
 		}
-		getImpl().drawPath(getElement(), steps);
 	}
 
 	private void updateCoordinates() {
 		this.bounds = calcBounds();
 		this.steps = calcSteps();
-		setUserX(coordinates[0].getX());
-		setUserY(coordinates[0].getX());
-		drawTransformed();
+		if (hasCoordinates()) {
+			//set position to be the first coordinate
+			setUserX(coordinates[0].getX());
+			setUserY(coordinates[0].getY());
+			drawTransformed();
+		}
 	}
 
 	@Override
@@ -216,5 +239,9 @@ public class CoordinatePathShape extends Shape implements CoordinatePath {
 	public void setOpacity(double opacity) {
 		setFillOpacity(opacity);
 		setStrokeOpacity(opacity);
+	}
+
+	private boolean hasCoordinates() {
+		return coordinates != null && coordinates.length > 0;
 	}
 }
