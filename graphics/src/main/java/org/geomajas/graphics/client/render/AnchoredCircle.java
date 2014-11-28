@@ -11,6 +11,8 @@
 package org.geomajas.graphics.client.render;
 
 import org.geomajas.graphics.client.object.updateable.anchored.AnchorMarker;
+import org.geomajas.graphics.client.util.HasFill;
+import org.geomajas.graphics.client.util.HasStroke;
 
 /**
  * A non-scaling text that is anchored to its world space location on a specific pixel or anchor location (useful for
@@ -20,7 +22,7 @@ import org.geomajas.graphics.client.object.updateable.anchored.AnchorMarker;
  * @author Jan Venstermans
  * 
  */
-public interface AnchoredCircle extends AnchorMarker {
+public interface AnchoredCircle extends AnchorMarker, HasStroke, HasFill {
 
 	void setUserX(double x);
 
@@ -39,8 +41,4 @@ public interface AnchoredCircle extends AnchorMarker {
 	int getRadius();
 
 	int getY();
-
-	void setFillOpacity(double opacity);
-
-	void setStrokeOpacity(double opacity);
 }

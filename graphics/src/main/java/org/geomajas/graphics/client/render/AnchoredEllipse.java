@@ -10,6 +10,9 @@
  */
 package org.geomajas.graphics.client.render;
 
+import org.geomajas.graphics.client.util.HasFill;
+import org.geomajas.graphics.client.util.HasStroke;
+
 /**
  * A non-scaling text that is anchored to its world space location on a specific pixel or anchor location (useful for
  * location markers).
@@ -18,7 +21,7 @@ package org.geomajas.graphics.client.render;
  * @author Jan Venstermans
  * 
  */
-public interface AnchoredEllipse {
+public interface AnchoredEllipse extends HasStroke, HasFill {
 
 	void setUserX(double x);
 
@@ -44,7 +47,4 @@ public interface AnchoredEllipse {
 
 	int getRadiusY();
 
-	void setFillOpacity(double opacity);
-
-	void setStrokeOpacity(double opacity);
 }

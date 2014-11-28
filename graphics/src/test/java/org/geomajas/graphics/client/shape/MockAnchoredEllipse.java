@@ -23,6 +23,9 @@ public class MockAnchoredEllipse implements AnchoredEllipse {
 	private int radiusX;
 	private int radiusY;
 	private double fillOpacity;
+	private String fillColor;
+	private String strokeColor;
+	private int strokeWidth;
 	private double strokeOpacity;
 
 	@Override
@@ -111,12 +114,44 @@ public class MockAnchoredEllipse implements AnchoredEllipse {
 		this.radiusY = radiusY;
 	}
 
+	@Override
 	public double getFillOpacity() {
 		return fillOpacity;
 	}
 
+	@Override
 	public double getStrokeOpacity() {
 		return strokeOpacity;
+	}
+
+	@Override
+	public String getFillColor() {
+		return fillColor;
+	}
+
+	@Override
+	public void setFillColor(String fillColor) {
+		this.fillColor = fillColor;
+	}
+
+	@Override
+	public String getStrokeColor() {
+		return strokeColor;
+	}
+
+	@Override
+	public void setStrokeColor(String strokeColor) {
+		this.strokeColor = strokeColor;
+	}
+
+	@Override
+	public int getStrokeWidth() {
+		return strokeWidth;
+	}
+
+	@Override
+	public void setStrokeWidth(int strokeWidth) {
+		this.strokeWidth = strokeWidth;
 	}
 }
 

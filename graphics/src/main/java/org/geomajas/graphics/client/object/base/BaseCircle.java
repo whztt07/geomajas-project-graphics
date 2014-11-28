@@ -16,8 +16,11 @@ import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.render.AnchoredCircle;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -27,7 +30,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  * @author Jan De Moerloose
  * @author Jan Venstermans
  */
-public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggable {
+public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggable, Strokable, Fillable {
 
 	private AnchoredCircle circle;
 
@@ -39,6 +42,8 @@ public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggab
 		this.circle = circle;
 		addRole(Resizable.TYPE, this);
 		addRole(Draggable.TYPE, this);
+		addRole(Strokable.TYPE, this);
+		addRole(Fillable.TYPE, this);
 	}
 
 	@Override
@@ -53,8 +58,10 @@ public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggab
 	}
 
 	public Object cloneObject() {
-		BaseCircle mask = new BaseCircle(circle.getUserX(), circle.getUserY(), circle.getUserRadius());
-		return mask;
+		BaseCircle clone = new BaseCircle(circle.getUserX(), circle.getUserY(), circle.getUserRadius());
+		CopyUtil.copyStrokableProperties(this, clone);
+		CopyUtil.copyFillableProperties(this, clone);
+		return clone;
 	}
 
 	@Override
@@ -105,5 +112,55 @@ public class BaseCircle extends BaseGraphicsObject implements Resizable, Draggab
 	public void setOpacity(double opacity) {
 		circle.setFillOpacity(opacity);
 		circle.setStrokeOpacity(opacity);
+	}
+
+	@Override
+	public void setFillColor(String fillColor) {
+		circle.setFillColor(fillColor);
+	}
+
+	@Override
+	public void setFillOpacity(double fillOpacity) {
+		circle.setFillOpacity(fillOpacity);
+	}
+
+	@Override
+	public String getFillColor() {
+		return circle.getFillColor();
+	}
+
+	@Override
+	public double getFillOpacity() {
+		return circle.getFillOpacity();
+	}
+
+	@Override
+	public String getStrokeColor() {
+		return circle.getStrokeColor();
+	}
+
+	@Override
+	public void setStrokeColor(String strokeColor) {
+		circle.setStrokeColor(strokeColor);
+	}
+
+	@Override
+	public int getStrokeWidth() {
+		return circle.getStrokeWidth();
+	}
+
+	@Override
+	public void setStrokeWidth(int strokeWidth) {
+		 circle.setStrokeWidth(strokeWidth);
+	}
+
+	@Override
+	public double getStrokeOpacity() {
+		return circle.getStrokeOpacity();
+	}
+
+	@Override
+	public void setStrokeOpacity(double strokeOpacity) {
+		circle.setStrokeOpacity(strokeOpacity);
 	}
 }

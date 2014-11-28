@@ -13,8 +13,11 @@ package org.geomajas.graphics.client.object.updateable;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.GraphicsMockSetup;
+import org.geomajas.graphics.client.object.base.BaseEllipse;
 import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.object.role.Textable;
 import org.geomajas.graphics.client.object.updateable.labeled.Labeled;
 import org.junit.Assert;
@@ -38,6 +41,14 @@ public class LabeledEllipseTest extends GraphicsMockSetup {
 		Assert.assertTrue(labeledEllipse.hasRole(Draggable.TYPE));
 		Draggable draggable = labeledEllipse.getRole(Draggable.TYPE);
 		Assert.assertNotNull(draggable);
+		// strokable
+		Assert.assertTrue(labeledEllipse.hasRole(Strokable.TYPE));
+		Strokable strokable = labeledEllipse.getRole(Strokable.TYPE);
+		Assert.assertNotNull(strokable);
+		// fillable
+		Assert.assertTrue(labeledEllipse.hasRole(Fillable.TYPE));
+		Fillable fillable = labeledEllipse.getRole(Fillable.TYPE);
+		Assert.assertNotNull(fillable);
 		// labeled
 		Assert.assertTrue(labeledEllipse.hasRole(Labeled.TYPE));
 		Labeled labeled = labeledEllipse.getRole(Labeled.TYPE);
@@ -74,6 +85,39 @@ public class LabeledEllipseTest extends GraphicsMockSetup {
 		LabeledEllipse labeledEllipseClone = assertIsCorrectObject(clone);
 		Assert.assertTrue(labeledEllipseClone.hasRole(Resizable.TYPE));
 		assertRoleEqualityResizable(expected, labeledEllipseClone.getRole(Resizable.TYPE));
+	}
+
+	@Test
+	public void testCloneObjectStrokable() throws Exception {
+		Bbox bbox =  new Bbox(15, 20, 5, 5);
+		String labelString = "labelString";
+		labeledEllipse = createLabeledEllipse(bbox, labelString);
+		Strokable expected = labeledEllipse.getRole(Strokable.TYPE);
+		expected.setStrokeColor("strokeColor");
+		expected.setStrokeOpacity(0.3);
+		expected.setStrokeWidth(8);
+
+		Object clone = labeledEllipse.cloneObject();
+
+		LabeledEllipse labeledEllipseClone = assertIsCorrectObject(clone);
+		Assert.assertTrue(labeledEllipseClone.hasRole(Strokable.TYPE));
+		assertRoleEqualityStrokable(expected, labeledEllipseClone.getRole(Strokable.TYPE));
+	}
+
+	@Test
+	public void testCloneObjectFillable() throws Exception {
+		Bbox bbox =  new Bbox(15, 20, 5, 5);
+		String labelString = "labelString";
+		labeledEllipse = createLabeledEllipse(bbox, labelString);
+		Fillable expected = labeledEllipse.getRole(Fillable.TYPE);
+		expected.setFillColor("fillColor");
+		expected.setFillOpacity(0.4);
+
+		Object clone = labeledEllipse.cloneObject();
+
+		LabeledEllipse labeledEllipseClone = assertIsCorrectObject(clone);
+		Assert.assertTrue(labeledEllipseClone.hasRole(Fillable.TYPE));
+		assertRoleEqualityFillable(expected, labeledEllipseClone.getRole(Fillable.TYPE));
 	}
 
 	@Test

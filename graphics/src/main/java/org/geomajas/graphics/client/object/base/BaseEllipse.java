@@ -16,8 +16,11 @@ import org.geomajas.geometry.service.BboxService;
 import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.object.BaseGraphicsObject;
 import org.geomajas.graphics.client.object.role.Draggable;
+import org.geomajas.graphics.client.object.role.Fillable;
 import org.geomajas.graphics.client.object.role.Resizable;
+import org.geomajas.graphics.client.object.role.Strokable;
 import org.geomajas.graphics.client.render.AnchoredEllipse;
+import org.geomajas.graphics.client.util.CopyUtil;
 import org.geomajas.graphics.client.util.FlipState;
 import org.vaadin.gwtgraphics.client.VectorObject;
 
@@ -29,7 +32,7 @@ import org.vaadin.gwtgraphics.client.VectorObject;
  * @author Jan Venstermans
  * 
  */
-public class BaseEllipse extends BaseGraphicsObject implements Resizable, Draggable {
+public class BaseEllipse extends BaseGraphicsObject implements Resizable, Draggable, Strokable, Fillable {
 
 	private AnchoredEllipse anchoredEllipse;
 
@@ -50,6 +53,8 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 		this.anchoredEllipse = anchoredEllipse;
 		addRole(Resizable.TYPE, this);
 		addRole(Draggable.TYPE, this);
+		addRole(Strokable.TYPE, this);
+		addRole(Fillable.TYPE, this);
 	}
 
 	@Override
@@ -64,9 +69,11 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 	}
 
 	public Object cloneObject() {
-		BaseEllipse mask = new BaseEllipse(anchoredEllipse.getUserX(),
+		BaseEllipse clone = new BaseEllipse(anchoredEllipse.getUserX(),
 				anchoredEllipse.getUserY(), anchoredEllipse.getUserRadiusX(), anchoredEllipse.getUserRadiusY());
-		return mask;
+		CopyUtil.copyStrokableProperties(this, clone);
+		CopyUtil.copyFillableProperties(this, clone);
+		return clone;
 	}
 
 	@Override
@@ -120,4 +127,53 @@ public class BaseEllipse extends BaseGraphicsObject implements Resizable, Dragga
 		anchoredEllipse.setStrokeOpacity(opacity);
 	}
 
+	@Override
+	public void setFillColor(String fillColor) {
+		anchoredEllipse.setFillColor(fillColor);
+	}
+
+	@Override
+	public void setFillOpacity(double fillOpacity) {
+		anchoredEllipse.setFillOpacity(fillOpacity);
+	}
+
+	@Override
+	public String getFillColor() {
+		return anchoredEllipse.getFillColor();
+	}
+
+	@Override
+	public double getFillOpacity() {
+		return anchoredEllipse.getFillOpacity();
+	}
+
+	@Override
+	public String getStrokeColor() {
+		return anchoredEllipse.getStrokeColor();
+	}
+
+	@Override
+	public void setStrokeColor(String strokeColor) {
+		anchoredEllipse.setStrokeColor(strokeColor);
+	}
+
+	@Override
+	public int getStrokeWidth() {
+		return anchoredEllipse.getStrokeWidth();
+	}
+
+	@Override
+	public void setStrokeWidth(int strokeWidth) {
+		anchoredEllipse.setStrokeWidth(strokeWidth);
+	}
+
+	@Override
+	public double getStrokeOpacity() {
+		return anchoredEllipse.getStrokeOpacity();
+	}
+
+	@Override
+	public void setStrokeOpacity(double strokeOpacity) {
+		anchoredEllipse.setStrokeOpacity(strokeOpacity);
+	}
 }
