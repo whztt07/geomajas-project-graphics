@@ -10,7 +10,7 @@
  */
 package org.geomajas.graphics.client.controller.create.updateable;
 
-import org.geomajas.graphics.client.controller.create.CreateBoundedObjectController;
+import org.geomajas.graphics.client.controller.create.CreateObjectByRectangleController;
 import org.geomajas.graphics.client.object.updateable.LabeledRectangle;
 import org.geomajas.graphics.client.service.GraphicsService;
 
@@ -21,7 +21,7 @@ import org.geomajas.graphics.client.service.GraphicsService;
  *
  */
 
-public class CreateLabeledRectangleController extends CreateBoundedObjectController<LabeledRectangle> {
+public class CreateLabeledRectangleController extends CreateObjectByRectangleController<LabeledRectangle> {
 
 	public CreateLabeledRectangleController(GraphicsService graphicsService) {
 		super(graphicsService);

@@ -35,7 +35,8 @@ import org.geomajas.graphics.client.Graphics;
 import org.geomajas.graphics.client.action.BringToFrontAction;
 import org.geomajas.graphics.client.action.DeleteAction;
 import org.geomajas.graphics.client.action.DuplicateAction;
-import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleByRadiusController;
+import org.geomajas.graphics.client.controller.create.base.CreateBaseCircleByRectangleController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseEllipseController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseIconController;
 import org.geomajas.graphics.client.controller.create.base.CreateBaseImageController;
@@ -209,7 +210,13 @@ public class Example implements EntryPoint {
 		createButtonGroupWidget.addCreateController(new CreateBaseTextController(graphicsService), "Base Text");
 		createButtonGroupWidget.addCreateController(
 				new CreateBaseRectangleController(graphicsService), "Base Rectangle");
-		createButtonGroupWidget.addCreateController(new CreateBaseCircleController(graphicsService), "Base Circle");
+		createButtonGroupWidget.addCreateController(new CreateBaseCircleByRectangleController(graphicsService),
+				"Base Circle (by rectangle)");
+		CreateBaseCircleByRadiusController createBaseCircleByRadiusController
+				= new CreateBaseCircleByRadiusController(graphicsService);
+		createBaseCircleByRadiusController.getPathStrokable().setStrokeColor("red");
+		createBaseCircleByRadiusController.getCircleFillable().setFillColor("red");
+		createButtonGroupWidget.addCreateController(createBaseCircleByRadiusController, "Base Circle (by radius)");
 		createButtonGroupWidget.addCreateController(new CreateBaseEllipseController(graphicsService), "Base Ellipse");
 		createButtonGroupWidget.addCreateController(
 				new CreateBaseIconController(graphicsService, 16, 16, url), "Base Icon");

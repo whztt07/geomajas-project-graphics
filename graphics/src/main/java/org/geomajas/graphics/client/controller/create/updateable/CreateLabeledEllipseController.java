@@ -11,7 +11,7 @@
 package org.geomajas.graphics.client.controller.create.updateable;
 
 import org.geomajas.geometry.Bbox;
-import org.geomajas.graphics.client.controller.create.CreateBoundedObjectController;
+import org.geomajas.graphics.client.controller.create.CreateObjectByRectangleController;
 import org.geomajas.graphics.client.object.updateable.LabeledEllipse;
 import org.geomajas.graphics.client.service.GraphicsService;
 
@@ -21,7 +21,7 @@ import org.geomajas.graphics.client.service.GraphicsService;
  * @author Jan Venstermans
  *
  */
-public class CreateLabeledEllipseController extends CreateBoundedObjectController<LabeledEllipse> {
+public class CreateLabeledEllipseController extends CreateObjectByRectangleController<LabeledEllipse> {
 
 	public CreateLabeledEllipseController(GraphicsService graphicsService) {
 		super(graphicsService);

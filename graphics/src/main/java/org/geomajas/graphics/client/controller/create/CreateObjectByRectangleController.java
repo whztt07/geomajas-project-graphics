@@ -39,7 +39,7 @@ import org.vaadin.gwtgraphics.client.VectorObjectContainer;
  * @param <T> objects whose bounds can be set
  * 
  */
-public abstract class CreateBoundedObjectController<T extends GraphicsObject>
+public abstract class CreateObjectByRectangleController<T extends GraphicsObject>
 		extends CreateController<T> implements MouseDownHandler, MouseMoveHandler, MouseUpHandler {
 
 	private GraphicsObject dragResizable;
@@ -61,7 +61,7 @@ public abstract class CreateBoundedObjectController<T extends GraphicsObject>
 	 */
 	protected abstract T createObjectWithoutBounds();
 
-	public CreateBoundedObjectController(GraphicsService graphicsService) {
+	public CreateObjectByRectangleController(GraphicsService graphicsService) {
 		super(graphicsService);
 		container = createContainer();
 	}
