@@ -10,8 +10,11 @@
  */
 package org.geomajas.graphics.client.service;
 
-import java.util.List;
-
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.graphics.client.event.AddAnchoredLinesEvent;
@@ -21,25 +24,21 @@ import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.util.BboxPosition;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
-import com.google.gwt.event.dom.client.HasAllMouseHandlers;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
-import com.google.gwt.event.dom.client.MouseEvent;
-import com.google.web.bindery.event.shared.HandlerRegistration;
+import java.util.List;
 
 /**
  * Container of graphics objects.
- * 
+ *
  * @author Jan De Moerloose
- * 
+ *
  */
 public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHandlers, HasDoubleClickHandlers {
 
 	/**
 	 * User/screen space as known by GWT graphics objects.
-	 * 
+	 *
 	 * @author Jan De Moerloose
-	 * 
+	 *
 	 */
 	enum Space {
 		USER, SCREEN
@@ -47,14 +46,14 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Create a new container for rendering graphics (used by controllers).
-	 * 
+	 *
 	 * @return a new container
 	 */
 	VectorObjectContainer createContainer();
 
 	/**
 	 * Remove this container from the root container.
-	 * 
+	 *
 	 * @param container
 	 */
 	void removeContainer(VectorObjectContainer container);
@@ -68,14 +67,14 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Get all the objects of this container.
-	 * 
+	 *
 	 * @return the list of objects (in creation order)
 	 */
 	List<GraphicsObject> getObjects();
 
 	/**
 	 * Add an object to the container.
-	 * 
+	 *
 	 * @param object
 	 *            the object
 	 */
@@ -83,7 +82,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Remove an object from the container.
-	 * 
+	 *
 	 * @param object
 	 */
 	void remove(GraphicsObject object);
@@ -95,14 +94,14 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Notify the container that an object has been updated (and should possibly be re-rendered).
-	 * 
+	 *
 	 * @param object
 	 */
 	void update(GraphicsObject object);
 
 	/**
 	 * Select an object in the container.
-	 * 
+	 *
 	 * @param object
 	 * @param selected
 	 */
@@ -115,7 +114,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Add a handler that listens to CRUD operations on {@link GraphicsObject} objects.
-	 * 
+	 *
 	 * @param handler
 	 * @return
 	 */
@@ -123,7 +122,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Add handler that listens to operations on the container.
-	 * 
+	 *
 	 * @param handler
 	 * @return
 	 */
@@ -131,7 +130,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Get the screen coordinate of this event.
-	 * 
+	 *
 	 * @param event
 	 * @return
 	 */
@@ -139,7 +138,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Transform a coordinate between user/screen space.
-	 * 
+	 *
 	 * @param coordinate
 	 * @param from
 	 * @param to
@@ -149,7 +148,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Transform a bounding box between user/screen space.
-	 * 
+	 *
 	 * @param bounds
 	 * @param from
 	 * @param to
@@ -159,7 +158,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Transform a bounding box position between user/screen space.
-	 * 
+	 *
 	 * @param position
 	 * @param from
 	 * @param to
@@ -170,7 +169,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 	/**
 	 * Get the background as an observable for mouse events. All events that are not captured by one of the objects are
 	 * sent.
-	 * 
+	 *
 	 * @return
 	 */
 	HasAllMouseAndClickHandlers getBackGround();
@@ -178,7 +177,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 	/**
 	 * Get the object group as an observable for mouse events. All events that are captured by one of the objects are
 	 * sent.
-	 * 
+	 *
 	 * @return
 	 */
 	HasAllMouseAndClickHandlers getObjectGroup();
@@ -189,7 +188,7 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 
 	/**
 	 * Check if this event has an object as its source.
-	 * 
+	 *
 	 * @param event
 	 * @return
 	 */
@@ -208,4 +207,11 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 	 * @return
 	 */
 	boolean isBackGround(MouseEvent<?> event);
+
+	/**
+	 * Stops the event propagation of the graphics object.
+	 *
+	 * @param stopPropagation boolean
+	 */
+	void setStopPropagation(boolean stopPropagation);
 }

@@ -10,11 +10,17 @@
  */
 package org.geomajas.graphics.client.controller;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
@@ -30,23 +36,16 @@ import org.geomajas.graphics.client.service.GraphicsControllerFactory;
 import org.geomajas.graphics.client.service.GraphicsService;
 import org.vaadin.gwtgraphics.client.VectorObjectContainer;
 
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseEvent;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.user.client.DOM;
-import com.google.web.bindery.event.shared.HandlerRegistration;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controller of controllers. Activates all controllers when an object is clicked.
- * 
+ *
  * @author Jan De Moerloose
- * 
+ *
  */
 public class MetaController extends AbstractGraphicsController implements MouseDownHandler, DoubleClickHandler,
 		GraphicsController, GraphicsObjectContainerEvent.Handler {
@@ -88,6 +87,7 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 				deactivateAllControllers();
 				unregister();
 			}
+			getObjectContainer().setStopPropagation(active);
 		}
 	}
 
@@ -220,9 +220,9 @@ public class MetaController extends AbstractGraphicsController implements MouseD
 
 	/**
 	 * Handlers that deactivates objects or activates them by dragging a rectangle.
-	 * 
+	 *
 	 * @author Jan De Moerloose
-	 * 
+	 *
 	 */
 	public class BackGroundHandler implements MouseDownHandler, MouseMoveHandler, MouseUpHandler {
 
