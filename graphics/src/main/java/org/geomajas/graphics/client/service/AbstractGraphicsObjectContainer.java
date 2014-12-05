@@ -10,23 +10,6 @@
  */
 package org.geomajas.graphics.client.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.geomajas.graphics.client.event.AddAnchoredLinesEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
-import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
-import org.geomajas.graphics.client.event.GraphicsObjectSelectedEvent;
-import org.geomajas.graphics.client.event.GraphicsOperationEvent;
-import org.geomajas.graphics.client.object.GraphicsObject;
-import org.geomajas.graphics.client.object.anchor.AnchoredTo;
-import org.geomajas.graphics.client.object.role.HtmlRenderable;
-import org.geomajas.graphics.client.shape.CoordinatePath;
-import org.vaadin.gwtgraphics.client.Group;
-import org.vaadin.gwtgraphics.client.VectorObject;
-import org.vaadin.gwtgraphics.client.VectorObjectContainer;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -51,15 +34,31 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
+import org.geomajas.graphics.client.event.AddAnchoredLinesEvent;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.ActionType;
+import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent.Handler;
+import org.geomajas.graphics.client.event.GraphicsObjectSelectedEvent;
+import org.geomajas.graphics.client.event.GraphicsOperationEvent;
+import org.geomajas.graphics.client.object.GraphicsObject;
+import org.geomajas.graphics.client.object.anchor.AnchoredTo;
+import org.geomajas.graphics.client.object.role.HtmlRenderable;
+import org.geomajas.graphics.client.shape.CoordinatePath;
+import org.vaadin.gwtgraphics.client.Group;
+import org.vaadin.gwtgraphics.client.VectorObject;
+import org.vaadin.gwtgraphics.client.VectorObjectContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 
+ *
  * Implementation of {@link GraphicsObjectContainer} that is backed by a root {@link VectorObjectContainer}. The
  * implementation provides catch-all mouse event handlers by adding a large background rectangle as the first child of
  * the container. All objects are added to a {@link Group}.
- * 
+ *
  * @author Jan De Moerloose
- * 
+ *
  */
 public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectContainer {
 
@@ -98,6 +97,8 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 	public void setWidgetContainer(HasWidgets.ForIsWidget widgetContainer) {
 		this.widgetContainer = widgetContainer;
 	}
+
+
 
 	@Override
 	public HasAllMouseAndClickHandlers getObjectGroup() {
@@ -278,9 +279,9 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 
 	/**
 	 * The {@link Group} that contains all {@link GraphicsObject}s of this container.
-	 * 
+	 *
 	 * @author Jan De Moerloose
-	 * 
+	 *
 	 */
 	class ObjectGroup extends Group implements HasAllMouseAndClickHandlers {
 
@@ -301,6 +302,12 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 			}
 		}
 		eventBus.fireEvent(new AddAnchoredLinesEvent(object, coordinatePaths));
+	}
+
+	@Override
+	public void setStopPropagation(boolean stopPropagation) {
+		backGround.setStopPropagation(stopPropagation);
+		rootGroup.setStopPropagation(stopPropagation);
 	}
 
 }
