@@ -279,6 +279,12 @@ public abstract class AbstractGraphicsObjectContainer implements GraphicsObjectC
 		return eventBus.addHandler(GraphicsOperationEvent.getType(), handler);
 	}
 
+	@Override
+	public void setStopPropagation(boolean stopPropagation) {
+		backGround.setStopPropagation(stopPropagation);
+		rootGroup.setStopPropagation(stopPropagation);
+	}
+
 	/**
 	 * The {@link Group} that contains all {@link GraphicsObject}s of this container.
 	 *

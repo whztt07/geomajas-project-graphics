@@ -217,4 +217,10 @@ public interface GraphicsObjectContainer extends HasAllMouseHandlers, HasClickHa
 	 */
 	HandlerRegistration addGraphicsOperationEventHandler(GraphicsOperationEvent.Handler handler);
 
+	/**
+	 * Stops the event propagation of the graphics object.
+	 *
+	 * @param stopPropagation
+	 */
+	void setStopPropagation(boolean stopPropagation);
 }

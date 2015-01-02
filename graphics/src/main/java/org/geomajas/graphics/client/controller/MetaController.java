@@ -82,6 +82,7 @@ public class MetaController extends AbstractInterruptibleGraphicsController
 				deactivateAllControllers();
 				unregister();
 			}
+			getObjectContainer().setStopPropagation(active);
 		}
 	}
 
