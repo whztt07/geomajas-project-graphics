@@ -173,7 +173,6 @@
 		<graphics-version-geomajas-geometry>1.1.0</graphics-version-geomajas-geometry>
 		<graphics-version-vaadin-gwt-graphics>1.0.0.TX12</graphics-version-vaadin-gwt-graphics>
 		<graphics-version-gwt>2.5.1</graphics-version-gwt>
-		<graphics-version-geomajas-build-tools>2.5.0</graphics-version-geomajas-build-tools>
 	</properties>
 
 </project>

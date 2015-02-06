@@ -208,7 +208,7 @@
 				<dependency>
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
-					<version>${graphics-version-geomajas-build-tools}</version>
+					<version>${geomajas-build-tools-version}</version>
 				</dependency>
 				<dependency>
 					<groupId>com.google.gwt</groupId>
