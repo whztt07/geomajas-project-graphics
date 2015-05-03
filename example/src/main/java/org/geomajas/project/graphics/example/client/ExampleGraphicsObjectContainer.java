@@ -108,7 +108,8 @@ public class ExampleGraphicsObjectContainer extends AbstractGraphicsObjectContai
 	private List<String> urls = new ArrayList<String>(Arrays.asList(GWT.getModuleBaseURL() + "image/slider.gif",
 			GWT.getModuleBaseURL() + "image/cloud.png",
 			GWT.getModuleBaseURL() + "image/sun.jpg"));
-	
+
+	@Override
 	public void onPreviewNativeEvent(NativePreviewEvent event) {
 		Element relatedEventTarget = event.getNativeEvent().getEventTarget().cast();
 		if (relatedEventTarget != null && canvas.isAttached()) {
@@ -118,6 +119,7 @@ public class ExampleGraphicsObjectContainer extends AbstractGraphicsObjectContai
 		}
 	}
 
+	@Override
 	public Widget asWidget() {
 		return rootPanel;
 	}

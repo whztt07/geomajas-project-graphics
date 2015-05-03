@@ -145,23 +145,21 @@ public class Example implements EntryPoint {
 	
 	private List<String> url = new ArrayList<String>(Arrays.asList(urls.get(0)));
 	
-	private PopupMenuControllerFactory popupFactory;
-
 	private ExampleGraphicsObjectContainer graphicsObjectContainer;
 
 	@Override
 	public void onModuleLoad() {
 		SimpleEventBus eventBus = new SimpleEventBus();
 		graphicsObjectContainer = new ExampleGraphicsObjectContainer(eventBus);
+
+		//graphics service configuration
 		graphicsService = new GraphicsServiceImpl(eventBus);
-		//configure booleans
 		graphicsService.setUndoKeys(true);
 		graphicsService.setShowOriginalObjectWhileDragging(true);
 		graphicsService.setObjectContainer(graphicsObjectContainer);
-		
-		//functionalities
-		popupFactory = new PopupMenuControllerFactory();
 		registerControllerFactories();
+
+		//popupFactory
 		registerPopupFactoryActionsAndEditiors();
 
 		//create widget and fill
@@ -195,10 +193,11 @@ public class Example implements EntryPoint {
 		graphicsService.registerControllerFactory(new DeleteControllerFactory());
 		graphicsService.registerControllerFactory(new LabelControllerFactory());
 		graphicsService.registerControllerFactory(new AnchoredDragControllerFactory());
-		graphicsService.registerControllerFactory(popupFactory);
 	}
 	
 	private void registerPopupFactoryActionsAndEditiors() {
+		PopupMenuControllerFactory popupFactory = new PopupMenuControllerFactory();
+		// register actions
 		popupFactory.registerAction(new DeleteAction());
 		popupFactory.registerEditor(new TextableEditor());
 		popupFactory.registerEditor(new LabeledEditor());
@@ -206,6 +205,8 @@ public class Example implements EntryPoint {
 		popupFactory.registerAction(new BringToFrontAction());
 		popupFactory.registerEditor(new AnchoredEditor());
 		popupFactory.registerAction(new DuplicateAction());
+		//register popupfactory to graphicsService
+		graphicsService.registerControllerFactory(popupFactory);
 	}
 
 	private void registerBaseCreateControllersToWidget(CreateButtonGroupWidget createButtonGroupWidget) {

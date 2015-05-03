@@ -17,5 +17,74 @@
   <para>This section covers some examples of how to use the services that are
   provided on top of the graphics model.</para>
 
-  <para>TODO</para>
+  <section>
+	  <title>Define a GraphicsObject container Widget</title>
+	  <para>
+			First of all, define a <code>GraphicsObjectContainer</code> implementation. This object will have to
+		  contain all created <code>GraphicsObject</code>s and render them in the application.
+		  An abstract implementation with most of the functions is available as
+		  <code>AbstractGraphicsObjectContainer</code>. For a full configuration as a GWT widget, look at
+		  <code>ExampleGraphicsObjectContainer</code>.
+	  </para>
+
+	  <para><programlisting>EventBus eventBus = new SimpleEventBus(); //choice an EventBus implementation
+// implement e.g. AbstractGraphicsObjectContainer
+GraphicsObjectContainer graphicsObjectContainer = new CustomAbstractGraphicsObjectContainerImplementation(eventBus);</programlisting></para>
+
+	  <para>
+		  Objects can be added at run time (see later),
+		  but  objects can also be added to the container programmatically:
+	  </para>
+
+	  <para><programlisting>GraphicsObjectContainer graphicsObjectContainer =...;
+LabeledRectangle rect = new LabeledRectangle(100, 100, 100, 100, "Rectangle label");
+graphicsObjectContainer.add(rect);
+
+BaseCircle circle = new BaseCircle(300, 100, 50);
+graphicsObjectContainer.add(circle);
+
+LabeledEllipse ellipse = new LabeledEllipse(100, 300, 50, 80, "Ellipse");
+graphicsObjectContainer.add(ellipse);
+	  </programlisting></para>
+  </section>
+
+	<section>
+		<title>Configure the GraphicsService</title>
+		<para>
+			The central class in using the Graphics function, is the <code>GraphicsService</code> object.
+			Create the service with an <code>EventBus</code> and the defined object container.
+		</para>
+
+		<para><programlisting>EventBus eventBus = new SimpleEventBus(); //choice an EventBus implementation
+GraphicsObjectContainer graphicsObjectContainer = new CustomAbstractGraphicsObjectContainerImplementation(eventBus);
+
+//create and configure the GraphicsService
+GraphicsService = new GraphicsServiceImpl(eventBus);
+graphicsService.setObjectContainer(graphicsObjectContainer);
+graphicsService.setUndoKeys(true);
+graphicsService.setShowOriginalObjectWhileDragging(true);
+// register controller factories
+graphicsService.registerControllerFactory(new ResizeControllerFactory());
+graphicsService.registerControllerFactory(new DragControllerFactory());
+graphicsService.registerControllerFactory(new DeleteControllerFactory());</programlisting></para>
+
+		<para>
+			The controller factories that are registered to the graphics service will enable changes on the
+			graphics objects. In the example above, the graphics objects can now be resized, dragged and deleted
+			on selection.
+		</para>
+
+	</section>
+
+	<section>
+		<title>PopupMenu configuration</title>
+	</section>
+
+	<section>
+		<title>Create Controller + widget</title>
+	</section>
+
+	<section>
+		<title>Custom Controllers</title>
+	</section>
 </chapter>
