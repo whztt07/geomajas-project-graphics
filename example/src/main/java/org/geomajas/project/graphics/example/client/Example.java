@@ -153,7 +153,9 @@ public class Example implements EntryPoint {
 	public void onModuleLoad() {
 		SimpleEventBus eventBus = new SimpleEventBus();
 		graphicsObjectContainer = new ExampleGraphicsObjectContainer(eventBus);
-		graphicsService = new GraphicsServiceImpl(eventBus, true);
+		graphicsService = new GraphicsServiceImpl(eventBus);
+		//configure booleans
+		graphicsService.setUndoKeys(true);
 		graphicsService.setShowOriginalObjectWhileDragging(true);
 		graphicsService.setObjectContainer(graphicsObjectContainer);
 		

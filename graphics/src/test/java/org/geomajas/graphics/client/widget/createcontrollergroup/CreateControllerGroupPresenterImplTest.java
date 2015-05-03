@@ -71,7 +71,7 @@ public class CreateControllerGroupPresenterImplTest extends GraphicsMockSetup {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		graphicsService = new GraphicsServiceImpl(eventBus, false);
+		graphicsService = new GraphicsServiceImpl(eventBus);
 		graphicsService.setObjectContainer(objectContainerMock);
 		createControllerGroupPresenter = new CreateControllerGroupPresenterImpl(graphicsService, viewManagerMock.createControllerGroupView);
 		stub(objectContainerMock.getBackGround()).toReturn(backgroundMock);

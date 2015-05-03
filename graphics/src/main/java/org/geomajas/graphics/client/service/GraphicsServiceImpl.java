@@ -64,33 +64,12 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 	
 	private boolean externalizableLabeledOriginallyExternal;
 
-	public GraphicsServiceImpl(final EventBus eventBus, boolean undoKeys) {
+	private boolean undoKeys;
+	private HandlerRegistration undoKeysHandlerRegistration;
+
+	public GraphicsServiceImpl(final EventBus eventBus) {
 		this.eventBus = eventBus;
 		standardGraphicsOperationEventRegistration = eventBus.addHandler(GraphicsOperationEvent.getType(), this);
-		if (undoKeys) {
-			Event.addNativePreviewHandler(new NativePreviewHandler() {
-
-				@Override
-				public void onPreviewNativeEvent(NativePreviewEvent event) {
-					if (event.getTypeInt() == Event.ONKEYDOWN) {
-						NativeEvent ne = event.getNativeEvent();
-						// if CTRL key or META key is down (META for MAC)
-						if (ne.getCtrlKey() || ne.getMetaKey()) {
-							switch (ne.getKeyCode()) {
-								case 'Z':
-									event.cancel();
-									undo();
-									break;
-								case 'Y':
-									event.cancel();
-									redo();
-									break;
-							}
-						}
-					}
-				}
-			});
-		}
 	}
 	
 	@Override
@@ -202,6 +181,19 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 		}
 	}
 
+	// BOOLEAN PROPERTIES
+
+	@Override
+	public boolean isUndoKeys() {
+		return undoKeys;
+	}
+
+	@Override
+	public void setUndoKeys(boolean undoKeys) {
+		this.undoKeys = undoKeys;
+		updateUndoKeysHandler();
+	}
+
 	@Override
 	public boolean isShowOriginalObjectWhileDragging() {
 		return showOriginalObjectWhileDragging;
@@ -221,6 +213,40 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 	public void setExternalizableLabeledOriginallyExternal(
 			boolean externalizableLabeledOriginallyExternal) {
 		this.externalizableLabeledOriginallyExternal = externalizableLabeledOriginallyExternal;
+	}
+
+	private void updateUndoKeysHandler() {
+		if (isUndoKeys()) {
+			if (undoKeysHandlerRegistration == null) {
+				undoKeysHandlerRegistration = Event.addNativePreviewHandler(new NativePreviewHandler() {
+
+					@Override
+					public void onPreviewNativeEvent(NativePreviewEvent event) {
+						if (event.getTypeInt() == Event.ONKEYDOWN) {
+							NativeEvent ne = event.getNativeEvent();
+							// if CTRL key or META key is down (META for MAC)
+							if (ne.getCtrlKey() || ne.getMetaKey()) {
+								switch (ne.getKeyCode()) {
+									case 'Z':
+										event.cancel();
+										undo();
+										break;
+									case 'Y':
+										event.cancel();
+										redo();
+										break;
+								}
+							}
+						}
+					}
+				});
+			}
+		} else {
+			if (undoKeysHandlerRegistration != null) {
+				undoKeysHandlerRegistration.removeHandler();
+				undoKeysHandlerRegistration = null;
+			}
+		}
 	}
 
 }

@@ -43,7 +43,7 @@ public class DragControllerTest {
 		MockitoAnnotations.initMocks(this);
 		when(objectContainer.transform(new Coordinate(105, 110), Space.SCREEN, Space.USER)).thenReturn(new Coordinate(105, 110));
 		when(objectContainer.transform(new Coordinate(100, 100), Space.SCREEN, Space.USER)).thenReturn(new Coordinate(100, 100));
-		service = new GraphicsServiceImpl(eventBus, false);
+		service = new GraphicsServiceImpl(eventBus);
 		service.setObjectContainer(objectContainer);
 	}
 

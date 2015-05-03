@@ -55,8 +55,14 @@ public interface GraphicsService {
 	void start();
 
 	void stop();
-	
+
 	void update(GraphicsObject object);
+
+	// BOOLEAN PROPERTIES
+
+	boolean isUndoKeys();
+
+	void setUndoKeys(boolean undoKeys);
 
 	boolean isShowOriginalObjectWhileDragging();
 	

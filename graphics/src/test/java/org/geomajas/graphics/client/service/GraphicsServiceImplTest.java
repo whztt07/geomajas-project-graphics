@@ -42,7 +42,7 @@ public class GraphicsServiceImplTest {
 	@Test
 	public void testUndoRedo() {
 		SimpleEventBus eventBus = new SimpleEventBus();
-		GraphicsService service = new GraphicsServiceImpl(eventBus, false);
+		GraphicsService service = new GraphicsServiceImpl(eventBus);
 		service.setObjectContainer(objectContainer);
 		List<Bbox> boxes = new ArrayList<Bbox>();
 		boxes.add(new Bbox(0, 0, 17, 10));

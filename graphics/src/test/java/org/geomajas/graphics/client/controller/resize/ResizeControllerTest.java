@@ -58,7 +58,7 @@ public class ResizeControllerTest {
 	public void testResize() {
 		MockResizable m = new MockResizable(new Coordinate(5, 6), new Bbox(0, 0, 50, 50));
 		SimpleEventBus eventBus = new SimpleEventBus();
-		GraphicsService service = new GraphicsServiceImpl(eventBus, false);
+		GraphicsService service = new GraphicsServiceImpl(eventBus);
 		service.setObjectContainer(objectContainer);
 		ResizeController r = new ResizeController(m, service);
 		List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
