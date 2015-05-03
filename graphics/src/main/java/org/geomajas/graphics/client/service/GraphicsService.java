@@ -46,7 +46,7 @@ public interface GraphicsService {
 
 	void registerControllerFactory(GraphicsControllerFactory controllerFactory);
 
-	List<GraphicsControllerFactory> getControllerFactories();
+	List<GraphicsControllerFactory> getControllerFactoryList();
 
 	HandlerRegistration addGraphicsOperationHandler(GraphicsOperationEvent.Handler handler);
 	

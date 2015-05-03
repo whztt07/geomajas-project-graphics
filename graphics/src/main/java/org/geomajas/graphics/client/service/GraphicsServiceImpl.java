@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import org.geomajas.graphics.client.controller.DefaultMetaController;
 import org.geomajas.graphics.client.controller.GraphicsController;
 import org.geomajas.graphics.client.controller.GraphicsControllerFactory;
 import org.geomajas.graphics.client.controller.MetaController;
@@ -44,20 +45,14 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 
 	private GraphicsObjectContainer objectContainer;
 
-	private List<GraphicsControllerFactory> controllerFactories = new ArrayList<GraphicsControllerFactory>();
+	private List<GraphicsControllerFactory> controllerFactoryList = new ArrayList<GraphicsControllerFactory>();
 
-	private MetaControllerFactory metaControllerFactory = new MetaControllerFactory() {
-		
-		@Override
-		public GraphicsController createController(GraphicsService graphicsService) {
-			return new MetaController(graphicsService);
-		}
-	};
-	
-	private GraphicsController metaController;
+	private MetaControllerFactory metaControllerFactory;
+
+	private MetaController metaController;
 	
 	private EventBus eventBus;
-	
+
 	private HandlerRegistration standardGraphicsOperationEventRegistration;
 	
 	private boolean showOriginalObjectWhileDragging;
@@ -70,6 +65,7 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 	public GraphicsServiceImpl(final EventBus eventBus) {
 		this.eventBus = eventBus;
 		standardGraphicsOperationEventRegistration = eventBus.addHandler(GraphicsOperationEvent.getType(), this);
+		setMetaControllerFactory(null); //create default metaControllerFactory
 	}
 	
 	@Override
@@ -115,13 +111,26 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 		}
 	}
 
+	@Override
 	public HandlerRegistration addGraphicsOperationHandler(GraphicsOperationEvent.Handler handler) {
 		standardGraphicsOperationEventRegistration.removeHandler();
 		return eventBus.addHandler(GraphicsOperationEvent.getType(), handler);
 	}
-	
+
+	@Override
 	public void setMetaControllerFactory(MetaControllerFactory metaControllerFactory) {
-		this.metaControllerFactory = metaControllerFactory;
+		if (metaControllerFactory != null) {
+			this.metaControllerFactory = metaControllerFactory;
+		} else {
+			// set default metacontrollerFactory
+			this.metaControllerFactory = new MetaControllerFactory() {
+
+				@Override
+				public MetaController createController(GraphicsService graphicsService) {
+					return new DefaultMetaController(graphicsService);
+				}
+			};
+		}
 	}
 
 	@Override
@@ -129,10 +138,12 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 		return metaController;
 	}
 
+	@Override
 	public void registerControllerFactory(GraphicsControllerFactory controllerFactory) {
-		controllerFactories.add(controllerFactory);
+		controllerFactoryList.add(controllerFactory);
 	}
 
+	@Override
 	public void setObjectContainer(GraphicsObjectContainer objectContainer) {
 		this.objectContainer = objectContainer;
 	}
@@ -155,8 +166,8 @@ public class GraphicsServiceImpl implements GraphicsService, GraphicsOperationEv
 	}
 
 	@Override
-	public List<GraphicsControllerFactory> getControllerFactories() {
-		return controllerFactories;
+	public List<GraphicsControllerFactory> getControllerFactoryList() {
+		return controllerFactoryList;
 	}
 
 	@Override

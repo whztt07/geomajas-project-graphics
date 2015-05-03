@@ -45,7 +45,7 @@ public class DragController extends UpdateHandlerGraphicsController implements M
 
 	/**
 	 * This {@link MouseDownHandler} handler method is called from the
-	 * {@link org.geomajas.graphics.client.controller.MetaController}.
+	 * {@link org.geomajas.graphics.client.controller.DefaultMetaController}.
 	 *
 	 * @param event
 	 */

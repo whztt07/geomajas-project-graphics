@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.BboxService;
-import org.geomajas.graphics.client.controller.MetaController;
+import org.geomajas.graphics.client.controller.DefaultMetaController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsControllerWithVisibleElement;
 import org.geomajas.graphics.client.event.GraphicsObjectContainerEvent;
 import org.geomajas.graphics.client.event.GraphicsOperationEvent;
@@ -388,7 +388,7 @@ public class ResizeController extends UpdateHandlerGraphicsControllerWithVisible
 			dragging = draggingNewValue;
 			if (!getService().isShowOriginalObjectWhileDragging()) {
 				getObject().asObject().setVisible(!dragging);
-				((MetaController) getService().getMetaController()).
+				((DefaultMetaController) getService().getMetaController()).
 				setControllersOfObjectVisible(getObject(), !dragging);
 			}
 		}

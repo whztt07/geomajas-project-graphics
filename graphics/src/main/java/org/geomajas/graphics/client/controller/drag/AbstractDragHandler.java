@@ -25,7 +25,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.graphics.client.controller.MetaController;
+import org.geomajas.graphics.client.controller.DefaultMetaController;
 import org.geomajas.graphics.client.controller.UpdateHandlerGraphicsController;
 import org.geomajas.graphics.client.object.GraphicsObject;
 import org.geomajas.graphics.client.operation.GraphicsOperation;
@@ -240,7 +240,7 @@ public abstract class AbstractDragHandler implements MouseDownHandler,
 		dragging = draggingNewValue;
 		if (!service.isShowOriginalObjectWhileDragging()) {
 			object.asObject().setVisible(!dragging);
-			((MetaController) service.getMetaController()).setControllersOfObjectVisible(object, !dragging);
+			((DefaultMetaController) service.getMetaController()).setControllersOfObjectVisible(object, !dragging);
 		}
 	}
 
